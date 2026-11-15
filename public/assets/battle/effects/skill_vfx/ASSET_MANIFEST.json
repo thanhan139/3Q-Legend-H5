@@ -1,0 +1,325 @@
+{
+  "pack": "3Q Legend H5 VFX Pack v0.1",
+  "license_note": "Assets generated for this project; no assets extracted from the original 3Q Legend game. Verify platform terms before distribution.",
+  "assets": [
+    {
+      "id": "azure_dragon_arc",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__azure_dragon_arc.png",
+      "size": [
+        560,
+        367
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "blue_crescent_slash",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__blue_crescent_slash.png",
+      "size": [
+        549,
+        378
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "green_blade_wave",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__green_blade_wave.png",
+      "size": [
+        595,
+        376
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "blue_magic_seal",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__blue_magic_seal.png",
+      "size": [
+        427,
+        320
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_earth_impact",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__gold_earth_impact.png",
+      "size": [
+        393,
+        338
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "lightning_branch",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__lightning_branch.png",
+      "size": [
+        445,
+        316
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "blue_star_impact",
+      "group": "thanh_long",
+      "path": "isolated_vfx/thanh_long__blue_star_impact.png",
+      "size": [
+        437,
+        308
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "ssr_purple_burst",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__ssr_purple_burst.png",
+      "size": [
+        462,
+        381
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_magic_circle",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__gold_magic_circle.png",
+      "size": [
+        414,
+        386
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "purple_vortex",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__purple_vortex.png",
+      "size": [
+        428,
+        380
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_starburst",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__gold_starburst.png",
+      "size": [
+        365,
+        386
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_talismans",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__gold_talismans.png",
+      "size": [
+        406,
+        266
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "purple_slash",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__purple_slash.png",
+      "size": [
+        461,
+        281
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "purple_dust_impact",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__purple_dust_impact.png",
+      "size": [
+        440,
+        286
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_coins",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__gold_coins.png",
+      "size": [
+        372,
+        298
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_light_pillar",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__gold_light_pillar.png",
+      "size": [
+        405,
+        305
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "purple_aura_ring",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__purple_aura_ring.png",
+      "size": [
+        436,
+        303
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "purple_wisps",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__purple_wisps.png",
+      "size": [
+        442,
+        306
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "petal_fragments",
+      "group": "trieu_hoi",
+      "path": "isolated_vfx/trieu_hoi__petal_fragments.png",
+      "size": [
+        395,
+        297
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "fiery_crater",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__fiery_crater.png",
+      "size": [
+        566,
+        363
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "fire_pillar",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__fire_pillar.png",
+      "size": [
+        428,
+        367
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "rock_debris",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__rock_debris.png",
+      "size": [
+        318,
+        355
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "dust_cloud",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__dust_cloud.png",
+      "size": [
+        402,
+        374
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "gold_shockwave",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__gold_shockwave.png",
+      "size": [
+        565,
+        281
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "blue_spear_dash",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__blue_spear_dash.png",
+      "size": [
+        529,
+        285
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "blue_lightning_trail",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__blue_lightning_trail.png",
+      "size": [
+        612,
+        294
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "red_fire_slash",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__red_fire_slash.png",
+      "size": [
+        757,
+        323
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "orange_impact_star",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__orange_impact_star.png",
+      "size": [
+        407,
+        325
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    },
+    {
+      "id": "flame_embers",
+      "group": "chan_dia",
+      "path": "isolated_vfx/chan_dia__flame_embers.png",
+      "size": [
+        531,
+        315
+      ],
+      "type": "static_transparent_png",
+      "animation_frames": 1
+    }
+  ]
+}

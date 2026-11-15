@@ -1,0 +1,52 @@
+{
+  "package": "3Q Legend H5 Skill VFX Expansion",
+  "version": "0.2",
+  "format": "RGBA PNG static asset sheets",
+  "note": "Each PNG is a composite sheet of several distinct effects, NOT a frame animation. It must be segmented or used as a reference for a future animation sequence. No runtime integration is included.",
+  "assets": [
+    {
+      "id": "azure_dragon",
+      "path": "public/assets/battle/effects/skill_vfx_expansion/azure_dragon_vfx_sprite_sheet.png",
+      "width": 1672,
+      "height": 941,
+      "mime": "image/png",
+      "type": "static_composite_vfx_sheet",
+      "description": "Blue-green blade slashes, dragon energy, spears, wind",
+      "recommended_heroes": "Quan Vũ, Triệu Vân, Mã Siêu",
+      "sha256": "00d18971fd1800da7be280c68695235d97753791c9f234dee04fe84b15fa4a64"
+    },
+    {
+      "id": "fire_earth",
+      "path": "public/assets/battle/effects/skill_vfx_expansion/fiery_earth_impact_vfx_sheet.png",
+      "width": 1672,
+      "height": 941,
+      "mime": "image/png",
+      "type": "static_composite_vfx_sheet",
+      "description": "Fiery impacts, ground shockwaves, dust, debris",
+      "recommended_heroes": "Trương Phi, Hoa Hùng, Điển Vi",
+      "sha256": "1b40406869870e6623dab9e351ad2a54437b64567099a9dde424b98ee3914ed6"
+    },
+    {
+      "id": "healing_defense",
+      "path": "public/assets/battle/effects/skill_vfx_expansion/celestial_healing_vfx_asset_sheet.png",
+      "width": 1672,
+      "height": 941,
+      "mime": "image/png",
+      "type": "static_composite_vfx_sheet",
+      "description": "Healing, barriers, buffs, sacred circles",
+      "recommended_heroes": "Lưu Bị, Đại Kiều, Tôn Quyền",
+      "sha256": "933921e00db6fbdfa21b3da8697ee1c550517585770adb80ea6366f4f72d19d6"
+    },
+    {
+      "id": "dark_control",
+      "path": "public/assets/battle/effects/skill_vfx_expansion/anime_magic_vfx_sprite_collection.png",
+      "width": 1672,
+      "height": 941,
+      "mime": "image/png",
+      "type": "static_composite_vfx_sheet",
+      "description": "Dark control, electric arcs, curse effects, portals",
+      "recommended_heroes": "Điêu Thuyền, Tào Tháo, Hoàng Nguyệt Anh",
+      "sha256": "4992f14d6b5902b018ec4c1c231ae3886a73e6020fba86c9af504f37a7120b50"
+    }
+  ]
+}

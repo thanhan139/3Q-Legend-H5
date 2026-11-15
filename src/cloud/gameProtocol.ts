@@ -1,0 +1,38 @@
+import type { SaveV2 } from '../domain/types';
+import type { Mission } from '../domain/welfare';
+import type { EquipmentId } from '../data/equipmentConfig';
+import type { TutorialProgress, TutorialStep } from '../domain/tutorial';
+
+export interface CloudSave {
+  save: SaveV2;
+  revision: string;
+  tutorial?: TutorialProgress;
+}
+
+export interface BattleTicket {
+  id: string;
+  stageId: string;
+  revision: string;
+  expiresAt: number;
+  signature: string;
+}
+
+export type GameCommand =
+  | { type: 'tutorial'; version: number; step: TutorialStep; action: 'name' | 'next' | 'skip'; name?: string }
+  | { type: 'checkIn' | 'firstTopupDemo' }
+  | { type: 'daily'; mission: Mission }
+  | { type: 'formation'; slot: number; heroId: string | null }
+  | { type: 'equip'; uid: string; heroId: string }
+  | { type: 'unequip' | 'skin'; uid: string }
+  | { type: 'enhance'; uid: string; useStone: boolean }
+  | { type: 'forge'; itemId: EquipmentId; expectedCrafted: number }
+  | { type: 'upgrade' | 'star'; heroId: string }
+  | { type: 'summon'; count: 1 | 10 }
+  | { type: 'battle'; ticket: BattleTicket };
+
+export type GameIntent =
+  | { action: 'load' }
+  | { action: 'initialize' }
+  | { action: 'import'; legacy: unknown; confirmed: true }
+  | { action: 'startBattle'; stageId: string; revision: string }
+  | { action: 'command'; command: GameCommand; revision: string; requestId: string };

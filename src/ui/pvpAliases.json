@@ -1,0 +1,11 @@
+{
+  "pvp_panel_history": "pvp_panel_shop",
+  "pvp_btn_claim": "pvp_btn_challenge",
+  "pvp_btn_enter_battle": "pvp_btn_challenge",
+  "pvp_btn_shop_buy": "pvp_btn_challenge",
+  "pvp_btn_confirm": "pvp_btn_challenge",
+  "pvp_btn_history": "pvp_btn_view_rewards",
+  "pvp_btn_revenge": "pvp_btn_refresh",
+  "pvp_btn_return": "pvp_btn_refresh",
+  "pvp_banner_defeat": "pvp_banner_victory"
+}

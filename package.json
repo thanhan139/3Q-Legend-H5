@@ -1,0 +1,25 @@
+{
+  "name": "3q-legend-h5-scaffold",
+  "private": true,
+  "version": "0.5.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build:cloud": "node scripts/build-cloud.mjs",
+    "legacy:digest": "node scripts/legacy-digest.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12",
+    "typescript": "~5.7.3",
+    "vite": "^6.3.1",
+    "vitest": "^3.2.4"
+  }
+}

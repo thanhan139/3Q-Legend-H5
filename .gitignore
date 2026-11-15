@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.vite/
+coverage/
+.vercel/
+supabase/.temp/
+test-results/
+playwright-report/
+*.log
+.DS_Store
+.env*
+!.env.example
+
+/supabase/functions/game-command/index.js
+
+/supabase/functions/arena-command/index.js

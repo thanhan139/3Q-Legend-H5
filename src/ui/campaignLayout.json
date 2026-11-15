@@ -1,0 +1,144 @@
+{
+  "version": "2.0",
+  "coordinateSystem": "1280x720 design canvas (Phaser camera scales to viewport)",
+  "desktop": {
+    "topbar": [
+      0,
+      0,
+      1280,
+      68
+    ],
+    "chapterMenu": [
+      16,
+      88,
+      238,
+      443
+    ],
+    "mapViewport": [
+      252,
+      78,
+      692,
+      501
+    ],
+    "stageDetail": [
+      950,
+      82,
+      316,
+      514
+    ],
+    "progressBottom": [
+      12,
+      600,
+      1256,
+      108
+    ],
+    "regularStageScaleSuggested": [
+      96,
+      112
+    ],
+    "bossStageScaleSuggested": [
+      110,
+      138
+    ],
+    "mapAnchorsNormalizedPerChapter": {
+      "chapter01": [
+        [
+          0.09,
+          0.81
+        ],
+        [
+          0.29,
+          0.65
+        ],
+        [
+          0.51,
+          0.49
+        ],
+        [
+          0.72,
+          0.36
+        ],
+        [
+          0.87,
+          0.16
+        ]
+      ],
+      "chapter02": [
+        [
+          0.1,
+          0.82
+        ],
+        [
+          0.27,
+          0.64
+        ],
+        [
+          0.48,
+          0.49
+        ],
+        [
+          0.69,
+          0.31
+        ],
+        [
+          0.87,
+          0.14
+        ]
+      ],
+      "chapter03": [
+        [
+          0.09,
+          0.82
+        ],
+        [
+          0.29,
+          0.66
+        ],
+        [
+          0.49,
+          0.51
+        ],
+        [
+          0.7,
+          0.35
+        ],
+        [
+          0.86,
+          0.16
+        ]
+      ]
+    }
+  },
+  "mobileLandscape": {
+    "reference": [
+      844,
+      390
+    ],
+    "approach": "scale down topbar; collapse left chapter menu to icon rail; use bottom/overlay enemy-detail sheet; avoid reducing hit targets below 44 CSS px if possible"
+  },
+  "renderOrder": [
+    "background",
+    "mapProps",
+    "marchPath",
+    "stages+bossPortraits",
+    "stageSelectionVfx",
+    "hudPanels",
+    "dynamicText",
+    "modals"
+  ],
+  "dataBinding": {
+    "chapters": "CampaignConfig + Save",
+    "stages": "CampaignConfig",
+    "stars": "Save stageStars only if implemented; otherwise show cleared state, no fabricated stars",
+    "enemies": "StageConfig and HeroConfig portraits",
+    "rewards": "RewardConfig + firstClear flags",
+    "sweep": "existing eligible sweep logic only",
+    "battle": "existing Battle Core"
+  },
+  "notes": [
+    "Read actual CampaignConfig before using stage anchor suggestions",
+    "Never paint stage numbers or stars onto backgrounds",
+    "Use selected stage textures only for the selected stage",
+    "Reuse existing portraits; do not create static content overlay"
+  ]
+}

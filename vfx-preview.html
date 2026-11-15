@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>3Q Legend — Skill VFX Preview</title>
+<style>
+:root { color-scheme: dark; font-family: system-ui, 'Segoe UI', Arial, sans-serif; }
+* {box-sizing:border-box} body {margin:0; background:#101521; color:#f5e8c8}
+header {padding:18px 24px; background:#211e2a; border-bottom:2px solid #80633b; display:flex; justify-content:space-between; align-items:center;gap:16px; flex-wrap:wrap}
+h1{font-size:24px;margin:0} header p {margin:4px 0 0;color:#bbb;font-size:13px}
+button,select{background:#332a30;border:1px solid #997a4b;color:#f4e1b2;border-radius:7px;padding:8px 12px;cursor:pointer;font-weight:600}
+button:hover{background:#473945} button:focus-visible{outline:2px solid #ffc95f}
+.controls {display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+main{padding:18px;max-width:1450px;margin:auto}
+.info {background:#2c2933;border-left:4px solid #e0b35b;padding:12px;margin-bottom:18px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{background:#24283a;border:1px solid #515064;border-radius:12px;overflow:hidden;min-width:0}
+.frame{height:165px;background:linear-gradient(145deg,#202838,#52546c);display:flex;justify-content:center;align-items:center;cursor:pointer;overflow:hidden}
+.frame img{max-height:155px;max-width:96%;object-fit:contain;filter:drop-shadow(0 0 5px rgba(255,255,255,.09))}
+.meta{padding:10px 12px}.meta strong{font-size:13px;display:block;overflow-wrap:anywhere}.meta span{font-size:12px;color:#b1b6c8}
+#viewer{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;z-index:10;align-items:center;justify-content:center;padding:18px}
+#viewer.open{display:flex}.dialog{max-width:1000px;width:100%;background:#1e2031;border:1px solid #b08c50;border-radius:12px;padding:18px}
+.dialog h2{margin:0 0 9px;font-size:19px}.stage{height:400px;max-height:62vh;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:9px;background:linear-gradient(150deg,#0c1330,#424969)}
+.stage.light{background:linear-gradient(145deg,#f0e2c7,#9aa9b8)}.stage.checker{background-color:#e2e2e2;background-image:linear-gradient(45deg,#bbb 25%,transparent 25%),linear-gradient(-45deg,#bbb 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#bbb 75%),linear-gradient(-45deg,transparent 75%,#bbb 75%);background-size:32px 32px;background-position:0 0,0 16px,16px -16px,-16px 0}
+.stage img {max-width:92%;max-height:90%;object-fit:contain}.stage img.play {animation:cast 1s cubic-bezier(.08,.7,.34,1) both}
+@keyframes cast{0%{opacity:0;transform:scale(.35) rotate(-6deg)}45%{opacity:1;transform:scale(1.17) rotate(0)}100%{opacity:.85;transform:scale(1)}}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:end;margin-top:12px}
+#status{color:#f0b478}
+</style>
+</head>
+<body>
+<header><div><h1>3Q Legend · Skill VFX Preview</h1><p>Chỉ xem asset · Chưa tích hợp SkillVFXManager vào trận chiến</p></div><div class="controls"><a href="/" style="color:#e8c17a">Về game</a><select id="filter"><option value="all">Tất cả nhóm</option><option value="thanh_long">Thanh Long Trảm</option><option value="chan_dia">Chấn Địa / Thiên Kích</option><option value="trieu_hoi">Triệu Hồi</option></select></div></header>
+<main><p class="info">29 ảnh VFX tĩnh có alpha; bấm vào ảnh để xem phóng lớn và thử chuyển động scale/fade đơn giản. Đây không phải sprite animation nhiều frame và không làm thay đổi combat.</p><p id="status">Đang tải danh mục...</p><div class="grid" id="grid"></div></main>
+<div id="viewer" role="dialog" aria-modal="true" aria-label="Xem VFX"><div class="dialog"><h2 id="title"></h2><div class="stage" id="stage"><img id="large" alt="Hiệu ứng kỹ năng" /></div><div class="actions"><button id="dark">Nền tối</button><button id="light">Nền sáng</button><button id="checker">Bàn cờ alpha</button><button id="play">Thử Tween</button><button id="close">Đóng</button></div></div></div>
+<script>
+const BASE='/assets/battle/effects/skill_vfx/';
+const grid=document.querySelector('#grid'), status=document.querySelector('#status'), filter=document.querySelector('#filter');
+const viewer=document.querySelector('#viewer'), title=document.querySelector('#title'), large=document.querySelector('#large'), stage=document.querySelector('#stage');
+let assets=[];
+function render(){grid.textContent='';const shown=assets.filter(a=>filter.value==='all'||a.group===filter.value);status.textContent=shown.length+' / '+assets.length+' hiệu ứng';for(const a of shown){const card=document.createElement('article');card.className='card';const frame=document.createElement('div');frame.className='frame';frame.tabIndex=0;frame.setAttribute('role','button');frame.setAttribute('aria-label','Xem '+a.id);const img=document.createElement('img');img.loading='lazy';img.alt=a.id;img.src=BASE+a.path;frame.append(img);const meta=document.createElement('div');meta.className='meta';const strong=document.createElement('strong');strong.textContent=a.id;const small=document.createElement('span');small.textContent=a.group+' · '+a.size.join(' × ')+'px';meta.append(strong,small);card.append(frame,meta);grid.append(card);const open=()=>{title.textContent=a.id+' ('+a.group+')';large.src=img.src;large.className='';stage.className='stage';viewer.classList.add('open')};frame.addEventListener('click',open);frame.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})}}
+filter.addEventListener('change',render);
+for(const [id,cl] of [['dark',''],['light','light'],['checker','checker']])document.querySelector('#'+id).addEventListener('click',()=>stage.className='stage '+cl);
+document.querySelector('#play').addEventListener('click',()=>{large.classList.remove('play');void large.offsetWidth;large.classList.add('play')});
+function close(){viewer.classList.remove('open');large.src=''}document.querySelector('#close').addEventListener('click',close);viewer.addEventListener('click',e=>{if(e.target===viewer)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+fetch(BASE+'ASSET_MANIFEST.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(data=>{assets=data.assets;render()}).catch(e=>status.textContent='Không tải được ASSET_MANIFEST.json: '+e.message);
+</script></body></html>

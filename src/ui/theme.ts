@@ -1,0 +1,5 @@
+export const PALETTE={
+  bg:0x14213a, navy:0x1c2945, navy2:0x263958, panel:0x263551,
+  gold:0xf5c86a, cream:0xfff5dc, muted:0xaebbd3, green:0x65ce93,
+  red:0xf07881, purple:0xcab1ff, pale:0xe9eef7,
+} as const;

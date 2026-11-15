@@ -1,0 +1,17 @@
+project_id = "3q-legend-h5"
+
+[functions.game-command]
+# The endpoint validates the full bearer token with Supabase Auth before any read or write.
+verify_jwt = false
+entrypoint = "./functions/game-command/index.js"
+
+[auth]
+enable_anonymous_sign_ins = true
+enable_manual_linking = true
+
+[auth.email]
+enable_confirmations = true
+
+[functions.arena-command]
+verify_jwt = false
+entrypoint = "./functions/arena-command/index.js"

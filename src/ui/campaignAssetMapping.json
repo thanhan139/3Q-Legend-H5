@@ -1,0 +1,58 @@
+{
+  "chapterBackground": [
+    "backgrounds/chapter_01_loanthe.webp",
+    "backgrounds/chapter_02_quanhung.webp",
+    "backgrounds/chapter_03_anhhung_dusk.webp"
+  ],
+  "chapterCard": {
+    "idle": "chapter_cards_v11/chapter_card_idle.png",
+    "selected": "chapter_cards_v11/chapter_card_selected.png",
+    "locked": "chapter_cards_v11/chapter_card_locked.png"
+  },
+  "stageNode": {
+    "available": "sword_nodes_v12/stage_swords_normal.png",
+    "selected": "sword_nodes_v12/stage_swords_selected.png",
+    "hover": "sword_nodes_v12/stage_swords_hover.png",
+    "cleared": "sword_nodes_v12/stage_swords_cleared.png",
+    "locked": "sword_nodes_v12/stage_swords_locked.png"
+  },
+  "bossNode": {
+    "available": "boss_v11/boss_ornate_idle.png",
+    "selected": "boss_v11/boss_ornate_selected.png",
+    "cleared": "boss_v11/boss_ornate_cleared.png",
+    "locked": "boss_v11/boss_ornate_locked.png"
+  },
+  "stageDetail": "panels_v11/stage_detail_ornate_blank.png",
+  "enemySummary": "panels_v11/stage_enemy_dark_blank.png",
+  "rewards": "panels_v11/stage_reward_blank.png",
+  "chapterProgress": "progress_v11/chapter_progress_bar_ornate.png",
+  "resourceBar": "complete_v2/top_resource_pill.png",
+  "title": "tabs/ornate_dragon_title.png",
+  "actionButtons": {
+    "challenge": "buttons/challenge.png",
+    "sweep": "buttons_v11/btn_sweep_gold.png",
+    "sweepDisabled": "buttons_v11/btn_sweep_disabled.png",
+    "formation": "buttons_v11/btn_formation_jade.png",
+    "claim": "buttons/claim.png",
+    "disabled": "buttons/disabled.png",
+    "back": "buttons/back.png"
+  },
+  "effects": {
+    "marchPath": "effects/path_segment_gold.png",
+    "selectedGlow": "effects_v11/stage_selected_glow_ring.png",
+    "bossGlow": "effects_v11/boss_fire_glow_ring.png",
+    "pathArrow": "effects_v11/march_path_arrow.png"
+  },
+  "portraitFrameByRarity": {
+    "R": "shared/hero_frame_r.png",
+    "SR": "shared/hero_frame_sr.png",
+    "SSR": "shared/hero_frame_ssr.png",
+    "SSS+": "shared/hero_frame_sssp.png"
+  },
+  "factionFlags": {
+    "SHU": "faction_flags_v11/banner_shu_green.png",
+    "WEI": "faction_flags_v11/banner_wei_blue.png",
+    "WU": "faction_flags_v11/banner_wu_red.png",
+    "QUN": "faction_flags_v11/banner_qun_purple.png"
+  }
+}
