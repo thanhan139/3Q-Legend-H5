@@ -1,6 +1,6 @@
 import { WELFARE_ART, welfareKey } from '../ui/welfareAssets';
 import { walletBalance } from '../domain/resources';
-import { openAccount } from '../cloud/accountDialog';
+import { openAccount, logoutAccount } from '../cloud/accountDialog';
 import { cloudRepository, supabase } from '../cloud/cloudRepository';
 import { welfareStatus } from '../domain/welfare';
 import { HeroAnimationController, heroAnimationTexture } from '../ui/HeroAnimationController';
@@ -14,7 +14,8 @@ import { sampleTexture } from '../data/battleLayout';
 import { combatPower, formationPower } from '../domain/progression';
 import { gameStore } from '../domain/store';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
-import { portrait } from '../ui/heroPresentation';
+import { openLobbyDialog } from '../ui/lobbyDialog';
+import { portrait, PORTRAITS, atlasOrder } from '../ui/heroPresentation';
 import { UiScene } from '../ui/UiScene';
 
 const GOLD = 0xe7b761;
@@ -26,6 +27,7 @@ export class LobbyScene extends UiScene {
   private preferences = readLobbySettings();
   private audio?: AudioContext;
   private settingsOpen = false;
+  private closePopup?: () => void;
   private musicTimer?: Phaser.Time.TimerEvent;
 
   constructor() { super('Lobby'); }
@@ -44,7 +46,7 @@ export class LobbyScene extends UiScene {
       let active = true;
       const refresh = async () => {
         try {
-          if (await cloudRepository.refresh() && active) this.scene.restart({ settings });
+          if (await cloudRepository.refresh() && active && !this.settingsOpen) this.scene.restart({ settings });
         } catch { /* Allow viewing the last confirmed snapshot when offline. */ }
       };
       const announce = () => { if (active) this.toast(cloudRepository.status); };
@@ -56,6 +58,7 @@ export class LobbyScene extends UiScene {
     this.settingsOpen = settings;
     this.input.once('pointerdown', () => this.enableAudio());
     this.events.once('shutdown', () => {
+      this.closePopup?.(); this.closePopup = undefined;
       this.musicTimer = undefined;
       void this.audio?.close().catch(() => undefined);
       this.audio = undefined;
@@ -82,15 +85,27 @@ export class LobbyScene extends UiScene {
     this.add.rectangle(640, 51, 1280, 102, INK, 0.75);
     this.add.rectangle(640, 672, 1280, 96, INK, 0.96).setStrokeStyle(2, GOLD, 0.6);
 
-    this.panel(20, 16, 446, 130, INK, 0.96);
-    this.add.rectangle(79, 75, 98, 98, 0x744528).setStrokeStyle(4, GOLD);
-    portrait(this, 79, 75, 85, lead);
-    const name = this.text(143, 29, save.playerName, 23, CREAM, { fontStyle: 'bold' });
+    this.panel(20, 16, 446, 130, 0x291921, 0.98);
+    this.add.rectangle(243, 19, 416, 2, GOLD, 0.75);
+    this.add.rectangle(243, 140, 416, 1, GOLD, 0.32);
+    const profileGlow = this.add.rectangle(243, 81, 442, 126, GOLD, 0).setStrokeStyle(2, GOLD, 0.45);
+    this.add.rectangle(79, 75, 102, 102, 0x65392c).setStrokeStyle(3, GOLD);
+    portrait(this, 79, 75, 88, lead);
+    this.text(143, 27, 'CHÚA CÔNG', 12, '#cfa969', { letterSpacing: 2 });
+    const name = this.text(143, 46, save.playerName, 23, CREAM, { fontStyle: 'bold' });
     if (name.width > 212) name.setScale(212 / name.width, 1);
-    this.add.rectangle(408, 44, 79, 34, 0x744528).setStrokeStyle(1, GOLD);
-    this.text(408, 44, 'VIP', 19, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
-    this.text(143, 63, `Lv ${save.clearedStages.length + 1}`, 17, '#e8cfaf');
-    this.text(143, 98, `LỰC CHIẾN  ${format(power)}`, 22, '#ffce75', { fontStyle: 'bold' });
+    this.text(143, 78, `Cấp ${save.clearedStages.length + 1}`, 16, '#e8cfaf');
+    this.text(143, 106, `LỰC CHIẾN  ${format(power)}`, 21, '#ffce75', { fontStyle: 'bold' });
+    const profileHit = this.add.zone(243, 81, 446, 130).setInteractive({ useHandCursor: true });
+    this.bindLobbyHit(profileHit, () => this.popup('profile'), value => {
+      profileGlow.setFillStyle(GOLD, value === 'rest' ? 0 : value === 'press' ? 0.13 : 0.06);
+    });
+    const vip = this.add.rectangle(408, 48, 77, 38, 0x7b3429).setStrokeStyle(2, GOLD, 0.85);
+    this.text(408, 48, 'VIP ›', 18, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
+    const vipHit = this.add.zone(408, 58, 83, 80).setInteractive({ useHandCursor: true });
+    this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
+      vip.setFillStyle(value === 'rest' ? 0x7b3429 : value === 'press' ? 0x51251f : 0x9c4930);
+    });
 
     const { copper, gold } = walletBalance(save);
     const resources = [['Đồng', copper], ['Vàng', gold]] as const;
@@ -127,20 +142,23 @@ export class LobbyScene extends UiScene {
         false, rewardDots[index]);
     });
 
-    this.medallion(75, 228, 6, 'Bang Hội', () => this.toast('Bang Hội mở khi có máy chủ bang hội.'), true);
+    this.medallion(75, 228, 6, 'Bang Hội', () => this.popup('guild'), true);
     this.medallion(75, 343, 7, 'Đấu Trường', () => this.go('Arena'), false);
-    this.medallion(75, 458, 8, 'Thế Giới', () => this.toast('Thế Giới mở khi có bản đồ thế giới.'), true);
+    this.medallion(75, 458, 8, 'Thế Giới', () => this.popup('world'), true);
 
-    this.panel(989, 430, 263, 176, INK, 0.93);
+    this.panel(983, 422, 275, 190, 0x351d24, 0.97);
+    this.add.rectangle(1120, 426, 246, 3, GOLD, 0.8);
+    this.add.rectangle(1120, 505, 230, 1, GOLD, 0.3);
+    this.text(1120, 440, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
     const clearedAll = save.clearedStages.length === STAGES.length;
-    this.text(1120, 453, clearedAll ? 'Đã vượt toàn bộ ải'
+    this.text(1120, 468, clearedAll ? 'Đã vượt toàn bộ ải'
       : `Chương ${stage?.chapter} · Ải ${stage?.id}`, 19, '#ffda98').setOrigin(0.5);
-    if (!clearedAll) this.text(1120, 488, `Lực chiến đề xuất  ${format(recommended)}`,
+    if (!clearedAll) this.text(1120, 493, `Lực chiến đề xuất  ${format(recommended)}`,
       16, CREAM).setOrigin(0.5);
-    const campaign = this.button(1120, 554, 223, 65, 'CHINH CHIẾN',
+    const campaign = this.button(1120, 555, 239, 68, 'CHINH CHIẾN',
       () => this.activate(() => this.go('Campaign')), 0x863a2e, true, true);
     campaign.text.setX(1144);
-    this.add.image(1034, 554, 'lobby-icons', 15).setDisplaySize(54, 54);
+    this.add.image(1034, 555, 'lobby-icons', 15).setDisplaySize(54, 54);
 
     const dock = [
       [9, 'Đội Hình', () => this.go('Formation')],
@@ -152,21 +170,57 @@ export class LobbyScene extends UiScene {
     dock.forEach(([icon, label, action], i) => this.medallion(172 + 310 * i, 663, icon, label, action,
       i === 3 && !gameStore.isSummonUnlocked()));
     if (settings) this.drawSettings();
+    this.cameras.main.fadeIn(180, 17, 14, 20);
   }
 
   private medallion(x: number, y: number, frame: number, label: string, action: () => void, locked: boolean, reward = false) {
-    this.add.ellipse(x, y + 13, 58, 14, 0x180f20, 0.5);
-    const art = this.add.image(x, y - 11, 'lobby-icons', frame).setDisplaySize(67, 67)
+    const plate = this.add.rectangle(x, y + 1, 94, 88, 0x291923, locked ? 0.65 : 0.88)
+      .setStrokeStyle(1, GOLD, 0.45);
+    this.add.rectangle(x, y + 44, 74, 1, GOLD, 0.4);
+    const art = this.add.image(x, y - 12, 'lobby-icons', frame).setDisplaySize(60, 60)
       .setAlpha(locked ? 0.65 : 1);
-    this.text(x, y + 27, locked ? `🔒 ${label}` : label, 16, CREAM,
-      { fontStyle: 'bold', stroke: '#211523', strokeThickness: 5 }).setOrigin(0.5);
-    if (reward) this.add.circle(x + 25, y - 33, 7, 0xe83c45).setStrokeStyle(2, GOLD);
-    const hit = this.add.zone(x, y, 98, 81).setInteractive({ useHandCursor: true });
+    this.text(x, y + 28, locked ? `🔒 ${label}` : label, 15, CREAM,
+      { fontStyle: 'bold', stroke: '#211523', strokeThickness: 4 }).setOrigin(0.5);
+    if (reward) this.add.circle(x + 31, y - 30, 7, 0xe83c45).setStrokeStyle(2, GOLD);
+    const hit = this.add.zone(x, y, 100, 92).setInteractive({ useHandCursor: true });
     this.tutorialTarget(`lobby.${frame}`, hit);
-    const scale = art.scaleX;
-    hit.on('pointerover', () => art.setScale(scale * 1.09));
-    hit.on('pointerout', () => art.setScale(scale));
-    hit.on('pointerup', () => { if (!this.settingsOpen) this.activate(action); });
+    const scaleX = art.scaleX, scaleY = art.scaleY;
+    this.bindLobbyHit(hit, action, value => {
+      const scale = value === 'rest' ? 1 : value === 'press' ? 0.94 : 1.06;
+      art.setScale(scaleX * scale, scaleY * scale);
+      plate.setStrokeStyle(value === 'rest' ? 1 : 2, GOLD, value === 'rest' ? 0.45 : 0.95);
+      plate.setFillStyle(value === 'press' ? 0x573024 : value === 'hover' ? 0x432829 : 0x291923, 0.9);
+    });
+  }
+
+  private bindLobbyHit(hit: Phaser.GameObjects.Zone | Phaser.GameObjects.Sprite, action: () => void,
+    visual: (state: 'rest' | 'hover' | 'press') => void) {
+    let pressed = false;
+    hit.on('pointerover', () => { if (!this.settingsOpen) visual('hover'); });
+    hit.on('pointerout', () => { pressed = false; visual('rest'); });
+    hit.on('pointerdown', () => { if (!this.settingsOpen) { pressed = true; visual('press'); } });
+    hit.on('pointerup', () => {
+      const activate = pressed; pressed = false; visual('rest');
+      if (activate && !this.settingsOpen) this.activate(action);
+    });
+  }
+
+  private popup(kind: 'profile' | 'vip' | 'guild' | 'world') {
+    if (this.settingsOpen) return;
+    const save = gameStore.snapshot;
+    const lead = save.formation.find(id => id) ?? save.heroes[0] ?? 'zhang-fei';
+    this.settingsOpen = true;
+    this.closePopup = openLobbyDialog(kind, {
+      name: save.playerName,
+      uid: cloudRepository.uid ?? 'Chưa có phiên đăng nhập',
+      server: import.meta.env.VITE_SUPABASE_URL?.trim() === 'https://ovvlhcpwothevvoblybx.supabase.co' ? 'Staging' : 'Chưa cấu hình',
+      level: save.clearedStages.length + 1, power: format(formationPower(save)),
+      avatar: this.textures.getBase64(PORTRAITS, atlasOrder.indexOf(lead)),
+    }, {
+      account: async () => { await openAccount(); if (this.sys.isActive()) this.scene.restart({}); },
+      logout: logoutAccount,
+      closed: () => { this.settingsOpen = false; this.closePopup = undefined; },
+    });
   }
 
   private showHero(x: number, y: number, size: number, id: string | undefined, color: number) {
@@ -184,8 +238,9 @@ export class LobbyScene extends UiScene {
       .setOrigin(0.5, 1).setDisplaySize(display, display).setInteractive({ useHandCursor: true });
     if (hasIdle) new HeroAnimationController(sprite, id);
     else this.tweens.add({ targets: sprite, scaleY: sprite.scaleY * 1.012, duration: 950, yoyo: true, repeat: -1 });
-    sprite.on('pointerup', () => {
-      if (!this.settingsOpen) this.activate(() => this.go('Heroes', { heroId: id }));
+    this.bindLobbyHit(sprite, () => this.go('Heroes', { heroId: id }), state => {
+      if (state === 'rest') sprite.clearTint();
+      else sprite.setTint(state === 'press' ? 0xd9b88a : 0xffe6bd);
     });
   }
 
