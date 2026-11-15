@@ -1,4 +1,53 @@
 :root{font-family:Arial,Helvetica,sans-serif;color:#fff;background:#10162c;}
+.lobby-dialog {
+  width: min(650px, calc(100% - 32px)); max-width: none;
+  max-height: calc(100dvh - 28px); padding: 0; overflow: auto;
+  color: #fff0cf; border: 2px solid #d6a45c; border-radius: 16px;
+  background: linear-gradient(140deg, #4b2628, #251721 65%);
+  box-shadow: 0 0 0 4px #3d2823, 0 20px 80px #000b;
+  animation: lobby-dialog-enter .16s ease-out;
+}
+.lobby-dialog::backdrop { background: #100a16bb; backdrop-filter: blur(4px); }
+.lobby-dialog-card { position: relative; padding: 25px 30px; }
+.lobby-dialog h2 { margin: 0; padding: 0 38px 17px; text-align: center; border-bottom: 1px solid #d6a45c70; font: bold 26px Georgia, serif; color: #ffdc93; }
+.lobby-dialog h3 { font-size: 23px; margin: 9px 0; overflow-wrap: anywhere; }
+.lobby-dialog h4 { margin: 0 0 9px; color: #ffdc93; font-size: 17px; }
+.lobby-dialog p { font-size: 15px; line-height: 1.5; color: #dcc4a6; }
+.lobby-dialog button { min-height: 44px; padding: 10px 16px; border: 1px solid #c59858; border-radius: 7px; color: #fff0cf; background: linear-gradient(#783c31, #4c2528); font: bold 15px Arial, sans-serif; cursor: pointer; transition: transform .12s, box-shadow .12s; }
+.lobby-dialog button:hover:not(:disabled) { box-shadow: 0 0 12px #e9bc6055; border-color: #ffe0a2; }
+.lobby-dialog button:active:not(:disabled) { transform: scale(.97); }
+.lobby-dialog button:focus-visible { outline: 3px solid #ffe6a0; outline-offset: 3px; }
+.lobby-dialog button:disabled { opacity: .5; cursor: not-allowed; }
+.lobby-dialog button.lobby-dialog-close { position: absolute; right: 12px; top: 12px; width: 44px; padding: 0; font-size: 27px; }
+.lobby-dialog-body { display: grid; gap: 13px; padding-top: 18px; }
+.lobby-dialog-notice { margin: 0; color: #ffdb85 !important; }
+.lobby-dialog-notice:empty { display: none; }
+.lobby-profile-identity { display: flex; gap: 22px; align-items: center; }
+.lobby-profile-identity img { width: 112px; height: 112px; object-fit: cover; border: 3px solid #e7b761; border-radius: 10px; box-shadow: 0 0 0 4px #70462d; }
+.lobby-profile-identity p { margin: 0; }
+.lobby-eyebrow { font-size: 12px; letter-spacing: 2px; color: #d7b47c; }
+.lobby-profile-details { margin: 0; padding: 6px 16px; border: 1px solid #d6a45c40; border-radius: 9px; background: #130e1870; }
+.lobby-profile-details > div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding: 10px 0; }
+.lobby-profile-details dt { color: #c8ac85; }
+.lobby-profile-details dd { margin: 0; overflow-wrap: anywhere; text-align: right; }
+.lobby-dialog-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.lobby-dialog-actions[hidden] { display: none; }
+.lobby-dialog-actions button { flex: 1 1 150px; }
+.lobby-dialog .lobby-danger { background: #391d24; }
+.lobby-logout-confirm button { margin: 0 10px 5px 0; }
+.lobby-vip-badge { width: fit-content; padding: 7px 13px; border: 1px solid #d6a45c; border-radius: 20px; color: #f4d399; font-size: 12px; letter-spacing: 1px; }
+.lobby-vip-section { padding: 16px; border: 1px solid #d6a45c45; border-radius: 9px; background: #140d1860; }
+.lobby-vip-track { height: 12px; border-radius: 9px; border: 1px solid #a5804f66; background: repeating-linear-gradient(135deg, #8b653133 0 9px, #3a252333 9px 18px); }
+@media (max-height: 440px) {
+  .lobby-dialog { max-height: calc(100dvh - 20px); }
+  .lobby-dialog-card { padding: 16px 24px; }
+  .lobby-dialog h2 { font-size: 21px; padding-bottom: 12px; }
+  .lobby-dialog-body { gap: 10px; padding-top: 14px; }
+  .lobby-profile-identity img { width: 76px; height: 76px; }
+  .lobby-profile-details > div { padding: 7px 0; }
+}
+@keyframes lobby-dialog-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .lobby-dialog { animation: none; } .lobby-dialog button { transition: none; } }
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
 #game{position:fixed;inset:0;background:radial-gradient(circle at 50% 35%,#304569,#10162c 80%)}
 #game canvas{display:block;touch-action:none;box-shadow:0 12px 60px #0009}

@@ -27,6 +27,12 @@ supabase?.auth.onAuthStateChange((event, session) => {
 
 export function initialAccount() { return show('entry'); }
 export function openAccount() { return show('manage'); }
+/** UI entry point shared by account management and the player profile. */
+export async function logoutAccount() {
+  if (!entry) throw new EntryError('connection', 'Không thể kết nối máy chủ');
+  await entry.logout();
+  location.reload();
+}
 function show(purpose: 'entry' | 'manage') {
   if (showing) return showing;
   showing = showAccount(purpose).finally(() => { showing = undefined; });
@@ -106,9 +112,8 @@ async function showAccount(purpose: 'entry' | 'manage') {
       form.append(control);
     };
     const signOut = async () => {
-      await entry?.logout();
       // A fresh Boot prevents an old scene or async callback surviving an account switch.
-      location.reload();
+      await logoutAccount();
     };
     if (next === 'loading') status.textContent = 'Đang xác thực và tải dữ liệu nhân vật…';
     else if (next === 'connection') button('Thử lại', retryAction, retryAction);
