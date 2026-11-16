@@ -1,0 +1,57 @@
+name: Main to Staging Preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Serialize alias changes; pending main updates are checked again before publishing.
+concurrency:
+  group: main-staging-preview
+  cancel-in-progress: false
+
+env:
+  VERCEL_ORG_ID: team_uRMVLalRh6cpjp1xUMeAZBa3
+  VERCEL_PROJECT_ID: prj_AOwTnSeNbtGviWj7DdZ1PTB7GYRx
+  VERCEL_CLI_VERSION: 65.14.0
+  NO_COLOR: '1'
+
+jobs:
+  preview:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked game dependencies
+        run: npm ci
+
+      - name: Install pinned Vercel CLI
+        run: npm install --global "vercel@${VERCEL_CLI_VERSION}"
+
+      - name: Pull staging Preview configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: node scripts/deploy-staging-preview.mjs pull
+
+      # No deployment token is exposed to the game install/build commands.
+      # The committed Vercel build command runs typecheck, all tests and Vite build.
+      - name: Build and test Preview
+        run: vercel build --yes --scope duongthanhan139-2454
+
+      - name: Deploy Preview and publish the verified current main commit
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/deploy-staging-preview.mjs publish

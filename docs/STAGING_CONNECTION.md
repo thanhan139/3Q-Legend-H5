@@ -23,6 +23,6 @@ Both Edge Functions now share `createAllowedOrigins` and the same CORS headers. 
 
 Supabase Auth Site URL and Redirect URLs should use the canonical staging URL (root and `/?auth=recovery`), not a per-deployment hash. The connected tooling does not provide Auth URL configuration, so those Dashboard settings require a project administrator if not already configured. Ordinary password login and Cloud Save CORS do not depend on changing the Auth redirect list.
 
-Commit the bootstrap, shared origin policy, both function entrypoints, tests, HTML entry change and this document to `staging`. Future Git builds then preserve canonicalization. No production deployment or schema change is required. Keep QA passwords/tokens and `.env` files out of Git.
+Prepare source changes on `staging`, then merge into `main`. The [main Preview workflow](GITHUB_VERCEL.md) builds Preview and moves this stable alias only after the deployment and current commit are verified. Native Git auto-deployments are disabled to avoid duplicate/Production releases. No production deployment or schema change is required. Keep QA passwords/tokens and `.env` files out of Git.
 
 Real-account login/relogin and reward QA remain pending QA credentials; anonymous HTTP checks and isolated UI tests do not prove those flows passed.

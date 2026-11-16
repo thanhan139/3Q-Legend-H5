@@ -1,40 +1,47 @@
-# GitHub and Vercel Preview
+# Main automatically updates Staging Preview
 
 Repository: https://github.com/thanhan139/3Q-Legend-H5
 
-Keep frontend, assets, tests, migrations and Edge Function source in this repository. Vercel builds only the frontend. It does not apply migrations or deploy Supabase functions.
+Stable game URL: https://3q-legend-h5-staging-git-staging-duongthanhan139-2454.vercel.app
 
-## Publish with GitHub Desktop
+Keep the existing Vercel project `3q-legend-h5-staging`, team `duongthanhan139-2454`. This pipeline publishes the frontend only. Supabase source stays in this repo but functions/migrations are deployed separately.
 
-1. Sign in to GitHub Desktop on this machine. Choose **File → Add local repository** and select this project folder. The local repository has an `origin` pointing to the repository above.
-2. **Fetch origin** before pushing. If GitHub already contains commits (including a README or license), preserve them and reconcile the histories before pushing. Do not force push or overwrite remote history.
-3. Review the changes and create the initial commit on `main` (for example, `Prepare M8 source and staging Preview deployment`). Push `main`, then choose **Branch → New branch**, create `staging` from `main`, and publish that branch. Both branches must contain `vercel.json` before connecting Vercel. Keep `main` as the GitHub default branch. Future Preview changes are committed and pushed to `staging`.
+## One-time setup
 
-Preparation status on 2026-11-15: local Git was initialized on `main` and `origin` configured. This agent session could not write `.git/index.lock`, so it did not stage files, create a commit or create `staging`. Native Git could not reach GitHub because its connection was blocked; the remote history has not been inspected. Vercel's connected GitHub namespace list was empty, so the existing Vercel project has not been linked to GitHub. Complete the steps above in GitHub Desktop and Vercel Dashboard; do not assume a push or Git deployment has happened.
+1. Create a Vercel access token scoped to the owning team, with permission to deploy this project and assign its staging alias. Choose an expiry suitable for QA.
+2. Open [GitHub Actions Secrets](https://github.com/thanhan139/3Q-Legend-H5/settings/secrets/actions), choose **New repository secret**, name it **VERCEL_TOKEN**, and enter the value directly there. Never paste the token into chat or source.
+3. Commit/push these changes to staging, review them and merge into main. Enable GitHub Actions for the repository. Use reviewed main changes; protect main with required PR review if collaborators contribute.
+4. Keep the existing public VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY variables in Vercel's **Preview** environment. The pipeline pulls Preview settings for main. No service-role key is needed or allowed in frontend/workflow source.
 
-Do not publish environment files, `.vite`, `.vercel`, generated function bundles or browser authentication state. `.env.example` intentionally contains empty configuration values. Current assets fit normal Git; Git LFS is not required.
+Team/project IDs are public constants in the workflow and script. Do not create another project or change the Production branch for this setup.
 
-## Connect the existing Vercel project
+## Daily workflow
 
-1. Open the existing project **3q-legend-h5-staging** in team **duongthanhan139-2454**. Do not import a second project.
-2. Under **Settings → Git**, connect `thanhan139/3Q-Legend-H5`. If unavailable, configure the Vercel GitHub App and grant access to this repository only.
-3. Keep the production branch `main`. The committed `git.deploymentEnabled` configuration disables automatic deployments for all branches except `staging`, including `main`. This does not prevent a manual production deployment: do not select **Deploy to Production**, **Promote**, or run `vercel --prod`.
-4. Use repository root, Vite, Node.js **22.x**, install `npm ci`, build `npm run typecheck && npm run test && npm run build`, output `dist`. The project configuration is committed in `vercel.json`; `.nvmrc` records the local Node major version.
-5. Keep `VITE_SUPABASE_URL=https://ovvlhcpwothevvoblybx.supabase.co` and the staging `VITE_SUPABASE_PUBLISHABLE_KEY` configured for **Preview**. Never use a service-role/secret key in any `VITE_` variable.
-6. Push a staging change to trigger the first Git Preview. Confirm its environment is **Preview**, branch is `staging`, commit matches GitHub, and build/typecheck/regression tests pass. Main pushes must not create production deployments.
+Prepare changes on staging and merge into main. Each main push (including a merge) runs **Main to Staging Preview** in GitHub Actions. You can rerun it manually with main selected under **Run workflow**. Other branches do not publish the shared staging URL.
 
-The branch configuration follows [Vercel Git configuration](https://vercel.com/docs/project-configuration/git-configuration). The earlier upload-based Preview is separate from this Git integration; its temporary archive upload scripts are not needed for Git builds.
+The workflow uses SHA-pinned checkout/setup-node actions, Node 22 and Vercel CLI 65.14.0. It installs dependencies, pulls Preview settings and executes the normal Vercel build command: typecheck, regression tests and Vite build. The deployment token is absent from game install/build steps.
 
-## Supabase staging compatibility
+It uploads prebuilt output with `--environment=preview`. The release script validates project ID, Preview target, Ready state and release SHA. It rechecks GitHub's current main SHA immediately before assigning the fixed alias. Failed/superseded builds leave the old alias intact. Job concurrency serializes publication so an older job cannot overwrite a newer completed release.
 
-Staging project: `ovvlhcpwothevvoblybx`. Its recorded M8 migration version is `20261115130220`; the matching local file is `20261115130220_m8_onboarding.sql`. The filename was aligned with remote migration history without changing its SQL. Do not apply M8 again or reset the database.
+Native Vercel Git auto-deployment is disabled by `git.deploymentEnabled: false`. GitHub Actions is the single release mechanism; this avoids duplicate builds or main becoming a Production deployment through Git Integration. Do not add --prod or use Promote.
 
-M8 was deployed with `game-command` v5; `arena-command` v1 was retained. Backend changes require separate review and deployment. Frontend Git pushes do not change player data or Supabase secrets.
+## First-run acceptance and troubleshooting
 
-## Preview authentication and QA
+- After the files reach main and the secret exists, check Actions for a successful run with the correct SHA. The summary prints only the stable URL and SHA.
+- Vercel must show Preview/Ready with metadata releaseCommit, releaseBranch=main and releasePipeline=main-staging-preview. The fixed alias must resolve to that deployment.
+- If VERCEL_TOKEN is absent/expired, update the GitHub secret and rerun main. The old working game remains live.
+- Runs on other branches are skipped. If main advances while building, the superseded job skips publication and the latest queued main job handles the alias.
+- If a build, lookup or validation fails, inspect the error before retrying. Do not use Production as a workaround.
+- Automation is not active until these files reach main and the secret is configured. A local build or manual alias change does not prove a real Actions run passed.
 
-After obtaining the actual Git Preview URL, add its exact origin to `GAME_ALLOWED_ORIGINS` alongside existing localhost entries (comma separated, no trailing slash). Configure the Supabase Site URL to the chosen QA Preview URL, and allow its root and `/?auth=recovery` under Redirect URLs. Update these when the QA URL changes; keep allowed origins scoped to this game.
+## Auth, saves and QA
 
-Keep Vercel Deployment Protection enabled. QA testers need authorized Preview access or an approved temporary share link before testing the game.
+Use the stable game URL above. Both staging functions allow this origin; individual deployment URLs canonicalize before Auth starts. See [stable connection](STAGING_CONNECTION.md). Supabase Auth Site URL/Redirect URLs should use that origin (root and /?auth=recovery).
 
-Validate real email registration/verification, new-account tutorial, existing-account entry, reload, logout/login, wrong password, expired session, network retry, idempotent rewards and separation of two QA UIDs. Check 1280×720 and 844×390. Do not report these as passed until exercised on the Git Preview. Do not record passwords, verification tokens or browser sessions in the repository, and do not delete QA accounts without confirmation.
+M8 migration 20261115130220 is already applied; the connection fix deployed game-command v7 and arena-command v3. Do not reapply migrations, reset data, or deploy Supabase from this frontend workflow.
+
+Keep Deployment Protection enabled. QA must check real login/profile UID, logout/relogin, save/resource retention, unavailable VIP and normal routes after release. UI harness checks are separate from account E2E. Keep .env files (except the empty .env.example), .vercel, tokens and browser state out of Git/artifacts. Never delete QA accounts without confirmation.
+
+## Implementation verification
+
+The pinned action SHAs were checked against their upstream Git tags. In a temporary Linux environment with Node 22.23.5, Vercel CLI 65.14.0 successfully built Preview output without a deployment token available to the build. The final standard regression run passed 169/169 tests, including 22 release guard tests. Actionlint 1.7.7 and YAML branch/concurrency/permission checks passed. Authenticated pull/deploy/alias through GitHub Actions still requires the user's secret and first main workflow run.
