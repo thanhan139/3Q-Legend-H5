@@ -1,4 +1,5 @@
 import { WELFARE_ART, welfareKey } from '../ui/welfareAssets';
+import Phaser from 'phaser';
 import { walletBalance } from '../domain/resources';
 import { openAccount, logoutAccount } from '../cloud/accountDialog';
 import { cloudRepository, supabase } from '../cloud/cloudRepository';
@@ -17,6 +18,7 @@ import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
 import { openLobbyDialog } from '../ui/lobbyDialog';
 import { portrait, PORTRAITS, atlasOrder } from '../ui/heroPresentation';
 import { UiScene } from '../ui/UiScene';
+import { LOBBY_DOCK, loadLobbySmooth, prepareLobbySmooth, smoothKey, SMOOTH_FRAME, type LobbySkin } from '../ui/lobbySmoothAssets';
 
 const GOLD = 0xe7b761;
 const INK = 0x211723;
@@ -33,6 +35,7 @@ export class LobbyScene extends UiScene {
   constructor() { super('Lobby'); }
 
   preload() {
+    loadLobbySmooth(this);
     const copper = welfareKey('copper_icon');
     if (!this.textures.exists(copper)) this.load.image(copper, `${import.meta.env.BASE_URL}${WELFARE_ART.copper_icon}`);
     if (!this.textures.exists('lobby-icons')) {
@@ -42,6 +45,7 @@ export class LobbyScene extends UiScene {
   }
 
   create({ settings = false }: { settings?: boolean } = {}) {
+    prepareLobbySmooth(this);
     if (cloudRepository.active) {
       let active = true;
       const refresh = async () => {
@@ -83,40 +87,46 @@ export class LobbyScene extends UiScene {
     if (this.preferences.effects) this.ambientEffects();
     this.add.rectangle(640, 360, 1280, 720, 0x1a0f28, 0.16);
     this.add.rectangle(640, 51, 1280, 102, INK, 0.75);
-    this.add.rectangle(640, 672, 1280, 96, INK, 0.96).setStrokeStyle(2, GOLD, 0.6);
+    const dockFrame = this.add.graphics();
+    dockFrame.fillGradientStyle(0x6d252c, 0x6d252c, 0x281421, 0x281421, 0.96);
+    dockFrame.fillRoundedRect(18, 620, 1244, 92, 34);
+    dockFrame.lineStyle(2, GOLD, 0.85).strokeRoundedRect(18, 620, 1244, 92, 34);
+    dockFrame.lineStyle(1, 0xffe2a2, 0.3).strokeRoundedRect(25, 627, 1230, 78, 28);
 
-    this.panel(20, 16, 446, 130, 0x291921, 0.98);
-    this.add.rectangle(243, 19, 416, 2, GOLD, 0.75);
-    this.add.rectangle(243, 140, 416, 1, GOLD, 0.32);
-    const profileGlow = this.add.rectangle(243, 81, 442, 126, GOLD, 0).setStrokeStyle(2, GOLD, 0.45);
-    this.add.rectangle(79, 75, 102, 102, 0x65392c).setStrokeStyle(3, GOLD);
-    portrait(this, 79, 75, 88, lead);
-    this.text(143, 27, 'CHÚA CÔNG', 12, '#cfa969', { letterSpacing: 2 });
-    const name = this.text(143, 46, save.playerName, 23, CREAM, { fontStyle: 'bold' });
+    const profileFrame = this.smoothPanel(243, 81, 446, 130);
+    this.add.circle(79, 75, 47, 0x3d1e25).setStrokeStyle(3, GOLD);
+    const face = portrait(this, 79, 75, 86, lead);
+    const avatarClip = this.make.graphics({ x: 0, y: 0 });
+    avatarClip.fillStyle(0xffffff).fillCircle(79, 75, 42);
+    const avatarMask = avatarClip.createGeometryMask(); face.setMask(avatarMask);
+    this.events.once('shutdown', () => { avatarMask.destroy(); avatarClip.destroy(); });
+    this.text(143, 33, 'CHÚA CÔNG', 10, '#cfa969', { letterSpacing: 1 });
+    const name = this.text(143, 49, save.playerName, 22, CREAM, { fontStyle: 'bold' });
     if (name.width > 212) name.setScale(212 / name.width, 1);
     this.text(143, 78, `Cấp ${save.clearedStages.length + 1}`, 16, '#e8cfaf');
     this.text(143, 106, `LỰC CHIẾN  ${format(power)}`, 21, '#ffce75', { fontStyle: 'bold' });
     const profileHit = this.add.zone(243, 81, 446, 130).setInteractive({ useHandCursor: true });
     this.bindLobbyHit(profileHit, () => this.popup('profile'), value => {
-      profileGlow.setFillStyle(GOLD, value === 'rest' ? 0 : value === 'press' ? 0.13 : 0.06);
+      profileFrame.setAlpha(value === 'press' ? 0.78 : 1);
     });
-    const vip = this.add.rectangle(408, 48, 77, 38, 0x7b3429).setStrokeStyle(2, GOLD, 0.85);
-    this.text(408, 48, 'VIP ›', 18, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
+    const vip = this.smoothPanel(408, 48, 85, 37);
+    // SaveV2 has no VIP progression field. Never substitute the kit's sample VIP 8.
+    this.text(408, 48, 'VIP —', 16, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
     const vipHit = this.add.zone(408, 58, 83, 80).setInteractive({ useHandCursor: true });
     this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
-      vip.setFillStyle(value === 'rest' ? 0x7b3429 : value === 'press' ? 0x51251f : 0x9c4930);
+      vip.setAlpha(value === 'press' ? 0.75 : 1);
     });
 
     const { copper, gold } = walletBalance(save);
     const resources = [['Đồng', copper], ['Vàng', gold]] as const;
     resources.forEach(([label, value], index) => {
       const x = 923 + index * 168;
-      this.panel(x, 22, 153, 57, INK, 0.94);
+      this.smoothPanel(x + 76.5, 50.5, 153, 57);
       if (index === 0) this.add.image(x + 25, 50, welfareKey('copper_icon')).setDisplaySize(36, 36);
       else this.add.image(x + 25, 50, 'lobby-icons', 12).setDisplaySize(36, 36);
-      this.text(x + 91, 38, label, 15, '#ebc891').setOrigin(0.5);
-      const amount = this.text(x + 91, 61, format(value), 19, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
-      if (amount.width > 110) amount.setScale(110 / amount.width, 1);
+      this.text(x + 98, 41, label, 13, '#ebc891').setOrigin(0.5);
+      const amount = this.text(x + 98, 60, format(value), 18, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
+      if (amount.width > 90) amount.setScale(90 / amount.width, 1);
     });
 
     const companions = deployed.filter(hero => hero.id !== lead.id);
@@ -138,27 +148,28 @@ export class LobbyScene extends UiScene {
     const rewardDots = [welfare.checkIn || welfare.missions.length > 0 || welfare.topup,
       welfare.topup, welfare.checkIn, false, welfare.missions.length > 0];
     upper.forEach(([icon, label, action], index) => {
-      this.medallion(687 + index * 105, 133, icon, label, action,
-        false, rewardDots[index]);
+      const skins: LobbySkin[] = ['welfare', 'topup', 'checkin', 'mail', 'missions', 'settings'];
+      this.skinButton(687 + index * 105, 133, 100, 92, skins[index], skins[index], action,
+        `lobby.${icon}`, false, rewardDots[index], label);
     });
 
-    this.medallion(75, 228, 6, 'Bang Hội', () => this.popup('guild'), true);
-    this.medallion(75, 343, 7, 'Đấu Trường', () => this.go('Arena'), false);
-    this.medallion(75, 458, 8, 'Thế Giới', () => this.popup('world'), true);
+    this.sideButton(228, 6, 'Bang Hội', () => this.popup('guild'), true);
+    this.sideButton(343, 7, 'Đấu Trường', () => this.go('Arena'), false);
+    this.sideButton(458, 8, 'Thế Giới', () => this.popup('world'), true);
 
-    this.panel(983, 422, 275, 190, 0x351d24, 0.97);
-    this.add.rectangle(1120, 426, 246, 3, GOLD, 0.8);
-    this.add.rectangle(1120, 505, 230, 1, GOLD, 0.3);
-    this.text(1120, 440, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
+    this.smoothPanel(1120, 512, 275, 200);
+    this.text(1120, 435, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
     const clearedAll = save.clearedStages.length === STAGES.length;
-    this.text(1120, 468, clearedAll ? 'Đã vượt toàn bộ ải'
+    this.text(1120, 460, clearedAll ? 'Đã vượt toàn bộ ải'
       : `Chương ${stage?.chapter} · Ải ${stage?.id}`, 19, '#ffda98').setOrigin(0.5);
-    if (!clearedAll) this.text(1120, 493, `Lực chiến đề xuất  ${format(recommended)}`,
+    if (!clearedAll) this.text(1120, 484, `Lực chiến đề xuất  ${format(recommended)}`,
       16, CREAM).setOrigin(0.5);
-    const campaign = this.button(1120, 555, 239, 68, 'CHINH CHIẾN',
-      () => this.activate(() => this.go('Campaign')), 0x863a2e, true, true);
-    campaign.text.setX(1144);
-    this.add.image(1034, 555, 'lobby-icons', 15).setDisplaySize(54, 54);
+    const cleared = STAGES.filter(entry => save.clearedStages.includes(entry.id)).length;
+    this.add.rectangle(1120, 506, 228, 6, 0x1c111c).setStrokeStyle(1, GOLD, 0.5);
+    if (cleared) this.add.rectangle(1006, 506, 228 * cleared / STAGES.length, 4, GOLD).setOrigin(0, 0.5);
+    this.text(1120, 521, `Tiến trình ${cleared}/${STAGES.length} ải`, 12, '#e8cfaf').setOrigin(0.5);
+    this.skinButton(1120, 566, 246, 75, 'campaign', 'campaignActive', () => this.go('Campaign'),
+      'lobby.campaign', false, false, 'Chinh Chiến');
 
     const dock = [
       [9, 'Đội Hình', () => this.go('Formation')],
@@ -167,30 +178,50 @@ export class LobbyScene extends UiScene {
       [5, 'Chiêu Mộ', () => this.go('Summon')],
 
     ] as const;
-    dock.forEach(([icon, label, action], i) => this.medallion(172 + 310 * i, 663, icon, label, action,
-      i === 3 && !gameStore.isSummonUnlocked()));
+    const dockSkins: [LobbySkin, LobbySkin][] = [['formation', 'formationActive'], ['heroes', 'heroesActive'],
+      ['inventory', 'inventoryActive'], ['summon', 'summonActive']];
+    dock.forEach(([icon, label, action], i) => {
+      const locked = i === 3 && !gameStore.isSummonUnlocked();
+      this.skinButton(LOBBY_DOCK.centers[i], LOBBY_DOCK.y, LOBBY_DOCK.width, LOBBY_DOCK.height,
+        ...dockSkins[i], action, `lobby.${icon}`, locked, false, label);
+      if (locked) this.text(LOBBY_DOCK.centers[i] + 58, 610, '🔒', 17).setOrigin(0.5);
+    });
     if (settings) this.drawSettings();
     this.cameras.main.fadeIn(180, 17, 14, 20);
   }
 
-  private medallion(x: number, y: number, frame: number, label: string, action: () => void, locked: boolean, reward = false) {
-    const plate = this.add.rectangle(x, y + 1, 94, 88, 0x291923, locked ? 0.65 : 0.88)
-      .setStrokeStyle(1, GOLD, 0.45);
-    this.add.rectangle(x, y + 44, 74, 1, GOLD, 0.4);
-    const art = this.add.image(x, y - 12, 'lobby-icons', frame).setDisplaySize(60, 60)
-      .setAlpha(locked ? 0.65 : 1);
-    this.text(x, y + 28, locked ? `🔒 ${label}` : label, 15, CREAM,
-      { fontStyle: 'bold', stroke: '#211523', strokeThickness: 4 }).setOrigin(0.5);
-    if (reward) this.add.circle(x + 31, y - 30, 7, 0xe83c45).setStrokeStyle(2, GOLD);
-    const hit = this.add.zone(x, y, 100, 92).setInteractive({ useHandCursor: true });
+  private smoothPanel(x: number, y: number, width: number, height: number) {
+    if (this.game.renderer.type === Phaser.CANVAS)
+      return this.add.image(x, y, smoothKey('red'), SMOOTH_FRAME).setDisplaySize(width, height);
+    return this.add.nineslice(x, y, smoothKey('red'), SMOOTH_FRAME, width, height, 30, 30, 14, 14);
+  }
+
+  private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,
+    action: () => void, target: string, locked = false, reward = false, label = '') {
+    const art = this.add.image(x, y, smoothKey(normal), SMOOTH_FRAME).setName(label);
+    const paint = (state: 'rest' | 'hover' | 'press') => {
+      art.setTexture(smoothKey(state === 'rest' ? normal : active), SMOOTH_FRAME);
+      const frame = art.frame;
+      const fit = Math.min((width - 4) / frame.width, (height - 4) / frame.height);
+      art.setScale(fit * (state === 'press' ? 0.95 : 1)).setAlpha(locked ? 0.58 : 1);
+      if (state === 'hover' && normal === active) art.setTint(0xffe4b4); else art.clearTint();
+    };
+    paint('rest');
+    if (reward) this.add.circle(x + width * 0.3, y - height * 0.32, 7, 0xe83c45).setStrokeStyle(2, GOLD);
+    const hit = this.add.zone(x, y, width, height).setName(target).setInteractive({ useHandCursor: true });
+    this.tutorialTarget(target, hit);
+    this.bindLobbyHit(hit, action, paint);
+  }
+
+  private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean) {
+    // Kit side-nav default/selected PNGs contain baked red dots. Use a clean blank frame instead.
+    const panel = this.smoothPanel(111, y, 204, 65).setAlpha(locked ? 0.76 : 1);
+    this.add.image(43, y, 'lobby-icons', frame).setDisplaySize(49, 49).setAlpha(locked ? 0.65 : 1);
+    this.text(134, y, label, 17, CREAM, { fontStyle: 'bold', stroke: '#321420', strokeThickness: 3 }).setOrigin(0.5);
+    if (locked) this.text(198, y - 23, '🔒', 13).setOrigin(0.5);
+    const hit = this.add.zone(111, y, 210, 76).setName(`lobby.${frame}`).setInteractive({ useHandCursor: true });
     this.tutorialTarget(`lobby.${frame}`, hit);
-    const scaleX = art.scaleX, scaleY = art.scaleY;
-    this.bindLobbyHit(hit, action, value => {
-      const scale = value === 'rest' ? 1 : value === 'press' ? 0.94 : 1.06;
-      art.setScale(scaleX * scale, scaleY * scale);
-      plate.setStrokeStyle(value === 'rest' ? 1 : 2, GOLD, value === 'rest' ? 0.45 : 0.95);
-      plate.setFillStyle(value === 'press' ? 0x573024 : value === 'hover' ? 0x432829 : 0x291923, 0.9);
-    });
+    this.bindLobbyHit(hit, action, state => panel.setAlpha(state === 'press' ? 0.65 : locked ? 0.76 : 1));
   }
 
   private bindLobbyHit(hit: Phaser.GameObjects.Zone | Phaser.GameObjects.Sprite, action: () => void,

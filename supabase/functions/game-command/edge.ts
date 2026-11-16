@@ -1,6 +1,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.119.0';
 import { handleGameRequest, type GameBackend } from './handler';
 import type { GameIntent } from '../../../src/cloud/gameProtocol';
+import { createAllowedOrigins, corsHeaders } from '../_shared/cors';
 
 const env = (key: string) => {
   const value = Deno.env.get(key);
@@ -15,7 +16,7 @@ const secret = env('GAME_TICKET_SECRET');
 if (secret.length < 32) throw new Error('GAME_TICKET_SECRET must contain at least 32 characters');
 const key = await crypto.subtle.importKey('raw', encoder.encode(secret),
   { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
-const allowed = new Set(env('GAME_ALLOWED_ORIGINS').split(',').map(origin => origin.trim()));
+const allowed = createAllowedOrigins(Deno.env.get('GAME_ALLOWED_ORIGINS') ?? '', env('SUPABASE_URL'));
 const legacyApprovals: Record<string, string> = JSON.parse(Deno.env.get('GAME_LEGACY_APPROVALS') ?? '{}');
 const legacyAllowed = Object.keys(legacyApprovals).length
   ? (uid: string, digest: string) => Object.hasOwn(legacyApprovals, uid) && legacyApprovals[uid] === digest
@@ -64,10 +65,7 @@ const backend: GameBackend = {
 Deno.serve(async request => {
   const origin = request.headers.get('origin');
   if (origin && !allowed.has(origin)) return new Response(null, { status: 403 });
-  const headers = { 'Content-Type': 'application/json', Vary: 'Origin', 'Cache-Control': 'no-store',
-    ...(origin ? { 'Access-Control-Allow-Origin': origin } : {}),
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version' };
+  const headers = { ...corsHeaders(origin), 'Content-Type': 'application/json' };
   const reply = (body: object, status = 200) => Response.json(body, { status, headers });
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
   if (request.method !== 'POST') return reply({ status: 'invalid' }, 405);
