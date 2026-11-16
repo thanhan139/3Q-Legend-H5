@@ -3,9 +3,55 @@ import type { GameCommand } from '../cloud/gameProtocol';
 import Phaser from 'phaser';
 import { PALETTE } from './theme';
 import { registerTutorialTarget, type TutorialTarget } from './tutorialTargets';
+import { coverScale, readSafeInsets } from './viewport';
 
 export abstract class UiScene extends Phaser.Scene {
   constructor(key:string){super(key);}
+  /** Keep authored combat/menu coordinates intact inside a larger, fully painted viewport. */
+  init() {
+    const backdrop = this.add.graphics().setDepth(-10000);
+    const backgrounds = new Set<Phaser.GameObjects.Image | Phaser.GameObjects.Rectangle>();
+    const layout = () => {
+      const { width, height } = this.scale.gameSize;
+      const camera = this.cameras.main;
+      camera.setSize(width, height);
+      if (this.sys.settings.key === 'Lobby') camera.setScroll(0, 0);
+      else {
+        const rect = this.game.canvas.getBoundingClientRect();
+        const safe = readSafeInsets(rect.width / width);
+        camera.setScroll((1280 - width - safe.left + safe.right) / 2,
+          (720 - height - safe.top + safe.bottom) / 2);
+      }
+      backdrop.clear().fillGradientStyle(0x233a5a, 0x233a5a, 0x111a32, 0x111a32, 1)
+        .fillRect(camera.scrollX, camera.scrollY, width, height);
+      for (const art of backgrounds) {
+        if (!art.scene) { backgrounds.delete(art); continue; }
+        art.setPosition(camera.scrollX + width / 2, camera.scrollY + height / 2);
+        if (art instanceof Phaser.GameObjects.Image)
+          art.setScale(coverScale(art.frame.realWidth, art.frame.realHeight, width, height));
+        else art.setSize(width, height).setDisplaySize(width, height);
+      }
+    };
+    // Async scenes may add their background after CREATE. Discover only full-screen layers.
+    const discover = () => {
+      let changed = false;
+      for (const child of this.children.list) {
+        if ((child instanceof Phaser.GameObjects.Image || child instanceof Phaser.GameObjects.Rectangle)
+          && !backgrounds.has(child) && child.displayWidth >= 1280 && child.displayHeight >= 720) {
+          backgrounds.add(child); changed = true;
+        }
+      }
+      if (changed) layout();
+    };
+    layout();
+    this.scale.on(Phaser.Scale.Events.RESIZE, layout);
+    this.events.on(Phaser.Scenes.Events.POST_UPDATE, discover);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.scale.off(Phaser.Scale.Events.RESIZE, layout);
+      this.events.off(Phaser.Scenes.Events.POST_UPDATE, discover);
+      backgrounds.clear();
+    });
+  }
   tutorialTarget(id: string, target?: TutorialTarget) { registerTutorialTarget(this, id, target); }
 
   text(x:number,y:number,value:string,size=22,color='#fff5dc',options:Partial<Phaser.Types.GameObjects.Text.TextStyle>={}) {
@@ -91,8 +137,10 @@ export abstract class UiScene extends Phaser.Scene {
     this.button(1150,57,186,52,'← Về sảnh',()=>this.go('Lobby'),PALETTE.gold);
   }
   toast(msg:string,color='#f6da9a'){
-    const t=this.text(640,648,msg,21,color,{backgroundColor:'#122035',padding:{x:18,y:12},align:'center'}).setOrigin(0.5).setDepth(100);
-    this.tweens.add({targets:t,alpha:0,y:628,duration:2600,delay:900,onComplete:()=>t.destroy()});
+    const x = this.cameras.main.scrollX + this.scale.width / 2;
+    const y = this.cameras.main.scrollY + this.scale.height - 72;
+    const t=this.text(x,y,msg,21,color,{backgroundColor:'#122035',padding:{x:18,y:12},align:'center',wordWrap:{width:Math.min(1100,this.scale.width-60)}}).setOrigin(0.5).setDepth(100);
+    this.tweens.add({targets:t,alpha:0,y:y-20,duration:2600,delay:900,onComplete:()=>t.destroy()});
   }
   heroAvatar(x:number,y:number,color:number,scale=1){
     const g=this.add.graphics();

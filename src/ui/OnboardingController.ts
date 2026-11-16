@@ -6,6 +6,7 @@ import { gameStore } from '../domain/store';
 import { HERO_BY_ID } from '../data/heroes';
 import { atlasOrder, PORTRAITS, ROLE_LABEL } from './heroPresentation';
 import { tutorialTarget } from './tutorialTargets';
+import { screenBounds } from './viewport';
 
 const route = (step: TutorialStep, help = false): { scene: string; data?: object } => {
   if (step === 'welcome') return { scene: 'Tutorial' };
@@ -140,7 +141,8 @@ export class OnboardingController {
     if (step === 'summon_intro') targetId = 'lobby.5';
     if (step === 'welfare_intro') targetId = 'lobby.0';
     if (step === 'arena_intro') targetId = 'lobby.7';
-    const bounds = targetId ? tutorialTarget(scene, targetId) : undefined;
+    const target = targetId ? tutorialTarget(scene, targetId) : undefined;
+    const bounds = target ? screenBounds(target, scene.cameras.main) : undefined;
     // Async scene creation must finish before exposing an interactive target.
     if (targetId && !bounds && !this.help) {
       this.layer.replaceChildren();
@@ -153,36 +155,39 @@ export class OnboardingController {
     const key = `${signature}:${scene.sys.settings.key}:${rect.width}:${rect.height}:${bounds?.x}:${bounds?.y}:${this.starterIndex}:${this.slotSelected}:${this.sending}:${this.error}`;
     if (key === this.rendered) return;
     this.rendered = key;
-    this.render(scene, step, bounds, rect.width / 1280);
+    this.render(scene, step, bounds, rect.width / this.game.scale.width);
   }
 
-  private render(scene: Phaser.Scene, step: TutorialStep, bounds: Phaser.Geom.Rectangle | undefined, scale: number) {
+  private render(scene: Phaser.Scene, step: TutorialStep, bounds: ReturnType<typeof screenBounds> | undefined, scale: number) {
+    const { width, height } = this.game.scale.gameSize;
     this.layer.replaceChildren();
     const surface = document.createElement('div'); surface.className = 'tutorial-surface';
     surface.style.transform = `scale(${scale})`;
+    surface.style.width = `${width}px`; surface.style.height = `${height}px`;
     this.layer.append(surface);
     const box = bounds ? { x: Math.max(0, bounds.x - 8), y: Math.max(0, bounds.y - 8),
-      w: Math.min(1280, bounds.width + 16), h: Math.min(720, bounds.height + 16) } : undefined;
+      w: Math.min(width - Math.max(0, bounds.x - 8), bounds.width + 16),
+      h: Math.min(height - Math.max(0, bounds.y - 8), bounds.height + 16) } : undefined;
     const shade = (x: number, y: number, w: number, h: number) => {
       const part = document.createElement('div'); part.className = 'tutorial-shade';
       Object.assign(part.style, { left: `${x}px`, top: `${y}px`, width: `${Math.max(0,w)}px`, height: `${Math.max(0,h)}px` });
       surface.append(part);
     };
     if (box) {
-      shade(0, 0, 1280, box.y); shade(0, box.y + box.h, 1280, 720 - box.y - box.h);
-      shade(0, box.y, box.x, box.h); shade(box.x + box.w, box.y, 1280 - box.x - box.w, box.h);
+      shade(0, 0, width, box.y); shade(0, box.y + box.h, width, height - box.y - box.h);
+      shade(0, box.y, box.x, box.h); shade(box.x + box.w, box.y, width - box.x - box.w, box.h);
       const ring = document.createElement('div'); ring.className = 'tutorial-spotlight';
       Object.assign(ring.style, { left: `${box.x}px`, top: `${box.y}px`, width: `${box.w}px`, height: `${box.h}px` });
       if (this.help || ['summon_intro', 'welfare_intro', 'arena_intro'].includes(step)) ring.style.pointerEvents = 'auto';
       surface.append(ring);
       const arrow = document.createElement('div'); arrow.className = 'tutorial-arrow'; arrow.textContent = '▼';
       Object.assign(arrow.style, { left: `${box.x + box.w / 2 - 20}px`, top: `${Math.max(4,box.y - 51)}px` }); surface.append(arrow);
-    } else if (step !== 'battle') shade(0, 0, 1280, 720);
+    } else if (step !== 'battle') shade(0, 0, width, height);
     const card = document.createElement('section'); card.className = 'tutorial-card'; card.setAttribute('aria-label', 'Hướng dẫn của quân sư');
-    card.style.top = step === 'welcome' ? '165px' : box && box.y > 350 ? '110px' : '425px';
-    card.style.left = box && box.x > 650 ? '40px' : '320px';
+    card.style.top = step === 'welcome' ? `${(height - 390) / 2}px` : box && box.y > height / 2 ? '110px' : `${height - 295}px`;
+    card.style.left = box && box.x > width / 2 ? '40px' : `${(width - 650) / 2}px`;
     if (box) {
-      const above = box.y, below = 720 - box.y - box.h;
+      const above = box.y, below = height - box.y - box.h;
       const top = above >= below ? 18 : box.y + box.h + 16;
       card.style.top = `${top}px`;
       card.style.maxHeight = `${Math.max(120, Math.min(290, (above >= below ? above - 34 : below - 30)))}px`;
