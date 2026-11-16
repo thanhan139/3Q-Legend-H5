@@ -1,4 +1,5 @@
 export interface PlayerProfile {
+  currency?: { name: string; balance: string };
   name: string;
   uid: string;
   server: string;
@@ -8,7 +9,7 @@ export interface PlayerProfile {
 }
 
 /** Native modal keeps touch/focus inside the popup and blocks the canvas beneath it. */
-export function openLobbyDialog(kind: 'profile' | 'vip' | 'guild' | 'world', profile: PlayerProfile,
+export function openLobbyDialog(kind: 'profile' | 'vip' | 'guild' | 'world' | 'currency', profile: PlayerProfile,
   actions: { account(): Promise<void>; logout(): Promise<void>; closed(): void }) {
   const dialog = document.createElement('dialog');
   dialog.className = 'lobby-dialog';
@@ -86,6 +87,11 @@ export function openLobbyDialog(kind: 'profile' | 'vip' | 'guild' | 'world', pro
     }
     const payment = control('Nạp · Chưa khả dụng', () => undefined, body); payment.disabled = true;
     payment.title = 'Chưa tích hợp thanh toán';
+  } else if (kind === 'currency') {
+    title.textContent = profile.currency?.name ?? 'TÀI NGUYÊN';
+    element('h3', `Số dư: ${profile.currency?.balance ?? ''}`, body);
+    element('p', 'Tài nguyên hiển thị theo tiến trình hiện tại. Chức năng mua thêm đang hoàn thiện, chưa khả dụng.', body);
+    control('Đã hiểu', close, body);
   } else {
     title.textContent = kind === 'guild' ? 'BANG HỘI' : 'THẾ GIỚI';
     element('h3', 'Đang hoàn thiện', body);

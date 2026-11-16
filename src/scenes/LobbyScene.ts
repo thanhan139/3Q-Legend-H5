@@ -20,6 +20,9 @@ import { portrait, PORTRAITS, atlasOrder } from '../ui/heroPresentation';
 import { UiScene } from '../ui/UiScene';
 import { LOBBY_DOCK, loadLobbySmooth, prepareLobbySmooth, smoothKey, SMOOTH_FRAME, type LobbySkin } from '../ui/lobbySmoothAssets';
 import { coverScale, readSafeInsets, viewportLayout } from '../ui/viewport';
+import { LobbyContent } from '../ui/LobbyContent';
+import { compactLobbyAmount, fitLabelledTexture, fitTexture, LOBBY_PANELS, LOBBY_SKIN_CONTENT,
+  LOBBY_WIDGETS, rect, skinContent } from '../ui/lobbyContentLayout';
 
 const GOLD = 0xe7b761;
 const INK = 0x211723;
@@ -33,6 +36,7 @@ export class LobbyScene extends UiScene {
   private closePopup?: () => void;
   private musicTimer?: Phaser.Time.TimerEvent;
   private anchors: (() => void)[] = [];
+  private content!: LobbyContent;
 
   private layout() {
     const { width, height } = this.scale.gameSize;
@@ -51,6 +55,9 @@ export class LobbyScene extends UiScene {
 
   preload() {
     loadLobbySmooth(this);
+    for (const panel of Object.values(LOBBY_PANELS)) {
+      if (panel.key !== smoothKey('red') && !this.textures.exists(panel.key)) this.load.image(panel.key, `${import.meta.env.BASE_URL}${panel.path}`);
+    }
     const copper = welfareKey('copper_icon');
     if (!this.textures.exists(copper)) this.load.image(copper, `${import.meta.env.BASE_URL}${WELFARE_ART.copper_icon}`);
     if (!this.textures.exists('lobby-icons')) {
@@ -60,6 +67,7 @@ export class LobbyScene extends UiScene {
   }
 
   create({ settings = false }: { settings?: boolean } = {}) {
+    this.content = new LobbyContent(this);
     this.anchors = [];
     const resize = () => { for (const place of this.anchors) place(); };
     this.scale.on(Phaser.Scale.Events.RESIZE, resize);
@@ -125,30 +133,37 @@ export class LobbyScene extends UiScene {
     });
 
     this.anchor(() => {
-      const profileFrame = this.smoothPanel(243, 81, 446, 130);
-      this.add.circle(79, 75, 47, 0x3d1e25).setStrokeStyle(3, GOLD);
-      const face = portrait(this, 79, 75, 86, lead);
+      const spec = LOBBY_PANELS.profile;
+      const profile = this.content.frame('profile', spec.key, LOBBY_WIDGETS.profile, spec.frame);
+      const avatar = profile.project(spec.fields.avatar);
+      const x = avatar.x + avatar.width / 2, y = avatar.y + avatar.height / 2;
+      this.add.circle(x, y, avatar.width / 2 + 2, 0x3d1e25).setStrokeStyle(2, GOLD);
+      const face = portrait(this, x, y, avatar.width, lead);
       const avatarClip = this.make.graphics({ x: 0, y: 0 });
-      avatarClip.fillStyle(0xffffff).fillCircle(79, 75, 42);
+      avatarClip.fillStyle(0xffffff).fillCircle(x, y, avatar.width / 2);
       const avatarMask = avatarClip.createGeometryMask(); face.setMask(avatarMask);
       this.anchors.push(() => { const l = this.layout(); avatarClip.setPosition(l.left, l.top); });
       this.events.once('shutdown', () => { avatarMask.destroy(); avatarClip.destroy(); });
-      this.text(143, 33, 'CHÚA CÔNG', 10, '#cfa969', { letterSpacing: 1 });
-      const name = this.text(143, 49, save.playerName, 22, CREAM, { fontStyle: 'bold' });
-      if (name.width > 212) name.setScale(212 / name.width);
-      this.text(143, 78, `Cấp ${save.clearedStages.length + 1}`, 16, '#e8cfaf');
-      const powerLabel = this.text(143, 106, `LỰC CHIẾN  ${format(power)}`, 21, '#ffce75', { fontStyle: 'bold' });
-      if (powerLabel.width > 300) powerLabel.setScale(300 / powerLabel.width);
-      const profileHit = this.add.zone(243, 81, 446, 130).setName('lobby.profile').setInteractive({ useHandCursor: true });
+      this.content.field('profile.name', profile.project(spec.fields.name), save.playerName,
+        { size: 22, minSize: 12, wrap: true, maxLines: 2 });
+      this.content.field('profile.level', profile.project(spec.fields.level), `Cấp ${save.clearedStages.length + 1}`,
+        { size: 16, padding: 1, color: '#e8cfaf', bold: false });
+      this.content.field('profile.power', profile.project(spec.fields.power), `LỰC CHIẾN  ${format(power)}`,
+        { size: 18, color: '#ffce75' });
+      const profileHit = this.add.zone(profile.image.x, profile.image.y, profile.bounds.width, profile.bounds.height)
+        .setName('lobby.profile').setInteractive({ useHandCursor: true });
       this.bindLobbyHit(profileHit, () => this.popup('profile'), value => {
-        profileFrame.setAlpha(value === 'press' ? 0.78 : 1);
+        profile.image.setAlpha(value === 'press' ? 0.78 : 1);
       });
-      const vip = this.smoothPanel(408, 48, 85, 37);
+      const vip = this.content.frame('vip', smoothKey('red'), profile.project(spec.fields.vip), SMOOTH_FRAME);
       // SaveV2 has no VIP progression field. Never substitute the kit's sample VIP 8.
-      this.text(408, 48, 'VIP —', 16, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
-      const vipHit = this.add.zone(408, 58, 83, 80).setName('lobby.vip').setInteractive({ useHandCursor: true });
+      this.content.field('profile.vip', vip.project(LOBBY_SKIN_CONTENT.red.content), 'VIP —',
+        { size: 13, minSize: 10, padding: 1, align: 'center', color: '#ffe19b' });
+      const vipSlot = profile.project(spec.fields.vip);
+      const vipHit = this.add.zone(vip.image.x, vip.image.y, vipSlot.width, vipSlot.height)
+        .setName('lobby.vip').setInteractive({ useHandCursor: true });
       this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
-        vip.setAlpha(value === 'press' ? 0.75 : 1);
+        vip.image.setAlpha(value === 'press' ? 0.75 : 1);
       });
     }, l => ({ x: l.left, y: l.top }));
 
@@ -156,13 +171,22 @@ export class LobbyScene extends UiScene {
       const { copper, gold } = walletBalance(save);
       const resources = [['Đồng', copper], ['Vàng', gold]] as const;
       resources.forEach(([label, value], index) => {
-        const x = 923 + index * 168;
-        this.smoothPanel(x + 76.5, 50.5, 153, 57);
-        if (index === 0) this.add.image(x + 25, 50, welfareKey('copper_icon')).setDisplaySize(36, 36);
-        else this.add.image(x + 25, 50, 'lobby-icons', 12).setDisplaySize(36, 36);
-        this.text(x + 98, 41, label, 13, '#ebc891').setOrigin(0.5);
-        const amount = this.text(x + 98, 60, format(value), 18, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
-        if (amount.width > 90) amount.setScale(90 / amount.width);
+        const id = index === 0 ? 'copper' : 'gold';
+        const frame = this.content.frame(`currency.${id}`, smoothKey('red'), LOBBY_WIDGETS.currencies[index], SMOOTH_FRAME);
+        const fields = LOBBY_WIDGETS.currencyFields, icon = frame.project(fields.icon);
+        const art = index === 0 ? this.add.image(0, 0, welfareKey('copper_icon')) : this.add.image(0, 0, 'lobby-icons', 12);
+        art.setPosition(icon.x + icon.width / 2, icon.y + icon.height / 2).setScale(Math.min(icon.width / art.frame.width, icon.height / art.frame.height));
+        this.content.field(`currency.${id}.label`, frame.project(fields.label), label,
+          { size: 12, minSize: 10, padding: 1, align: 'center', color: '#ebc891' });
+        this.content.field(`currency.${id}.value`, frame.project(fields.value), compactLobbyAmount(value),
+          { size: 16, minSize: 12, padding: 1, align: 'center' });
+        const plus = frame.project(fields.plus);
+        this.add.circle(plus.x + plus.width / 2, plus.y + plus.height / 2, plus.width / 2, 0x355e39).setStrokeStyle(1, GOLD);
+        this.content.field(`currency.${id}.plus`, plus, '+', { size: 18, padding: 1, align: 'center' });
+        const hit = this.add.zone(frame.image.x, frame.image.y, frame.bounds.width, frame.bounds.height)
+          .setName(`lobby.currency.${id}`).setInteractive({ useHandCursor: true });
+        this.bindLobbyHit(hit, () => this.popup('currency', { name: label, balance: format(value) }),
+          state => frame.image.setAlpha(state === 'press' ? 0.8 : 1));
       });
     }, l => ({ x: l.right, y: l.top }));
 
@@ -171,8 +195,8 @@ export class LobbyScene extends UiScene {
       this.showHero(440, 552, 246, companions[0]?.id, 0x68dacd);
       this.showHero(840, 552, 246, companions[1]?.id, 0xd991ff);
       this.showHero(640, 584, 282, lead.id, 0xffc764);
-      this.text(640, 606, lead.name, 23, CREAM,
-        { fontFamily: 'Georgia, serif', fontStyle: 'bold', stroke: '#261526', strokeThickness: 6 }).setOrigin(0.5);
+      this.content.field('hero.name', LOBBY_WIDGETS.heroName, lead.name,
+        { size: 23, align: 'center', stroke: '#261526' });
     }, l => ({ x: l.centerX, y: l.centerY }));
 
     this.anchor(() => {
@@ -201,19 +225,24 @@ export class LobbyScene extends UiScene {
     }, l => ({ x: l.left, y: l.centerY }));
 
     this.anchor(() => {
-      this.smoothPanel(1120, 512, 275, 200);
-      this.text(1120, 435, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
+      const spec = LOBBY_PANELS.campaign;
+      const frame = this.content.frame('campaign', spec.key, LOBBY_WIDGETS.campaign);
+      this.content.field('campaign.title', frame.project(spec.fields.title), 'CHINH CHIẾN',
+        { size: 19, align: 'center', color: '#ffda98' });
       const clearedAll = save.clearedStages.length === STAGES.length;
-      this.text(1120, 460, clearedAll ? 'Đã vượt toàn bộ ải'
-        : `Chương ${stage?.chapter} · Ải ${stage?.id}`, 19, '#ffda98').setOrigin(0.5);
-      if (!clearedAll) this.text(1120, 484, `Lực chiến đề xuất  ${format(recommended)}`,
-        16, CREAM).setOrigin(0.5);
+      this.content.field('campaign.stage', frame.project(spec.fields.stage), clearedAll ? 'Đã vượt toàn bộ ải'
+        : `Chương ${stage?.chapter} · Ải ${stage?.id}`, { size: 17, align: 'center' });
+      this.content.field('campaign.power', frame.project(spec.fields.power), clearedAll ? 'Hành trình đã hoàn thành'
+        : `Lực chiến đề xuất  ${format(recommended)}`, { size: 13, minSize: 11, padding: 1, align: 'center', bold: false });
       const cleared = STAGES.filter(entry => save.clearedStages.includes(entry.id)).length;
-      this.add.rectangle(1120, 506, 228, 6, 0x1c111c).setStrokeStyle(1, GOLD, 0.5);
-      if (cleared) this.add.rectangle(1006, 506, 228 * cleared / STAGES.length, 4, GOLD).setOrigin(0, 0.5);
-      this.text(1120, 521, `Tiến trình ${cleared}/${STAGES.length} ải`, 12, '#e8cfaf').setOrigin(0.5);
-      this.skinButton(1120, 566, 246, 75, 'campaign', 'campaignActive', () => this.go('Campaign'),
-        'lobby.campaign', false, false, 'Chinh Chiến');
+      const track = frame.project(spec.fields.progress);
+      this.add.rectangle(track.x, track.y, track.width, track.height, 0x1c111c).setOrigin(0).setStrokeStyle(1, GOLD, 0.5);
+      if (cleared) this.add.rectangle(track.x, track.y, track.width * cleared / STAGES.length, track.height, GOLD).setOrigin(0);
+      this.content.field('campaign.progress', frame.project(spec.fields.caption), `Tiến trình ${cleared}/${STAGES.length} ải`,
+        { size: 12, minSize: 10, padding: 1, align: 'center', color: '#e8cfaf', bold: false });
+      const cta = frame.project(spec.fields.cta);
+      this.skinButton(cta.x + cta.width / 2, cta.y + cta.height / 2, cta.width, cta.height, 'gold', 'gold',
+        () => this.go('Campaign'), 'lobby.campaign', false, false, 'KHIÊU CHIẾN');
     }, l => ({ x: l.right, y: l.bottom }));
 
     const dock = [
@@ -230,7 +259,8 @@ export class LobbyScene extends UiScene {
         const locked = i === 3 && !gameStore.isSummonUnlocked();
         this.skinButton(LOBBY_DOCK.centers[i], LOBBY_DOCK.y, LOBBY_DOCK.width, LOBBY_DOCK.height,
           ...dockSkins[i], action, `lobby.${icon}`, locked, false, label);
-        if (locked) this.text(LOBBY_DOCK.centers[i] + 58, 610, '🔒', 17).setOrigin(0.5);
+        if (locked) this.content.field(`dock.${icon}.lock`, rect(LOBBY_DOCK.centers[i] + 48, 600, 20, 20), '🔒',
+          { size: 17, align: 'center', padding: 1 });
       }, l => ({ x: l.dock[i] - LOBBY_DOCK.centers[i], y: l.dockY - LOBBY_DOCK.y }));
     });
     if (settings) this.anchor(() => this.drawSettings(), l => ({ x: l.centerX, y: l.centerY }));
@@ -238,23 +268,35 @@ export class LobbyScene extends UiScene {
     this.cameras.main.fadeIn(180, 17, 14, 20);
   }
 
-  private smoothPanel(x: number, y: number, width: number, height: number) {
-    if (this.game.renderer.type === Phaser.CANVAS)
-      return this.add.image(x, y, smoothKey('red'), SMOOTH_FRAME).setDisplaySize(width, height);
-    return this.add.nineslice(x, y, smoothKey('red'), SMOOTH_FRAME, width, height, 30, 30, 14, 14);
-  }
-
   private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,
     action: () => void, target: string, locked = false, reward = false, label = '') {
     const art = this.add.image(x, y, smoothKey(normal), SMOOTH_FRAME).setName(label);
+    const slot = rect(x - width / 2 + 2, y - height / 2 + 2, width - 4, height - 4);
+    const spec = LOBBY_SKIN_CONTENT[normal];
+    const geometry = fitTexture(art.frame, slot);
+    const dynamic = spec.bakedLabel ? undefined : this.content.field(`${target}.label`,
+      geometry.project(skinContent(normal, art.frame.width, art.frame.height)), label,
+      { size: 21, minSize: 14, padding: 3, align: 'center', color: '#fff3ce' });
     const paint = (state: 'rest' | 'hover' | 'press') => {
-      art.setTexture(smoothKey(state === 'rest' ? normal : active), SMOOTH_FRAME);
+      // The kit's selected summon crop has a clipped right edge. Tint the complete default instead.
+      const selected = active === 'summonActive' ? normal : active;
+      const skin = state === 'rest' ? normal : selected;
+      art.setTexture(smoothKey(skin), SMOOTH_FRAME);
       const frame = art.frame;
-      const fit = Math.min((width - 4) / frame.width, (height - 4) / frame.height);
-      art.setScale(fit * (state === 'press' ? 0.95 : 1)).setAlpha(locked ? 0.58 : 1);
-      if (state === 'hover' && normal === active) art.setTint(0xffe4b4); else art.clearTint();
+      const fit = spec.bakedLabel ? fitLabelledTexture(frame, slot, skinContent(skin, frame.width, frame.height))
+        : fitTexture(frame, slot);
+      art.setPosition(fit.bounds.x + fit.bounds.width / 2, fit.bounds.y + fit.bounds.height / 2)
+        .setScale(fit.scale * (state === 'press' ? 0.95 : 1)).setAlpha(locked ? 0.58 : 1);
+      dynamic?.setScale(state === 'press' ? 0.95 : 1);
+      if (state === 'hover' && normal === selected) art.setTint(0xffe4b4); else art.clearTint();
     };
     paint('rest');
+    if (spec.bakedLabel) {
+      const sourceLabel = skinContent(normal, art.frame.width, art.frame.height);
+      const body = rect(art.x - art.displayWidth / 2 + sourceLabel.x * art.scaleX,
+        art.y - art.displayHeight / 2 + sourceLabel.y * art.scaleY, sourceLabel.width * art.scaleX, sourceLabel.height * art.scaleY);
+      this.content.region(`${target}.baked`, body); this.content.outline(body, 0xf6bc4a);
+    }
     if (reward) this.add.circle(x + width * 0.3, y - height * 0.32, 7, 0xe83c45).setStrokeStyle(2, GOLD);
     const hit = this.add.zone(x, y, width, height).setName(target).setInteractive({ useHandCursor: true });
     this.tutorialTarget(target, hit);
@@ -263,13 +305,17 @@ export class LobbyScene extends UiScene {
 
   private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean) {
     // Kit side-nav default/selected PNGs contain baked red dots. Use a clean blank frame instead.
-    const panel = this.smoothPanel(111, y, 204, 65).setAlpha(locked ? 0.76 : 1);
-    this.add.image(43, y, 'lobby-icons', frame).setDisplaySize(49, 49).setAlpha(locked ? 0.65 : 1);
-    this.text(134, y, label, 17, CREAM, { fontStyle: 'bold', stroke: '#321420', strokeThickness: 3 }).setOrigin(0.5);
-    if (locked) this.text(198, y - 23, '🔒', 13).setOrigin(0.5);
+    const panel = this.content.frame(`side.${frame}`, smoothKey('red'), rect(9, y - 36, 204, 72), SMOOTH_FRAME);
+    panel.image.setAlpha(locked ? 0.76 : 1);
+    const inner = panel.project(LOBBY_SKIN_CONTENT.red.content);
+    const iconSize = inner.height - 4;
+    const icon = this.add.image(inner.x + iconSize / 2, inner.y + inner.height / 2, 'lobby-icons', frame);
+    icon.setScale(iconSize / icon.frame.width).setAlpha(locked ? 0.65 : 1);
+    this.content.field(`side.${frame}.label`, rect(inner.x + iconSize + 5, inner.y, inner.width - iconSize - 7, inner.height),
+      label, { size: 17, minSize: 13, align: 'center', padding: 2 });
     const hit = this.add.zone(111, y, 210, 76).setName(`lobby.${frame}`).setInteractive({ useHandCursor: true });
     this.tutorialTarget(`lobby.${frame}`, hit);
-    this.bindLobbyHit(hit, action, state => panel.setAlpha(state === 'press' ? 0.65 : locked ? 0.76 : 1));
+    this.bindLobbyHit(hit, action, state => panel.image.setAlpha(state === 'press' ? 0.65 : locked ? 0.76 : 1));
   }
 
   private bindLobbyHit(hit: Phaser.GameObjects.Zone | Phaser.GameObjects.Sprite, action: () => void,
@@ -284,7 +330,7 @@ export class LobbyScene extends UiScene {
     });
   }
 
-  private popup(kind: 'profile' | 'vip' | 'guild' | 'world') {
+  private popup(kind: 'profile' | 'vip' | 'guild' | 'world' | 'currency', currency?: { name: string; balance: string }) {
     if (this.settingsOpen) return;
     const save = gameStore.snapshot;
     const lead = save.formation.find(id => id) ?? save.heroes[0] ?? 'zhang-fei';
@@ -295,6 +341,7 @@ export class LobbyScene extends UiScene {
       server: import.meta.env.VITE_SUPABASE_URL?.trim() === 'https://ovvlhcpwothevvoblybx.supabase.co' ? 'Staging' : 'Chưa cấu hình',
       level: save.clearedStages.length + 1, power: format(formationPower(save)),
       avatar: this.textures.getBase64(PORTRAITS, atlasOrder.indexOf(lead)),
+      currency,
     }, {
       account: async () => { await openAccount(); if (this.sys.isActive()) this.scene.restart({}); },
       logout: logoutAccount,
