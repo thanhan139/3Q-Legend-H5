@@ -1,0 +1,58 @@
+﻿path,decision,reason
+assets/banners/banner_summon_result.png,STATIC_ONLY,Contains baked Vietnamese words; do not overlay duplicate Phaser text.
+assets/banners/label_keys.png,STATIC_ONLY,Contains baked Vietnamese words; do not overlay duplicate Phaser text.
+assets/banners/label_pity_ssr.png,STATIC_ONLY,Contains baked Vietnamese words; do not overlay duplicate Phaser text.
+assets/banners/label_pity_sss.png,STATIC_ONLY,Contains baked Vietnamese words; do not overlay duplicate Phaser text.
+assets/banners/label_hero_new.png,STATIC_ONLY,Contains baked Vietnamese words; do not overlay duplicate Phaser text.
+assets/banners/label_duplicate_10.png,STATIC_ONLY,Baked +10 mảnh is only correct if actual duplicate reward is 10; prefer live text for dynamic amount.
+assets/cards/frame_r.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_r_glow.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_sr.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_sr_glow.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_ssr.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_ssr_glow.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_sssplus.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/cards/frame_sssplus_glow.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/portrait_frames/portrait_blue.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/portrait_frames/portrait_purple.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/portrait_frames/portrait_gold.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/portrait_frames/portrait_dragon.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/buttons/btn_back_to_summon.png,STATIC_ONLY,Fixed label already baked. Do not duplicate text.
+assets/buttons/btn_view_heroes.png,STATIC_ONLY,Fixed label already baked. Do not duplicate text.
+assets/buttons/btn_summon_1.png,STATIC_ONLY,Fixed label already baked. Do not duplicate text.
+assets/buttons/btn_summon_10.png,STATIC_ONLY,Fixed label already baked. Do not duplicate text.
+assets/ui/pity_track_50_100.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/badges/medal_r.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/badges/medal_sr.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/badges/medal_ssr.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/badges/medal_sssplus.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/fx/portal_blue.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/portal_purple.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/portal_gold.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/portal_red.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/spark_star_gold.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/spark_star_small.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/spark_burst_white.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/spark_burst_red.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/ring_gold_elliptical.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/reveal_card_blue.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/reveal_card_purple.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/reveal_card_gold.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/reveal_card_red.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/arc_blue.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/arc_purple.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/arc_gold.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/arc_red.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/beam_blue.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/beam_purple.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/beam_gold.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/beam_red.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/fx/sparkle_cluster.png,REVIEW_BEFORE_RUNTIME,AI-generated low-alpha glow may bleed on dark backgrounds or include other FX; inspect in actual WebGL scene.
+assets/ui/plate_red_blank.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/ui/plate_parchment_blank.png,KEEP_RUNTIME,Intended for live UI; place player data as separate dynamic layers.
+assets/ui/divider_ornate_center.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/ui/cloud_single.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/ui/cloud_double.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/ui/corner_gold.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/ui/vertical_banner.png,REVIEW_BEFORE_RUNTIME,Decorative sprite; check edges/crop before use.
+assets/background/summon_hall_from_existing_source.png,OPTIONAL_FALLBACK,"Use newest existing source summon hall, avoid replacing newer art."

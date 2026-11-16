@@ -1,0 +1,481 @@
+{
+  "source": "summon_visual_kit_v1",
+  "assets": [
+    {
+      "texture_key": "summon_banner_summon_result",
+      "path": "assets/banners/banner_summon_result.png",
+      "width": 645,
+      "height": 189,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_label_keys",
+      "path": "assets/banners/label_keys.png",
+      "width": 266,
+      "height": 88,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_label_pity_ssr",
+      "path": "assets/banners/label_pity_ssr.png",
+      "width": 252,
+      "height": 89,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_label_pity_sss",
+      "path": "assets/banners/label_pity_sss.png",
+      "width": 251,
+      "height": 89,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_label_hero_new",
+      "path": "assets/banners/label_hero_new.png",
+      "width": 289,
+      "height": 95,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_label_duplicate_10",
+      "path": "assets/banners/label_duplicate_10.png",
+      "width": 302,
+      "height": 95,
+      "group": "banners",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_r",
+      "path": "assets/cards/frame_r.png",
+      "width": 163,
+      "height": 251,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_r_glow",
+      "path": "assets/cards/frame_r_glow.png",
+      "width": 180,
+      "height": 288,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_sr",
+      "path": "assets/cards/frame_sr.png",
+      "width": 164,
+      "height": 256,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_sr_glow",
+      "path": "assets/cards/frame_sr_glow.png",
+      "width": 179,
+      "height": 297,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_ssr",
+      "path": "assets/cards/frame_ssr.png",
+      "width": 159,
+      "height": 263,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_ssr_glow",
+      "path": "assets/cards/frame_ssr_glow.png",
+      "width": 180,
+      "height": 307,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_sssplus",
+      "path": "assets/cards/frame_sssplus.png",
+      "width": 179,
+      "height": 311,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_frame_sssplus_glow",
+      "path": "assets/cards/frame_sssplus_glow.png",
+      "width": 195,
+      "height": 317,
+      "group": "cards",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portrait_blue",
+      "path": "assets/portrait_frames/portrait_blue.png",
+      "width": 138,
+      "height": 133,
+      "group": "portrait_frames",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portrait_purple",
+      "path": "assets/portrait_frames/portrait_purple.png",
+      "width": 145,
+      "height": 133,
+      "group": "portrait_frames",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portrait_gold",
+      "path": "assets/portrait_frames/portrait_gold.png",
+      "width": 152,
+      "height": 144,
+      "group": "portrait_frames",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portrait_dragon",
+      "path": "assets/portrait_frames/portrait_dragon.png",
+      "width": 156,
+      "height": 154,
+      "group": "portrait_frames",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_btn_back_to_summon",
+      "path": "assets/buttons/btn_back_to_summon.png",
+      "width": 406,
+      "height": 99,
+      "group": "buttons",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_btn_view_heroes",
+      "path": "assets/buttons/btn_view_heroes.png",
+      "width": 375,
+      "height": 101,
+      "group": "buttons",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_btn_summon_1",
+      "path": "assets/buttons/btn_summon_1.png",
+      "width": 289,
+      "height": 99,
+      "group": "buttons",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_btn_summon_10",
+      "path": "assets/buttons/btn_summon_10.png",
+      "width": 329,
+      "height": 99,
+      "group": "buttons",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_pity_track_50_100",
+      "path": "assets/ui/pity_track_50_100.png",
+      "width": 790,
+      "height": 107,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_medal_r",
+      "path": "assets/badges/medal_r.png",
+      "width": 127,
+      "height": 93,
+      "group": "badges",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_medal_sr",
+      "path": "assets/badges/medal_sr.png",
+      "width": 123,
+      "height": 93,
+      "group": "badges",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_medal_ssr",
+      "path": "assets/badges/medal_ssr.png",
+      "width": 126,
+      "height": 96,
+      "group": "badges",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_medal_sssplus",
+      "path": "assets/badges/medal_sssplus.png",
+      "width": 163,
+      "height": 100,
+      "group": "badges",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portal_blue",
+      "path": "assets/fx/portal_blue.png",
+      "width": 143,
+      "height": 91,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portal_purple",
+      "path": "assets/fx/portal_purple.png",
+      "width": 155,
+      "height": 94,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portal_gold",
+      "path": "assets/fx/portal_gold.png",
+      "width": 136,
+      "height": 94,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_portal_red",
+      "path": "assets/fx/portal_red.png",
+      "width": 160,
+      "height": 96,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_spark_star_gold",
+      "path": "assets/fx/spark_star_gold.png",
+      "width": 130,
+      "height": 101,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_spark_star_small",
+      "path": "assets/fx/spark_star_small.png",
+      "width": 111,
+      "height": 101,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_spark_burst_white",
+      "path": "assets/fx/spark_burst_white.png",
+      "width": 150,
+      "height": 102,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_spark_burst_red",
+      "path": "assets/fx/spark_burst_red.png",
+      "width": 151,
+      "height": 103,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_ring_gold_elliptical",
+      "path": "assets/fx/ring_gold_elliptical.png",
+      "width": 276,
+      "height": 96,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_reveal_card_blue",
+      "path": "assets/fx/reveal_card_blue.png",
+      "width": 108,
+      "height": 74,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_reveal_card_purple",
+      "path": "assets/fx/reveal_card_purple.png",
+      "width": 81,
+      "height": 76,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_reveal_card_gold",
+      "path": "assets/fx/reveal_card_gold.png",
+      "width": 99,
+      "height": 76,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_reveal_card_red",
+      "path": "assets/fx/reveal_card_red.png",
+      "width": 91,
+      "height": 77,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_arc_blue",
+      "path": "assets/fx/arc_blue.png",
+      "width": 116,
+      "height": 82,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_arc_purple",
+      "path": "assets/fx/arc_purple.png",
+      "width": 118,
+      "height": 89,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_arc_gold",
+      "path": "assets/fx/arc_gold.png",
+      "width": 112,
+      "height": 86,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_arc_red",
+      "path": "assets/fx/arc_red.png",
+      "width": 101,
+      "height": 89,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_beam_blue",
+      "path": "assets/fx/beam_blue.png",
+      "width": 85,
+      "height": 96,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_beam_purple",
+      "path": "assets/fx/beam_purple.png",
+      "width": 89,
+      "height": 92,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_beam_gold",
+      "path": "assets/fx/beam_gold.png",
+      "width": 89,
+      "height": 94,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_beam_red",
+      "path": "assets/fx/beam_red.png",
+      "width": 67,
+      "height": 89,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_sparkle_cluster",
+      "path": "assets/fx/sparkle_cluster.png",
+      "width": 231,
+      "height": 111,
+      "group": "fx",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_plate_red_blank",
+      "path": "assets/ui/plate_red_blank.png",
+      "width": 294,
+      "height": 110,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_plate_parchment_blank",
+      "path": "assets/ui/plate_parchment_blank.png",
+      "width": 263,
+      "height": 111,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_divider_ornate_center",
+      "path": "assets/ui/divider_ornate_center.png",
+      "width": 250,
+      "height": 110,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_cloud_single",
+      "path": "assets/ui/cloud_single.png",
+      "width": 119,
+      "height": 76,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_cloud_double",
+      "path": "assets/ui/cloud_double.png",
+      "width": 155,
+      "height": 81,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_corner_gold",
+      "path": "assets/ui/corner_gold.png",
+      "width": 151,
+      "height": 94,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_vertical_banner",
+      "path": "assets/ui/vertical_banner.png",
+      "width": 154,
+      "height": 101,
+      "group": "ui",
+      "usage": "runtime"
+    },
+    {
+      "texture_key": "summon_hall_existing",
+      "path": "assets/background/summon_hall_from_existing_source.png",
+      "width": 1280,
+      "height": 720,
+      "group": "background",
+      "usage": "optional-existing-source"
+    }
+  ],
+  "hero_portraits": "reuse latest src hero portraits: heroPresentation.portrait() or suitable existing high-res hero sprite; not generated text cards",
+  "recommended_design": {
+    "base_width": 1280,
+    "base_height": 720,
+    "cards_x_centers": [
+      175,
+      407,
+      640,
+      873,
+      1105
+    ],
+    "cards_y_centers": [
+      278,
+      497
+    ],
+    "results_slot_width": 208,
+    "results_slot_height": 230,
+    "top_hero_card_height": 230,
+    "bottom_nav_baseline": 665
+  }
+}

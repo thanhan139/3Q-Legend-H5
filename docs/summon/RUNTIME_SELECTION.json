@@ -1,0 +1,46 @@
+{
+  "selected": [
+    {
+      "path": "public/assets/summon/complete/banners/banner_summon_result.png",
+      "sha256": "c819a421b686c0e4413e956d9c1923d62e685f43c7a5e265421fb6ee17fee5be"
+    },
+    {
+      "path": "public/assets/summon/complete/buttons/btn_back_to_summon.png",
+      "sha256": "e2756a95a93320dd8cb16b4193fc2840af105d721ef32455a75afa2143967eeb"
+    },
+    {
+      "path": "public/assets/summon/complete/buttons/btn_summon_1.png",
+      "sha256": "ee5c8aa8968e4413e0c9acb9ba4041b5eefaf1f6db974166e6242e8c570f0a6d"
+    },
+    {
+      "path": "public/assets/summon/complete/buttons/btn_summon_10.png",
+      "sha256": "7ecf94e1cbabe864a7c9a03356a5e9b898a64c0259355eeb3671b836d5dca7e2"
+    },
+    {
+      "path": "public/assets/summon/complete/buttons/btn_view_heroes.png",
+      "sha256": "d204b4181e6a184ef7e9ad6c08c994acaeedd3e7af23aad8a940434c612db123"
+    },
+    {
+      "path": "public/assets/summon/complete/portrait_frames/portrait_blue.png",
+      "sha256": "555f977bfb956fd204aa0054caf7ae1b15eb0574aacedd76c63eb82eadd69804"
+    },
+    {
+      "path": "public/assets/summon/complete/portrait_frames/portrait_dragon.png",
+      "sha256": "50be0ec86c3f8673eaf715afbcf6b151158789be2642700e51991873ecb09c92"
+    },
+    {
+      "path": "public/assets/summon/complete/portrait_frames/portrait_gold.png",
+      "sha256": "a4615e2556fe04bf0399e018e73e04ef31db05ac50a904a3aab7aab6b0cf6841"
+    },
+    {
+      "path": "public/assets/summon/complete/portrait_frames/portrait_purple.png",
+      "sha256": "7f239445901bf435b3c5a1bdf0ce944f9782506c08136468f626a88ba2a8d181"
+    },
+    {
+      "path": "public/assets/summon/complete/ui/plate_red_blank.png",
+      "sha256": "8439dacb5a10ec835e05edd0a8f205d0b441154394a4f494e5beeab31d495311"
+    }
+  ],
+  "reference_images_imported": false,
+  "original_png_bytes_preserved": true
+}

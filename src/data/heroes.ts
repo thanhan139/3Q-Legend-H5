@@ -32,11 +32,11 @@ export const HEROES: readonly HeroDefinition[] = roster.map(hero => ({
 }));
 
 export const HERO_BY_ID: Record<string, HeroDefinition> = Object.fromEntries(HEROES.map(h => [h.id, h]));
-export const SUMMON_RATES: Record<Rarity, number> = { R:0.8, SR:0.17, SSR:0.025, 'SSS+':0.005 };
+export const SUMMON_RATES: Record<Rarity, number> = { R:0.75, SR:0.20, SSR:0.042, 'SSS+':0.008 };
 export const PITY_LIMIT = 50;
 export const SLOT_COUNT = 6;
 
-export const LEGENDARY_PITY_LIMIT = 200;
+export const LEGENDARY_PITY_LIMIT = 100;
 export const HERO_RARITIES = ['R', 'SR', 'SSR', 'SSS+'] as const;
 export const SSS_ROADMAP = [
   { name: 'Tư Mã Ý', baseHeroId: 'sima-yi' }, { name: 'Chu Du', baseHeroId: 'zhou-yu' },
