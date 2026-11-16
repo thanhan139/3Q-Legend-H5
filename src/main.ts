@@ -16,13 +16,14 @@ import { SummonScene } from './scenes/SummonScene';
 import { TopupScene } from './scenes/TopupScene';
 import { InventoryScene } from './scenes/InventoryScene';
 import { InfoScene } from './scenes/InfoScene';
+import { bindViewportResize } from './ui/resizeViewport';
 
 const config:Phaser.Types.Core.GameConfig={
   type:Phaser.AUTO,
   parent:'game',
   width:1280,height:720,
   backgroundColor:'#14213a',
-  scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},
+  scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH,fullscreenTarget:document.documentElement},
   render:{antialias:true,pixelArt:false},
   callbacks: { postBoot: game => { new OnboardingController(game); } },
   scene:[BootScene,LobbyScene,HeroesScene,FormationScene,CampaignScene,
@@ -31,12 +32,4 @@ const config:Phaser.Types.Core.GameConfig={
 const game = new Phaser.Game(config);
 const parent = document.getElementById('game');
 
-if (parent) {
-  const observer = new ResizeObserver(([entry]) => {
-    if (!game.isRunning) return;
-    const { width, height } = entry.contentRect;
-    if (width > 0 && height > 0) game.scale.setParentSize(width, height);
-  });
-  observer.observe(parent);
-  game.events.once(Phaser.Core.Events.DESTROY, () => observer.disconnect());
-}
+if (parent) bindViewportResize(game, parent);

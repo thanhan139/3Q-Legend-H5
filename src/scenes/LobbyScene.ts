@@ -19,6 +19,7 @@ import { openLobbyDialog } from '../ui/lobbyDialog';
 import { portrait, PORTRAITS, atlasOrder } from '../ui/heroPresentation';
 import { UiScene } from '../ui/UiScene';
 import { LOBBY_DOCK, loadLobbySmooth, prepareLobbySmooth, smoothKey, SMOOTH_FRAME, type LobbySkin } from '../ui/lobbySmoothAssets';
+import { coverScale, readSafeInsets, viewportLayout } from '../ui/viewport';
 
 const GOLD = 0xe7b761;
 const INK = 0x211723;
@@ -31,6 +32,20 @@ export class LobbyScene extends UiScene {
   private settingsOpen = false;
   private closePopup?: () => void;
   private musicTimer?: Phaser.Time.TimerEvent;
+  private anchors: (() => void)[] = [];
+
+  private layout() {
+    const { width, height } = this.scale.gameSize;
+    return viewportLayout(width, height, readSafeInsets(this.game.canvas.getBoundingClientRect().width / width));
+  }
+
+  private anchor(draw: () => void, locate: (layout: ReturnType<typeof viewportLayout>) => { x: number; y: number }) {
+    const start = this.children.length;
+    draw();
+    const content = this.children.list.slice(start);
+    const group = this.add.container(0, 0, content);
+    this.anchors.push(() => { const point = locate(this.layout()); group.setPosition(point.x, point.y); });
+  }
 
   constructor() { super('Lobby'); }
 
@@ -45,6 +60,10 @@ export class LobbyScene extends UiScene {
   }
 
   create({ settings = false }: { settings?: boolean } = {}) {
+    this.anchors = [];
+    const resize = () => { for (const place of this.anchors) place(); };
+    this.scale.on(Phaser.Scale.Events.RESIZE, resize);
+    this.events.once('shutdown', () => this.scale.off(Phaser.Scale.Events.RESIZE, resize));
     prepareLobbySmooth(this);
     if (cloudRepository.active) {
       let active = true;
@@ -79,97 +98,123 @@ export class LobbyScene extends UiScene {
     this.add.rectangle(640, 360, 1280, 720, INK);
     const palace = LOBBY_ASSETS.palace.key;
     if (this.textures.exists(palace)) {
-      const background = this.add.image(640, 360, palace).setDisplaySize(1288, 726);
+      const background = this.add.image(640, 360, palace);
+      const cover = () => {
+        const { width, height } = this.scale.gameSize;
+        background.setPosition(width / 2, height / 2)
+          .setScale(coverScale(background.frame.width, background.frame.height, width + 8, height + 8));
+      };
+      this.anchors.push(cover);
       if (this.preferences.effects && this.preferences.quality === 'Cao') {
-        this.tweens.add({ targets: background, x: 643, duration: 5200, yoyo: true, repeat: -1 });
+        // Animate opacity, keeping cover edges stable during browser resizing.
+        this.tweens.add({ targets: background, alpha: 0.94, duration: 5200, yoyo: true, repeat: -1 });
       }
     }
-    if (this.preferences.effects) this.ambientEffects();
+    this.anchor(() => { if (this.preferences.effects) this.ambientEffects(); }, l => ({ x: l.centerX, y: l.centerY }));
     this.add.rectangle(640, 360, 1280, 720, 0x1a0f28, 0.16);
-    this.add.rectangle(640, 51, 1280, 102, INK, 0.75);
+    const header = this.add.rectangle(640, 51, 1280, 102, INK, 0.75);
+    this.anchors.push(() => header.setPosition(this.scale.width / 2, 51).setSize(this.scale.width, 102));
     const dockFrame = this.add.graphics();
-    dockFrame.fillGradientStyle(0x6d252c, 0x6d252c, 0x281421, 0x281421, 0.96);
-    dockFrame.fillRoundedRect(18, 620, 1244, 92, 34);
-    dockFrame.lineStyle(2, GOLD, 0.85).strokeRoundedRect(18, 620, 1244, 92, 34);
-    dockFrame.lineStyle(1, 0xffe2a2, 0.3).strokeRoundedRect(25, 627, 1230, 78, 28);
-
-    const profileFrame = this.smoothPanel(243, 81, 446, 130);
-    this.add.circle(79, 75, 47, 0x3d1e25).setStrokeStyle(3, GOLD);
-    const face = portrait(this, 79, 75, 86, lead);
-    const avatarClip = this.make.graphics({ x: 0, y: 0 });
-    avatarClip.fillStyle(0xffffff).fillCircle(79, 75, 42);
-    const avatarMask = avatarClip.createGeometryMask(); face.setMask(avatarMask);
-    this.events.once('shutdown', () => { avatarMask.destroy(); avatarClip.destroy(); });
-    this.text(143, 33, 'CHÚA CÔNG', 10, '#cfa969', { letterSpacing: 1 });
-    const name = this.text(143, 49, save.playerName, 22, CREAM, { fontStyle: 'bold' });
-    if (name.width > 212) name.setScale(212 / name.width, 1);
-    this.text(143, 78, `Cấp ${save.clearedStages.length + 1}`, 16, '#e8cfaf');
-    this.text(143, 106, `LỰC CHIẾN  ${format(power)}`, 21, '#ffce75', { fontStyle: 'bold' });
-    const profileHit = this.add.zone(243, 81, 446, 130).setInteractive({ useHandCursor: true });
-    this.bindLobbyHit(profileHit, () => this.popup('profile'), value => {
-      profileFrame.setAlpha(value === 'press' ? 0.78 : 1);
-    });
-    const vip = this.smoothPanel(408, 48, 85, 37);
-    // SaveV2 has no VIP progression field. Never substitute the kit's sample VIP 8.
-    this.text(408, 48, 'VIP —', 16, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
-    const vipHit = this.add.zone(408, 58, 83, 80).setInteractive({ useHandCursor: true });
-    this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
-      vip.setAlpha(value === 'press' ? 0.75 : 1);
+    this.anchors.push(() => {
+      const l = this.layout(), width = l.contentWidth;
+      dockFrame.clear().setPosition(l.left, l.bottom);
+      dockFrame.fillGradientStyle(0x6d252c, 0x6d252c, 0x281421, 0x281421, 0.96);
+      dockFrame.fillRoundedRect(18, 620, width - 36, 92, 34);
+      dockFrame.lineStyle(2, GOLD, 0.85).strokeRoundedRect(18, 620, width - 36, 92, 34);
+      dockFrame.lineStyle(1, 0xffe2a2, 0.3).strokeRoundedRect(25, 627, width - 50, 78, 28);
     });
 
-    const { copper, gold } = walletBalance(save);
-    const resources = [['Đồng', copper], ['Vàng', gold]] as const;
-    resources.forEach(([label, value], index) => {
-      const x = 923 + index * 168;
-      this.smoothPanel(x + 76.5, 50.5, 153, 57);
-      if (index === 0) this.add.image(x + 25, 50, welfareKey('copper_icon')).setDisplaySize(36, 36);
-      else this.add.image(x + 25, 50, 'lobby-icons', 12).setDisplaySize(36, 36);
-      this.text(x + 98, 41, label, 13, '#ebc891').setOrigin(0.5);
-      const amount = this.text(x + 98, 60, format(value), 18, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
-      if (amount.width > 90) amount.setScale(90 / amount.width, 1);
-    });
+    this.anchor(() => {
+      const profileFrame = this.smoothPanel(243, 81, 446, 130);
+      this.add.circle(79, 75, 47, 0x3d1e25).setStrokeStyle(3, GOLD);
+      const face = portrait(this, 79, 75, 86, lead);
+      const avatarClip = this.make.graphics({ x: 0, y: 0 });
+      avatarClip.fillStyle(0xffffff).fillCircle(79, 75, 42);
+      const avatarMask = avatarClip.createGeometryMask(); face.setMask(avatarMask);
+      this.anchors.push(() => { const l = this.layout(); avatarClip.setPosition(l.left, l.top); });
+      this.events.once('shutdown', () => { avatarMask.destroy(); avatarClip.destroy(); });
+      this.text(143, 33, 'CHÚA CÔNG', 10, '#cfa969', { letterSpacing: 1 });
+      const name = this.text(143, 49, save.playerName, 22, CREAM, { fontStyle: 'bold' });
+      if (name.width > 212) name.setScale(212 / name.width);
+      this.text(143, 78, `Cấp ${save.clearedStages.length + 1}`, 16, '#e8cfaf');
+      const powerLabel = this.text(143, 106, `LỰC CHIẾN  ${format(power)}`, 21, '#ffce75', { fontStyle: 'bold' });
+      if (powerLabel.width > 300) powerLabel.setScale(300 / powerLabel.width);
+      const profileHit = this.add.zone(243, 81, 446, 130).setName('lobby.profile').setInteractive({ useHandCursor: true });
+      this.bindLobbyHit(profileHit, () => this.popup('profile'), value => {
+        profileFrame.setAlpha(value === 'press' ? 0.78 : 1);
+      });
+      const vip = this.smoothPanel(408, 48, 85, 37);
+      // SaveV2 has no VIP progression field. Never substitute the kit's sample VIP 8.
+      this.text(408, 48, 'VIP —', 16, '#ffe19b', { fontStyle: 'bold' }).setOrigin(0.5);
+      const vipHit = this.add.zone(408, 58, 83, 80).setName('lobby.vip').setInteractive({ useHandCursor: true });
+      this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
+        vip.setAlpha(value === 'press' ? 0.75 : 1);
+      });
+    }, l => ({ x: l.left, y: l.top }));
 
-    const companions = deployed.filter(hero => hero.id !== lead.id);
-    this.showHero(440, 552, 246, companions[0]?.id, 0x68dacd);
-    this.showHero(840, 552, 246, companions[1]?.id, 0xd991ff);
-    this.showHero(640, 584, 282, lead.id, 0xffc764);
-    this.text(640, 606, lead.name, 23, CREAM,
-      { fontFamily: 'Georgia, serif', fontStyle: 'bold', stroke: '#261526', strokeThickness: 6 }).setOrigin(0.5);
+    this.anchor(() => {
+      const { copper, gold } = walletBalance(save);
+      const resources = [['Đồng', copper], ['Vàng', gold]] as const;
+      resources.forEach(([label, value], index) => {
+        const x = 923 + index * 168;
+        this.smoothPanel(x + 76.5, 50.5, 153, 57);
+        if (index === 0) this.add.image(x + 25, 50, welfareKey('copper_icon')).setDisplaySize(36, 36);
+        else this.add.image(x + 25, 50, 'lobby-icons', 12).setDisplaySize(36, 36);
+        this.text(x + 98, 41, label, 13, '#ebc891').setOrigin(0.5);
+        const amount = this.text(x + 98, 60, format(value), 18, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
+        if (amount.width > 90) amount.setScale(90 / amount.width);
+      });
+    }, l => ({ x: l.right, y: l.top }));
 
-    const upper = [
-      [0, 'Phúc Lợi', () => this.go('Info', { page: 'Welfare' })],
-      [1, 'Nạp Đầu', () => this.go('Info', { page: 'Topup' })],
-      [2, 'Điểm Danh', () => this.go('Info', { page: 'Checkin' })],
-      [3, 'Hộp Thư', () => this.go('Info', { page: 'Mail' })],
-      [4, 'Nhiệm Vụ', () => this.go('Info', { page: 'Missions' })],
-      [14, 'Cài Đặt', () => this.scene.restart({ settings: true })],
-    ] as const;
-    const welfare = welfareStatus(save);
-    const rewardDots = [welfare.checkIn || welfare.missions.length > 0 || welfare.topup,
-      welfare.topup, welfare.checkIn, false, welfare.missions.length > 0];
-    upper.forEach(([icon, label, action], index) => {
-      const skins: LobbySkin[] = ['welfare', 'topup', 'checkin', 'mail', 'missions', 'settings'];
-      this.skinButton(687 + index * 105, 133, 100, 92, skins[index], skins[index], action,
-        `lobby.${icon}`, false, rewardDots[index], label);
-    });
+    this.anchor(() => {
+      const companions = deployed.filter(hero => hero.id !== lead.id);
+      this.showHero(440, 552, 246, companions[0]?.id, 0x68dacd);
+      this.showHero(840, 552, 246, companions[1]?.id, 0xd991ff);
+      this.showHero(640, 584, 282, lead.id, 0xffc764);
+      this.text(640, 606, lead.name, 23, CREAM,
+        { fontFamily: 'Georgia, serif', fontStyle: 'bold', stroke: '#261526', strokeThickness: 6 }).setOrigin(0.5);
+    }, l => ({ x: l.centerX, y: l.centerY }));
 
-    this.sideButton(228, 6, 'Bang Hội', () => this.popup('guild'), true);
-    this.sideButton(343, 7, 'Đấu Trường', () => this.go('Arena'), false);
-    this.sideButton(458, 8, 'Thế Giới', () => this.popup('world'), true);
+    this.anchor(() => {
+      const upper = [
+        [0, 'Phúc Lợi', () => this.go('Info', { page: 'Welfare' })],
+        [1, 'Nạp Đầu', () => this.go('Info', { page: 'Topup' })],
+        [2, 'Điểm Danh', () => this.go('Info', { page: 'Checkin' })],
+        [3, 'Hộp Thư', () => this.go('Info', { page: 'Mail' })],
+        [4, 'Nhiệm Vụ', () => this.go('Info', { page: 'Missions' })],
+        [14, 'Cài Đặt', () => this.scene.restart({ settings: true })],
+      ] as const;
+      const welfare = welfareStatus(save);
+      const rewardDots = [welfare.checkIn || welfare.missions.length > 0 || welfare.topup,
+        welfare.topup, welfare.checkIn, false, welfare.missions.length > 0];
+      upper.forEach(([icon, label, action], index) => {
+        const skins: LobbySkin[] = ['welfare', 'topup', 'checkin', 'mail', 'missions', 'settings'];
+        this.skinButton(687 + index * 105, 133, 100, 92, skins[index], skins[index], action,
+          `lobby.${icon}`, false, rewardDots[index], label);
+      });
+    }, l => ({ x: l.right, y: l.top }));
 
-    this.smoothPanel(1120, 512, 275, 200);
-    this.text(1120, 435, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
-    const clearedAll = save.clearedStages.length === STAGES.length;
-    this.text(1120, 460, clearedAll ? 'Đã vượt toàn bộ ải'
-      : `Chương ${stage?.chapter} · Ải ${stage?.id}`, 19, '#ffda98').setOrigin(0.5);
-    if (!clearedAll) this.text(1120, 484, `Lực chiến đề xuất  ${format(recommended)}`,
-      16, CREAM).setOrigin(0.5);
-    const cleared = STAGES.filter(entry => save.clearedStages.includes(entry.id)).length;
-    this.add.rectangle(1120, 506, 228, 6, 0x1c111c).setStrokeStyle(1, GOLD, 0.5);
-    if (cleared) this.add.rectangle(1006, 506, 228 * cleared / STAGES.length, 4, GOLD).setOrigin(0, 0.5);
-    this.text(1120, 521, `Tiến trình ${cleared}/${STAGES.length} ải`, 12, '#e8cfaf').setOrigin(0.5);
-    this.skinButton(1120, 566, 246, 75, 'campaign', 'campaignActive', () => this.go('Campaign'),
-      'lobby.campaign', false, false, 'Chinh Chiến');
+    this.anchor(() => {
+      this.sideButton(228, 6, 'Bang Hội', () => this.popup('guild'), true);
+      this.sideButton(343, 7, 'Đấu Trường', () => this.go('Arena'), false);
+      this.sideButton(458, 8, 'Thế Giới', () => this.popup('world'), true);
+    }, l => ({ x: l.left, y: l.centerY }));
+
+    this.anchor(() => {
+      this.smoothPanel(1120, 512, 275, 200);
+      this.text(1120, 435, 'HÀNH TRÌNH THIÊN HẠ', 12, '#d5b277', { letterSpacing: 1 }).setOrigin(0.5);
+      const clearedAll = save.clearedStages.length === STAGES.length;
+      this.text(1120, 460, clearedAll ? 'Đã vượt toàn bộ ải'
+        : `Chương ${stage?.chapter} · Ải ${stage?.id}`, 19, '#ffda98').setOrigin(0.5);
+      if (!clearedAll) this.text(1120, 484, `Lực chiến đề xuất  ${format(recommended)}`,
+        16, CREAM).setOrigin(0.5);
+      const cleared = STAGES.filter(entry => save.clearedStages.includes(entry.id)).length;
+      this.add.rectangle(1120, 506, 228, 6, 0x1c111c).setStrokeStyle(1, GOLD, 0.5);
+      if (cleared) this.add.rectangle(1006, 506, 228 * cleared / STAGES.length, 4, GOLD).setOrigin(0, 0.5);
+      this.text(1120, 521, `Tiến trình ${cleared}/${STAGES.length} ải`, 12, '#e8cfaf').setOrigin(0.5);
+      this.skinButton(1120, 566, 246, 75, 'campaign', 'campaignActive', () => this.go('Campaign'),
+        'lobby.campaign', false, false, 'Chinh Chiến');
+    }, l => ({ x: l.right, y: l.bottom }));
 
     const dock = [
       [9, 'Đội Hình', () => this.go('Formation')],
@@ -181,12 +226,15 @@ export class LobbyScene extends UiScene {
     const dockSkins: [LobbySkin, LobbySkin][] = [['formation', 'formationActive'], ['heroes', 'heroesActive'],
       ['inventory', 'inventoryActive'], ['summon', 'summonActive']];
     dock.forEach(([icon, label, action], i) => {
-      const locked = i === 3 && !gameStore.isSummonUnlocked();
-      this.skinButton(LOBBY_DOCK.centers[i], LOBBY_DOCK.y, LOBBY_DOCK.width, LOBBY_DOCK.height,
-        ...dockSkins[i], action, `lobby.${icon}`, locked, false, label);
-      if (locked) this.text(LOBBY_DOCK.centers[i] + 58, 610, '🔒', 17).setOrigin(0.5);
+      this.anchor(() => {
+        const locked = i === 3 && !gameStore.isSummonUnlocked();
+        this.skinButton(LOBBY_DOCK.centers[i], LOBBY_DOCK.y, LOBBY_DOCK.width, LOBBY_DOCK.height,
+          ...dockSkins[i], action, `lobby.${icon}`, locked, false, label);
+        if (locked) this.text(LOBBY_DOCK.centers[i] + 58, 610, '🔒', 17).setOrigin(0.5);
+      }, l => ({ x: l.dock[i] - LOBBY_DOCK.centers[i], y: l.dockY - LOBBY_DOCK.y }));
     });
-    if (settings) this.drawSettings();
+    if (settings) this.anchor(() => this.drawSettings(), l => ({ x: l.centerX, y: l.centerY }));
+    resize();
     this.cameras.main.fadeIn(180, 17, 14, 20);
   }
 
@@ -268,7 +316,7 @@ export class LobbyScene extends UiScene {
       hasIdle ? 0 : custom ? undefined : battleSpriteFrames.get(id))
       .setOrigin(0.5, 1).setDisplaySize(display, display).setInteractive({ useHandCursor: true });
     if (hasIdle) new HeroAnimationController(sprite, id);
-    else this.tweens.add({ targets: sprite, scaleY: sprite.scaleY * 1.012, duration: 950, yoyo: true, repeat: -1 });
+    else this.tweens.add({ targets: sprite, y: y - 2, duration: 950, yoyo: true, repeat: -1 });
     this.bindLobbyHit(sprite, () => this.go('Heroes', { heroId: id }), state => {
       if (state === 'rest') sprite.clearTint();
       else sprite.setTint(state === 'press' ? 0xd9b88a : 0xffe6bd);
@@ -323,7 +371,12 @@ export class LobbyScene extends UiScene {
   }
 
   private drawSettings() {
-    this.add.rectangle(640, 360, 1280, 720, 0x100a18, 0.81).setInteractive();
+    const shade = this.add.rectangle(640, 360, this.scale.width, this.scale.height, 0x100a18, 0.81).setInteractive();
+    this.anchors.push(() => {
+      const l = this.layout();
+      shade.setPosition(this.scale.width / 2 - l.centerX, this.scale.height / 2 - l.centerY)
+        .setSize(this.scale.width, this.scale.height);
+    });
     this.panel(385, 134, 510, 520, INK, 0.99);
     this.text(640, 178, 'CÀI ĐẶT SẢNH', 29, CREAM, { fontStyle: 'bold' }).setOrigin(0.5);
     const options: [string, keyof LobbySettings][] = [
