@@ -19,7 +19,7 @@ Open the URL printed by Vite (typically `http://localhost:5173`).
 
 Copy `.env.example` to `.env.local`, set the Supabase URL and publishable key for your environment, and restart Vite. Environment files are excluded from Git. The game requires an authenticated session and a confirmed Cloud Save to enter the lobby. Without Supabase configuration the startup screen explains the connection requirement.
 
-For GitHub setup and deployment to the existing staging Vercel project, see [GitHub and Vercel Preview](docs/GITHUB_VERCEL.md). Frontend and Supabase source share this repository; backend deployment remains separate.
+Merge reviewed changes into `main` to update Staging Preview through GitHub Actions. One-time `VERCEL_TOKEN` setup and release checks are documented in [GitHub and Vercel Preview](docs/GITHUB_VERCEL.md). Frontend and Supabase source share this repository; backend deployment remains separate.
 
 Login and session restoration automatically load the character or initialize it once when the server confirms it is missing. No save-source choices are shown. An unfinished M8 tutorial resumes; otherwise the player enters Lobby. See [automatic online login and validation](docs/ONLINE_LOGIN.md).
 
