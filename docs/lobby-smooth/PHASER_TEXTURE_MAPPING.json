@@ -1,0 +1,632 @@
+{
+  "version": "1.0",
+  "design_resolution": [
+    1280,
+    720
+  ],
+  "title": "Smooth Lobby UI: approved concept target",
+  "runtime": [
+    {
+      "key": "lobby_hud_button_settings_gold",
+      "path": "assets/ui/lobby_smooth/hud/button_settings_gold.png",
+      "recommended_use": "hud",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_top_gold_divider",
+      "path": "assets/ui/lobby_smooth/decor/top_gold_divider.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_top_gold_divider_small",
+      "path": "assets/ui/lobby_smooth/decor/top_gold_divider_small.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_bottom_corner_left",
+      "path": "assets/ui/lobby_smooth/decor/bottom_corner_left.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_bottom_corner_right",
+      "path": "assets/ui/lobby_smooth/decor/bottom_corner_right.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_gold_cloud_left",
+      "path": "assets/ui/lobby_smooth/decor/gold_cloud_left.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_gold_cloud_middle",
+      "path": "assets/ui/lobby_smooth/decor/gold_cloud_middle.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_gold_cloud_right",
+      "path": "assets/ui/lobby_smooth/decor/gold_cloud_right.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_bottom_nav_formation_default",
+      "path": "assets/ui/lobby_smooth/bottom_nav/formation_default.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_formation_selected",
+      "path": "assets/ui/lobby_smooth/bottom_nav/formation_selected.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_heroes_default",
+      "path": "assets/ui/lobby_smooth/bottom_nav/heroes_default.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_heroes_selected",
+      "path": "assets/ui/lobby_smooth/bottom_nav/heroes_selected.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_inventory_default",
+      "path": "assets/ui/lobby_smooth/bottom_nav/inventory_default.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_inventory_selected",
+      "path": "assets/ui/lobby_smooth/bottom_nav/inventory_selected.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_summon_default",
+      "path": "assets/ui/lobby_smooth/bottom_nav/summon_default.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_bottom_nav_summon_selected",
+      "path": "assets/ui/lobby_smooth/bottom_nav/summon_selected.png",
+      "recommended_use": "bottom_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_campaign_button_chinh_chien_default",
+      "path": "assets/ui/lobby_smooth/campaign/button_chinh_chien_default.png",
+      "recommended_use": "campaign",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_campaign_button_chinh_chien_selected",
+      "path": "assets/ui/lobby_smooth/campaign/button_chinh_chien_selected.png",
+      "recommended_use": "campaign",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_welfare_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/welfare_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_first_topup_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/first_topup_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_checkin_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/checkin_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_mail_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/mail_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_missions_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/missions_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_settings_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/settings_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_fx_gold_base_ring",
+      "path": "assets/ui/lobby_smooth/fx/gold_base_ring.png",
+      "recommended_use": "fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_fx_gold_sparkle_ring",
+      "path": "assets/ui/lobby_smooth/fx/gold_sparkle_ring.png",
+      "recommended_use": "fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_fx_gold_swoosh",
+      "path": "assets/ui/lobby_smooth/fx/gold_swoosh.png",
+      "recommended_use": "fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_fx_glow_strip_with_diamond",
+      "path": "assets/ui/lobby_smooth/fx/glow_strip_with_diamond.png",
+      "recommended_use": "fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_fx_red_ribbon_sweep",
+      "path": "assets/ui/lobby_smooth/fx/red_ribbon_sweep.png",
+      "recommended_use": "fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_feature_icons_welfare_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/welfare_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_first_topup_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/first_topup_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_checkin_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/checkin_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_mail_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/mail_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_missions_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/missions_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_feature_icons_settings_alt_labelled",
+      "path": "assets/ui/lobby_smooth/feature_icons/settings_alt_labelled.png",
+      "recommended_use": "feature_icons",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_guild_default",
+      "path": "assets/ui/lobby_smooth/side_nav/guild_default.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_guild_selected",
+      "path": "assets/ui/lobby_smooth/side_nav/guild_selected.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_guild_locked",
+      "path": "assets/ui/lobby_smooth/side_nav/guild_locked.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_arena_default",
+      "path": "assets/ui/lobby_smooth/side_nav/arena_default.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_arena_selected",
+      "path": "assets/ui/lobby_smooth/side_nav/arena_selected.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_arena_locked",
+      "path": "assets/ui/lobby_smooth/side_nav/arena_locked.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_world_default",
+      "path": "assets/ui/lobby_smooth/side_nav/world_default.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_world_selected",
+      "path": "assets/ui/lobby_smooth/side_nav/world_selected.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_side_nav_world_locked",
+      "path": "assets/ui/lobby_smooth/side_nav/world_locked.png",
+      "recommended_use": "side_nav",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_badge_red_notification_dot",
+      "path": "assets/ui/lobby_smooth/badge/red_notification_dot.png",
+      "recommended_use": "badge",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_hud_empty_button_red",
+      "path": "assets/ui/lobby_smooth/hud/empty_button_red.png",
+      "recommended_use": "hud",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_hud_empty_button_gold",
+      "path": "assets/ui/lobby_smooth/hud/empty_button_gold.png",
+      "recommended_use": "hud",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_decor_gold_flourish_faded",
+      "path": "assets/ui/lobby_smooth/decor/gold_flourish_faded.png",
+      "recommended_use": "decor",
+      "label_baked": false
+    }
+  ],
+  "review_only": [
+    {
+      "key": "lobby_review_frames_avatar_dragon_gold",
+      "path": "assets/ui/lobby_smooth/review_frames/avatar_dragon_gold.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_avatar_silver_blue",
+      "path": "assets/ui/lobby_smooth/review_frames/avatar_silver_blue.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_avatar_small_gold",
+      "path": "assets/ui/lobby_smooth/review_frames/avatar_small_gold.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_avatar_small_silver",
+      "path": "assets/ui/lobby_smooth/review_frames/avatar_small_silver.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_dragon_square",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_dragon_square.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_purple_square",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_purple_square.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_chest",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_chest.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_red_small",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_red_small.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_purple_small",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_purple_small.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_frames_icon_frame_blue_small",
+      "path": "assets/ui/lobby_smooth/review_frames/icon_frame_blue_small.png",
+      "recommended_use": "review_frames",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_badge_lock_gold",
+      "path": "assets/ui/lobby_smooth/review_badge/lock_gold.png",
+      "recommended_use": "review_badge",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_badge_lock_silver",
+      "path": "assets/ui/lobby_smooth/review_badge/lock_silver.png",
+      "recommended_use": "review_badge",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_badge_lock_shield_gold",
+      "path": "assets/ui/lobby_smooth/review_badge/lock_shield_gold.png",
+      "recommended_use": "review_badge",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_badge_lock_shield_purple",
+      "path": "assets/ui/lobby_smooth/review_badge/lock_shield_purple.png",
+      "recommended_use": "review_badge",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_fx_ring_gold",
+      "path": "assets/ui/lobby_smooth/review_fx/ring_gold.png",
+      "recommended_use": "review_fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_fx_ring_blue",
+      "path": "assets/ui/lobby_smooth/review_fx/ring_blue.png",
+      "recommended_use": "review_fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_fx_ring_purple",
+      "path": "assets/ui/lobby_smooth/review_fx/ring_purple.png",
+      "recommended_use": "review_fx",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_winged_red",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_winged_red.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_winged_purple",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_winged_purple.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_simple_red",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_simple_red.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_simple_purple",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_simple_purple.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_small_red",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_small_red.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_panel_small_purple",
+      "path": "assets/ui/lobby_smooth/review_decor/panel_small_purple.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_ribbon_red",
+      "path": "assets/ui/lobby_smooth/review_decor/ribbon_red.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_ribbon_purple",
+      "path": "assets/ui/lobby_smooth/review_decor/ribbon_purple.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_banner_dragon",
+      "path": "assets/ui/lobby_smooth/review_decor/banner_dragon.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_banner_blue",
+      "path": "assets/ui/lobby_smooth/review_decor/banner_blue.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_banner_purple",
+      "path": "assets/ui/lobby_smooth/review_decor/banner_purple.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_banner_team",
+      "path": "assets/ui/lobby_smooth/review_decor/banner_team.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_gold_corner_left",
+      "path": "assets/ui/lobby_smooth/review_decor/gold_corner_left.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_gold_corner_right",
+      "path": "assets/ui/lobby_smooth/review_decor/gold_corner_right.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_ornamental_clouds",
+      "path": "assets/ui/lobby_smooth/review_decor/ornamental_clouds.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_lantern",
+      "path": "assets/ui/lobby_smooth/review_decor/lantern.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_cherry_blossoms",
+      "path": "assets/ui/lobby_smooth/review_decor/cherry_blossoms.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_gold_dragon",
+      "path": "assets/ui/lobby_smooth/review_decor/gold_dragon.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_review_decor_gold_crest",
+      "path": "assets/ui/lobby_smooth/review_decor/gold_crest.png",
+      "recommended_use": "review_decor",
+      "label_baked": false
+    }
+  ],
+  "reference": [
+    {
+      "key": "lobby_reference_player_profile_full_baked",
+      "path": "reference/player_profile_full_baked.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_currency_dong_baked",
+      "path": "reference/currency_dong_baked.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_currency_vang_baked",
+      "path": "reference/currency_vang_baked.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_vip_baked_normal",
+      "path": "reference/vip_baked_normal.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_vip_baked_glow",
+      "path": "reference/vip_baked_glow.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_campaign_panel_baked",
+      "path": "reference/campaign_panel_baked.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_welfare_baked_label",
+      "path": "reference/welfare_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_first_topup_baked_label",
+      "path": "reference/first_topup_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_checkin_baked_label",
+      "path": "reference/checkin_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_mail_baked_label",
+      "path": "reference/mail_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_missions_baked_label",
+      "path": "reference/missions_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_settings_baked_label",
+      "path": "reference/settings_baked_label.png",
+      "recommended_use": "reference",
+      "label_baked": true
+    },
+    {
+      "key": "lobby_reference_welfare_mock_notification",
+      "path": "reference/welfare_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_first_topup_mock_notification",
+      "path": "reference/first_topup_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_checkin_mock_notification",
+      "path": "reference/checkin_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_mail_mock_notification",
+      "path": "reference/mail_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_missions_mock_notification",
+      "path": "reference/missions_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    },
+    {
+      "key": "lobby_reference_settings_mock_notification",
+      "path": "reference/settings_mock_notification.png",
+      "recommended_use": "reference",
+      "label_baked": false
+    }
+  ],
+  "ui_rules": [
+    "All changing data (player name, UID, level, power, VIP level, currency balances, stage and rewards) must be Phaser text driven from GameStore/Cloud Save.",
+    "Only two lobby currencies: Dong and Vang. Keys, EXP and crafting materials belong in Inventory.",
+    "Do not use text/number-baked composite panel as runtime UI.",
+    "Never promote \"needs_visual_review\" sprites without dark-background QA: their sheet was produced over beige instead of true transparent."
+  ]
+}

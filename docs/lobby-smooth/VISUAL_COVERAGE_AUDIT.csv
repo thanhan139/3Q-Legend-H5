@@ -1,0 +1,15 @@
+﻿feature,coverage,what_to_do
+Player header/avatar,PARTIAL,"Premium ornament and avatar-frame candidate, but screenshot composite has fixed text/portrait; build player frame from dynamic elements. Actual portrait from player data."
+Currency Dong/Vang,PARTIAL,"Baked example strips only. Keep existing live counters, use ornament/dividers. Dynamic wallet values are mandatory."
+Top six feature shortcuts,YES,Individual icon+label assets provided; only notification dots are added dynamically. Static Vietnamese label is baked.
+Left vertical navigation,PARTIAL,"9 button variants exist. Default/selected have hardcoded notification dot, so they need retouch or should only show for actual unread state. Locked state must reflect permissions."
+Bottom navigation,YES,4 default + 4 active button cutouts. Text baked as stable labels.
+Campaign CTA,YES,2 variants of CHINH CHIEN button. Baked labels are static.
+Campaign information panel,PARTIAL,"Illustrated screenshot reference has hardcoded chapter/attack/power. Must reconstruct from data using current source UI, not static."
+FX + decorative flourishes,YES,"Glows, swooshes, separators, curved corners and notification dots."
+"Blank frames, round avatar frames",REVIEW,Matte-extracted from beige sheet. Alpha fringe QA is mandatory before runtime use.
+Dynamic player portrait,REUSE_SOURCE,Source game hero art / player chosen avatar; do not use reference face hardcoded.
+"Central hero trio, palace background",REUSE_SOURCE,Reuse runtime scene characters and approved lobby background. No need new character or screenshot baked scene.
+Phone/landscape responsive,IMPLEMENTATION,"Anchor by design resolution safe areas; verify 1280x720, 844x390, browser resized."
+All clickable handlers,REUSE_SOURCE,"Preserve existing Avatar/Profile/VIP, navigation, Campaign and feature routes; do not break account/logout."
+VIP level / rewards,PARTIAL,"Only sample VIP 8 art, not live VIP progression UI. Use actual VIP state; if disabled show unavailable; no mock rewards."
