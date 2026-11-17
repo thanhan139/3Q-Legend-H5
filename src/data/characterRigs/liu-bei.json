@@ -1,0 +1,116 @@
+{
+  "heroId": "liu-bei",
+  "texture": "assets/battle/remaster/liu-bei/parts-v2.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "11e8dd12823690f77cc35da4d019878d1e7044c287851ef4f164dda6c4dea7c1",
+  "frames": {
+    "head": [
+      90,
+      11,
+      194,
+      294
+    ],
+    "torso": [
+      367,
+      22,
+      231,
+      286
+    ],
+    "upperNear": [
+      706,
+      20,
+      162,
+      282
+    ],
+    "foreNear": [
+      973,
+      81,
+      241,
+      179
+    ],
+    "upperFar": [
+      80,
+      327,
+      152,
+      289
+    ],
+    "foreFar": [
+      352,
+      392,
+      246,
+      181
+    ],
+    "thighNear": [
+      704,
+      318,
+      186,
+      305
+    ],
+    "shinNear": [
+      1022,
+      318,
+      156,
+      303
+    ],
+    "thighFar": [
+      74,
+      633,
+      161,
+      297
+    ],
+    "shinFar": [
+      400,
+      630,
+      160,
+      298
+    ],
+    "weapon": [
+      749,
+      633,
+      71,
+      298
+    ],
+    "cape": [
+      947,
+      644,
+      299,
+      280
+    ],
+    "hair": [
+      20,
+      970,
+      274,
+      269
+    ],
+    "skirt": [
+      319,
+      964,
+      305,
+      271
+    ],
+    "accessory": [
+      749,
+      946,
+      71,
+      297
+    ],
+    "headHit": [
+      1031,
+      950,
+      193,
+      293
+    ]
+  },
+  "pipeline": "layered-rig",
+  "rasterModified": false,
+  "provenance": {
+    "sourceKit": "Hero_Remaster_Static_Sprites_v1.0",
+    "sourceHeroKey": "luu_bi",
+    "referenceSha256": "ff51cad5ff9057d702679305ee15a0a4d39f21b437aa2430544a0eaa4c27f222",
+    "authoring": "Repainted isolated body parts, built-in imagegen; native Phaser articulated cutout rig",
+    "artApproval": "prototype; final artist review pending"
+  }
+}

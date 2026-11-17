@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { cardContent, summonCardSlots } from '../src/ui/summonLayout';
+import { CARD_SKIN, CARD_DESIGN, cardContent, summonCardSlots } from '../src/ui/summonLayout';
 import { contains } from '../src/ui/lobbyContentLayout';
 
 it('keeps three text rows separate from the portrait and ornaments for every rarity and grid size', () => {
@@ -14,4 +14,14 @@ it('keeps three text rows separate from the portrait and ornaments for every rar
       expect(cells.rank.y + cells.rank.height).toBeLessThanOrEqual(cells.status.y + .001);
     }
   }
+});
+
+it('maps four rarities to distinct cells in the reusable text-free atlas', () => {
+  const positions = new Set<string>();
+  for (const rarity of ['R','SR','SSR','SSS+'] as const) {
+    const { column, row } = CARD_SKIN[rarity];
+    expect([0,1]).toContain(column);expect([0,1]).toContain(row);positions.add(`${column}:${row}`);
+  }
+  expect(positions.size).toBe(4);
+  expect(CARD_DESIGN.width/CARD_DESIGN.height).toBeCloseTo(2/3);
 });

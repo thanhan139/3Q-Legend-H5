@@ -1,0 +1,270 @@
+{
+  "sourceKitStaticOnly": true,
+  "blueprintContainsAnimationArt": false,
+  "sourceMappings": [
+    {
+      "key": "trieu_van",
+      "heroId": "zhao-yun",
+      "proposedId": "zhao-yun",
+      "source": "docs\\battle\\remaster\\source\\normalized\\trieu_van.png",
+      "sha256": "ee282a5f76dcad34bf622b33afb71baefc09953eb76e09caa7e8cc3d5e902741",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "luu_bi",
+      "heroId": "liu-bei",
+      "proposedId": "liu-bei",
+      "source": "docs\\battle\\remaster\\source\\normalized\\luu_bi.png",
+      "sha256": "ff51cad5ff9057d702679305ee15a0a4d39f21b437aa2430544a0eaa4c27f222",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "quan_vu",
+      "heroId": "guan-yu",
+      "proposedId": "guan-yu",
+      "source": "docs\\battle\\remaster\\source\\normalized\\quan_vu.png",
+      "sha256": "5bf0d48aa18e4400351c6d50d6685931d6f921b7f9f5a168a39709c4332bfd7f",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "truong_phi",
+      "heroId": "zhang-fei",
+      "proposedId": "zhang-fei",
+      "source": "docs\\battle\\remaster\\source\\normalized\\truong_phi.png",
+      "sha256": "1ea49aca7e7c6d1d92c4c98e1f2df25eba7893659b3ba2eee1d8e2a2459a265c",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "hoang_trung",
+      "heroId": null,
+      "proposedId": "huang-zhong",
+      "source": "docs\\battle\\remaster\\source\\normalized\\hoang_trung.png",
+      "sha256": "a98b0ec62b8424af70849009e2eb66f4baefec497a1117d5093bd8ab9ca520a8",
+      "staticOnly": true,
+      "status": "NOT MAPPED: absent from HeroConfig; no hero invented"
+    },
+    {
+      "key": "gia_cat_luong",
+      "heroId": "zhuge-liang",
+      "proposedId": "zhuge-liang",
+      "source": "docs\\battle\\remaster\\source\\normalized\\gia_cat_luong.png",
+      "sha256": "5d6f9c8e855fd811bf21bd4d7622f89aff65c70ef3ff81bcb444120af48fa773",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "ha_hau_don",
+      "heroId": "xiahou-dun",
+      "proposedId": "xiahou-dun",
+      "source": "docs\\battle\\remaster\\source\\normalized\\ha_hau_don.png",
+      "sha256": "3cac81f546e60b6d3926ffea9464d977618b14e474ab3abf917d3ba8023dfdd8",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "truong_lieu",
+      "heroId": null,
+      "proposedId": "zhang-liao",
+      "source": "docs\\battle\\remaster\\source\\normalized\\truong_lieu.png",
+      "sha256": "36609051dac4661e9eb399fa31eb4ba3600d1abb1a5bbc566323667a890fd4b0",
+      "staticOnly": true,
+      "status": "NOT MAPPED: absent from HeroConfig; no hero invented"
+    },
+    {
+      "key": "dien_vi",
+      "heroId": "dian-wei",
+      "proposedId": "dian-wei",
+      "source": "docs\\battle\\remaster\\source\\normalized\\dien_vi.png",
+      "sha256": "adaf1e48e5a420738821f2ec4ca9b9162d07be803e5c77d994d2ac8b68a0d34b",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "tao_hong",
+      "heroId": "cao-hong",
+      "proposedId": "cao-hong",
+      "source": "docs\\battle\\remaster\\source\\normalized\\tao_hong.png",
+      "sha256": "6b07422c0cea02ac9629eb81e7c69a0c35f4ea6c08c3c7a52ed6e7b97c2464fe",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "hoa_hung",
+      "heroId": "hua-xiong",
+      "proposedId": "hua-xiong",
+      "source": "docs\\battle\\remaster\\source\\normalized\\hoa_hung.png",
+      "sha256": "f9c9905ce4037dbc3d23e684aabcf7c825bcba48209a893344b92624d1990734",
+      "staticOnly": true,
+      "status": "verified name/weapon against current roster"
+    },
+    {
+      "key": "tao_nhan",
+      "heroId": null,
+      "proposedId": "cao-ren",
+      "source": "docs\\battle\\remaster\\source\\normalized\\tao_nhan.png",
+      "sha256": "835f84dfb0a87cd456c0f89973ed7f9d7d99f642d25d00766733ef3a2d9bfd8d",
+      "staticOnly": true,
+      "status": "NOT MAPPED: absent from HeroConfig; no hero invented"
+    }
+  ],
+  "runtimeRigs": [
+    {
+      "heroId": "dian-wei",
+      "texture": "assets/battle/remaster/dian-wei/parts-v2.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgbaBytes": 6290064,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "aa17a6777fc949c3b646a7a6f6bf3d834938d0d9e0f64e786bdc84e564e1ea05",
+      "parts": 16,
+      "method": "native Phaser articulated cutout rig; no Spine or baked animation frames",
+      "states": [
+        "idle",
+        "run",
+        "attack",
+        "skill",
+        "hit",
+        "death",
+        "victory"
+      ],
+      "artStatus": "prototype, final joint/hair/armor paint review pending"
+    },
+    {
+      "heroId": "guan-yu",
+      "texture": "assets/battle/remaster/guan-yu/parts-v2.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgbaBytes": 6290064,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "70e58f0db0a0843e6fb5106b359cf138730eae297f6cd109a07fc523a101322a",
+      "parts": 16,
+      "method": "native Phaser articulated cutout rig; no Spine or baked animation frames",
+      "states": [
+        "idle",
+        "run",
+        "attack",
+        "skill",
+        "hit",
+        "death",
+        "victory"
+      ],
+      "artStatus": "prototype, final joint/hair/armor paint review pending"
+    },
+    {
+      "heroId": "liu-bei",
+      "texture": "assets/battle/remaster/liu-bei/parts-v2.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgbaBytes": 6290064,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "11e8dd12823690f77cc35da4d019878d1e7044c287851ef4f164dda6c4dea7c1",
+      "parts": 16,
+      "method": "native Phaser articulated cutout rig; no Spine or baked animation frames",
+      "states": [
+        "idle",
+        "run",
+        "attack",
+        "skill",
+        "hit",
+        "death",
+        "victory"
+      ],
+      "artStatus": "prototype, final joint/hair/armor paint review pending"
+    },
+    {
+      "heroId": "zhang-fei",
+      "texture": "assets/battle/remaster/zhang-fei/parts-v2.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgbaBytes": 6290064,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "95a73973013231bd8f49e35f9255ca0613804cb9621dbcf1d7233465a75e247e",
+      "parts": 16,
+      "method": "native Phaser articulated cutout rig; no Spine or baked animation frames",
+      "states": [
+        "idle",
+        "run",
+        "attack",
+        "skill",
+        "hit",
+        "death",
+        "victory"
+      ],
+      "artStatus": "prototype, final joint/hair/armor paint review pending"
+    },
+    {
+      "heroId": "zhao-yun",
+      "texture": "assets/battle/remaster/zhao-yun/parts-v2.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgbaBytes": 6290064,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "16134124a63d646f2e3cc6403374e299ce38fabf37d61c4fcda80f64e84141fe",
+      "parts": 16,
+      "method": "native Phaser articulated cutout rig; no Spine or baked animation frames",
+      "states": [
+        "idle",
+        "run",
+        "attack",
+        "skill",
+        "hit",
+        "death",
+        "victory"
+      ],
+      "artStatus": "prototype, final joint/hair/armor paint review pending"
+    }
+  ],
+  "estimatedRigTextureBytes": 31450320,
+  "rosterWithoutRemasterRig": [
+    "cao-cao",
+    "cao-hong",
+    "cheng-yuan-zhi",
+    "da-qiao",
+    "diao-chan",
+    "gan-ning",
+    "guan-ping",
+    "hua-xiong",
+    "huang-yueying",
+    "lu-bu",
+    "ma-chao",
+    "pan-feng",
+    "pei-yuan-shao",
+    "sun-quan",
+    "xiahou-dun",
+    "xing-dao-rong",
+    "zhou-cang",
+    "zhuge-liang"
+  ],
+  "legacyAudit": "docs/battle/CHARACTER_ASSET_AUDIT.json",
+  "legacyPolicy": "Keep original static/chibi clips for unconverted IDs; do not claim those are adult animations",
+  "uiPolicy": "Battle UI kit and Formation layout retained; concept sheets never loaded as character textures"
+}

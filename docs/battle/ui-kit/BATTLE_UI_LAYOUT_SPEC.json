@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "coordinate_system": "virtual 1280x720, centered canvas, viewport safe area",
+  "concept_only": true,
+  "formation": {
+    "pattern": "3 rows x 2 columns PER side (front inner column, rear outer column)",
+    "slots": {
+      "ally_front": [
+        [
+          430,
+          208
+        ],
+        [
+          430,
+          352
+        ],
+        [
+          430,
+          496
+        ]
+      ],
+      "ally_rear": [
+        [
+          240,
+          208
+        ],
+        [
+          240,
+          352
+        ],
+        [
+          240,
+          496
+        ]
+      ],
+      "enemy_front": [
+        [
+          847,
+          208
+        ],
+        [
+          847,
+          352
+        ],
+        [
+          847,
+          496
+        ]
+      ],
+      "enemy_rear": [
+        [
+          1041,
+          208
+        ],
+        [
+          1041,
+          352
+        ],
+        [
+          1041,
+          496
+        ]
+      ]
+    },
+    "foot_anchor": "normalized (0.5,1.0); illustration feet at slot y",
+    "defeated": "hide character, nameplate, hp, rage, shadow, floor fx; retain slot without corpse, ghost, banner or marker"
+  },
+  "top_ui": {
+    "stage_plaque": {
+      "x": 175,
+      "y": 60,
+      "w": 340,
+      "h": 100
+    },
+    "turn_plaque": {
+      "x": 640,
+      "y": 65,
+      "w": 260,
+      "h": 80
+    },
+    "back_lobby": {
+      "x": 1130,
+      "y": 55,
+      "w": 180,
+      "h": 58
+    }
+  },
+  "bottom_ui": {
+    "safe_top_y": 588,
+    "battle_log_frame": {
+      "x": 225,
+      "y": 652,
+      "w": 415,
+      "h": 102
+    },
+    "turn_order_frame": {
+      "x": 650,
+      "y": 652,
+      "w": 395,
+      "h": 95
+    },
+    "speed_button": {
+      "x": 1050,
+      "y": 661,
+      "w": 130,
+      "h": 53
+    },
+    "skip_button": {
+      "x": 1184,
+      "y": 661,
+      "w": 142,
+      "h": 53
+    }
+  },
+  "battle_controls": [
+    "speed",
+    "skip"
+  ],
+  "removed_controls": [
+    "continue",
+    "pause"
+  ],
+  "removed_teams_header": [
+    "QUÂN TA",
+    "QUÂN ĐỊCH"
+  ],
+  "responsive": [
+    "1920x1080",
+    "1280x720",
+    "844x390"
+  ],
+  "vfx": {
+    "vs": "show briefly at battle start or clash, remove from mid-field during fighting"
+  },
+  "warnings": [
+    "Coordinates illustrative. Fit with real battle positioning, animation foot anchors and mobile safe area.",
+    "All actual unit sprites and animation must come from hero asset pipeline; bundled generated full mockup is not runtime.",
+    "No asset produces real character animation."
+  ]
+}

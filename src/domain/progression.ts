@@ -3,6 +3,7 @@ import { applyFactionBonus, factionSynergy } from './factionSynergy';
 import { COMBAT_BALANCE } from '../data/skillCombat';
 import { equipmentBonus, type Gear, type EquipmentStats } from './equipment';
 import type { HeroDefinition, SaveV2 } from './types';
+import { vipBonuses } from './vip';
 
 export const HERO_PROGRESSION = {
   maxLevel: 15,
@@ -40,11 +41,14 @@ export const combatPower = ({ hp, atk, def, speed, criticalChance = 0 }: Equipme
   Math.round(hp / 5 + atk * 3 * (1 + criticalChance / 100 * (COMBAT_BALANCE.criticalDamageMultiplier - 1)) + def * 2 + speed);
 
 
-export function formationPower(save: SaveV2, synergy = factionSynergy(save.formation)) {
+export function formationPower(save: SaveV2, synergy = factionSynergy(save.formation), vip = 0) {
   return save.formation.reduce((total, id) => {
     if (!id) return total;
     const hero = HERO_BY_ID[id];
     const stats = heroStats(hero, save.heroExp[id], save.heroStars?.[id], save.equipment);
-    return total + combatPower(applyFactionBonus(stats, heroFaction(hero), synergy));
+    const faction = applyFactionBonus(stats, heroFaction(hero), synergy), bonus = vipBonuses(vip);
+    return total + combatPower({...faction, hp: Math.round(faction.hp*(1+bonus.hpPct/100)),
+      atk:Math.round(faction.atk*(1+bonus.atkPct/100)),def:Math.round(faction.def*(1+bonus.defPct/100)),
+      criticalChance:(faction.criticalChance??0)+bonus.critRatePoints});
   }, 0);
 }

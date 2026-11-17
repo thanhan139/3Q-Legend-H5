@@ -58,7 +58,7 @@ export class CampaignScene extends UiScene {
       this.text(x, 32, `${label} · ${value.toLocaleString('vi-VN')}`, 19, '#fff0cd',
         { fontStyle: 'bold' }).setOrigin(0.5);
     });
-    this.assetButton(campaignArt.actionButtons.back, 1173, 34, 170, 62, '‹ Về sảnh', () => this.go('Lobby'));
+    this.backToLobby(1160,34,200,54);
 
     STAGES.filter(stage => stage.stage === 1).forEach((entry, index) => {
       const open = gameStore.isUnlocked(entry.id);
@@ -267,7 +267,7 @@ export class CampaignScene extends UiScene {
       cleared ? 'ĐÁNH LẠI' : open ? 'KHIÊU CHIẾN' : 'CHƯA MỞ',
       open ? () => { void this.startCampaignBattle(stage.id); } : undefined, 17);
     if (stage.id === '1-1') this.tutorialTarget('campaign.enter', challengeTarget);
-    this.assetButton(campaignArt.actionButtons.sweepDisabled, center + 75, 562, 117, 55, 'CÀN QUÉT', undefined, 14);
+    this.assetButton(campaignArt.actionButtons.sweepDisabled, center + 75, 562, 117, 55, 'CÀN QUÉT', () => this.toast('Càn quét đang phát triển.'), 14);
   }
   private async startCampaignBattle(stageId: string) {
     try {

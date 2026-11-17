@@ -1,5 +1,7 @@
 # Summon complete kit integration — staging
 
+> Historical baseline for commit 8d8cea2. The thumbnail-card rendering described below is superseded by `VISUAL_FIDELITY_QA.md` and the current `RUNTIME_SELECTION.json`. The balance/backend checks remain valid; this visual correction makes no backend or economy changes.
+
 ## Runtime selection and typography
 
 - Uses separate title, four rarity portrait-frame PNGs, four action PNGs and a clean plate from the supplied kit. The current `assets/summon/hall.webp` stays in place. No reference/concept/sprite-sheet image is a runtime background.

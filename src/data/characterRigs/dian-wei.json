@@ -1,0 +1,116 @@
+{
+  "heroId": "dian-wei",
+  "texture": "assets/battle/remaster/dian-wei/parts-v2.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "aa17a6777fc949c3b646a7a6f6bf3d834938d0d9e0f64e786bdc84e564e1ea05",
+  "frames": {
+    "head": [
+      90,
+      17,
+      185,
+      289
+    ],
+    "torso": [
+      337,
+      14,
+      268,
+      292
+    ],
+    "upperNear": [
+      689,
+      8,
+      203,
+      290
+    ],
+    "foreNear": [
+      984,
+      31,
+      213,
+      253
+    ],
+    "upperFar": [
+      59,
+      322,
+      215,
+      289
+    ],
+    "foreFar": [
+      375,
+      339,
+      194,
+      250
+    ],
+    "thighNear": [
+      673,
+      323,
+      213,
+      297
+    ],
+    "shinNear": [
+      1025,
+      322,
+      161,
+      288
+    ],
+    "thighFar": [
+      60,
+      642,
+      203,
+      290
+    ],
+    "shinFar": [
+      390,
+      636,
+      176,
+      287
+    ],
+    "weapon": [
+      703,
+      636,
+      152,
+      296
+    ],
+    "cape": [
+      946,
+      658,
+      302,
+      252
+    ],
+    "hair": [
+      36,
+      969,
+      228,
+      263
+    ],
+    "skirt": [
+      322,
+      967,
+      297,
+      277
+    ],
+    "accessory": [
+      703,
+      949,
+      152,
+      297
+    ],
+    "headHit": [
+      1031,
+      953,
+      197,
+      293
+    ]
+  },
+  "pipeline": "layered-rig",
+  "rasterModified": false,
+  "provenance": {
+    "sourceKit": "Hero_Remaster_Static_Sprites_v1.0",
+    "sourceHeroKey": "dien_vi",
+    "referenceSha256": "adaf1e48e5a420738821f2ec4ca9b9162d07be803e5c77d994d2ac8b68a0d34b",
+    "authoring": "Repainted isolated body parts, built-in imagegen; native Phaser articulated cutout rig",
+    "artApproval": "prototype; final artist review pending"
+  }
+}

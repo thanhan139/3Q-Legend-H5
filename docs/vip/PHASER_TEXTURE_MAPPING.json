@@ -1,0 +1,1160 @@
+{
+  "basePath": "assets/",
+  "textures": [
+    {
+      "key": "vip_00",
+      "path": "assets/badges/vip_00.png",
+      "size": [
+        270,
+        131
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_01",
+      "path": "assets/badges/vip_01.png",
+      "size": [
+        250,
+        140
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_02",
+      "path": "assets/badges/vip_02.png",
+      "size": [
+        242,
+        147
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_03",
+      "path": "assets/badges/vip_03.png",
+      "size": [
+        245,
+        154
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_04",
+      "path": "assets/badges/vip_04.png",
+      "size": [
+        269,
+        164
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_05",
+      "path": "assets/badges/vip_05.png",
+      "size": [
+        262,
+        158
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_06",
+      "path": "assets/badges/vip_06.png",
+      "size": [
+        255,
+        158
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_07",
+      "path": "assets/badges/vip_07.png",
+      "size": [
+        264,
+        171
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_08",
+      "path": "assets/badges/vip_08.png",
+      "size": [
+        284,
+        180
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_09",
+      "path": "assets/badges/vip_09.png",
+      "size": [
+        288,
+        192
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_10",
+      "path": "assets/badges/vip_10.png",
+      "size": [
+        261,
+        168
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_11",
+      "path": "assets/badges/vip_11.png",
+      "size": [
+        269,
+        178
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_12",
+      "path": "assets/badges/vip_12.png",
+      "size": [
+        263,
+        187
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_13",
+      "path": "assets/badges/vip_13.png",
+      "size": [
+        282,
+        192
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_14",
+      "path": "assets/badges/vip_14.png",
+      "size": [
+        318,
+        191
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_15",
+      "path": "assets/badges/vip_15.png",
+      "size": [
+        310,
+        213
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_16",
+      "path": "assets/badges/vip_16.png",
+      "size": [
+        300,
+        245
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_17",
+      "path": "assets/badges/vip_17.png",
+      "size": [
+        352,
+        270
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_18",
+      "path": "assets/badges/vip_18.png",
+      "size": [
+        423,
+        358
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "vip_header_progress",
+      "path": "assets/progress/vip_header_progress.png",
+      "size": [
+        1347,
+        217
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "bar_filled_sample",
+      "path": "assets/progress/bar_filled_sample.png",
+      "size": [
+        655,
+        58
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "bar_empty_sample",
+      "path": "assets/progress/bar_empty_sample.png",
+      "size": [
+        628,
+        59
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "milestone_six_gifts",
+      "path": "assets/progress/milestone_six_gifts.png",
+      "size": [
+        1286,
+        113
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_locked_wood",
+      "path": "assets/rewards/chest_locked_wood.png",
+      "size": [
+        195,
+        142
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_ready_gold",
+      "path": "assets/rewards/chest_ready_gold.png",
+      "size": [
+        217,
+        186
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_claimed_gray",
+      "path": "assets/rewards/chest_claimed_gray.png",
+      "size": [
+        185,
+        144
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_dragon_gold",
+      "path": "assets/rewards/chest_dragon_gold.png",
+      "size": [
+        218,
+        184
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_premium_purple",
+      "path": "assets/rewards/chest_premium_purple.png",
+      "size": [
+        212,
+        192
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_opened_gold",
+      "path": "assets/rewards/chest_opened_gold.png",
+      "size": [
+        232,
+        181
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "btn_claim",
+      "path": "assets/buttons/btn_claim.png",
+      "size": [
+        312,
+        75
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "btn_claimed",
+      "path": "assets/buttons/btn_claimed.png",
+      "size": [
+        330,
+        100
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "btn_go_recharge",
+      "path": "assets/buttons/btn_go_recharge.png",
+      "size": [
+        314,
+        74
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "btn_prev",
+      "path": "assets/buttons/btn_prev.png",
+      "size": [
+        89,
+        106
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "btn_next",
+      "path": "assets/buttons/btn_next.png",
+      "size": [
+        120,
+        86
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "btn_close",
+      "path": "assets/buttons/btn_close.png",
+      "size": [
+        152,
+        95
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "tab_privileges",
+      "path": "assets/tabs/tab_privileges.png",
+      "size": [
+        282,
+        92
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "tab_vip_gifts",
+      "path": "assets/tabs/tab_vip_gifts.png",
+      "size": [
+        280,
+        99
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "tab_vip_shop",
+      "path": "assets/tabs/tab_vip_shop.png",
+      "size": [
+        284,
+        63
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "tab_benefits",
+      "path": "assets/tabs/tab_benefits.png",
+      "size": [
+        299,
+        89
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perks_card",
+      "path": "assets/panels/perks_card.png",
+      "size": [
+        205,
+        272
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "gift_card",
+      "path": "assets/panels/gift_card.png",
+      "size": [
+        208,
+        272
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "shop_card",
+      "path": "assets/panels/shop_card.png",
+      "size": [
+        204,
+        274
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "prestige_card",
+      "path": "assets/panels/prestige_card.png",
+      "size": [
+        196,
+        273
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "frame_blue",
+      "path": "assets/icons/frame_blue.png",
+      "size": [
+        120,
+        119
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "frame_purple",
+      "path": "assets/icons/frame_purple.png",
+      "size": [
+        144,
+        129
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "frame_gold",
+      "path": "assets/icons/frame_gold.png",
+      "size": [
+        134,
+        116
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "notification_dot",
+      "path": "assets/ornaments/notification_dot.png",
+      "size": [
+        37,
+        19
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "imperial_flag",
+      "path": "assets/ornaments/imperial_flag.png",
+      "size": [
+        177,
+        206
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "red_ribbon",
+      "path": "assets/ornaments/red_ribbon.png",
+      "size": [
+        371,
+        77
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "gold_cloud",
+      "path": "assets/ornaments/gold_cloud.png",
+      "size": [
+        203,
+        84
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "wallet_gold",
+      "path": "assets/ornaments/wallet_gold.png",
+      "size": [
+        193,
+        72
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "wallet_silver",
+      "path": "assets/ornaments/wallet_silver.png",
+      "size": [
+        178,
+        72
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "wallet_jade",
+      "path": "assets/ornaments/wallet_jade.png",
+      "size": [
+        196,
+        85
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "vip_title",
+      "path": "assets/panels/vip_title.png",
+      "size": [
+        484,
+        140
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "heading_privileges",
+      "path": "assets/panels/heading_privileges.png",
+      "size": [
+        254,
+        87
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "heading_daily",
+      "path": "assets/panels/heading_daily.png",
+      "size": [
+        277,
+        86
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "heading_recharge",
+      "path": "assets/panels/heading_recharge.png",
+      "size": [
+        271,
+        87
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "heading_levelup",
+      "path": "assets/panels/heading_levelup.png",
+      "size": [
+        266,
+        84
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perks_list",
+      "path": "assets/panels/perks_list.png",
+      "size": [
+        402,
+        452
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "daily_rewards",
+      "path": "assets/panels/daily_rewards.png",
+      "size": [
+        430,
+        210
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "levelup_rewards",
+      "path": "assets/panels/levelup_rewards.png",
+      "size": [
+        450,
+        231
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "tier_benefits_list",
+      "path": "assets/panels/tier_benefits_list.png",
+      "size": [
+        270,
+        474
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "prestige_portrait",
+      "path": "assets/panels/prestige_portrait.png",
+      "size": [
+        292,
+        253
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_red_gold_ingot",
+      "path": "assets/icons/item_red_gold_ingot.png",
+      "size": [
+        119,
+        140
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_bronze_coins",
+      "path": "assets/icons/item_bronze_coins.png",
+      "size": [
+        119,
+        141
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_purple_crystal",
+      "path": "assets/icons/item_purple_crystal.png",
+      "size": [
+        121,
+        142
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_scroll",
+      "path": "assets/icons/item_scroll.png",
+      "size": [
+        138,
+        145
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_gold_feather",
+      "path": "assets/icons/item_gold_feather.png",
+      "size": [
+        126,
+        139
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_jade_pendant",
+      "path": "assets/icons/item_jade_pendant.png",
+      "size": [
+        129,
+        139
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_gold_armor",
+      "path": "assets/icons/item_gold_armor.png",
+      "size": [
+        137,
+        141
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "item_book",
+      "path": "assets/icons/item_book.png",
+      "size": [
+        145,
+        144
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_plain",
+      "path": "assets/rewards/chest_plain.png",
+      "size": [
+        141,
+        138
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_red_dragon",
+      "path": "assets/rewards/chest_red_dragon.png",
+      "size": [
+        145,
+        136
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_purple",
+      "path": "assets/rewards/chest_purple.png",
+      "size": [
+        150,
+        137
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "chest_premium_dragon",
+      "path": "assets/rewards/chest_premium_dragon.png",
+      "size": [
+        177,
+        158
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "perk_sweep",
+      "path": "assets/icons/perk_sweep.png",
+      "size": [
+        98,
+        127
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_auto_battle",
+      "path": "assets/icons/perk_auto_battle.png",
+      "size": [
+        106,
+        132
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_speed_x2",
+      "path": "assets/icons/perk_speed_x2.png",
+      "size": [
+        96,
+        130
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_speed_x3",
+      "path": "assets/icons/perk_speed_x3.png",
+      "size": [
+        100,
+        129
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_speed_x4",
+      "path": "assets/icons/perk_speed_x4.png",
+      "size": [
+        101,
+        128
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_buy_stamina",
+      "path": "assets/icons/perk_buy_stamina.png",
+      "size": [
+        105,
+        108
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_buy_dungeon",
+      "path": "assets/icons/perk_buy_dungeon.png",
+      "size": [
+        119,
+        113
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "perk_shop_discount",
+      "path": "assets/icons/perk_shop_discount.png",
+      "size": [
+        135,
+        117
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "prestige_vip15",
+      "path": "assets/ornaments/prestige_vip15.png",
+      "size": [
+        186,
+        237
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "prestige_vip16",
+      "path": "assets/ornaments/prestige_vip16.png",
+      "size": [
+        192,
+        237
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "prestige_vip18",
+      "path": "assets/ornaments/prestige_vip18.png",
+      "size": [
+        192,
+        248
+      ],
+      "bakedText": true,
+      "status": "review"
+    },
+    {
+      "key": "portal_gold",
+      "path": "assets/ornaments/portal_gold.png",
+      "size": [
+        171,
+        182
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "portal_purple",
+      "path": "assets/ornaments/portal_purple.png",
+      "size": [
+        173,
+        171
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "portal_red",
+      "path": "assets/ornaments/portal_red.png",
+      "size": [
+        150,
+        169
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "divider_small",
+      "path": "assets/ornaments/divider_small.png",
+      "size": [
+        234,
+        29
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "divider_tassel",
+      "path": "assets/ornaments/divider_tassel.png",
+      "size": [
+        257,
+        80
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "divider_straight",
+      "path": "assets/ornaments/divider_straight.png",
+      "size": [
+        145,
+        50
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "border_corner",
+      "path": "assets/ornaments/border_corner.png",
+      "size": [
+        174,
+        167
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "bottom_scroll",
+      "path": "assets/ornaments/bottom_scroll.png",
+      "size": [
+        201,
+        81
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_1",
+      "path": "assets/icons/reward_slot_1.png",
+      "size": [
+        104,
+        112
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_2",
+      "path": "assets/icons/reward_slot_2.png",
+      "size": [
+        104,
+        98
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_3",
+      "path": "assets/icons/reward_slot_3.png",
+      "size": [
+        106,
+        99
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_4",
+      "path": "assets/icons/reward_slot_4.png",
+      "size": [
+        103,
+        103
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_5",
+      "path": "assets/icons/reward_slot_5.png",
+      "size": [
+        105,
+        102
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "reward_slot_6",
+      "path": "assets/icons/reward_slot_6.png",
+      "size": [
+        106,
+        101
+      ],
+      "bakedText": false,
+      "status": "review"
+    },
+    {
+      "key": "button_gold",
+      "path": "assets/runtime_blank/button_gold.png",
+      "size": [
+        300,
+        82
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "button_red",
+      "path": "assets/runtime_blank/button_red.png",
+      "size": [
+        300,
+        82
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "button_disabled",
+      "path": "assets/runtime_blank/button_disabled.png",
+      "size": [
+        300,
+        82
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "tab_normal",
+      "path": "assets/runtime_blank/tab_normal.png",
+      "size": [
+        245,
+        69
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "tab_selected",
+      "path": "assets/runtime_blank/tab_selected.png",
+      "size": [
+        245,
+        69
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "panel_dark",
+      "path": "assets/runtime_blank/panel_dark.png",
+      "size": [
+        650,
+        460
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "panel_light",
+      "path": "assets/runtime_blank/panel_light.png",
+      "size": [
+        500,
+        310
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "item_slot",
+      "path": "assets/runtime_blank/item_slot.png",
+      "size": [
+        114,
+        114
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "progress_track",
+      "path": "assets/runtime_blank/progress_track.png",
+      "size": [
+        720,
+        54
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "progress_fill_tilable",
+      "path": "assets/runtime_blank/progress_fill_tilable.png",
+      "size": [
+        256,
+        33
+      ],
+      "bakedText": false,
+      "status": "ready"
+    },
+    {
+      "key": "reward_card",
+      "path": "assets/runtime_blank/reward_card.png",
+      "size": [
+        420,
+        270
+      ],
+      "bakedText": false,
+      "status": "ready"
+    }
+  ],
+  "recommendedNineSlice": {
+    "button_gold": [
+      24,
+      24,
+      24,
+      24
+    ],
+    "tab_normal": [
+      22,
+      22,
+      22,
+      22
+    ],
+    "tab_selected": [
+      22,
+      22,
+      22,
+      22
+    ],
+    "panel_dark": [
+      30,
+      30,
+      30,
+      30
+    ],
+    "panel_light": [
+      28,
+      28,
+      28,
+      28
+    ],
+    "progress_track": [
+      26,
+      26,
+      26,
+      26
+    ],
+    "progress_fill_tilable": [
+      14,
+      14,
+      14,
+      14
+    ]
+  },
+  "note": "Each PNG is an individual texture. Use namespaced keys vip/<relative path> to avoid collisions. Test before relying on 9-slice APIs."
+}

@@ -1,0 +1,51 @@
+import { INVENTORY_CATEGORIES } from './inventoryModel';
+
+/** Lobby-only floating category menu. Native controls remain readable at phone sizes. */
+export function openInventoryMenu(anchor: { x: number; y: number }, open: () => void, closed: () => void) {
+  const layer = document.createElement('div'); layer.className = 'inventory-menu-layer';
+  const menu = document.createElement('section'); menu.className = 'inventory-category-menu';
+  menu.setAttribute('role', 'dialog'); menu.setAttribute('aria-label', 'Danh mục Túi Đồ');
+  const title = document.createElement('h2'); title.textContent = 'TÚI ĐỒ'; menu.append(title);
+  const exit = document.createElement('button'); exit.className = 'inventory-menu-close'; exit.textContent = '×';
+  exit.setAttribute('aria-label', 'Đóng Túi Đồ'); menu.append(exit);
+  const grid = document.createElement('div'); grid.className = 'inventory-category-grid'; menu.append(grid);
+  const notice = document.createElement('p'); notice.setAttribute('role', 'status');
+  notice.textContent = 'Chọn danh mục để tiếp tục'; menu.append(notice);
+  let disposed = false;
+  const previous = document.activeElement;
+  const close = () => {
+    if (disposed) return;
+    disposed = true; document.removeEventListener('keydown', keys); layer.remove();
+    if (previous instanceof HTMLElement) previous.focus(); closed();
+  };
+  const keys = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); close(); }
+    if (event.key === 'Tab') {
+      const buttons = [...menu.querySelectorAll('button')], first = buttons[0], last = buttons[buttons.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  };
+  INVENTORY_CATEGORIES.forEach((label, index) => {
+    const button = document.createElement('button'); button.type = 'button'; button.dataset.category = String(index);
+    const name = document.createElement('strong'); name.textContent = label; button.append(name);
+    const state = document.createElement('span'); state.textContent = index === 0 ? 'Mở Túi Đồ' : 'Đang hoàn thiện'; button.append(state);
+    button.onclick = () => {
+      if (index === 0) { close(); open(); }
+      else notice.textContent = `${label}: đang hoàn thiện, hiện chưa khả dụng.`;
+    };
+    grid.append(button);
+  });
+  exit.onclick = close;
+  // Consume the full gesture before removing the layer, so mouse-up cannot click the dock again.
+  layer.addEventListener('click', event => { if (event.target === layer) { event.stopPropagation(); close(); } });
+  layer.append(menu); document.body.append(layer);
+  const width = menu.getBoundingClientRect().width;
+  menu.style.left = `${Math.max(12, Math.min(innerWidth - width - 12, anchor.x - width / 2))}px`;
+  menu.style.bottom = `${Math.max(12, innerHeight - anchor.y + 10)}px`;
+  // Keep the popup in the viewport when the dock is high or safe-area insets change.
+  if (menu.getBoundingClientRect().top < 12) { menu.style.bottom = '12px'; menu.style.maxHeight = 'calc(100dvh - 24px)'; }
+  document.addEventListener('keydown', keys);
+  grid.querySelector('button')?.focus();
+  return close;
+}

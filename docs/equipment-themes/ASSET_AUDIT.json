@@ -1,0 +1,655 @@
+{
+  "validRuntimePngs": 81,
+  "files": [
+    {
+      "path": "background/equipment_hall_clean.png",
+      "sha256": "b38966261d772163e27b5cb67575066af739ad817326548f24d5f01c631158e0",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "ui/buttons/action_round.png",
+      "sha256": "ea22d5b38ea838789cfdcd62ced13eeb03a3fedf397bf7d64082821b6e85014f",
+      "size": [
+        86,
+        86
+      ]
+    },
+    {
+      "path": "ui/buttons/back_to_lobby_blank.png",
+      "sha256": "27594fc5f7447d52d52031a11085399d3cad9a7bb60825fcf045176c92ceda76",
+      "size": [
+        194,
+        58
+      ]
+    },
+    {
+      "path": "ui/buttons/disabled.png",
+      "sha256": "fcfb3aad8706ec4dba703b3c60c18eddbb5fe2074f6f4f9a0760408c1c3650ac",
+      "size": [
+        208,
+        65
+      ]
+    },
+    {
+      "path": "ui/buttons/primary_gold.png",
+      "sha256": "11694a036c94d60d483112a8106e387f65a91602e07ba44213e68ef2ef07854b",
+      "size": [
+        208,
+        65
+      ]
+    },
+    {
+      "path": "ui/buttons/secondary_red.png",
+      "sha256": "5f1233b82a085f4125751c06ff92a9a809fc30503e265ca155502919065dd8bf",
+      "size": [
+        208,
+        65
+      ]
+    },
+    {
+      "path": "ui/buttons/teal.png",
+      "sha256": "e15d7e26a230e5539baae965c2b4a3613c98d97c62e07d61ebaa76e4c827dcf8",
+      "size": [
+        208,
+        65
+      ]
+    },
+    {
+      "path": "ui/decor/character_pedestal_symbol.png",
+      "sha256": "a9d072676033cefd44ee8898702c162ae5386264e79fae5dc4e70e3ad1d31d69",
+      "size": [
+        85,
+        85
+      ]
+    },
+    {
+      "path": "ui/decor/gold_divider.png",
+      "sha256": "71d5a67f7f8fac72fa3bb3bd59f4d1130e874b63f6621d8bf76f73d24c90600b",
+      "size": [
+        1370,
+        48
+      ]
+    },
+    {
+      "path": "ui/decor/item_nameplate_blank.png",
+      "sha256": "c9b7ec7480a9a1288b523a6341249f10333eb6bc4bb4043a18c6f624d3b8037b",
+      "size": [
+        101,
+        23
+      ]
+    },
+    {
+      "path": "ui/decor/star_gold.png",
+      "sha256": "bd00af5a2b4a6d47a4575a6b21582f7194cb44c5fc1ebd45a1d9b2a92095a669",
+      "size": [
+        34,
+        34
+      ]
+    },
+    {
+      "path": "ui/effects/glow_gold.png",
+      "sha256": "10a837fdae046004047e48ef1591b30fda380116e35b814dcb79839ea62802cd",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "path": "ui/effects/glow_red.png",
+      "sha256": "7e1e1ecf5f5983cb1bd8615b15eca605346ff662d31127676404039c9b2a3eca",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "path": "ui/panels/bottom_nav_strip.png",
+      "sha256": "20e8d3b32403e8705c4dee412de6c98d225d2d10d53a7cb8bcd9b3cd4a307c2b",
+      "size": [
+        850,
+        86
+      ]
+    },
+    {
+      "path": "ui/panels/equipment_counter.png",
+      "sha256": "9eef87a65664a367c654b5aa5da74c9e127381820b774bef32bf2a9ac59de3eb",
+      "size": [
+        206,
+        36
+      ]
+    },
+    {
+      "path": "ui/panels/equipment_drawer.png",
+      "sha256": "1ce95f04095b7bd61865cbfad9d2342c30046f487633854e1275966718c2a967",
+      "size": [
+        825,
+        545
+      ]
+    },
+    {
+      "path": "ui/panels/filter_pill.png",
+      "sha256": "d0fc15116c348c602873b075b78d508e8d214121fc42599a83c3c21f22aad6da",
+      "size": [
+        170,
+        41
+      ]
+    },
+    {
+      "path": "ui/panels/header_nav.png",
+      "sha256": "cf24c6547f8ddf942d54764eb844c1a30be22a4c1058209756c656b2e8514c36",
+      "size": [
+        1200,
+        68
+      ]
+    },
+    {
+      "path": "ui/panels/hero_title.png",
+      "sha256": "c5ec4fdf728470e7f89321990bc41b6d0558ef4692f7a5f88ba15cdae52413ca",
+      "size": [
+        340,
+        58
+      ]
+    },
+    {
+      "path": "ui/panels/item_owner_badge.png",
+      "sha256": "c5ebb70af8d35e5ec026888c4f99cc53c34a3bd79f5676b566b12df9d7485f50",
+      "size": [
+        137,
+        49
+      ]
+    },
+    {
+      "path": "ui/panels/item_tooltip.png",
+      "sha256": "101b7edc21c2e263240aedf7752c5401f94f1513772abd9f3e369e81836c10b7",
+      "size": [
+        322,
+        148
+      ]
+    },
+    {
+      "path": "ui/panels/power_banner.png",
+      "sha256": "dc0f99bf54961df12e10c875be403d8224abaf03082be5ef4f9b80ca58830745",
+      "size": [
+        338,
+        59
+      ]
+    },
+    {
+      "path": "ui/panels/roster_rail.png",
+      "sha256": "61fff0379530e46ba8254565122577a17ca18972406d4a0880a07563a5fc6e3c",
+      "size": [
+        137,
+        588
+      ]
+    },
+    {
+      "path": "ui/panels/section_title.png",
+      "sha256": "0b0ce3ace6d5c7ca3e570434ccc544b634857d6b6c544c2932fa733346215199",
+      "size": [
+        326,
+        38
+      ]
+    },
+    {
+      "path": "ui/panels/stats_main.png",
+      "sha256": "701d7b50a11dfa0754b5dece5f602fa0c56ba167840cfc8d9931b16c3d58adb0",
+      "size": [
+        371,
+        568
+      ]
+    },
+    {
+      "path": "ui/panels/stat_row.png",
+      "sha256": "d251dcd5a5f8833cfb4d6243b6cd603a4b763ef004ee74f7bbb76f006f3e7c52",
+      "size": [
+        338,
+        40
+      ]
+    },
+    {
+      "path": "heroes/full_body/dieu_thuyen_512x768.png",
+      "sha256": "1f88092df3b9da59ed61aea1da02e585ff08b106fed5ec15f3a43bf4cea19908",
+      "size": [
+        512,
+        768
+      ]
+    },
+    {
+      "path": "heroes/full_body/dieu_thuyen_trim.png",
+      "sha256": "0cc2c0c84531467d05d1d6c509c5025b4d19b4b9e60281975a810524b2c17407",
+      "size": [
+        419,
+        659
+      ]
+    },
+    {
+      "path": "heroes/full_body/gia_cat_luong_512x768.png",
+      "sha256": "d4ce7edfb4d163a000d9cc2b1765913e7e6e308695b4948e14d9cd50c2586e5c",
+      "size": [
+        512,
+        768
+      ]
+    },
+    {
+      "path": "heroes/full_body/gia_cat_luong_trim.png",
+      "sha256": "0ec66ce3f2f3bc9e278879ce2b878e8525ab05b6dc58230cd5ffea6826a04fb7",
+      "size": [
+        379,
+        664
+      ]
+    },
+    {
+      "path": "heroes/full_body/lu_bo_512x768.png",
+      "sha256": "466f12a1558f941a248cdf412718215ef73239c51d11de81f8277d16522567ab",
+      "size": [
+        512,
+        768
+      ]
+    },
+    {
+      "path": "heroes/full_body/lu_bo_trim.png",
+      "sha256": "17f652dca8aa79da07b2f883c16b75e7c47028af7232200db58f7d72488d7063",
+      "size": [
+        411,
+        724
+      ]
+    },
+    {
+      "path": "heroes/full_body/quan_vu_512x768.png",
+      "sha256": "fd1145fd28ab8b6f8d74dd92d08aa7fdeda86b8e5c07e920d28446a543f3d77d",
+      "size": [
+        512,
+        768
+      ]
+    },
+    {
+      "path": "heroes/full_body/quan_vu_trim.png",
+      "sha256": "a04b7e54e7d0f54a2c271b5bd3ec44383bd13773a29f611ecf7be2d456b9ac4b",
+      "size": [
+        425,
+        701
+      ]
+    },
+    {
+      "path": "heroes/full_body/trieu_van_512x768.png",
+      "sha256": "a47d575f9e59cd0a06b4e873e19053e266fff6bc3ff02fd7550e3d4dae6e950d",
+      "size": [
+        512,
+        768
+      ]
+    },
+    {
+      "path": "heroes/full_body/trieu_van_trim.png",
+      "sha256": "20f4cf77158fc205e2f99cf3e13330c10b3ec618c939ee598c74b3ad40d9a28f",
+      "size": [
+        400,
+        683
+      ]
+    },
+    {
+      "path": "heroes/portraits/dieu_thuyen_256.png",
+      "sha256": "e22e16464d498e1ac7ff717a0be0f6b05970c4255042b04a85d426e235e92389",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "heroes/portraits/gia_cat_luong_256.png",
+      "sha256": "a39321259f6e7ecaf3a4b2408463b7d1f9b8460b804e73b62fb0805aaf2f870f",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "heroes/portraits/lu_bo_256.png",
+      "sha256": "71f4389b189e465e7a9151180557a67fabaa3938fccd08af9a8df219b6b1f9f5",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "heroes/portraits/quan_vu_256.png",
+      "sha256": "589ce8bcdd12aab637b99336851aefe148eaa287dc04396bd11e1c2882aab281",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "heroes/portraits/trieu_van_256.png",
+      "sha256": "3ac3419da893fd73d062c6831e1a2c83c9940af95aff99e7200b3cb2b9d347a1",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/aura_front_static.png",
+      "sha256": "d5df3a2ac1ed6b7a9da6bbb7f74f2c24c12eb55e230bef0d76d24c2e20c4eaf0",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_00.png",
+      "sha256": "1da06a3da682f90d9ce87169c54c9d7fdbecb73cd8788691f15fc3844554d2fe",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_01.png",
+      "sha256": "321375d5c7ac0075c5ef6fdc4392345319941495aaae5ecdd70869430152f9a3",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_02.png",
+      "sha256": "6438449964d3b81a25a9b0200d1bde290ed33be5b13aeaccd71fdd28100c8b52",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_03.png",
+      "sha256": "06ebce194441bf367a566fe712dce961093e21c973b4a2f89d398ed9e98ded8a",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_04.png",
+      "sha256": "acd43cf89a7bbfe81e4f8575cf963336181ce58beaeb102a47263218e3c26cbc",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_05.png",
+      "sha256": "d4d8077fa54b592ad49b6674ac46e4e6112dffdfd553aded3d74a8773e61bf29",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_06.png",
+      "sha256": "441f676c424a8201500a3249756e539c1f8bf2e52e0e2f156a121ee56654b29f",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_07.png",
+      "sha256": "ba3cc22d684f8e66b7c33187fb19a357532a1d2338347d9eef79f240140be3b5",
+      "size": [
+        650,
+        464
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/spirit_back_static.png",
+      "sha256": "c3c16ef020bc32f725663971378593ccaebac7aac5c943b099ee6b9156a24df8",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/gia_cat_luong/aura_front_static.png",
+      "sha256": "b58c9b908ddcf5994a5d347e7622bfd3d709c4de21584f937dfac7f5f897478c",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/gia_cat_luong/fx_loop_4x2.png",
+      "sha256": "e570b62bdb90d8280ecf62fcb8c92309c431d5b06795356b1279b1c84e04945e",
+      "size": [
+        2600,
+        928
+      ]
+    },
+    {
+      "path": "fx/gia_cat_luong/spirit_back_static.png",
+      "sha256": "cd6b3e941cebd2a85af7949211b65990f3c834fc26e27a54dffdefceff751226",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/lu_bo/aura_front_static.png",
+      "sha256": "255ff94b4ad87d37e73f589e9284f52502f66d7f0536918f459dcdc0c7f4a94c",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/lu_bo/fx_loop_4x2.png",
+      "sha256": "8dea2550a769eb3bd2d8043626094b88e5d193ad13e3a6b0564d7f612fa5e169",
+      "size": [
+        2600,
+        928
+      ]
+    },
+    {
+      "path": "fx/lu_bo/spirit_back_static.png",
+      "sha256": "7cfa72993c1c457b92ed99bf5a8965dc7f8d5b31aacae69848e9b1792ace5596",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/quan_vu/aura_front_static.png",
+      "sha256": "12a715b2c159c46c29e5421ac0b1224161d8424660fa0bbaafe90650172395f4",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/quan_vu/fx_loop_4x2.png",
+      "sha256": "b79187dce81fca72f964b46946f21973560acf974c600ff1e954124a916baf3b",
+      "size": [
+        2600,
+        928
+      ]
+    },
+    {
+      "path": "fx/quan_vu/spirit_back_static.png",
+      "sha256": "1da97ea811331b268f31a202ae3b0fba0460debfb9be4e237d6e4cc310a6c8e9",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/trieu_van/aura_front_static.png",
+      "sha256": "0b9eab288dd2bb472c1a1efae04c47d886cb4b53684a5a603a41385463b98261",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "fx/trieu_van/fx_loop_4x2.png",
+      "sha256": "63098fca85056093675a638ee8e1ea1d3c213a84725fef488ed717923ea959a6",
+      "size": [
+        2600,
+        928
+      ]
+    },
+    {
+      "path": "fx/trieu_van/spirit_back_static.png",
+      "sha256": "071e902df5dce14b41963c919cbe7671d8e6dcc8a83e826e135299934c2793e5",
+      "size": [
+        900,
+        640
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_disabled.png",
+      "sha256": "b83ed795706e72c0b5bbe5a54d9a0e9dd26d46a163aaac5dba398e976cff4978",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_empty.png",
+      "sha256": "89b561bdb9f6d2e9652755a811fb7107ce67cd9555c2cb97f6d83475c33c1d29",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_r.png",
+      "sha256": "d53d90b80b46cfcf9a21b883e62c13ae2d8979bb258b7831f3214b22c0ad6ee3",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_selected.png",
+      "sha256": "00dc2cf55039f8414e0d5a2abe03080582370c7d9a1ff2a4ab994d8077b5f9a2",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_sr.png",
+      "sha256": "689adddebd69681b6dcea0322a4b7097e692dc9fc9d83eee4a6a6223a0a1bcf6",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_ssr.png",
+      "sha256": "591d159415972551b0e2a5ef921b5a61f09a6735237f3b72ad1a65cb338993f4",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/frames/slot_sss.png",
+      "sha256": "65f9c88dc271ba7cad24b01bb4127e3afdfd88170f2246a88086133f2ac5e7be",
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "path": "equipment/icons/ancient_jewel.png",
+      "sha256": "31fad424647fcb7884ccedff7628da95ebe93fcb75e9b70f64860afb9ddc2b5c",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "equipment/icons/enhancement_crystal.png",
+      "sha256": "030a7a8eaa6deb3723ace827dfe51876ef81783eaebb9ae77ca03900e4bf358a",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "equipment/icons/skill_manual.png",
+      "sha256": "e2a91d1d9a09be49fe937609f48931772aca4e6c4b01681cdedfcad51751ef2f",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_01.png",
+      "sha256": "c428ca4de286a81b4524e68f5227ea5c8652112373441c92cf984a0879ce7810",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_02.png",
+      "sha256": "b60319ecccf5f1b0394f1d60c2620e3f6e0a76f012ebcb86758e0ea569908418",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_03.png",
+      "sha256": "cf10953ffc7877f1c6bd27aaa013928325af41a8c936af93c5d9576705d006c0",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_04.png",
+      "sha256": "62d14f947318814045d3448f19c6083a274718985734f91772f29db07b42cb60",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_05.png",
+      "sha256": "73fd353456272ef18ff8da05597777b45f560b0fc5cafaef86d7c470fd311dd3",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_06.png",
+      "sha256": "789a2988a37fa5fd992232258e804947fd2f82e9bd301dfd702686479ec63171",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "equipment/icons/weapon_ssr_07.png",
+      "sha256": "e33a648c57f277ec4d22faa8700298122cf44cc78ed8a0eee23a4e1b255fd45b",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "fx/dieu_thuyen/fx_loop_4x2.png",
+      "sha256": "951b715c41e19258e68dde944d00f4523b976fa2a0f61405bed93f4677787b7d",
+      "size": [
+        2600,
+        928
+      ],
+      "source": "Atlas_Hotfix_v2.0.1"
+    }
+  ],
+  "resolvedByHotfix": "dieu_thuyen atlas repaired; 8 source frames retained"
+}

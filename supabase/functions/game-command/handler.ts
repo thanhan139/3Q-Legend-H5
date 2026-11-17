@@ -5,15 +5,18 @@ import { DAILY_MISSIONS } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
 import type { BattleTicket, GameCommand, GameIntent } from '../../../src/cloud/gameProtocol';
 import type { SaveV2 } from '../../../src/domain/types';
+import { vipLevel, type VipSnapshot } from '../../../src/domain/vip';
 import { legacyTutorial, playerName, tutorialActive, tutorialTransition, type TutorialProgress } from '../../../src/domain/tutorial';
 
 export interface SaveRow {
   state: SaveV2;
   revision: number;
   tutorial?: TutorialProgress;
+  vip?: VipSnapshot;
 }
 
 export interface GameBackend {
+  claimVip?(uid: string, requestId: string, revision: string, command: Extract<GameCommand, {type:'vipClaim'}>): Promise<object>;
   user(token: string): Promise<{ id: string; is_anonymous?: boolean; email_confirmed_at?: string } | null>;
   read(uid: string): Promise<SaveRow | null>;
   receipt(uid: string, requestId: string): Promise<boolean>;
@@ -33,7 +36,7 @@ const ticketPayload = (uid: string, ticket: Omit<BattleTicket, 'signature'>) =>
 const serverRandom = () => crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
 
 async function run(store: GameStore, command: GameCommand, uid: string, requestId: string,
-  revision: string, backend: GameBackend): Promise<unknown> {
+  revision: string, backend: GameBackend, vip?: VipSnapshot): Promise<unknown> {
   switch (command.type) {
     case 'firstTopupDemo': return store.claimFirstTopupDemo();
     case 'checkIn': return store.claimCheckIn();
@@ -58,7 +61,7 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
       const stage = STAGES.find(item => item.id === t.stageId && store.isUnlocked(item.id));
       const { formation, heroExp, heroStars, equipment } = store.snapshot;
       if (!stage || !formation.some(Boolean)) return false;
-      const winner = makeStageBattle(stage, formation, heroExp, heroStars, equipment).finish();
+      const winner = makeStageBattle(stage, formation, heroExp, heroStars, equipment, vipLevel(vip?.paidBaseKnbTotal)).finish();
       return { winner, ...store.completeStage(stage.id, winner, requestId) };
     }
     default: return false;
@@ -88,7 +91,7 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   const row = await backend.read(uid);
   if (!row) return { status: 'missing' };
   const tutorial = row.tutorial ?? legacyTutorial();
-  const authoritative = { save: row.state, revision: String(row.revision), tutorial };
+  const authoritative = { save: row.state, revision: String(row.revision), tutorial, ...(row.vip ? {vip:row.vip} : {}) };
   if (intent.action === 'load') return { status: 'ok', ...authoritative };
   if (!revisionOK(intent.revision)) return { status: 'invalid' };
 
@@ -112,6 +115,11 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   }
   if (intent.action !== 'command') return { status: 'invalid' };
   const command = intent.command;
+  if (command.type === 'vipClaim') {
+    if (tutorialActive(tutorial) || !backend.claimVip || !Number.isInteger(command.tier) || command.tier < 0 || command.tier > 18 ||
+      !['level','daily','weekly'].includes(command.kind) || typeof command.period !== 'string' || command.period.length > 32) return {status:'rejected'};
+    return backend.claimVip(uid, intent.requestId, intent.revision, command);
+  }
   let receipt: unknown;
   let state = row.state;
   if (command.type === 'tutorial') {
@@ -122,7 +130,7 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
       state = { ...state, playerName: name };
     }
   } else {
-    receipt = await run(store, command, uid, intent.requestId, intent.revision, backend);
+    receipt = await run(store, command, uid, intent.requestId, intent.revision, backend, row.vip);
     state = store.snapshot;
   }
   if (receipt === false || (receipt && typeof receipt === 'object' && 'ok' in receipt && !receipt.ok))

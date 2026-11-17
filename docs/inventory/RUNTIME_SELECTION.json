@@ -1,0 +1,77 @@
+[
+  {
+    "path": "assets/inventory/background/inventory_hall_clean.png",
+    "sha256": "3aedc6ba7bf275d91be455b65d07e717872da07dbc905eb2668afb57da372ffa",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/inventory_grid_panel.png",
+    "sha256": "9d02fcd475dfe45b544c2469e01a7e4927fbd4957bf47d1c4a59e9830294f5d7",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/item_detail_panel.png",
+    "sha256": "b2209b7bbe8a907b9288701aa4f7ce51c0968d10d0fdf020bfc43e55d1bdbabf",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/title_banner_blank.png",
+    "sha256": "9323ab2f159448b64fa1ff2b5ad8a55db02402b468bfc46e525976ca287cb2f6",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/detail_parchment_blank.png",
+    "sha256": "c375f5d8a6de8a7e6b4a24f97b70cbe5cedb9e8cc085b5ffccb69c69a181f843",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/detail_title_plaque_blank.png",
+    "sha256": "b1acf9620988b9ad07b325d1b92bc79b5615b07977ebe77978c621fc4349b73d",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/panels/hero_fragment_portrait_frame.png",
+    "sha256": "abf695629e4c830d307c77cdf17298f32229005272a4634ec1728c9625a4510b",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/decor/gold_dragon_divider.png",
+    "sha256": "43c64ce9c232bea3e89eee4b58cb7e4bfd106dce12776d0adea6805f7df7d2fd",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/slots/item_slot_default.png",
+    "sha256": "a53280bf951aeea9c4624c725c7d2434a342ce9612552292dd2b7165456c4e0e",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/slots/item_slot_selected.png",
+    "sha256": "023e6cd27975709fa34c0e8d158d4369e1a6b3865898f1a0941f6d6195a085c8",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/tabs/tab_default.png",
+    "sha256": "683cb5851f0a13ae5884e93692720f45bd9d27014eb9274efadc0b04e52c950b",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/tabs/tab_selected.png",
+    "sha256": "f45a863bc5b60776105dd45b10e97960fccbaec3b385ff87e815181065092320",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/buttons/button_gold.png",
+    "sha256": "06f092659ad976e4b10dc7fce0edbe5719dfc89249cdda97dbdbad8682f44cbd",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/buttons/button_back.png",
+    "sha256": "3ff2e295d426b4e7545fae19fe4c567d3144da03af5943688060b8a7207242a8",
+    "policy": "blank runtime asset; dynamic labels only"
+  },
+  {
+    "path": "assets/inventory/effects/glow_gold.png",
+    "sha256": "bef8d29fc683b2f651bf9c80feec00327a81ae37c0c191c55c7cec6210603b13",
+    "policy": "blank runtime asset; dynamic labels only"
+  }
+]

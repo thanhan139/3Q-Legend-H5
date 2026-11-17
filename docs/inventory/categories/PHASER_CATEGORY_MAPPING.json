@@ -1,0 +1,212 @@
+{
+  "version": "1.0",
+  "component": "LobbyInventoryCategoryPopup",
+  "recommended_runtime_asset_folder": "assets/icons_320/",
+  "categories": [
+    {
+      "order": 1,
+      "id": "dao_cu",
+      "label_vi": "Đạo Cụ",
+      "usage": "Potions, consumables and general inventory items",
+      "icon_320": "assets/icons_320/01_dao_cu.png",
+      "icon_tight": "assets/icons_tight/01_dao_cu.png",
+      "labeled_reference": "assets/icons_labeled_reference/01_dao_cu_labeled.png",
+      "original_crop_width": 305,
+      "original_crop_height": 257,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 2,
+      "id": "trang_bi",
+      "label_vi": "Trang Bị",
+      "usage": "Equipment, armor and wearable gear",
+      "icon_320": "assets/icons_320/02_trang_bi.png",
+      "icon_tight": "assets/icons_tight/02_trang_bi.png",
+      "labeled_reference": "assets/icons_labeled_reference/02_trang_bi_labeled.png",
+      "original_crop_width": 319,
+      "original_crop_height": 248,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 3,
+      "id": "trang_suc",
+      "label_vi": "Trang Sức",
+      "usage": "Rings, necklaces, ornaments",
+      "icon_320": "assets/icons_320/03_trang_suc.png",
+      "icon_tight": "assets/icons_tight/03_trang_suc.png",
+      "labeled_reference": "assets/icons_labeled_reference/03_trang_suc_labeled.png",
+      "original_crop_width": 281,
+      "original_crop_height": 251,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 4,
+      "id": "bao_vat",
+      "label_vi": "Bảo Vật",
+      "usage": "Rare treasures and artifacts",
+      "icon_320": "assets/icons_320/04_bao_vat.png",
+      "icon_tight": "assets/icons_tight/04_bao_vat.png",
+      "labeled_reference": "assets/icons_labeled_reference/04_bao_vat_labeled.png",
+      "original_crop_width": 304,
+      "original_crop_height": 255,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 5,
+      "id": "chien_hon",
+      "label_vi": "Chiến Hồn",
+      "usage": "Battle souls",
+      "icon_320": "assets/icons_320/05_chien_hon.png",
+      "icon_tight": "assets/icons_tight/05_chien_hon.png",
+      "labeled_reference": "assets/icons_labeled_reference/05_chien_hon_labeled.png",
+      "original_crop_width": 303,
+      "original_crop_height": 253,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 6,
+      "id": "pet",
+      "label_vi": "Pet",
+      "usage": "Companion pets",
+      "icon_320": "assets/icons_320/06_pet.png",
+      "icon_tight": "assets/icons_tight/06_pet.png",
+      "labeled_reference": "assets/icons_labeled_reference/06_pet_labeled.png",
+      "original_crop_width": 319,
+      "original_crop_height": 249,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 7,
+      "id": "than_binh",
+      "label_vi": "Thần Binh",
+      "usage": "Divine weapons",
+      "icon_320": "assets/icons_320/07_than_binh.png",
+      "icon_tight": "assets/icons_tight/07_than_binh.png",
+      "labeled_reference": "assets/icons_labeled_reference/07_than_binh_labeled.png",
+      "original_crop_width": 317,
+      "original_crop_height": 254,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 8,
+      "id": "than_thu",
+      "label_vi": "Thần Thú",
+      "usage": "Mythic beasts",
+      "icon_320": "assets/icons_320/08_than_thu.png",
+      "icon_tight": "assets/icons_tight/08_than_thu.png",
+      "labeled_reference": "assets/icons_labeled_reference/08_than_thu_labeled.png",
+      "original_crop_width": 303,
+      "original_crop_height": 255,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 9,
+      "id": "cam_nang",
+      "label_vi": "Cẩm Nang",
+      "usage": "Manuals and codices",
+      "icon_320": "assets/icons_320/09_cam_nang.png",
+      "icon_tight": "assets/icons_tight/09_cam_nang.png",
+      "labeled_reference": "assets/icons_labeled_reference/09_cam_nang_labeled.png",
+      "original_crop_width": 293,
+      "original_crop_height": 253,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 10,
+      "id": "tui_da_quy",
+      "label_vi": "Túi Đá Quý",
+      "usage": "Gem bag",
+      "icon_320": "assets/icons_320/10_tui_da_quy.png",
+      "icon_tight": "assets/icons_tight/10_tui_da_quy.png",
+      "labeled_reference": "assets/icons_labeled_reference/10_tui_da_quy_labeled.png",
+      "original_crop_width": 314,
+      "original_crop_height": 246,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 11,
+      "id": "dien_vo_lenh",
+      "label_vi": "Điện Võ Lệnh",
+      "usage": "Military command tokens",
+      "icon_320": "assets/icons_320/11_dien_vo_lenh.png",
+      "icon_tight": "assets/icons_tight/11_dien_vo_lenh.png",
+      "labeled_reference": "assets/icons_labeled_reference/11_dien_vo_lenh_labeled.png",
+      "original_crop_width": 276,
+      "original_crop_height": 267,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 12,
+      "id": "trang_bi_quan_su",
+      "label_vi": "Trang Bị Quân Sư",
+      "usage": "Strategist equipment",
+      "icon_320": "assets/icons_320/12_trang_bi_quan_su.png",
+      "icon_tight": "assets/icons_tight/12_trang_bi_quan_su.png",
+      "labeled_reference": "assets/icons_labeled_reference/12_trang_bi_quan_su_labeled.png",
+      "original_crop_width": 323,
+      "original_crop_height": 262,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    },
+    {
+      "order": 13,
+      "id": "huyen_thu",
+      "label_vi": "Huyễn Thú",
+      "usage": "Illusory beasts",
+      "icon_320": "assets/icons_320/13_huyen_thu.png",
+      "icon_tight": "assets/icons_tight/13_huyen_thu.png",
+      "labeled_reference": "assets/icons_labeled_reference/13_huyen_thu_labeled.png",
+      "original_crop_width": 313,
+      "original_crop_height": 258,
+      "alpha": "RGBA",
+      "status": "needs_visual_qa"
+    }
+  ],
+  "layout": {
+    "desktop_landscape": {
+      "columns": 7,
+      "rows": 2
+    },
+    "mobile_landscape": {
+      "columns": 4,
+      "rows": 4,
+      "scroll": true
+    }
+  },
+  "states": {
+    "enabled": [
+      "dao_cu"
+    ],
+    "in_development": [
+      "trang_bi",
+      "trang_suc",
+      "bao_vat",
+      "chien_hon",
+      "pet",
+      "than_binh",
+      "than_thu",
+      "cam_nang",
+      "tui_da_quy",
+      "dien_vo_lenh",
+      "trang_bi_quan_su",
+      "huyen_thu"
+    ]
+  },
+  "labelRendering": "dynamic in Phaser text with Vietnamese font",
+  "sizeHints": {
+    "desktop_icon_px": 70,
+    "mobile_icon_px": 54,
+    "touch_hitbox_px_min": 44
+  }
+}

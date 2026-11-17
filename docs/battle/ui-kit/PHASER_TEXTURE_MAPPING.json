@@ -1,0 +1,43 @@
+{
+  "namespace": "battle",
+  "textures": {
+    "battle.stage_plaque_blank": "assets/runtime/plates/stage_plaque_blank.png",
+    "battle.turn_plaque_blank": "assets/runtime/plates/turn_plaque_blank.png",
+    "battle.back_lobby_blank": "assets/runtime/buttons/back_lobby_blank.png",
+    "battle.speed_blank": "assets/runtime/buttons/speed_blank.png",
+    "battle.skip_blank": "assets/runtime/buttons/skip_blank.png",
+    "battle.versus_emblem": "assets/runtime/effects/versus_emblem.png",
+    "battle.ally_nameplate_empty": "assets/runtime/hud/ally_nameplate_empty.png",
+    "battle.enemy_nameplate_empty": "assets/runtime/hud/enemy_nameplate_empty.png",
+    "battle.bar_track_ally": "assets/runtime/hud/bar_track_ally.png",
+    "battle.bar_rage_track": "assets/runtime/hud/bar_rage_track.png",
+    "battle.battle_log_frame": "assets/runtime/panels/battle_log_frame.png",
+    "battle.turn_order_frame": "assets/runtime/panels/turn_order_frame.png",
+    "battle.turn_queue_cell": "assets/runtime/panels/turn_queue_cell.png",
+    "battle.ground_ring_ally": "assets/runtime/ground/ground_ring_ally.png",
+    "battle.ground_ring_blue": "assets/runtime/ground/ground_ring_blue.png",
+    "battle.ground_ring_active": "assets/runtime/ground/ground_ring_active.png",
+    "battle.ground_ring_enemy": "assets/runtime/ground/ground_ring_enemy.png",
+    "battle.gold_divider_thin": "assets/runtime/decor/gold_divider_thin.png",
+    "battle.gold_divider_scroll": "assets/runtime/decor/gold_divider_scroll.png",
+    "battle.gold_divider_maze": "assets/runtime/decor/gold_divider_maze.png"
+  },
+  "excluded_runtime": [
+    "team_headers",
+    "continue_button",
+    "pause_button",
+    "defeat_marker_on_field"
+  ],
+  "dynamic_labels": [
+    "stageTitle",
+    "stageSubtitle",
+    "turnNumber",
+    "backLobby",
+    "heroName",
+    "currentHp",
+    "maxHp",
+    "rage",
+    "speedMultiplier",
+    "skipLabel"
+  ]
+}

@@ -1,0 +1,13 @@
+﻿name,hero_key,faction,cell_row,cell_col,component_pixel_area,trim_width,trim_height,trimmed_path,normalized_path,norm_width,norm_height,foot_origin_x,foot_origin_y,sprite_type,has_actual_animation,qa_state
+Triệu Vân,trieu_van,Thục,0,0,58434,406,351,sprites/trimmed/trieu_van.png,sprites/normalized/trieu_van.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Lưu Bị,luu_bi,Thục,0,1,61841,342,351,sprites/trimmed/luu_bi.png,sprites/normalized/luu_bi.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Quan Vũ,quan_vu,Thục,0,2,65513,378,355,sprites/trimmed/quan_vu.png,sprites/normalized/quan_vu.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Trương Phi,truong_phi,Thục,0,3,70772,379,355,sprites/trimmed/truong_phi.png,sprites/normalized/truong_phi.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Hoàng Trung,hoang_trung,Thục,1,0,64290,351,368,sprites/trimmed/hoang_trung.png,sprites/normalized/hoang_trung.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Gia Cát Lượng,gia_cat_luong,Thục,1,1,69384,329,354,sprites/trimmed/gia_cat_luong.png,sprites/normalized/gia_cat_luong.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Hạ Hầu Đôn,ha_hau_don,Ngụy,1,2,71742,377,346,sprites/trimmed/ha_hau_don.png,sprites/normalized/ha_hau_don.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Trương Liêu,truong_lieu,Ngụy,1,3,64910,393,363,sprites/trimmed/truong_lieu.png,sprites/normalized/truong_lieu.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Điển Vi,dien_vi,Ngụy,2,0,64186,367,357,sprites/trimmed/dien_vi.png,sprites/normalized/dien_vi.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Tào Hồng,tao_hong,Ngụy,2,1,57796,388,362,sprites/trimmed/tao_hong.png,sprites/normalized/tao_hong.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Hoa Hùng,hoa_hung,Quần Hùng,2,2,82873,380,375,sprites/trimmed/hoa_hung.png,sprites/normalized/hoa_hung.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK
+Tào Nhân,tao_nhan,Ngụy,2,3,66022,337,364,sprites/trimmed/tao_nhan.png,sprites/normalized/tao_nhan.png,448,448,0.5,0.933036,STATIC_PNG,False,NEEDS_VISUAL_QA_AND_ID_CHECK

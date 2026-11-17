@@ -3,6 +3,8 @@
  * whole cell equally made the sample heroes look much smaller than the rest.
  * These metadata values normalize the VISIBLE figure, not the canvas.
  */
+import {CHIBI_SOURCES,CHIBI_ENLARGEMENT,CHIBI_LIMITS,CHIBI_GROWTH} from './chibiBattle';
+import {heroFamily} from './heroes';
 interface VisibleFootprint { width: number; height: number }
 
 const VISIBLE_FOOTPRINTS: Readonly<Record<string, VisibleFootprint>> = {
@@ -33,4 +35,21 @@ export function battleSpriteDisplaySize(heroId: string): number {
     TARGET_VISIBLE_HEIGHT * SPRITE_CELL_SIZE / height,
     MAX_VISIBLE_WIDTH * SPRITE_CELL_SIZE / width,
   ));
+}
+
+// Battle-only limits for three rows. Leave the shared Lobby sizing above unchanged.
+// Include the largest idle/strike/hit frame, not only the initial standing pose.
+const CLIP_FOOTPRINTS:Readonly<Record<string,VisibleFootprint>>={
+  'zhang-fei':{width:236,height:216},'guan-yu':{width:228,height:204},'liu-bei':{width:219,height:210},
+};
+export function legacyBattleCharacterDisplaySize(heroId:string):number{
+  const {width,height}=CLIP_FOOTPRINTS[heroId]??VISIBLE_FOOTPRINTS[heroId]??{width:248,height:248};
+  return Math.floor(Math.min(112*SPRITE_CELL_SIZE/height,148*SPRITE_CELL_SIZE/width));
+}
+/** One uniform scale for every frame; source alpha bounds include weapon extremes. */
+export function battleCharacterDisplaySize(heroId:string):number{
+  const id=heroFamily(heroId),source=CHIBI_SOURCES[id],baseline=legacyBattleCharacterDisplaySize(id);
+  if(!source)return baseline;
+  return Math.min(baseline*(CHIBI_ENLARGEMENT[id]??CHIBI_GROWTH),
+    CHIBI_LIMITS.height*256/source.maxHeight,CHIBI_LIMITS.width*256/source.maxWidth,CHIBI_LIMITS.sourceScale*256);
 }

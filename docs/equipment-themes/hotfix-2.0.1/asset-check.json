@@ -1,0 +1,28 @@
+{
+  "dimensions": [
+    2600,
+    928
+  ],
+  "frameSize": [
+    650,
+    464
+  ],
+  "frames": 8,
+  "rgba": true,
+  "alphaRange": [
+    0,
+    140
+  ],
+  "tilesMatchOriginalFrames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "existingPngsUnchanged": 80,
+  "atlasSha256": "951b715c41e19258e68dde944d00f4523b976fa2a0f61405bed93f4677787b7d"
+}

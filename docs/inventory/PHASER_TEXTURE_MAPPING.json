@@ -1,0 +1,605 @@
+{
+  "inventory.inventory_hall_clean": {
+    "file": "assets/background/inventory_hall_clean.png",
+    "status": "ready",
+    "size": [
+      1920,
+      1080
+    ],
+    "usage": "Background 16:9 without baked UI"
+  },
+  "inventory.inventory_grid_panel": {
+    "file": "assets/panels/inventory_grid_panel.png",
+    "status": "ready",
+    "size": [
+      1000,
+      584
+    ],
+    "usage": "Blank ornamented frame; put dynamic text and item contents on separate layers"
+  },
+  "inventory.item_detail_panel": {
+    "file": "assets/panels/item_detail_panel.png",
+    "status": "ready",
+    "size": [
+      414,
+      584
+    ],
+    "usage": "Blank ornamented frame; put dynamic text and item contents on separate layers"
+  },
+  "inventory.title_banner_blank": {
+    "file": "assets/panels/title_banner_blank.png",
+    "status": "ready",
+    "size": [
+      510,
+      102
+    ],
+    "usage": "Blank ornamented frame; put dynamic text and item contents on separate layers"
+  },
+  "inventory.detail_title_plaque_blank": {
+    "file": "assets/panels/detail_title_plaque_blank.png",
+    "status": "ready",
+    "size": [
+      360,
+      61
+    ],
+    "usage": "Blank ornamented frame; put dynamic text and item contents on separate layers"
+  },
+  "inventory.detail_parchment_blank": {
+    "file": "assets/panels/detail_parchment_blank.png",
+    "status": "ready",
+    "size": [
+      369,
+      258
+    ],
+    "usage": "Description parchment (no baked text)"
+  },
+  "inventory.item_detail_header_blank": {
+    "file": "assets/panels/item_detail_header_blank.png",
+    "status": "ready",
+    "size": [
+      385,
+      147
+    ],
+    "usage": "Item portrait/title area"
+  },
+  "inventory.item_tooltip_blank": {
+    "file": "assets/panels/item_tooltip_blank.png",
+    "status": "ready",
+    "size": [
+      425,
+      356
+    ],
+    "usage": "Reusable tooltip popup"
+  },
+  "inventory.item_slot_default": {
+    "file": "assets/slots/item_slot_default.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "Item slot frame, no label/icon/count"
+  },
+  "inventory.item_slot_selected": {
+    "file": "assets/slots/item_slot_selected.png",
+    "status": "ready",
+    "size": [
+      214,
+      175
+    ],
+    "usage": "Selected item frame with gold glow"
+  },
+  "inventory.item_slot_disabled": {
+    "file": "assets/slots/item_slot_disabled.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "Unavailable/disabled item slot"
+  },
+  "inventory.item_slot_r": {
+    "file": "assets/slots/item_slot_r.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "R rarity border"
+  },
+  "inventory.item_slot_sr": {
+    "file": "assets/slots/item_slot_sr.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "SR rarity border"
+  },
+  "inventory.item_slot_ssr": {
+    "file": "assets/slots/item_slot_ssr.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "SSR rarity border"
+  },
+  "inventory.item_slot_sssplus": {
+    "file": "assets/slots/item_slot_sssplus.png",
+    "status": "ready",
+    "size": [
+      174,
+      135
+    ],
+    "usage": "SSSPLUS rarity border"
+  },
+  "inventory.tab_selected": {
+    "file": "assets/tabs/tab_selected.png",
+    "status": "ready",
+    "size": [
+      217,
+      59
+    ],
+    "usage": "Blank category tab; Phaser renders category icon and Vietnamese text"
+  },
+  "inventory.tab_default": {
+    "file": "assets/tabs/tab_default.png",
+    "status": "ready",
+    "size": [
+      217,
+      59
+    ],
+    "usage": "Blank category tab; Phaser renders category icon and Vietnamese text"
+  },
+  "inventory.tab_disabled": {
+    "file": "assets/tabs/tab_disabled.png",
+    "status": "ready",
+    "size": [
+      217,
+      59
+    ],
+    "usage": "Blank category tab; Phaser renders category icon and Vietnamese text"
+  },
+  "inventory.button_gold": {
+    "file": "assets/buttons/button_gold.png",
+    "status": "ready",
+    "size": [
+      264,
+      75
+    ],
+    "usage": "Blank button; label and icon rendered by Phaser"
+  },
+  "inventory.button_red": {
+    "file": "assets/buttons/button_red.png",
+    "status": "ready",
+    "size": [
+      265,
+      75
+    ],
+    "usage": "Blank button; label and icon rendered by Phaser"
+  },
+  "inventory.button_back": {
+    "file": "assets/buttons/button_back.png",
+    "status": "ready",
+    "size": [
+      240,
+      69
+    ],
+    "usage": "Blank button; label and icon rendered by Phaser"
+  },
+  "inventory.button_green": {
+    "file": "assets/buttons/button_green.png",
+    "status": "ready",
+    "size": [
+      265,
+      75
+    ],
+    "usage": "Blank button; label and icon rendered by Phaser"
+  },
+  "inventory.button_pressed": {
+    "file": "assets/buttons/button_pressed.png",
+    "status": "ready",
+    "size": [
+      264,
+      75
+    ],
+    "usage": "Pressed interaction state"
+  },
+  "inventory.button_disabled": {
+    "file": "assets/buttons/button_disabled.png",
+    "status": "ready",
+    "size": [
+      264,
+      75
+    ],
+    "usage": "Disabled interaction state"
+  },
+  "inventory.header_bg_blank": {
+    "file": "assets/panels/header_bg_blank.png",
+    "status": "ready",
+    "size": [
+      1560,
+      162
+    ],
+    "usage": "Blank content-area backing, no baked text"
+  },
+  "inventory.grid_section_bg_blank": {
+    "file": "assets/panels/grid_section_bg_blank.png",
+    "status": "ready",
+    "size": [
+      1000,
+      565
+    ],
+    "usage": "Blank content-area backing, no baked text"
+  },
+  "inventory.detail_section_bg_blank": {
+    "file": "assets/panels/detail_section_bg_blank.png",
+    "status": "ready",
+    "size": [
+      410,
+      565
+    ],
+    "usage": "Blank content-area backing, no baked text"
+  },
+  "inventory.gold_divider": {
+    "file": "assets/decor/gold_divider.png",
+    "status": "ready",
+    "size": [
+      1370,
+      48
+    ],
+    "usage": "Gold ornate separator; transparent canvas"
+  },
+  "inventory.gold_inner_divider": {
+    "file": "assets/decor/gold_inner_divider.png",
+    "status": "ready",
+    "size": [
+      420,
+      24
+    ],
+    "usage": "Gold ornate separator; transparent canvas"
+  },
+  "inventory.glow_gold": {
+    "file": "assets/effects/glow_gold.png",
+    "status": "ready",
+    "size": [
+      192,
+      192
+    ],
+    "usage": "Soft additive selection/rarity glow, no UI text"
+  },
+  "inventory.glow_purple": {
+    "file": "assets/effects/glow_purple.png",
+    "status": "ready",
+    "size": [
+      192,
+      192
+    ],
+    "usage": "Soft additive selection/rarity glow, no UI text"
+  },
+  "inventory.glow_blue": {
+    "file": "assets/effects/glow_blue.png",
+    "status": "ready",
+    "size": [
+      192,
+      192
+    ],
+    "usage": "Soft additive selection/rarity glow, no UI text"
+  },
+  "inventory.glow_red": {
+    "file": "assets/effects/glow_red.png",
+    "status": "ready",
+    "size": [
+      192,
+      192
+    ],
+    "usage": "Soft additive selection/rarity glow, no UI text"
+  },
+  "inventory.hero_fragment_portrait_frame": {
+    "file": "assets/panels/hero_fragment_portrait_frame.png",
+    "status": "ready",
+    "size": [
+      157,
+      155
+    ],
+    "usage": "Empty portrait frame, portrait from hero registry"
+  },
+  "inventory.golden_key": {
+    "file": "assets/icons_reference/golden_key.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Chìa Khóa Vàng"
+  },
+  "inventory.hero_exp": {
+    "file": "assets/icons_reference/hero_exp.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: EXP Tướng"
+  },
+  "inventory.enhancement_crystal": {
+    "file": "assets/icons_reference/enhancement_crystal.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Đá Cường Hóa"
+  },
+  "inventory.divine_weapon_shard": {
+    "file": "assets/icons_reference/divine_weapon_shard.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Mảnh Thần Binh"
+  },
+  "inventory.old_ingot": {
+    "file": "assets/icons_reference/old_ingot.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Nguyên Bảo cũ"
+  },
+  "inventory.bui_nguyen_thieu_fragment": {
+    "file": "assets/icons_reference/bui_nguyen_thieu_fragment.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Mảnh Bùi Nguyên Thiệu"
+  },
+  "inventory.hinh_dao_vinh_fragment": {
+    "file": "assets/icons_reference/hinh_dao_vinh_fragment.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Mảnh Hình Đạo Vinh"
+  },
+  "inventory.trinh_vien_chi_fragment": {
+    "file": "assets/icons_reference/trinh_vien_chi_fragment.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Mảnh Trình Viễn Chí"
+  },
+  "inventory.spirit_stone": {
+    "file": "assets/icons_reference/spirit_stone.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Đá Thần Khí"
+  },
+  "inventory.ancient_jewel": {
+    "file": "assets/icons_reference/ancient_jewel.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Ngọc Cổ Truyền"
+  },
+  "inventory.hero_chest": {
+    "file": "assets/icons_reference/hero_chest.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Rương Tướng Cao Cấp"
+  },
+  "inventory.divine_chest": {
+    "file": "assets/icons_reference/divine_chest.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Rương Thần Binh"
+  },
+  "inventory.skill_manual": {
+    "file": "assets/icons_reference/skill_manual.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Sách Kỹ Năng"
+  },
+  "inventory.summon_scroll": {
+    "file": "assets/icons_reference/summon_scroll.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Cuộn Chiêu Mộ"
+  },
+  "inventory.march_order": {
+    "file": "assets/icons_reference/march_order.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Lệnh Xuất Chinh"
+  },
+  "inventory.silver_coin": {
+    "file": "assets/icons_reference/silver_coin.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Bạc"
+  },
+  "inventory.spirit_crystal": {
+    "file": "assets/icons_reference/spirit_crystal.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Linh Thạch"
+  },
+  "inventory.hero_soul": {
+    "file": "assets/icons_reference/hero_soul.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Hồn Tướng"
+  },
+  "inventory.upgrade_gem": {
+    "file": "assets/icons_reference/upgrade_gem.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Đá Tiến Cấp"
+  },
+  "inventory.surprise_pouch": {
+    "file": "assets/icons_reference/surprise_pouch.png",
+    "status": "review",
+    "size": [
+      128,
+      128
+    ],
+    "usage": "Optional extracted icon reference: Túi Ngẫu Nhiên Cao Cấp"
+  },
+  "inventory.inventory_title_static": {
+    "file": "assets/decor/inventory_title_static.png",
+    "status": "review",
+    "size": [
+      535,
+      230
+    ],
+    "usage": "Decorative fixed title graphic: Túi Đồ"
+  },
+  "inventory.button_back_static": {
+    "file": "assets/buttons/button_back_static.png",
+    "status": "review",
+    "size": [
+      290,
+      105
+    ],
+    "usage": "Decorative fixed Về sảnh button"
+  },
+  "inventory.gold_dragon_divider": {
+    "file": "assets/decor/gold_dragon_divider.png",
+    "status": "ready",
+    "size": [
+      1355,
+      95
+    ],
+    "usage": "Gold dragon ornament divider, transparent background"
+  },
+  "inventory.tab_all_static": {
+    "file": "assets/tabs/tab_all_static.png",
+    "status": "review",
+    "size": [
+      257,
+      98
+    ],
+    "usage": "Decorated category tab with baked static label"
+  },
+  "inventory.tab_resources_static": {
+    "file": "assets/tabs/tab_resources_static.png",
+    "status": "review",
+    "size": [
+      275,
+      89
+    ],
+    "usage": "Decorated category tab with baked static label"
+  },
+  "inventory.tab_fragments_static": {
+    "file": "assets/tabs/tab_fragments_static.png",
+    "status": "review",
+    "size": [
+      274,
+      93
+    ],
+    "usage": "Decorated category tab with baked static label"
+  },
+  "inventory.tab_items_static": {
+    "file": "assets/tabs/tab_items_static.png",
+    "status": "review",
+    "size": [
+      273,
+      91
+    ],
+    "usage": "Decorated category tab with baked static label"
+  },
+  "inventory.tab_divine_static": {
+    "file": "assets/tabs/tab_divine_static.png",
+    "status": "review",
+    "size": [
+      285,
+      89
+    ],
+    "usage": "Decorated category tab with baked static label"
+  },
+  "inventory.left_three_kingdoms_banner": {
+    "file": "assets/decor/left_three_kingdoms_banner.png",
+    "status": "ready",
+    "size": [
+      130,
+      359
+    ],
+    "usage": "Red hanging Three Kingdoms banner, left"
+  },
+  "inventory.right_three_kingdoms_banner": {
+    "file": "assets/decor/right_three_kingdoms_banner.png",
+    "status": "ready",
+    "size": [
+      152,
+      359
+    ],
+    "usage": "Red hanging Three Kingdoms banner, right"
+  },
+  "inventory.guardian_dragon_left": {
+    "file": "assets/decor/guardian_dragon_left.png",
+    "status": "ready",
+    "size": [
+      143,
+      308
+    ],
+    "usage": "Gold dragon guardian statue on base, left"
+  },
+  "inventory.guardian_dragon_right": {
+    "file": "assets/decor/guardian_dragon_right.png",
+    "status": "ready",
+    "size": [
+      162,
+      314
+    ],
+    "usage": "Gold dragon guardian statue on base, right"
+  },
+  "inventory.detail_nameplate_dragon_blank": {
+    "file": "assets/panels/detail_nameplate_dragon_blank.png",
+    "status": "ready",
+    "size": [
+      385,
+      77
+    ],
+    "usage": "Ornate blank item detail title strip with gold ends"
+  }
+}

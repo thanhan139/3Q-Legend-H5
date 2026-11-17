@@ -1,0 +1,14 @@
+﻿order,id,label_vi,usage,icon_320,icon_tight,labeled_reference,original_crop_width,original_crop_height,alpha,status
+1,dao_cu,Đạo Cụ,"Potions, consumables and general inventory items",assets/icons_320/01_dao_cu.png,assets/icons_tight/01_dao_cu.png,assets/icons_labeled_reference/01_dao_cu_labeled.png,305,257,RGBA,needs_visual_qa
+2,trang_bi,Trang Bị,"Equipment, armor and wearable gear",assets/icons_320/02_trang_bi.png,assets/icons_tight/02_trang_bi.png,assets/icons_labeled_reference/02_trang_bi_labeled.png,319,248,RGBA,needs_visual_qa
+3,trang_suc,Trang Sức,"Rings, necklaces, ornaments",assets/icons_320/03_trang_suc.png,assets/icons_tight/03_trang_suc.png,assets/icons_labeled_reference/03_trang_suc_labeled.png,281,251,RGBA,needs_visual_qa
+4,bao_vat,Bảo Vật,Rare treasures and artifacts,assets/icons_320/04_bao_vat.png,assets/icons_tight/04_bao_vat.png,assets/icons_labeled_reference/04_bao_vat_labeled.png,304,255,RGBA,needs_visual_qa
+5,chien_hon,Chiến Hồn,Battle souls,assets/icons_320/05_chien_hon.png,assets/icons_tight/05_chien_hon.png,assets/icons_labeled_reference/05_chien_hon_labeled.png,303,253,RGBA,needs_visual_qa
+6,pet,Pet,Companion pets,assets/icons_320/06_pet.png,assets/icons_tight/06_pet.png,assets/icons_labeled_reference/06_pet_labeled.png,319,249,RGBA,needs_visual_qa
+7,than_binh,Thần Binh,Divine weapons,assets/icons_320/07_than_binh.png,assets/icons_tight/07_than_binh.png,assets/icons_labeled_reference/07_than_binh_labeled.png,317,254,RGBA,needs_visual_qa
+8,than_thu,Thần Thú,Mythic beasts,assets/icons_320/08_than_thu.png,assets/icons_tight/08_than_thu.png,assets/icons_labeled_reference/08_than_thu_labeled.png,303,255,RGBA,needs_visual_qa
+9,cam_nang,Cẩm Nang,Manuals and codices,assets/icons_320/09_cam_nang.png,assets/icons_tight/09_cam_nang.png,assets/icons_labeled_reference/09_cam_nang_labeled.png,293,253,RGBA,needs_visual_qa
+10,tui_da_quy,Túi Đá Quý,Gem bag,assets/icons_320/10_tui_da_quy.png,assets/icons_tight/10_tui_da_quy.png,assets/icons_labeled_reference/10_tui_da_quy_labeled.png,314,246,RGBA,needs_visual_qa
+11,dien_vo_lenh,Điện Võ Lệnh,Military command tokens,assets/icons_320/11_dien_vo_lenh.png,assets/icons_tight/11_dien_vo_lenh.png,assets/icons_labeled_reference/11_dien_vo_lenh_labeled.png,276,267,RGBA,needs_visual_qa
+12,trang_bi_quan_su,Trang Bị Quân Sư,Strategist equipment,assets/icons_320/12_trang_bi_quan_su.png,assets/icons_tight/12_trang_bi_quan_su.png,assets/icons_labeled_reference/12_trang_bi_quan_su_labeled.png,323,262,RGBA,needs_visual_qa
+13,huyen_thu,Huyễn Thú,Illusory beasts,assets/icons_320/13_huyen_thu.png,assets/icons_tight/13_huyen_thu.png,assets/icons_labeled_reference/13_huyen_thu_labeled.png,313,258,RGBA,needs_visual_qa

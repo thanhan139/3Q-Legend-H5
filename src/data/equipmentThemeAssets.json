@@ -1,0 +1,974 @@
+{
+  "background/equipment_hall_clean.png": {
+    "size": [
+      1920,
+      1080
+    ],
+    "bounds": [
+      0,
+      0,
+      1920,
+      1080
+    ]
+  },
+  "ui/buttons/action_round.png": {
+    "size": [
+      86,
+      86
+    ],
+    "bounds": [
+      3,
+      4,
+      83,
+      84
+    ]
+  },
+  "ui/buttons/back_to_lobby_blank.png": {
+    "size": [
+      194,
+      58
+    ],
+    "bounds": [
+      3,
+      3,
+      192,
+      55
+    ]
+  },
+  "ui/buttons/disabled.png": {
+    "size": [
+      208,
+      65
+    ],
+    "bounds": [
+      3,
+      3,
+      206,
+      62
+    ]
+  },
+  "ui/buttons/primary_gold.png": {
+    "size": [
+      208,
+      65
+    ],
+    "bounds": [
+      3,
+      3,
+      206,
+      62
+    ]
+  },
+  "ui/buttons/secondary_red.png": {
+    "size": [
+      208,
+      65
+    ],
+    "bounds": [
+      3,
+      3,
+      206,
+      62
+    ]
+  },
+  "ui/buttons/teal.png": {
+    "size": [
+      208,
+      65
+    ],
+    "bounds": [
+      3,
+      3,
+      206,
+      62
+    ]
+  },
+  "ui/decor/character_pedestal_symbol.png": {
+    "size": [
+      85,
+      85
+    ],
+    "bounds": [
+      3,
+      4,
+      82,
+      83
+    ]
+  },
+  "ui/decor/gold_divider.png": {
+    "size": [
+      1370,
+      48
+    ],
+    "bounds": [
+      15,
+      10,
+      1356,
+      39
+    ]
+  },
+  "ui/decor/item_nameplate_blank.png": {
+    "size": [
+      101,
+      23
+    ],
+    "bounds": [
+      3,
+      3,
+      99,
+      20
+    ]
+  },
+  "ui/decor/star_gold.png": {
+    "size": [
+      34,
+      34
+    ],
+    "bounds": [
+      1,
+      1,
+      33,
+      30
+    ]
+  },
+  "ui/effects/glow_gold.png": {
+    "size": [
+      192,
+      192
+    ],
+    "bounds": [
+      0,
+      0,
+      192,
+      192
+    ]
+  },
+  "ui/effects/glow_red.png": {
+    "size": [
+      192,
+      192
+    ],
+    "bounds": [
+      0,
+      0,
+      192,
+      192
+    ]
+  },
+  "ui/panels/bottom_nav_strip.png": {
+    "size": [
+      850,
+      86
+    ],
+    "bounds": [
+      2,
+      2,
+      848,
+      84
+    ]
+  },
+  "ui/panels/equipment_counter.png": {
+    "size": [
+      206,
+      36
+    ],
+    "bounds": [
+      3,
+      3,
+      204,
+      33
+    ]
+  },
+  "ui/panels/equipment_drawer.png": {
+    "size": [
+      825,
+      545
+    ],
+    "bounds": [
+      2,
+      2,
+      823,
+      543
+    ]
+  },
+  "ui/panels/filter_pill.png": {
+    "size": [
+      170,
+      41
+    ],
+    "bounds": [
+      3,
+      3,
+      168,
+      38
+    ]
+  },
+  "ui/panels/header_nav.png": {
+    "size": [
+      1200,
+      68
+    ],
+    "bounds": [
+      2,
+      2,
+      1198,
+      66
+    ]
+  },
+  "ui/panels/hero_title.png": {
+    "size": [
+      340,
+      58
+    ],
+    "bounds": [
+      2,
+      2,
+      338,
+      56
+    ]
+  },
+  "ui/panels/item_owner_badge.png": {
+    "size": [
+      137,
+      49
+    ],
+    "bounds": [
+      3,
+      3,
+      135,
+      46
+    ]
+  },
+  "ui/panels/item_tooltip.png": {
+    "size": [
+      322,
+      148
+    ],
+    "bounds": [
+      2,
+      2,
+      320,
+      146
+    ]
+  },
+  "ui/panels/power_banner.png": {
+    "size": [
+      338,
+      59
+    ],
+    "bounds": [
+      3,
+      3,
+      336,
+      56
+    ]
+  },
+  "ui/panels/roster_rail.png": {
+    "size": [
+      137,
+      588
+    ],
+    "bounds": [
+      2,
+      2,
+      135,
+      586
+    ]
+  },
+  "ui/panels/section_title.png": {
+    "size": [
+      326,
+      38
+    ],
+    "bounds": [
+      2,
+      2,
+      324,
+      36
+    ]
+  },
+  "ui/panels/stats_main.png": {
+    "size": [
+      371,
+      568
+    ],
+    "bounds": [
+      2,
+      2,
+      369,
+      566
+    ]
+  },
+  "ui/panels/stat_row.png": {
+    "size": [
+      338,
+      40
+    ],
+    "bounds": [
+      2,
+      2,
+      336,
+      38
+    ]
+  },
+  "heroes/full_body/dieu_thuyen_512x768.png": {
+    "size": [
+      512,
+      768
+    ],
+    "bounds": [
+      46,
+      97,
+      460,
+      750
+    ]
+  },
+  "heroes/full_body/dieu_thuyen_trim.png": {
+    "size": [
+      419,
+      659
+    ],
+    "bounds": [
+      0,
+      4,
+      414,
+      657
+    ]
+  },
+  "heroes/full_body/gia_cat_luong_512x768.png": {
+    "size": [
+      512,
+      768
+    ],
+    "bounds": [
+      67,
+      91,
+      445,
+      750
+    ]
+  },
+  "heroes/full_body/gia_cat_luong_trim.png": {
+    "size": [
+      379,
+      664
+    ],
+    "bounds": [
+      1,
+      3,
+      379,
+      662
+    ]
+  },
+  "heroes/full_body/lu_bo_512x768.png": {
+    "size": [
+      512,
+      768
+    ],
+    "bounds": [
+      51,
+      29,
+      461,
+      749
+    ]
+  },
+  "heroes/full_body/lu_bo_trim.png": {
+    "size": [
+      411,
+      724
+    ],
+    "bounds": [
+      1,
+      1,
+      411,
+      721
+    ]
+  },
+  "heroes/full_body/quan_vu_512x768.png": {
+    "size": [
+      512,
+      768
+    ],
+    "bounds": [
+      44,
+      56,
+      468,
+      749
+    ]
+  },
+  "heroes/full_body/quan_vu_trim.png": {
+    "size": [
+      425,
+      701
+    ],
+    "bounds": [
+      1,
+      5,
+      425,
+      698
+    ]
+  },
+  "heroes/full_body/trieu_van_512x768.png": {
+    "size": [
+      512,
+      768
+    ],
+    "bounds": [
+      57,
+      76,
+      456,
+      748
+    ]
+  },
+  "heroes/full_body/trieu_van_trim.png": {
+    "size": [
+      400,
+      683
+    ],
+    "bounds": [
+      1,
+      7,
+      400,
+      679
+    ]
+  },
+  "heroes/portraits/dieu_thuyen_256.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      0,
+      0,
+      256,
+      256
+    ]
+  },
+  "heroes/portraits/gia_cat_luong_256.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      0,
+      0,
+      256,
+      256
+    ]
+  },
+  "heroes/portraits/lu_bo_256.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      0,
+      0,
+      256,
+      256
+    ]
+  },
+  "heroes/portraits/quan_vu_256.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      0,
+      0,
+      256,
+      256
+    ]
+  },
+  "heroes/portraits/trieu_van_256.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      0,
+      0,
+      256,
+      256
+    ]
+  },
+  "fx/dieu_thuyen/aura_front_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      268,
+      494,
+      633,
+      580
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_00.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      275,
+      184,
+      480,
+      250
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_01.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      262,
+      106,
+      533,
+      349
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_02.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      421,
+      148,
+      426,
+      153
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_03.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      247,
+      139,
+      476,
+      386
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_04.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      439,
+      213,
+      448,
+      222
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_05.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      400,
+      220,
+      510,
+      335
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_06.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      254,
+      169,
+      494,
+      383
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_07.png": {
+    "size": [
+      650,
+      464
+    ],
+    "bounds": [
+      374,
+      214,
+      465,
+      311
+    ]
+  },
+  "fx/dieu_thuyen/spirit_back_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      371,
+      252,
+      649,
+      346
+    ]
+  },
+  "fx/gia_cat_luong/aura_front_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      268,
+      494,
+      633,
+      580
+    ]
+  },
+  "fx/gia_cat_luong/fx_loop_4x2.png": {
+    "size": [
+      2600,
+      928
+    ],
+    "bounds": [
+      365,
+      68,
+      2550,
+      746
+    ]
+  },
+  "fx/gia_cat_luong/spirit_back_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      412,
+      68,
+      709,
+      255
+    ]
+  },
+  "fx/lu_bo/aura_front_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      268,
+      494,
+      633,
+      580
+    ]
+  },
+  "fx/lu_bo/fx_loop_4x2.png": {
+    "size": [
+      2600,
+      928
+    ],
+    "bounds": [
+      86,
+      146,
+      2600,
+      895
+    ]
+  },
+  "fx/lu_bo/spirit_back_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      86,
+      153,
+      888,
+      431
+    ]
+  },
+  "fx/quan_vu/aura_front_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      268,
+      494,
+      633,
+      580
+    ]
+  },
+  "fx/quan_vu/fx_loop_4x2.png": {
+    "size": [
+      2600,
+      928
+    ],
+    "bounds": [
+      86,
+      133,
+      2600,
+      895
+    ]
+  },
+  "fx/quan_vu/spirit_back_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      86,
+      153,
+      888,
+      431
+    ]
+  },
+  "fx/trieu_van/aura_front_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      268,
+      494,
+      633,
+      580
+    ]
+  },
+  "fx/trieu_van/fx_loop_4x2.png": {
+    "size": [
+      2600,
+      928
+    ],
+    "bounds": [
+      86,
+      139,
+      2600,
+      895
+    ]
+  },
+  "fx/trieu_van/spirit_back_static.png": {
+    "size": [
+      900,
+      640
+    ],
+    "bounds": [
+      86,
+      153,
+      888,
+      431
+    ]
+  },
+  "equipment/frames/slot_disabled.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_empty.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_r.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_selected.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      0,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_sr.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_ssr.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/frames/slot_sss.png": {
+    "size": [
+      110,
+      114
+    ],
+    "bounds": [
+      5,
+      5,
+      106,
+      109
+    ]
+  },
+  "equipment/icons/ancient_jewel.png": {
+    "size": [
+      128,
+      128
+    ],
+    "bounds": [
+      15,
+      32,
+      115,
+      96
+    ]
+  },
+  "equipment/icons/enhancement_crystal.png": {
+    "size": [
+      128,
+      128
+    ],
+    "bounds": [
+      17,
+      32,
+      113,
+      96
+    ]
+  },
+  "equipment/icons/skill_manual.png": {
+    "size": [
+      128,
+      128
+    ],
+    "bounds": [
+      15,
+      32,
+      115,
+      96
+    ]
+  },
+  "equipment/icons/weapon_ssr_01.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      43,
+      24,
+      216,
+      236
+    ]
+  },
+  "equipment/icons/weapon_ssr_02.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      37,
+      17,
+      218,
+      235
+    ]
+  },
+  "equipment/icons/weapon_ssr_03.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      43,
+      17,
+      216,
+      234
+    ]
+  },
+  "equipment/icons/weapon_ssr_04.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      39,
+      24,
+      218,
+      234
+    ]
+  },
+  "equipment/icons/weapon_ssr_05.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      45,
+      17,
+      214,
+      235
+    ]
+  },
+  "equipment/icons/weapon_ssr_06.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      38,
+      21,
+      221,
+      235
+    ]
+  },
+  "equipment/icons/weapon_ssr_07.png": {
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      49,
+      17,
+      208,
+      235
+    ]
+  },
+  "fx/dieu_thuyen/fx_loop_4x2.png": {
+    "size": [
+      2600,
+      928
+    ],
+    "bounds": [
+      68,
+      49,
+      2600,
+      928
+    ]
+  }
+}

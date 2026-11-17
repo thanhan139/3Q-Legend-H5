@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { readLobbySettings } from './lobbySettings';
 import { ATTACK_BUFF_VFX, CRIT_BUFF_VFX, SHIELD_VFX,
   SKILL_EFFECTS, skillTextureKey } from '../data/skillVfx';
 
@@ -11,6 +12,8 @@ export class SkillVFXManager {
   private dragon?: Phaser.GameObjects.Image;
   private dragonTrail?: Phaser.GameObjects.Particles.ParticleEmitter;
   private dragonMotion?: Phaser.Tweens.Tween;
+  private readonly enabled=readLobbySettings().effects&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  private readonly lowQuality=readLobbySettings().quality==='Thấp';
 
   constructor(private readonly scene: Phaser.Scene) {}
 
@@ -31,6 +34,7 @@ export class SkillVFXManager {
   }
 
   private flare(id: string, point: Point, maxSize: number, duration: number, depth: number, flip = false) {
+    if(!this.enabled)return;
     const key = skillTextureKey(id);
     if (!this.scene.textures.exists(key)) return;
     const image = this.scene.add.image(point.x, point.y, key).setDepth(depth).setFlipX(flip);
@@ -55,6 +59,7 @@ export class SkillVFXManager {
   }
 
   private burst(point: Point, color: number) {
+    if(!this.enabled)return;
     const key = this.sparkTexture();
     const emitter = this.scene.add.particles(point.x, point.y, key, {
       emitting: false, lifespan: 320, speed: { min: 55, max: 145 },
@@ -63,7 +68,7 @@ export class SkillVFXManager {
     }).setDepth(8);
     emitter.timeScale = this.rate;
     this.emitters.add(emitter);
-    emitter.explode(10);
+    emitter.explode(this.lowQuality?4:10);
     this.scene.time.delayedCall(340, () => {
       this.emitters.delete(emitter);
       emitter.destroy();
@@ -78,6 +83,7 @@ export class SkillVFXManager {
   }
 
   travel(skillId: string, from: Point, to: Point, duration: number, arc: number) {
+    if(!this.enabled)return;
     const texture = SKILL_EFFECTS[skillId]?.travel;
     if (!texture) return;
     const key = skillTextureKey(texture);
@@ -107,11 +113,12 @@ export class SkillVFXManager {
   }
 
   sweepDragon(texture: string, from: Point, to: Point, duration: number, first: boolean, facingLeft: boolean) {
+    if(!this.enabled)return;
     const key = skillTextureKey(texture);
     if (!this.scene.textures.exists(key)) return;
     const dragon = this.dragon ?? this.scene.add.image(from.x, from.y - 44, key).setDepth(6);
     const trail = this.dragonTrail ?? this.scene.add.particles(0, 0, this.sparkTexture(), {
-      frequency: 24, quantity: 2, lifespan: 250,
+      frequency: this.lowQuality?48:24, quantity: this.lowQuality?1:2, lifespan: 250,
       speedX: { min: -48, max: 48 }, speedY: { min: -22, max: 36 },
       scale: { start: 1.25, end: 0 }, alpha: { start: 0.8, end: 0 },
       tint: [0xb2ff70, 0x60ff9c, 0xffdc7a], blendMode: Phaser.BlendModes.ADD,

@@ -5,32 +5,26 @@ export const SUMMON_TEXTURES = {
   title: 'banners/banner_summon_result.png', plate: 'ui/plate_red_blank.png',
   back: 'buttons/btn_back_to_summon.png', heroes: 'buttons/btn_view_heroes.png',
   one: 'buttons/btn_summon_1.png', ten: 'buttons/btn_summon_10.png',
-  R: 'portrait_frames/portrait_blue.png', SR: 'portrait_frames/portrait_purple.png', SSR: 'portrait_frames/portrait_gold.png',
-  'SSS+': 'portrait_frames/portrait_dragon.png',
 } as const;
 export const summonTexture = (id: keyof typeof SUMMON_TEXTURES) => `summon-complete-${id}`;
-
-// Composite card metadata: an unscaled-aspect portrait frame above THREE separate text rows.
-// Tall landscape frames are not used: their baked rarity ribbon leaves too little room for live text.
-const bodies: Record<Rarity, ContentRect> = {
-  R: rect(.06, .04, .88, .92), SR: rect(.06, .04, .88, .92),
-  SSR: rect(.06, .04, .88, .92), 'SSS+': rect(.06, .04, .88, .92),
+export const SMOOTH_ATLAS = 'summon-smooth-card-atlas';
+export const DAI_QIAO_PORTRAIT = 'summon-smooth-da-qiao';
+export const CARD_DESIGN = { width: 156, height: 234 };
+export const CARD_SKIN: Record<Rarity, { column: number; row: number; color: number }> = {
+  R: { column: 0, row: 0, color: 0x77c9ff }, SR: { column: 1, row: 0, color: 0xe6a1ff },
+  SSR: { column: 0, row: 1, color: 0xffd27d }, 'SSS+': { column: 1, row: 1, color: 0xffa16b },
 };
-export function cardContent(rarity: Rarity, frame: ContentRect) {
-  const b = bodies[rarity];
-  const body = rect(frame.x + frame.width * b.x, frame.y + frame.height * b.y,
-    frame.width * b.width, frame.height * b.height);
-  const rankHeight = Math.max(22, body.height * .12);
-  const statusHeight = Math.max(22, body.height * .13);
-  const nameHeight = Math.max(32, body.height * .18);
-  const textTop = body.y + body.height - nameHeight - rankHeight - statusHeight;
-  return { body, portrait: rect(body.x + 6, body.y + 7, body.width - 12, textTop - body.y - 15),
-    name: rect(body.x, textTop, body.width, nameHeight),
-    rank: rect(body.x, textTop + nameHeight, body.width, rankHeight),
-    status: rect(body.x, textTop + nameHeight + rankHeight, body.width, statusHeight) };
+
+// Normalized art metadata from the new 2x2 runtime atlas. No baked text in any cell.
+export function cardContent(_rarity: Rarity, frame: ContentRect) {
+  const project = (x: number, y: number, w: number, h: number) => rect(frame.x + x * frame.width,
+    frame.y + y * frame.height, w * frame.width, h * frame.height);
+  return { body: project(.04, .02, .92, .95), badge: project(.39, .025, .22, .052),
+    portrait: project(.062, .09, .876, .492), name: project(.18, .60, .64, .08),
+    rank: project(.15, .715, .70, .07), status: project(.13, .816, .74, .087) };
 }
 export function summonCardSlots(count: 1 | 10) {
   return Array.from({ length: count }, (_, i) => count === 1
-    ? rect(494, 204, 292, 396)
-    : rect(146 + i % 5 * 200, 204 + Math.floor(i / 5) * 224, 188, 218));
+    ? rect(490, 184, 300, 450)
+    : rect(122 + i % 5 * 220, 170 + Math.floor(i / 5) * 240, 156, 234));
 }

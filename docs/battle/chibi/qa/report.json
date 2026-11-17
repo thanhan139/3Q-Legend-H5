@@ -1,0 +1,2573 @@
+{
+  "reports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "canvas": {
+        "width": 1920,
+        "height": 1080
+      },
+      "turn": 0,
+      "vs": false,
+      "units": [
+        {
+          "uid": "player-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 238,
+          "home": {
+            "x": 395,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 334.13725274801254,
+            "y": 120.66666251420975,
+            "width": 121.0980435013771,
+            "height": 117.33333748579025
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 334.13725274801254,
+            "y": 120.66666251420975,
+            "width": 121.0980435013771,
+            "height": 117.33333748579025
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 404,
+          "home": {
+            "x": 395,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 333.9062523841858,
+            "y": 276.3140674829483,
+            "width": 122.18749523162842,
+            "height": 127.6859325170517
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 333.9062523841858,
+            "y": 276.3140674829483,
+            "width": 122.18749523162842,
+            "height": 127.6859325170517
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 570,
+          "home": {
+            "x": 395,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.98828125
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 331.5523424744606,
+            "y": 448.44140380620956,
+            "width": 127.48828381299973,
+            "height": 121.55859619379044
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 331.5523424744606,
+            "y": 448.44140380620956,
+            "width": 127.48828381299973,
+            "height": 121.55859619379044
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 238,
+          "home": {
+            "x": 172,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.24365094304085,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 110.24365094304085,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 404,
+          "home": {
+            "x": 172,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.46153542399406,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 110.46153542399406,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 570,
+          "home": {
+            "x": 172,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 111.87656107544899,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 111.87656107544899,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 238,
+          "home": {
+            "x": 885,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 824.1372527480125,
+            "y": 120.66666251420975,
+            "width": 121.0980435013771,
+            "height": 117.33333748579025
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 824.1372527480125,
+            "y": 120.66666251420975,
+            "width": 121.0980435013771,
+            "height": 117.33333748579025
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 404,
+          "home": {
+            "x": 885,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 823.9062523841858,
+            "y": 276.3140674829483,
+            "width": 122.18749523162842,
+            "height": 127.6859325170517
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 823.9062523841858,
+            "y": 276.3140674829483,
+            "width": 122.18749523162842,
+            "height": 127.6859325170517
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 570,
+          "home": {
+            "x": 885,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.98828125
+          },
+          "playing": true,
+          "frame": 3,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 821.5523424744606,
+            "y": 448.44140380620956,
+            "width": 127.48828381299973,
+            "height": 121.55859619379044
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 821.5523424744606,
+            "y": 448.44140380620956,
+            "width": 127.48828381299973,
+            "height": 121.55859619379044
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 238,
+          "home": {
+            "x": 1108,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.2436509430408,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1046.2436509430408,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 404,
+          "home": {
+            "x": 1108,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.461535423994,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1046.461535423994,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 570,
+          "home": {
+            "x": 1108,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1047.876561075449,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1047.876561075449,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        }
+      ],
+      "counts": {
+        "player": 6,
+        "enemy": 6
+      },
+      "fields": [
+        {
+          "id": "battle.stage.title",
+          "fullValue": "ĐẤU TRƯỜNG",
+          "displayed": "ĐẤU TRƯỜNG",
+          "rect": {
+            "type": 5,
+            "x": 84.58774193548389,
+            "y": 41.44,
+            "width": 193.4032258064516,
+            "height": 30
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 85.58774193548389,
+            "y": 42.44,
+            "width": 191.4032258064516,
+            "height": 28
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 107.2893548387097,
+            "y": 43.44,
+            "width": 148,
+            "height": 26
+          },
+          "fontSize": "20.8px",
+          "fits": true
+        },
+        {
+          "id": "battle.stage.subtitle",
+          "fullValue": "Luyện tập · Không tính hạng",
+          "displayed": "Luyện tập · Không tính hạng",
+          "rect": {
+            "type": 5,
+            "x": 82.00903225806451,
+            "y": 73.92,
+            "width": 195.98193548387098,
+            "height": 25
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 83.00903225806451,
+            "y": 74.92,
+            "width": 193.98193548387098,
+            "height": 23
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 86.5,
+            "y": 77.42,
+            "width": 187,
+            "height": 18
+          },
+          "fontSize": "13.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.back",
+          "fullValue": "Bố trận",
+          "displayed": "Bố trận",
+          "rect": {
+            "type": 5,
+            "x": 1096.3,
+            "y": 32.099999999999994,
+            "width": 138.5999999999999,
+            "height": 37.80000000000001
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1097.3,
+            "y": 33.099999999999994,
+            "width": 136.5999999999999,
+            "height": 35.80000000000001
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1122.6,
+            "y": 36,
+            "width": 86,
+            "height": 30
+          },
+          "fontSize": "22.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.turn",
+          "fullValue": "LƯỢT 0",
+          "displayed": "LƯỢT 0",
+          "rect": {
+            "type": 5,
+            "x": 568.7384186046511,
+            "y": 50.879999999999995,
+            "width": 142.5231627906977,
+            "height": 29.680000000000007
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 569.7384186046511,
+            "y": 51.879999999999995,
+            "width": 140.5231627906977,
+            "height": 27.680000000000007
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 599.4999999999999,
+            "y": 52.22,
+            "width": 81,
+            "height": 27
+          },
+          "fontSize": "21.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.log.title",
+          "fullValue": "Nhật ký chiến đấu",
+          "displayed": "Nhật ký chiến đấu",
+          "rect": {
+            "type": 5,
+            "x": 100,
+            "y": 610,
+            "width": 306,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 101,
+            "y": 611,
+            "width": 304,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 175,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.queue.title",
+          "fullValue": "Thứ tự hành động",
+          "displayed": "Thứ tự hành động",
+          "rect": {
+            "type": 5,
+            "x": 471,
+            "y": 610,
+            "width": 356,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 472,
+            "y": 611,
+            "width": 354,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 571,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.rage.tip",
+          "fullValue": "Thanh vàng = Nộ Khí",
+          "displayed": "Thanh vàng = Nộ Khí",
+          "rect": {
+            "type": 5,
+            "x": 880,
+            "y": 607,
+            "width": 354,
+            "height": 26
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 881,
+            "y": 608,
+            "width": 352,
+            "height": 24
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 994.5,
+            "y": 612,
+            "width": 125,
+            "height": 16
+          },
+          "fontSize": "11.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.speed",
+          "fullValue": "Tốc độ ×1",
+          "displayed": "Tốc độ ×1",
+          "rect": {
+            "type": 5,
+            "x": 899.4,
+            "y": 650.3872289156626,
+            "width": 120.05999999999995,
+            "height": 36.22554216867468
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 900.4,
+            "y": 651.3872289156626,
+            "width": 118.05999999999995,
+            "height": 34.22554216867468
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 907.93,
+            "y": 654,
+            "width": 103,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.skip",
+          "fullValue": "Bỏ qua",
+          "displayed": "Bỏ qua",
+          "rect": {
+            "type": 5,
+            "x": 1090.7,
+            "y": 652.7061538461538,
+            "width": 122.12999999999988,
+            "height": 31.587692307692237
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1091.7,
+            "y": 653.7061538461538,
+            "width": 120.12999999999988,
+            "height": 29.587692307692237
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1113.765,
+            "y": 654,
+            "width": 76,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        }
+      ],
+      "removedUi": [],
+      "fps": 58.5,
+      "ratio": 1.5,
+      "log": []
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "canvas": {
+        "width": 1280,
+        "height": 720
+      },
+      "turn": 0,
+      "vs": false,
+      "units": [
+        {
+          "uid": "player-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 238,
+          "home": {
+            "x": 395,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 334.76470375061035,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 334.76470375061035,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 404,
+          "home": {
+            "x": 395,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 334.51718986034393,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 334.51718986034393,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 570,
+          "home": {
+            "x": 395,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 329.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 329.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 238,
+          "home": {
+            "x": 172,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.24365094304085,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 110.24365094304085,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 404,
+          "home": {
+            "x": 172,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.46153542399406,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 110.46153542399406,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 570,
+          "home": {
+            "x": 172,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 111.87656107544899,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 111.87656107544899,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 238,
+          "home": {
+            "x": 885,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 824.7647037506104,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 824.7647037506104,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 404,
+          "home": {
+            "x": 885,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 824.5171898603439,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 824.5171898603439,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 570,
+          "home": {
+            "x": 885,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 819.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 819.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 238,
+          "home": {
+            "x": 1108,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.2436509430408,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1046.2436509430408,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 404,
+          "home": {
+            "x": 1108,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.461535423994,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1046.461535423994,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 570,
+          "home": {
+            "x": 1108,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1047.876561075449,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1047.876561075449,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        }
+      ],
+      "counts": {
+        "player": 6,
+        "enemy": 6
+      },
+      "fields": [
+        {
+          "id": "battle.stage.title",
+          "fullValue": "ĐẤU TRƯỜNG",
+          "displayed": "ĐẤU TRƯỜNG",
+          "rect": {
+            "type": 5,
+            "x": 84.58774193548389,
+            "y": 41.44,
+            "width": 193.4032258064516,
+            "height": 30
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 85.58774193548389,
+            "y": 42.44,
+            "width": 191.4032258064516,
+            "height": 28
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 107.2893548387097,
+            "y": 43.44,
+            "width": 148,
+            "height": 26
+          },
+          "fontSize": "20.8px",
+          "fits": true
+        },
+        {
+          "id": "battle.stage.subtitle",
+          "fullValue": "Luyện tập · Không tính hạng",
+          "displayed": "Luyện tập · Không tính hạng",
+          "rect": {
+            "type": 5,
+            "x": 82.00903225806451,
+            "y": 73.92,
+            "width": 195.98193548387098,
+            "height": 25
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 83.00903225806451,
+            "y": 74.92,
+            "width": 193.98193548387098,
+            "height": 23
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 86.5,
+            "y": 77.42,
+            "width": 187,
+            "height": 18
+          },
+          "fontSize": "13.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.back",
+          "fullValue": "Bố trận",
+          "displayed": "Bố trận",
+          "rect": {
+            "type": 5,
+            "x": 1096.3,
+            "y": 32.099999999999994,
+            "width": 138.5999999999999,
+            "height": 37.80000000000001
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1097.3,
+            "y": 33.099999999999994,
+            "width": 136.5999999999999,
+            "height": 35.80000000000001
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1122.6,
+            "y": 36,
+            "width": 86,
+            "height": 30
+          },
+          "fontSize": "22.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.turn",
+          "fullValue": "LƯỢT 0",
+          "displayed": "LƯỢT 0",
+          "rect": {
+            "type": 5,
+            "x": 568.7384186046511,
+            "y": 50.879999999999995,
+            "width": 142.5231627906977,
+            "height": 29.680000000000007
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 569.7384186046511,
+            "y": 51.879999999999995,
+            "width": 140.5231627906977,
+            "height": 27.680000000000007
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 599.4999999999999,
+            "y": 52.22,
+            "width": 81,
+            "height": 27
+          },
+          "fontSize": "21.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.log.title",
+          "fullValue": "Nhật ký chiến đấu",
+          "displayed": "Nhật ký chiến đấu",
+          "rect": {
+            "type": 5,
+            "x": 100,
+            "y": 610,
+            "width": 306,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 101,
+            "y": 611,
+            "width": 304,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 175,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.queue.title",
+          "fullValue": "Thứ tự hành động",
+          "displayed": "Thứ tự hành động",
+          "rect": {
+            "type": 5,
+            "x": 471,
+            "y": 610,
+            "width": 356,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 472,
+            "y": 611,
+            "width": 354,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 571,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.rage.tip",
+          "fullValue": "Thanh vàng = Nộ Khí",
+          "displayed": "Thanh vàng = Nộ Khí",
+          "rect": {
+            "type": 5,
+            "x": 880,
+            "y": 607,
+            "width": 354,
+            "height": 26
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 881,
+            "y": 608,
+            "width": 352,
+            "height": 24
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 994.5,
+            "y": 612,
+            "width": 125,
+            "height": 16
+          },
+          "fontSize": "11.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.speed",
+          "fullValue": "Tốc độ ×1",
+          "displayed": "Tốc độ ×1",
+          "rect": {
+            "type": 5,
+            "x": 899.4,
+            "y": 650.3872289156626,
+            "width": 120.05999999999995,
+            "height": 36.22554216867468
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 900.4,
+            "y": 651.3872289156626,
+            "width": 118.05999999999995,
+            "height": 34.22554216867468
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 907.93,
+            "y": 654,
+            "width": 103,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.skip",
+          "fullValue": "Bỏ qua",
+          "displayed": "Bỏ qua",
+          "rect": {
+            "type": 5,
+            "x": 1090.7,
+            "y": 652.7061538461538,
+            "width": 122.12999999999988,
+            "height": 31.587692307692237
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1091.7,
+            "y": 653.7061538461538,
+            "width": 120.12999999999988,
+            "height": 29.587692307692237
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1113.765,
+            "y": 654,
+            "width": 76,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        }
+      ],
+      "removedUi": [],
+      "fps": 58.5,
+      "ratio": 1,
+      "log": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "canvas": {
+        "width": 844,
+        "height": 390
+      },
+      "turn": 0,
+      "vs": false,
+      "units": [
+        {
+          "uid": "player-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 238,
+          "home": {
+            "x": 395,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 334.76470375061035,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 473.84162682753345,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 404,
+          "home": {
+            "x": 395,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 334.51718986034393,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 473.594112937267,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 395,
+          "y": 570,
+          "home": {
+            "x": 395,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 329.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "hudWorld": {
+            "x": 320,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 468.2573905037,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 238,
+          "home": {
+            "x": 172,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.24365094304085,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 249.32057401996394,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 404,
+          "home": {
+            "x": 172,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 110.46153542399406,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 249.53845850091716,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "player-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 172,
+          "y": 570,
+          "home": {
+            "x": 172,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 111.87656107544899,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 97,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 250.95348415237208,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-0",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 238,
+          "home": {
+            "x": 885,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6274509803921569,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-guan-yu",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 824.7647037506104,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 963.8416268275334,
+            "y": 118.15685850381851,
+            "width": 120.4705924987793,
+            "height": 119.84314149618149
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-1",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 404,
+          "home": {
+            "x": 885,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.6109374999999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-liu-bei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 824.5171898603439,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 963.594112937267,
+            "y": 279.97969233989716,
+            "width": 120.96562027931213,
+            "height": 124.02030766010284
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-2",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 885,
+          "y": 570,
+          "home": {
+            "x": 885,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": true,
+          "rig": false,
+          "scale": 0.5929687499999999,
+          "origin": {
+            "x": 0.5,
+            "y": 0.984375
+          },
+          "playing": true,
+          "frame": 2,
+          "texture": "battle-poses-zhang-fei",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 819.1804674267769,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "hudWorld": {
+            "x": 810,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 958.2573905037,
+            "y": 465.0445291399956,
+            "width": 131.0460963845253,
+            "height": 104.95547086000443
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-3",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 238,
+          "home": {
+            "x": 1108,
+            "y": 238
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5255859374999999,
+          "origin": {
+            "x": 0.470703125,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 3,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.2436509430408,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 240,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1185.320574019964,
+            "y": 110.28261429071426,
+            "width": 130.8709014058113,
+            "height": 127.71738570928574
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-4",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 404,
+          "home": {
+            "x": 1108,
+            "y": 404
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.5470085470085471,
+          "origin": {
+            "x": 0.451171875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 8,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1046.461535423994,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 406,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1185.5384585009172,
+            "y": 275.99999368190765,
+            "width": 136.20513492822647,
+            "height": 128.00000631809235
+          },
+          "uniform": true
+        },
+        {
+          "uid": "enemy-5",
+          "dead": false,
+          "visible": true,
+          "hud": true,
+          "x": 1108,
+          "y": 570,
+          "home": {
+            "x": 1108,
+            "y": 570
+          },
+          "state": "idle",
+          "animated": false,
+          "rig": false,
+          "scale": 0.503125,
+          "origin": {
+            "x": 0.482421875,
+            "y": 0.98828125
+          },
+          "playing": false,
+          "frame": 14,
+          "texture": "battle-sprites",
+          "hpRatio": 1,
+          "bodyWorld": {
+            "x": 1047.876561075449,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "hudWorld": {
+            "x": 1033,
+            "y": 572,
+            "width": 150,
+            "height": 36.5
+          },
+          "nameFits": true,
+          "bounds": {
+            "x": 1186.953484152372,
+            "y": 444.21874701976776,
+            "width": 124.77500295639038,
+            "height": 125.78125298023224
+          },
+          "uniform": true
+        }
+      ],
+      "counts": {
+        "player": 6,
+        "enemy": 6
+      },
+      "fields": [
+        {
+          "id": "battle.stage.title",
+          "fullValue": "ĐẤU TRƯỜNG",
+          "displayed": "ĐẤU TRƯỜNG",
+          "rect": {
+            "type": 5,
+            "x": 84.58774193548389,
+            "y": 41.44,
+            "width": 193.4032258064516,
+            "height": 30
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 85.58774193548389,
+            "y": 42.44,
+            "width": 191.4032258064516,
+            "height": 28
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 107.2893548387097,
+            "y": 43.44,
+            "width": 148,
+            "height": 26
+          },
+          "fontSize": "20.8px",
+          "fits": true
+        },
+        {
+          "id": "battle.stage.subtitle",
+          "fullValue": "Luyện tập · Không tính hạng",
+          "displayed": "Luyện tập · Không tính hạng",
+          "rect": {
+            "type": 5,
+            "x": 82.00903225806451,
+            "y": 73.92,
+            "width": 195.98193548387098,
+            "height": 25
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 83.00903225806451,
+            "y": 74.92,
+            "width": 193.98193548387098,
+            "height": 23
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 86.5,
+            "y": 77.42,
+            "width": 187,
+            "height": 18
+          },
+          "fontSize": "13.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.back",
+          "fullValue": "Bố trận",
+          "displayed": "Bố trận",
+          "rect": {
+            "type": 5,
+            "x": 1096.3,
+            "y": 32.099999999999994,
+            "width": 138.5999999999999,
+            "height": 37.80000000000001
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1097.3,
+            "y": 33.099999999999994,
+            "width": 136.5999999999999,
+            "height": 35.80000000000001
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1122.6,
+            "y": 36,
+            "width": 86,
+            "height": 30
+          },
+          "fontSize": "22.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.turn",
+          "fullValue": "LƯỢT 0",
+          "displayed": "LƯỢT 0",
+          "rect": {
+            "type": 5,
+            "x": 568.7384186046511,
+            "y": 50.879999999999995,
+            "width": 142.5231627906977,
+            "height": 29.680000000000007
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 569.7384186046511,
+            "y": 51.879999999999995,
+            "width": 140.5231627906977,
+            "height": 27.680000000000007
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 599.4999999999999,
+            "y": 52.22,
+            "width": 81,
+            "height": 27
+          },
+          "fontSize": "21.1px",
+          "fits": true
+        },
+        {
+          "id": "battle.log.title",
+          "fullValue": "Nhật ký chiến đấu",
+          "displayed": "Nhật ký chiến đấu",
+          "rect": {
+            "type": 5,
+            "x": 100,
+            "y": 610,
+            "width": 306,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 101,
+            "y": 611,
+            "width": 304,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 175,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.queue.title",
+          "fullValue": "Thứ tự hành động",
+          "displayed": "Thứ tự hành động",
+          "rect": {
+            "type": 5,
+            "x": 471,
+            "y": 610,
+            "width": 356,
+            "height": 24
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 472,
+            "y": 611,
+            "width": 354,
+            "height": 22
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 571,
+            "y": 611,
+            "width": 156,
+            "height": 22
+          },
+          "fontSize": "17px",
+          "fits": true
+        },
+        {
+          "id": "battle.rage.tip",
+          "fullValue": "Thanh vàng = Nộ Khí",
+          "displayed": "Thanh vàng = Nộ Khí",
+          "rect": {
+            "type": 5,
+            "x": 880,
+            "y": 607,
+            "width": 354,
+            "height": 26
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 881,
+            "y": 608,
+            "width": 352,
+            "height": 24
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 994.5,
+            "y": 612,
+            "width": 125,
+            "height": 16
+          },
+          "fontSize": "11.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.speed",
+          "fullValue": "Tốc độ ×1",
+          "displayed": "Tốc độ ×1",
+          "rect": {
+            "type": 5,
+            "x": 899.4,
+            "y": 650.3872289156626,
+            "width": 120.05999999999995,
+            "height": 36.22554216867468
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 900.4,
+            "y": 651.3872289156626,
+            "width": 118.05999999999995,
+            "height": 34.22554216867468
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 907.93,
+            "y": 654,
+            "width": 103,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        },
+        {
+          "id": "battle.button.skip",
+          "fullValue": "Bỏ qua",
+          "displayed": "Bỏ qua",
+          "rect": {
+            "type": 5,
+            "x": 1090.7,
+            "y": 652.7061538461538,
+            "width": 122.12999999999988,
+            "height": 31.587692307692237
+          },
+          "contentRect": {
+            "type": 5,
+            "x": 1091.7,
+            "y": 653.7061538461538,
+            "width": 120.12999999999988,
+            "height": 29.587692307692237
+          },
+          "textBounds": {
+            "type": 5,
+            "x": 1113.765,
+            "y": 654,
+            "width": 76,
+            "height": 29
+          },
+          "fontSize": "21.9px",
+          "fits": true
+        }
+      ],
+      "removedUi": [],
+      "fps": 58.5,
+      "ratio": 0.5416666666666666,
+      "log": []
+    }
+  ],
+  "rosterReports": [
+    {
+      "heroes": [
+        "zhang-fei",
+        "guan-yu",
+        "liu-bei",
+        "zhao-yun",
+        "huang-yueying",
+        "ma-chao"
+      ],
+      "width": 1280,
+      "height": 720,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "zhang-fei",
+        "guan-yu",
+        "liu-bei",
+        "zhao-yun",
+        "huang-yueying",
+        "ma-chao"
+      ],
+      "width": 844,
+      "height": 390,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "cao-cao",
+        "xiahou-dun",
+        "dian-wei",
+        "sun-quan",
+        "gan-ning",
+        "da-qiao"
+      ],
+      "width": 1280,
+      "height": 720,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "cao-cao",
+        "xiahou-dun",
+        "dian-wei",
+        "sun-quan",
+        "gan-ning",
+        "da-qiao"
+      ],
+      "width": 844,
+      "height": 390,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "diao-chan",
+        "hua-xiong",
+        "lu-bu",
+        "zhuge-liang",
+        "pan-feng",
+        "xing-dao-rong"
+      ],
+      "width": 1280,
+      "height": 720,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "diao-chan",
+        "hua-xiong",
+        "lu-bu",
+        "zhuge-liang",
+        "pan-feng",
+        "xing-dao-rong"
+      ],
+      "width": 844,
+      "height": 390,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "cheng-yuan-zhi",
+        "pei-yuan-shao",
+        "guan-ping",
+        "zhou-cang",
+        "cao-hong",
+        "zhang-fei"
+      ],
+      "width": 1280,
+      "height": 720,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    },
+    {
+      "heroes": [
+        "cheng-yuan-zhi",
+        "pei-yuan-shao",
+        "guan-ping",
+        "zhou-cang",
+        "cao-hong",
+        "zhang-fei"
+      ],
+      "width": 844,
+      "height": 390,
+      "namesFit": true,
+      "bodyAndHudSeparated": true
+    }
+  ],
+  "errors": [],
+  "coreStreamsEqualAtAllRates": true,
+  "autoBattleVerified": true,
+  "touchControlsVerified": true,
+  "visibilitySuspendVerified": true,
+  "reducedEffectsVerified": true,
+  "skipTransitions": 1,
+  "drift": {
+    "actions": 500,
+    "actionsPerHero": 100,
+    "heroIds": [
+      "guan-yu",
+      "liu-bei",
+      "zhang-fei",
+      "zhao-yun",
+      "dian-wei"
+    ],
+    "units": 12
+  },
+  "performanceSample": {
+    "frames": 180,
+    "wallFps": 59.98257489438417,
+    "p95DeltaMs": 16.900000000001455,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00003EA0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rigs": 0,
+    "realDevice": false,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "realNetwork": false,
+  "realAccount": false,
+  "restoredChibiHeroes": [
+    "zhao-yun",
+    "guan-yu",
+    "liu-bei",
+    "zhang-fei",
+    "dian-wei",
+    "lu-bu"
+  ],
+  "animationPipeline": "original-chibi-frames-and-safe-whole-sprite-movement",
+  "rigRequests": [],
+  "trueFrameAnimations": [
+    "guan-yu",
+    "liu-bei",
+    "zhang-fei"
+  ],
+  "originalArtPreserved": true
+}

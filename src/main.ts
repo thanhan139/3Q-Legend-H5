@@ -15,6 +15,7 @@ import { ResultScene } from './scenes/ResultScene';
 import { SummonScene } from './scenes/SummonScene';
 import { TopupScene } from './scenes/TopupScene';
 import { InventoryScene } from './scenes/InventoryScene';
+import { VIPScene } from './scenes/VIPScene';
 import { InfoScene } from './scenes/InfoScene';
 import { bindViewportResize } from './ui/resizeViewport';
 
@@ -27,7 +28,7 @@ const config:Phaser.Types.Core.GameConfig={
   render:{antialias:true,pixelArt:false},
   callbacks: { postBoot: game => { new OnboardingController(game); } },
   scene:[BootScene,LobbyScene,HeroesScene,FormationScene,CampaignScene,
-    BattleScene,ResultScene,SummonScene,TopupScene,InventoryScene,EquipmentScene,ForgeScene,InfoScene,ArenaScene,TutorialScene]
+    BattleScene,ResultScene,SummonScene,TopupScene,InventoryScene,VIPScene,EquipmentScene,ForgeScene,InfoScene,ArenaScene,TutorialScene]
 };
 const game = new Phaser.Game(config);
 const parent = document.getElementById('game');

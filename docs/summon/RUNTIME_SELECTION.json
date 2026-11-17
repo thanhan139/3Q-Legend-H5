@@ -2,45 +2,119 @@
   "selected": [
     {
       "path": "public/assets/summon/complete/banners/banner_summon_result.png",
+      "source": "assets/banners/banner_summon_result.png",
       "sha256": "c819a421b686c0e4413e956d9c1923d62e685f43c7a5e265421fb6ee17fee5be"
     },
     {
       "path": "public/assets/summon/complete/buttons/btn_back_to_summon.png",
+      "source": "assets/buttons/btn_back_to_summon.png",
       "sha256": "e2756a95a93320dd8cb16b4193fc2840af105d721ef32455a75afa2143967eeb"
     },
     {
       "path": "public/assets/summon/complete/buttons/btn_summon_1.png",
+      "source": "assets/buttons/btn_summon_1.png",
       "sha256": "ee5c8aa8968e4413e0c9acb9ba4041b5eefaf1f6db974166e6242e8c570f0a6d"
     },
     {
       "path": "public/assets/summon/complete/buttons/btn_summon_10.png",
+      "source": "assets/buttons/btn_summon_10.png",
       "sha256": "7ecf94e1cbabe864a7c9a03356a5e9b898a64c0259355eeb3671b836d5dca7e2"
     },
     {
       "path": "public/assets/summon/complete/buttons/btn_view_heroes.png",
+      "source": "assets/buttons/btn_view_heroes.png",
       "sha256": "d204b4181e6a184ef7e9ad6c08c994acaeedd3e7af23aad8a940434c612db123"
     },
     {
+      "path": "public/assets/summon/complete/ui/plate_red_blank.png",
+      "source": "assets/ui/plate_red_blank.png",
+      "sha256": "8439dacb5a10ec835e05edd0a8f205d0b441154394a4f494e5beeab31d495311"
+    },
+    {
+      "path": "public/assets/summon/smooth/card-atlas.png",
+      "source": "built-in image_gen; user Dai Qiao reference",
+      "sha256": "ce2bbb99e9c9d433aa5cfff634c0b1728343b9732bb0bc03ec7981fc9735a7d8"
+    },
+    {
+      "path": "public/assets/summon/smooth/da-qiao.png",
+      "source": "built-in image_gen; user Dai Qiao reference",
+      "sha256": "01b881b968d8e13840e33fa193bcd3b2f36eefe69252c04e2093022b4e7e137e"
+    }
+  ],
+  "imported_but_not_rendered": [
+    {
+      "path": "public/assets/summon/complete/cards/frame_r.png",
+      "source": "assets/cards/frame_r.png",
+      "sha256": "7c1d6349844ace7b5c6cfbdf492350493437d182076bbc661a5d81cb404ae93f",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_r_glow.png",
+      "source": "assets/cards/frame_r_glow.png",
+      "sha256": "1e8e8eb533b1c1403c27313c852319da0b5538864ee22eafa3a830bb0ab1c8a6",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_sr.png",
+      "source": "assets/cards/frame_sr.png",
+      "sha256": "cddc1b041b45e6bd853c4b771a7e3336696d408b22c755f32cf8f5cdee7db99e",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_sr_glow.png",
+      "source": "assets/cards/frame_sr_glow.png",
+      "sha256": "8fa41f6ef8a3e54a104116098aa31770e4fa039c94be4141b9381c343a13258f",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_ssr.png",
+      "source": "assets/cards/frame_ssr.png",
+      "sha256": "acde7c4c0bc0dbcea030d6e87fa180e692133e511b31f1df85adbdf3f8ce396c",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_ssr_glow.png",
+      "source": "assets/cards/frame_ssr_glow.png",
+      "sha256": "89e019af08e0366892e32975496630598c44f0658df676b7aa83a15b8679e547",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_sssplus.png",
+      "source": "assets/cards/frame_sssplus.png",
+      "sha256": "9ce132f2fcf312734f04a7c0fbf108e9ebcfd431546cc28c890442edc30216da",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
+      "path": "public/assets/summon/complete/cards/frame_sssplus_glow.png",
+      "source": "assets/cards/frame_sssplus_glow.png",
+      "sha256": "1feb11536a76c626fecf368d5552558c86c62cc6a8b80bfd9fd13132a88a10c2",
+      "reason": "superseded by reference-style transparent runtime atlas"
+    },
+    {
       "path": "public/assets/summon/complete/portrait_frames/portrait_blue.png",
-      "sha256": "555f977bfb956fd204aa0054caf7ae1b15eb0574aacedd76c63eb82eadd69804"
+      "source": "assets/portrait_frames/portrait_blue.png",
+      "sha256": "555f977bfb956fd204aa0054caf7ae1b15eb0574aacedd76c63eb82eadd69804",
+      "reason": "superseded by reference-style transparent runtime atlas"
     },
     {
       "path": "public/assets/summon/complete/portrait_frames/portrait_dragon.png",
-      "sha256": "50be0ec86c3f8673eaf715afbcf6b151158789be2642700e51991873ecb09c92"
+      "source": "assets/portrait_frames/portrait_dragon.png",
+      "sha256": "50be0ec86c3f8673eaf715afbcf6b151158789be2642700e51991873ecb09c92",
+      "reason": "superseded by reference-style transparent runtime atlas"
     },
     {
       "path": "public/assets/summon/complete/portrait_frames/portrait_gold.png",
-      "sha256": "a4615e2556fe04bf0399e018e73e04ef31db05ac50a904a3aab7aab6b0cf6841"
+      "source": "assets/portrait_frames/portrait_gold.png",
+      "sha256": "a4615e2556fe04bf0399e018e73e04ef31db05ac50a904a3aab7aab6b0cf6841",
+      "reason": "superseded by reference-style transparent runtime atlas"
     },
     {
       "path": "public/assets/summon/complete/portrait_frames/portrait_purple.png",
-      "sha256": "7f239445901bf435b3c5a1bdf0ce944f9782506c08136468f626a88ba2a8d181"
-    },
-    {
-      "path": "public/assets/summon/complete/ui/plate_red_blank.png",
-      "sha256": "8439dacb5a10ec835e05edd0a8f205d0b441154394a4f494e5beeab31d495311"
+      "source": "assets/portrait_frames/portrait_purple.png",
+      "sha256": "7f239445901bf435b3c5a1bdf0ce944f9782506c08136468f626a88ba2a8d181",
+      "reason": "superseded by reference-style transparent runtime atlas"
     }
   ],
   "reference_images_imported": false,
-  "original_png_bytes_preserved": true
+  "generated_prompts": "SMOOTH_CARD_ASSETS.md"
 }

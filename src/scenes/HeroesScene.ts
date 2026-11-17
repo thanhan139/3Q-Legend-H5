@@ -61,7 +61,7 @@ export class HeroesScene extends UiScene {
     this.add.image(124, 37, heroUiKey('ribbon')).setDisplaySize(218, 59);
     this.text(124, 36, 'VÕ TƯỚNG', 26, '#ffe4a3', { fontFamily: 'Georgia, serif', fontStyle: 'bold' }).setOrigin(0.5);
     this.text(251, 27, `${save.heroes.length}/${HEROES.length} tướng`, 17);
-    this.ribbon(1162, 36, 160, 'Về sảnh', () => this.go('Lobby'));
+    this.backToLobby(1158,36,204,54);
     this.add.image(155, 389, heroUiKey('roster')).setDisplaySize(294, 620);
     this.ribbon(85, 125, 130, 'Sở hữu', () => navigate({ collection: false, signatureTab, skillTab }), !collection);
     this.ribbon(223, 125, 130, 'Bộ sưu tập', () => navigate({ collection: true, signatureTab, skillTab }), collection);

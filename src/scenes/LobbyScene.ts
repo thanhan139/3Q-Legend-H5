@@ -16,6 +16,8 @@ import { combatPower, formationPower } from '../domain/progression';
 import { gameStore } from '../domain/store';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
 import { openLobbyDialog } from '../ui/lobbyDialog';
+import { openInventoryMenu } from '../ui/inventoryMenu';
+import { vipLevel } from '../domain/vip';
 import { portrait, PORTRAITS, atlasOrder } from '../ui/heroPresentation';
 import { UiScene } from '../ui/UiScene';
 import { LOBBY_DOCK, loadLobbySmooth, prepareLobbySmooth, smoothKey, SMOOTH_FRAME, type LobbySkin } from '../ui/lobbySmoothAssets';
@@ -34,6 +36,7 @@ export class LobbyScene extends UiScene {
   private audio?: AudioContext;
   private settingsOpen = false;
   private closePopup?: () => void;
+  private closeInventoryMenu?: () => void;
   private musicTimer?: Phaser.Time.TimerEvent;
   private anchors: (() => void)[] = [];
   private content!: LobbyContent;
@@ -90,6 +93,7 @@ export class LobbyScene extends UiScene {
     this.input.once('pointerdown', () => this.enableAudio());
     this.events.once('shutdown', () => {
       this.closePopup?.(); this.closePopup = undefined;
+      this.closeInventoryMenu?.(); this.closeInventoryMenu = undefined;
       this.musicTimer = undefined;
       void this.audio?.close().catch(() => undefined);
       this.audio = undefined;
@@ -97,7 +101,7 @@ export class LobbyScene extends UiScene {
     const save = gameStore.snapshot;
     const deployed = save.formation.flatMap(id => id ? [HERO_BY_ID[id]] : []);
     const lead = deployed[0] ?? HERO_BY_ID[save.heroes[0]] ?? HERO_BY_ID['zhang-fei'];
-    const power = formationPower(save);
+    const power = formationPower(save, undefined, vipLevel(cloudRepository.vip?.paidBaseKnbTotal));
     const stage = STAGES.find(entry => entry.id === gameStore.nextStageId());
     const recommended = stage ? makeStageBattle(stage, [lead.id]).units
       .filter(unit => unit.side === 'enemy')
@@ -156,13 +160,13 @@ export class LobbyScene extends UiScene {
         profile.image.setAlpha(value === 'press' ? 0.78 : 1);
       });
       const vip = this.content.frame('vip', smoothKey('red'), profile.project(spec.fields.vip), SMOOTH_FRAME);
-      // SaveV2 has no VIP progression field. Never substitute the kit's sample VIP 8.
-      this.content.field('profile.vip', vip.project(LOBBY_SKIN_CONTENT.red.content), 'VIP —',
+      // VIP has separate server accounting; wallet balances and the demo top-up never count.
+      this.content.field('profile.vip', vip.project(LOBBY_SKIN_CONTENT.red.content), `VIP ${vipLevel(cloudRepository.vip?.paidBaseKnbTotal)}`,
         { size: 13, minSize: 10, padding: 1, align: 'center', color: '#ffe19b' });
       const vipSlot = profile.project(spec.fields.vip);
       const vipHit = this.add.zone(vip.image.x, vip.image.y, vipSlot.width, vipSlot.height)
         .setName('lobby.vip').setInteractive({ useHandCursor: true });
-      this.bindLobbyHit(vipHit, () => this.popup('vip'), value => {
+      this.bindLobbyHit(vipHit, () => this.go('VIP'), value => {
         vip.image.setAlpha(value === 'press' ? 0.75 : 1);
       });
     }, l => ({ x: l.left, y: l.top }));
@@ -248,7 +252,7 @@ export class LobbyScene extends UiScene {
     const dock = [
       [9, 'Đội Hình', () => this.go('Formation')],
       [10, 'Võ Tướng', () => this.go('Heroes')],
-      [11, 'Túi Đồ', () => this.go('Inventory')],
+      [11, 'Túi Đồ', () => this.toggleInventoryMenu()],
       [5, 'Chiêu Mộ', () => this.go('Summon')],
 
     ] as const;
@@ -266,6 +270,17 @@ export class LobbyScene extends UiScene {
     if (settings) this.anchor(() => this.drawSettings(), l => ({ x: l.centerX, y: l.centerY }));
     resize();
     this.cameras.main.fadeIn(180, 17, 14, 20);
+  }
+
+  private toggleInventoryMenu() {
+    if (this.closeInventoryMenu) { this.closeInventoryMenu(); return; }
+    const layout = this.layout(), canvas = this.game.canvas.getBoundingClientRect();
+    const ratio = canvas.width / this.scale.width;
+    this.input.enabled = false;
+    this.closeInventoryMenu = openInventoryMenu(this, { x: canvas.left + layout.dock[2] * ratio,
+      y: canvas.top + (layout.dockY - 55) * ratio }, () => this.go('Inventory'), () => {
+      this.closeInventoryMenu = undefined; this.input.enabled = true;
+    }, scene => this.go(scene, { bag: true }));
   }
 
   private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,

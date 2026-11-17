@@ -4,6 +4,8 @@ import Phaser from 'phaser';
 import { PALETTE } from './theme';
 import { registerTutorialTarget, type TutorialTarget } from './tutorialTargets';
 import { coverScale, readSafeInsets } from './viewport';
+import {sharedBackToLobby} from './sharedUi';
+import {rect} from './lobbyContentLayout';
 
 export abstract class UiScene extends Phaser.Scene {
   constructor(key:string){super(key);}
@@ -63,6 +65,7 @@ export abstract class UiScene extends Phaser.Scene {
     return g;
   }
   button(x:number,y:number,w:number,h:number,label:string,fn:()=>void,accent:number=PALETTE.gold,enabled=true,dark=false){
+    if(enabled&&/về\s*sảnh/i.test(label))return sharedBackToLobby(this,rect(x-w/2,y-h/2,w,h),fn);
     const background=this.add.rectangle(x,y,w,h,enabled?accent:0x45516a,1)
       .setStrokeStyle(2,0xffffff,enabled?(dark?0.48:0.24):0.08);
     const text=this.text(x,y,label,Math.min(21,Math.max(14,Math.floor(w/Math.max(label.length,9)*1.65))),enabled?(dark?'#fff1cf':'#202238'):'#acb6c5',
@@ -88,6 +91,9 @@ export abstract class UiScene extends Phaser.Scene {
       });
     }
     return {background,text};
+  }
+  backToLobby(x=1150,y=57,width=192,height=54){
+    return sharedBackToLobby(this,rect(x-width/2,y-height/2,width,height),()=>this.go('Lobby'));
   }
   private changingSave = false;
 

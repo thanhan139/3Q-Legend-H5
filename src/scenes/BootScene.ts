@@ -1,4 +1,5 @@
 import { initialAccount } from '../cloud/accountDialog';
+import {loadSharedUi} from '../ui/sharedUi';
 import { cloudRepository } from '../cloud/cloudRepository';
 import { tutorialActive } from '../domain/tutorial';
 import { loadFormationUi } from '../ui/formationAssets';
@@ -16,6 +17,7 @@ export class BootScene extends Phaser.Scene {
   constructor() { super('Boot'); }
 
   preload() {
+    loadSharedUi(this);
     loadHeroUi(this.load);
     loadFormationUi(this.load);
     for (const id of new Set(Object.values(EQUIPMENT).map(item => item.art))) {

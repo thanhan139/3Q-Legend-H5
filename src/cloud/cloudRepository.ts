@@ -34,6 +34,7 @@ class CloudRepository {
   private connectionGeneration = 0;
   private get cache() { return new SaveCache(localStorage, `3q-account-save:${url}`); }
   get tutorial() { return this.current?.tutorial; }
+  get vip() { return this.current?.vip; }
   get busy() { return this.inFlight; }
   get status() {
     if (this.conflicted) return 'Tiến trình đã thay đổi trên thiết bị khác. Hãy thử lại.';
@@ -121,7 +122,7 @@ class CloudRepository {
     if (!reply.save || reply.revision === undefined) return;
     if (this.current && Number(reply.revision) < Number(this.current.revision)) return;
     if (!reply.tutorial) throw new Error('Máy chủ chưa cập nhật M8. Vui lòng thử lại sau.');
-    const confirmed: CloudSave = { save: reply.save, revision: reply.revision, tutorial: reply.tutorial };
+    const confirmed: CloudSave = { save: reply.save, revision: reply.revision, tutorial: reply.tutorial, vip: reply.vip };
     if (this.owner) {
       try {
         this.cache.update(this.owner, old => ({ ...old, confirmed }));

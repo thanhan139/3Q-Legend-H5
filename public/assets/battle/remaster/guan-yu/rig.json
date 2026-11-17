@@ -1,0 +1,116 @@
+{
+  "heroId": "guan-yu",
+  "texture": "assets/battle/remaster/guan-yu/parts-v2.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "70e58f0db0a0843e6fb5106b359cf138730eae297f6cd109a07fc523a101322a",
+  "frames": {
+    "head": [
+      90,
+      9,
+      176,
+      294
+    ],
+    "torso": [
+      343,
+      5,
+      258,
+      303
+    ],
+    "upperNear": [
+      668,
+      6,
+      232,
+      300
+    ],
+    "foreNear": [
+      1005,
+      28,
+      210,
+      255
+    ],
+    "upperFar": [
+      54,
+      324,
+      197,
+      295
+    ],
+    "foreFar": [
+      374,
+      347,
+      206,
+      235
+    ],
+    "thighNear": [
+      691,
+      319,
+      175,
+      300
+    ],
+    "shinNear": [
+      1024,
+      317,
+      160,
+      299
+    ],
+    "thighFar": [
+      66,
+      631,
+      177,
+      300
+    ],
+    "shinFar": [
+      401,
+      630,
+      159,
+      301
+    ],
+    "weapon": [
+      764,
+      631,
+      61,
+      304
+    ],
+    "cape": [
+      950,
+      642,
+      296,
+      289
+    ],
+    "hair": [
+      15,
+      955,
+      237,
+      291
+    ],
+    "skirt": [
+      328,
+      945,
+      288,
+      301
+    ],
+    "accessory": [
+      692,
+      954,
+      202,
+      291
+    ],
+    "headHit": [
+      1031,
+      948,
+      164,
+      296
+    ]
+  },
+  "pipeline": "layered-rig",
+  "rasterModified": false,
+  "provenance": {
+    "sourceKit": "Hero_Remaster_Static_Sprites_v1.0",
+    "sourceHeroKey": "quan_vu",
+    "referenceSha256": "5bf0d48aa18e4400351c6d50d6685931d6f921b7f9f5a168a39709c4332bfd7f",
+    "authoring": "Repainted isolated body parts, built-in imagegen; native Phaser articulated cutout rig",
+    "artApproval": "prototype; final artist review pending"
+  }
+}

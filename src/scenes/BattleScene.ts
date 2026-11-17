@@ -6,14 +6,24 @@ import { atlasOrder, PORTRAITS } from '../ui/heroPresentation';
 import { SKILL_EFFECTS, skillTextureKey } from '../data/skillVfx';
 import { ATTACK_SKILLS, STATUS_LABEL } from '../data/heroSkills';
 import Phaser from 'phaser';
-import { HeroAnimationController } from '../ui/HeroAnimationController';
+import { vipLevel, vipPlaybackSpeeds } from '../domain/vip';
+import { HeroAnimationController,type CharacterAnimation } from '../ui/HeroAnimationController';
+import { BattleCharacterView,type CharacterArt } from '../ui/BattleCharacterView';
+import {chibiFoot} from '../data/chibiBattle';
+import { BattleAnimationEventBridge } from '../ui/BattleAnimationEventBridge';
+import { bindBattlePresentationClock } from '../ui/BattlePresentationClock';
+import {BattleUi} from '../ui/BattleUi';
+import {loadBattleUi,BATTLE_FONT,battleUiKey,battleUiFrame} from '../ui/battleUiAssets';
+import {battleTurnQueue} from '../ui/battleTurnQueue';
+import {rect} from '../ui/lobbyContentLayout';
+import { readLobbySettings } from '../ui/lobbySettings';
 import { SkillVFXManager } from '../ui/SkillVFXManager';
-import { battleSpriteDisplaySize } from '../data/battleVisuals';
+import { battleCharacterDisplaySize } from '../data/battleVisuals';
 import { ultimateProfile } from '../data/skillCombat';
 import { RAGE_CONFIG } from '../data/rageConfig';
 import { STAGES } from '../data/campaign';
-import { SLOT_COUNT } from '../data/heroes';
-import { BATTLE_LAYOUT, sampleTexture } from '../data/battleLayout';
+import { SLOT_COUNT,heroFamily } from '../data/heroes';
+import { BATTLE_LAYOUT, battleFormationPosition } from '../data/battleLayout';
 import { makeArenaPracticeBattle, makeStageBattle, BattleEngine, type BattleEvent, type BattleUnit } from '../domain/battle';
 import { gameStore } from '../domain/store';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
@@ -33,18 +43,18 @@ interface UnitView {
   portraitRage?: Phaser.GameObjects.Rectangle;
   portraitGlow?: Phaser.GameObjects.Rectangle;
   readyLabel: Phaser.GameObjects.Text;
-  sprite: Phaser.GameObjects.Sprite;
-  animation: HeroAnimationController;
+  sprite: CharacterArt;
+  animation: CharacterAnimation;
   hit: Phaser.GameObjects.Ellipse;
-  ko: Phaser.GameObjects.Text;
+  character: BattleCharacterView;
 }
 
 const ACTION_INTERVAL = 550;
 const DRAGON_SKILL = 'guan-yu:ultimate';
 const DRAGON_TIMING = { attack: 425, launch: 525, impact: 960, gap: 175, retreat: 280 };
 const ULTIMATE_TIMING = { attack: 360, lunge: 180, maxTravel: 275, retreat: 245 };
-const HP_WIDTH = 144;
-const SKILL_WIDTH = 144;
+const HP_WIDTH = 132;
+const SKILL_WIDTH = 132;
 const ALLY = 0x8cdabc;
 const ENEMY = 0xf49479;
 const INK = 0x171822;
@@ -65,8 +75,21 @@ export class BattleScene extends UiScene {
   private note!: Phaser.GameObjects.Text;
   private log!: Phaser.GameObjects.Text;
   private turn!: Phaser.GameObjects.Text;
+  private bridge!: BattleAnimationEventBridge;
+  private intro?: Phaser.GameObjects.Image;
+  private suspended=false;
+  private reducedMotion=false;
+  private aliveCounts={player:0,enemy:0};
+  private floatingPool:Phaser.GameObjects.Text[]=[];
+  private ui!:BattleUi;
+  private queue?:Phaser.GameObjects.Container;
+  private controls:ReturnType<BattleUi['button']>[]=[];
 
   constructor() { super('Battle'); }
+  preload(){loadBattleUi(this);}
+  override text(x:number,y:number,value:string,size=22,color='#fff5dc',options:Partial<Phaser.Types.GameObjects.Text.TextStyle>={}){
+    return super.text(x,y,value,size,color,{fontFamily:BATTLE_FONT,resolution:2,padding:{top:2,bottom:2},...options});
+  }
 
   private arenaPractice = false;
   private rankedArena?: ArenaResult;
@@ -83,8 +106,19 @@ export class BattleScene extends UiScene {
     this.paused = false;
     this.presenting = false;
     this.views.clear();
+    this.aliveCounts={player:0,enemy:0};this.queue=undefined;this.floatingPool=[];this.suspended=document.hidden;
+    this.ui=new BattleUi(this);this.controls=[];
+    this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches||!readLobbySettings().effects;
+    this.bridge=new BattleAnimationEventBridge(this);
+    const restoreClock=bindBattlePresentationClock(this);
     this.skillVfx = new SkillVFXManager(this);
+    const visibility=()=>{this.suspended=document.hidden;this.applyPlaybackRate();};
+    document.addEventListener('visibilitychange',visibility);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      restoreClock();
+      document.removeEventListener('visibilitychange',visibility);
+      this.bridge.cancel();this.intro?.destroy();this.intro=undefined;
+      for(const view of this.views.values())view.character.destroy();
       this.skillVfx.clear();
       this.cutIn?.destroy();
       this.cutIn = undefined;
@@ -124,9 +158,13 @@ export class BattleScene extends UiScene {
     this.stageId = stageId;
     this.battleId = Array.from(crypto.getRandomValues(new Uint32Array(4)), n => n.toString(16).padStart(8, '0')).join('');
     this.drawArena();
-    this.text(34, 26, arenaPractice ? 'ĐẤU TRƯỜNG' : `ẢI ${stageId}`, 34, '#ffe7b0', { fontStyle: 'bold' });
-    this.text(34, 67, arenaPractice ? (rankedArena ? 'Phát lại trận xếp hạng' : 'Luyện tập · Không tính hạng') : stage!.name, 17, '#f2d5b2');
-    this.button(1150, 57, 186, 52, arenaPractice ? '← Bố trận' : '← Về sảnh', () => arenaPractice ? this.go('Arena', { page: 'prepare' }) : this.go('Lobby'), 0x38262c, true, true);
+    const plaque=this.ui.art('stage',rect(8,0,344,112)).getBounds();
+    this.ui.label('stage.title',rect(plaque.x+plaque.width*.13,plaque.y+plaque.height*.37,plaque.width*.75,30),
+      arenaPractice?'ĐẤU TRƯỜNG':`ẢI ${stageId}`,27);
+    this.ui.label('stage.subtitle',rect(plaque.x+plaque.width*.12,plaque.y+plaque.height*.66,plaque.width*.76,25),
+      arenaPractice?(rankedArena?'Phát lại xếp hạng':'Luyện tập · Không tính hạng'):stage!.name,14);
+    this.controls.push(this.ui.button('back','back',rect(1048,22,210,58),arenaPractice?'Bố trận':'Về sảnh',
+      ()=>arenaPractice?this.go('Arena',{page:'prepare'}):this.go('Lobby')));
     const { formation, heroExp, heroStars, equipment } = gameStore.snapshot;
     if (!rankedArena && !formation.some(Boolean)) {
       this.panel(300, 231, 680, 246, INK);
@@ -136,162 +174,142 @@ export class BattleScene extends UiScene {
     }
 
     this.engine = rankedArena ? new BattleEngine(structuredClone(rankedArena.replay)) : arenaPractice ? makeArenaPracticeBattle(formation, heroExp, heroStars, equipment)
-      : makeStageBattle(stage!, formation, heroExp, heroStars, equipment);
+      : makeStageBattle(stage!, formation, heroExp, heroStars, equipment, vipLevel(cloudRepository.vip?.paidBaseKnbTotal));
     for (const side of ['player', 'enemy'] as const) {
       const units = this.engine.units.filter(unit => unit.side === side);
-      const center = side === 'player' ? 315 : 965;
-      this.text(center, 132, `${side === 'player' ? 'QUÂN TA' : 'QUÂN ĐỊCH'}  ·  ${units.length}/6`,
-        24, side === 'player' ? '#a8f0d4' : '#ffc0a7', { fontStyle: 'bold' }).setOrigin(0.5);
+      this.aliveCounts[side]=units.length;
       for (let slot = 0; slot < SLOT_COUNT; slot++) {
         const unit = units.find(candidate => candidate.slot === slot);
         if (unit) this.drawUnit(unit);
-        else {
-          const { x, y } = this.position({ side, slot });
-          this.add.ellipse(x, y + 42, 83, 23, INK, 0.48).setStrokeStyle(1, 0xb29a77, 0.45);
-          this.text(x, y + 42, `Ô ${slot + 1}`, 13, '#dfccb0').setOrigin(0.5);
-        }
       }
     }
 
-    this.turn = this.text(640, 58, 'LƯỢT 0', 23, '#fce4aa', { fontStyle: 'bold' }).setOrigin(0.5);
-    this.text(640, 353, 'VS', 32, '#ffda99', { fontFamily: 'Georgia, serif', fontStyle: 'bold' }).setOrigin(0.5);
-    this.panel(28, 562, 1224, 137, INK, 0.96);
-    this.note = this.text(48, 575, 'Hai bên chuẩn bị xuất trận…', 21, '#ffe7bd', { fontStyle: 'bold' });
-    this.log = this.text(49, 613, '', 14, '#d9c8b4', { lineSpacing: 3, wordWrap: { width: 385 } });
+    const turnPlate=this.ui.art('turn',rect(510,0,260,106)).getBounds();
+    this.turn=this.ui.label('turn',rect(turnPlate.x+turnPlate.width*.17,turnPlate.y+turnPlate.height*.48,
+      turnPlate.width*.66,turnPlate.height*.28),'LƯỢT 0',27);
+    this.presenting=true;
+    this.intro=this.ui.art('versus',rect(540,265,200,150)).setDepth(25).setName('battle.intro-vs');
+    this.tweens.add({targets:this.intro,alpha:0,delay:600,duration:260,onComplete:()=>{
+      this.intro?.destroy();this.intro=undefined;this.presenting=false;
+    }});
+    this.ui.footer(rect(12,588,1256,122));
+    this.ui.label('log.title',rect(100,610,306,24),'Nhật ký chiến đấu',18);
+    this.ui.label('queue.title',rect(471,610,356,24),'Thứ tự hành động',18);
+    this.add.rectangle(439,661,1,68,0xa27439,.7);
+    this.add.rectangle(857,661,1,68,0xa27439,.7);
+    this.note = this.text(102, 635, 'Hai bên chuẩn bị xuất trận…', 14, '#ffe7bd', {
+      fontStyle:'bold',wordWrap:{width:321},maxLines:1 });
+    this.log = this.text(102, 660, '', 11, '#ead5ac', { lineSpacing: 2, wordWrap: { width: 321 },maxLines:2 });
     this.drawHeroFooter();
-    this.text(1203, 583, 'Thanh vàng = Nộ Khí · đầy sẽ xuất chiêu', 15, '#dfc193').setOrigin(1, 0);
-    const speedButton = this.button(994, 653, 112, 54, 'Tốc độ ×1', () => {
+    this.ui.label('rage.tip',rect(880,607,354,26),'Thanh vàng = Nộ Khí',12,'#e0c18a');
+    const speedButton = this.ui.button('speed','speed',rect(882,640,174,57),'Tốc độ ×1', () => {
       if (this.ending) return;
-      this.speed = this.speed === 1 ? 2 : 1;
+      const speeds = arenaPractice ? [1, 2] : vipPlaybackSpeeds(vipLevel(cloudRepository.vip?.paidBaseKnbTotal));
+      this.speed = speeds[(speeds.indexOf(this.speed) + 1) % speeds.length];
       this.applyPlaybackRate();
       speedButton.text.setText(`Tốc độ ×${this.speed}`);
-    }, 0x354b4a, true, true);
-    const pauseButton = this.button(868, 653, 118, 54, 'Tạm dừng', () => {
-      if (this.ending) return;
-      this.paused = !this.paused;
-      this.applyPlaybackRate();
-      pauseButton.text.setText(this.paused ? 'Tiếp tục' : 'Tạm dừng');
-    }, 0x354b4a, true, true);
-    this.button(1146, 653, 144, 54, 'Bỏ qua  »', () => {
-      if (this.engine && !this.ending) this.endBattle(this.engine.finish());
-    }, 0x773b31, true, true);
+    });
+    this.controls.push(speedButton);
+    this.controls.push(this.ui.button('skip','skip',rect(1073,640,177,57),'Bỏ qua', () => {
+      if (this.engine && !this.ending) this.endBattle(this.engine.finish(),true);
+    }));
   }
 
   private applyPlaybackRate() {
-    const rate = this.paused ? 0 : this.speed;
+    const rate = this.paused||this.suspended ? 0 : this.speed;
     this.time.timeScale = rate;
     this.tweens.timeScale = rate;
     this.skillVfx?.setPlaybackRate(rate);
-    for (const view of this.views.values()) view.sprite.anims.timeScale = rate;
+    for (const view of this.views.values()) view.animation.setPlaybackRate(rate);
   }
 
   private drawArena() {
     this.add.rectangle(640, 360, 1280, 720, INK);
-    const palace = this.arenaPractice && this.textures.exists('pvp_bg_pvp_battle_preview_hd')
-      ? 'pvp_bg_pvp_battle_preview_hd' : 'battle-courtyard';
-    if (this.textures.exists(palace)) this.add.image(640, 360, palace).setDisplaySize(1280, 720);
-    this.add.rectangle(640, 360, 1280, 720, 0x211626, 0.15);
-    this.add.rectangle(640, 55, 1280, 110, 0x1c1923, 0.94);
-
-    for (const [label, y] of [['Tuyến trước', 145], ['Tuyến sau', 342]] as const) {
-      for (const x of [315, 965]) this.text(x, y, label, 15, '#f2d6b7').setOrigin(0.5);
-    }
+    const palace=this.textures.exists('battle.courtyard-premium')?'battle.courtyard-premium':'battle-courtyard';
+    if (this.textures.exists(palace)){const bg=this.add.image(640,360,palace);bg.setScale(Math.max(1280/bg.width,720/bg.height));}
+    this.add.rectangle(640, 360, 1280, 720, 0x211626, 0.05);
     this.cameras.main.fadeIn(220, 17, 14, 20);
   }
 
   private position({ side, slot }: UnitPosition) {
-    return {
-      x: (side === 'player' ? BATTLE_LAYOUT.leftColumns : BATTLE_LAYOUT.rightColumns)[slot % 3],
-      y: BATTLE_LAYOUT.rows[slot < 3 ? 0 : 1],
-    };
+    return battleFormationPosition(side,slot);
   }
 
   private drawUnit(unit: BattleUnit) {
     const { x, y } = this.position(unit);
     const teamColor = unit.side === 'player' ? ALLY : ENEMY;
-    const card = this.add.container(x, y).setDepth(2);
-    const art = this.add.container(x, y).setDepth(1);
-    const shadow = this.add.ellipse(0, BATTLE_LAYOUT.shadow.y, BATTLE_LAYOUT.shadow.width, BATTLE_LAYOUT.shadow.height, 0x0f0c15, 0.65)
-      .setStrokeStyle(2, teamColor, 0.75);
-    const sample = sampleTexture(unit.heroId);
-    const texture = this.textures.exists(sample) ? sample : BATTLE_SPRITES;
-    const frame = texture === BATTLE_SPRITES ? battleSpriteFrames.get(unit.heroId) : undefined;
-    const displaySize = battleSpriteDisplaySize(unit.heroId);
-    const sprite = this.add.sprite(0, BATTLE_LAYOUT.footY, texture, frame)
-      .setOrigin(0.5, 1).setDisplaySize(displaySize, displaySize).setFlipX(unit.side === 'enemy');
+    const card = this.add.container(x, y).setDepth(10).setName(`battle.hud.${unit.uid}`);
+    const art = this.add.container(x, y).setDepth(y/1000).setName(`battle.character.${unit.uid}`);
+    const shadow=this.ui.art(unit.side==='player'?'allyRing':'enemyRing',rect(-45,-12,90,24)).setAlpha(.62);
+    const visualId=heroFamily(unit.heroId),foot=chibiFoot(visualId),size=battleCharacterDisplaySize(visualId);
+    const sprite=this.add.sprite(0,BATTLE_LAYOUT.footY,BATTLE_SPRITES,battleSpriteFrames.get(visualId))
+      .setOrigin(foot.x,foot.y).setScale(size/256).setFlipX(unit.side==='enemy');
+    const animation=new HeroAnimationController(sprite,visualId);
     const hit = this.add.ellipse(0, -10, 118, 105, 0xf9b383, 0).setAlpha(0);
     art.add([shadow, sprite, hit]);
-    const animation = new HeroAnimationController(sprite, unit.heroId);
-    if (!animation.available) this.tweens.add({ targets: sprite, scaleY: sprite.scaleY * 1.015, duration: 700 + unit.slot * 45,
-      yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+    animation.setPlaybackRate(this.speed);
 
-    const name = this.text(0, 60, unit.name, 16, '#fff1cf', {
-      fontStyle: 'bold', stroke: '#17121b', strokeThickness: 4,
+    const hud=BATTLE_LAYOUT.hud;
+    const plate=this.ui.art(unit.side==='player'?'name':'enemyName',rect(-62,hud.nameTop,124,hud.nameHeight));
+    const name = this.text(0, hud.nameY, unit.name, hud.nameFont, '#fff1cf', {
+      fontStyle: 'bold', stroke: '#17121b', strokeThickness: 2,padding:{top:0,bottom:0},
     }).setOrigin(0.5);
-    const hpBack = this.add.rectangle(0, 77, HP_WIDTH, 12, 0x0f1018).setStrokeStyle(1, 0xffddaa, 0.45);
-    const hp = this.add.rectangle(-HP_WIDTH / 2, 77, HP_WIDTH, 10, teamColor).setOrigin(0, 0.5);
-    const hpLabel = this.text(0, 77, `${unit.hp} / ${unit.maxHp}`, 10, '#ffffff',
-      { stroke: '#15111a', strokeThickness: 3 }).setOrigin(0.5);
-    const rageBack = this.add.rectangle(0, 94, SKILL_WIDTH, 8, 0x302c44)
-      .setStrokeStyle(1, 0x947b5c, 0.7);
-    const rageBar = this.add.rectangle(-SKILL_WIDTH / 2, 94, SKILL_WIDTH, 7, 0xe9b94d)
+    const safeWidth=plate.displayWidth*.77;
+    for(let size:number=hud.nameFont;name.width>safeWidth&&size>9;)name.setFontSize(--size);
+    let shortName=unit.name;while(name.width>safeWidth&&shortName.length>2){shortName=shortName.slice(0,-1);name.setText(shortName+'…');}
+    const track=(kind:'hp'|'rage',y:number,height:number)=>{
+      const frame=battleUiFrame(this,kind),native=this.textures.get(battleUiKey(kind)).get(frame),scale=height/native.height;
+      return this.add.nineslice(0,y,battleUiKey(kind),frame,150/scale,native.height,42,30,10,10).setScale(scale);
+    };
+    const hpBack=track('hp',hud.hpY,hud.hpHeight);
+    const hp = this.add.rectangle(-HP_WIDTH / 2, hud.hpY, HP_WIDTH, hud.hpFill, teamColor).setOrigin(0, 0.5);
+    const hpLabel = this.text(0, hud.hpY, `${unit.hp} / ${unit.maxHp}`, 9, '#ffffff',
+      { stroke: '#15111a', strokeThickness: 1,padding:{top:0,bottom:0} }).setOrigin(0.5);
+    const rageBack=track('rage',hud.rageY,hud.rageHeight);
+    const rageBar = this.add.rectangle(-SKILL_WIDTH / 2, hud.rageY, SKILL_WIDTH, hud.rageFill, 0xe9b94d)
       .setOrigin(0, 0.5).setScale(unit.rage / RAGE_CONFIG.max, 1);
-    const rageLabel = this.text(0, 107, `NỘ ${unit.rage}/${RAGE_CONFIG.max}`, 11, '#f8d997', {
-      fontStyle: 'bold', stroke: '#17121b', strokeThickness: 3,
+    const rageLabel = this.text(0, hud.rageY, `NỘ ${unit.rage}/${RAGE_CONFIG.max}`, 8, '#fff4c9', {
+      fontStyle: 'bold', stroke: '#17121b', strokeThickness: 1,padding:{top:0,bottom:0},
     }).setOrigin(0.5);
-    const readyLabel = this.text(0, 121, '✦ TUYỆT KỸ', 12, '#fff0a6', {
+    const readyLabel = this.text(-78, 9, '✦', 12, '#fff0a6', {
       fontStyle: 'bold', stroke: '#5b361a', strokeThickness: 4,
     }).setOrigin(0.5).setVisible(false);
-    const statusLabel = this.text(0, 135, '', 10, '#a2eaff', {
-      fontStyle: 'bold', stroke: '#15121d', strokeThickness: 3,
+    const statusLabel = this.text(90, 12, '', 9, '#a2eaff', {
+      fontStyle: 'bold', stroke: '#15121d', strokeThickness: 3,wordWrap:{width:44},maxLines:3,
     }).setOrigin(0.5);
-    const ko = this.text(0, -24, 'TỬ TRẬN', 18, '#ffe1c9', {
-      fontStyle: 'bold', stroke: '#221822', strokeThickness: 6,
-    }).setOrigin(0.5).setVisible(false);
-    card.add([name, hpBack, hp, hpLabel, rageBack, rageBar, rageLabel, readyLabel, statusLabel, ko]);
-    this.views.set(unit.uid, { card, art, hp, hpLabel, rageBar, rageLabel, readyLabel, statusLabel, sprite, animation, hit, ko });
+    card.add([plate,name,hpBack,hp,hpLabel,rageBack,rageBar,rageLabel,readyLabel,statusLabel]);
+    const character=new BattleCharacterView(this,art,card,sprite,animation,{x,y},this.reducedMotion);
+    this.views.set(unit.uid,{card,art,hp,hpLabel,rageBar,rageLabel,readyLabel,statusLabel,sprite,animation,hit,character});
   }
 
-  /** Six real formation portraits, separate HP + rage, connected to engine state. */
+  /** Forecasted Core scheduling, including repeats and both teams; never mutates combat. */
   private drawHeroFooter() {
-    const allies = this.engine?.units.filter(unit => unit.side === 'player') ?? [];
-    for (let slot = 0; slot < 6; slot++) {
-      const px = 487 + slot * 56;
-      const unit = allies.find(u => u.slot === slot);
-      if (!unit) {
-        this.add.rectangle(px, 644, 48, 58, 0x191c2a).setStrokeStyle(1, 0x8c785e, 0.5);
-        this.text(px, 641, `${slot + 1}`, 12, '#b4ad9f').setOrigin(0.5);
-        continue;
-      }
-      const glow = this.add.rectangle(px, 644, 49, 65, 0x2a303a, 0.95)
-        .setStrokeStyle(2, 0x6ebdaa, 0.6);
-      const frame = battleSpriteFrames.get(unit.heroId);
-      if (this.textures.exists(BATTLE_SPRITES) && frame !== undefined) {
-        this.add.image(px, 639, BATTLE_SPRITES, frame).setDisplaySize(41, 43);
-      } else {
-        this.add.circle(px, 638, 18, unit.color);
-        this.text(px, 638, unit.name.slice(0, 1), 19, '#231622').setOrigin(0.5);
-      }
-      this.add.rectangle(px, 664, 44, 5, 0x10101b);
-      const hp = this.add.rectangle(px - 22, 664, 44, 5, 0x70d4a7).setOrigin(0, 0.5);
-      this.add.rectangle(px, 671, 44, 5, 0x10101b);
-      const rage = this.add.rectangle(px - 22, 671, 44, 5, 0xe9b94d)
-        .setOrigin(0, 0.5).setScale(unit.rage / RAGE_CONFIG.max, 1);
-      const view = this.views.get(unit.uid);
-      if (view) { view.portraitHp = hp; view.portraitRage = rage; view.portraitGlow = glow; }
+    this.queue?.destroy();this.queue=this.add.container(0,0).setDepth(15).setName('battle.queue');
+    const units=battleTurnQueue(this.engine?.units??[]);
+    for(let i=0;i<6;i++){
+      const x=490+i*56,unit=units[i];
+      const border=this.add.graphics().fillStyle(0x251218,.96).fillRoundedRect(x-23,640,46,60,4)
+        .lineStyle(i===0?2:1,unit?.side==='enemy'?0xd99057:i===0?0xffd86e:0x91bb89,.9).strokeRoundedRect(x-23,640,46,60,4);
+      this.queue.add(border);
+      if(!unit)continue;
+      const frame=battleSpriteFrames.get(heroFamily(unit.heroId));
+      const portrait=this.add.image(x,663,BATTLE_SPRITES,frame).setDisplaySize(41,41);
+      const hp=this.add.rectangle(x-20,688,40,4,unit.side==='player'?0x83dca0:0xf1a080).setOrigin(0,.5).setScale(unit.hp/unit.maxHp,1);
+      const rage=this.add.rectangle(x-20,694,40,3,0xeac24b).setOrigin(0,.5).setScale(unit.rage/RAGE_CONFIG.max,1);
+      this.queue.add([portrait,hp,rage]);
     }
   }
 
   update(_time: number, delta: number) {
     const engine = this.engine;
-    if (!engine || this.ending || this.paused || this.presenting || engine.winner) return;
+    if (!engine || this.ending || this.paused || this.suspended || this.presenting || engine.winner) return;
     this.elapsed += delta * this.speed;
     if (this.elapsed < ACTION_INTERVAL) return;
     this.elapsed = 0;
     const events = engine.step();
     this.presenting = true;
     const duration = this.presentAction(engine, events);
-    this.time.delayedCall(duration + 85, () => {
+    this.bridge.after(duration + 85, () => {
       if (this.ending) return;
       this.syncHud(engine);
       this.presenting = false;
@@ -304,6 +322,8 @@ export class BattleScene extends UiScene {
     for (const unit of engine.units) {
       const view = this.views.get(unit.uid);
       if (!view) continue;
+      if(unit.hp<=0)view.character.die();
+      else if(view.character.dead)view.character.revive();
       view.hp.setScale(unit.hp / unit.maxHp, 1);
       view.hpLabel.setText(`${unit.hp} / ${unit.maxHp}`);
       const rage = unit.hp > 0 ? Math.min(RAGE_CONFIG.max, unit.rage) : 0;
@@ -317,6 +337,12 @@ export class BattleScene extends UiScene {
       view.portraitHp?.setScale(unit.hp / unit.maxHp, 1);
 
     }
+    this.updateCounts();this.drawHeroFooter();
+  }
+
+  private updateCounts(){
+    for(const side of ['player','enemy'] as const)this.aliveCounts[side]=
+      this.engine?.units.filter(u=>u.side===side&&!this.views.get(u.uid)?.character.dead).length??0;
   }
 
   /** Visual-only action sequence. Every damage, heal, buff, and shield value is
@@ -326,6 +352,7 @@ export class BattleScene extends UiScene {
   private cutIn?: Phaser.GameObjects.Container;
 
   private presentCutIn(source: BattleUnit, title: string, skillId: string, dragon = false) {
+    if(this.reducedMotion)return;
     const effect = SKILL_EFFECTS[skillId];
     if (!effect?.cutin) return;
     this.cutIn?.destroy();
@@ -365,6 +392,7 @@ export class BattleScene extends UiScene {
   }
 
   private presentAction(engine: BattleEngine, events: BattleEvent[]): number {
+    this.bridge.begin();this.drawHeroFooter();
     const hits = events.filter(e => e.kind === 'damage' || e.kind === 'heal' || e.kind === 'dodge');
     const action = events.find(event => event.kind === 'action') ?? events.find(event => event.kind === 'skip') ?? hits[0];
     const source = engine.units.find(u => u.uid === action?.source);
@@ -378,7 +406,7 @@ export class BattleScene extends UiScene {
     const title = ATTACK_SKILLS.get(action.skillId?.replace(/:signature$/, '') ?? '')?.name ?? profile.title;
     const dragon = source.heroId === 'guan-yu' && skillId?.replace(/:signature$/, '') === DRAGON_SKILL;
     const attackAt = dragon ? DRAGON_TIMING.attack : ULTIMATE_TIMING.attack;
-    const initial = dragon ? DRAGON_TIMING.impact : skill ? attackAt + profile.castMs : 260;
+    const initial = dragon ? DRAGON_TIMING.impact : skill ? attackAt + profile.castMs : 480;
     const gap = dragon ? DRAGON_TIMING.gap : skill ? profile.impactGapMs : 105;
     const firstTarget = hits.find(hit => hit.source === source.uid && hit.kind !== 'heal')?.target;
     const enemy = engine.units.find(unit => unit.uid === firstTarget && unit.side !== source.side);
@@ -396,10 +424,15 @@ export class BattleScene extends UiScene {
       y: home.y - (dragon || profile.style === 'warlord' ? 14 : 0),
     } : home;
 
+    if(action.kind==='action'&&sourceView&&!sourceView.character.dead){
+      sourceView.animation.play('ready');
+      this.bridge.after(60,()=>{if(moves)sourceView.animation.play('run');});
+    }
+
     if (skillId) {
       this.turn.setText(`LƯỢT ${engine.turn}`);
       this.presentCutIn(source, title, skillId, dragon);
-      if (dragon) {
+      if (dragon&&!this.reducedMotion) {
         const seal = this.add.circle(home.x, home.y - 44, 49, 0xfadd8a, 0.16)
           .setStrokeStyle(3, 0xffe7a7, 0.8).setDepth(5);
         this.tweens.add({ targets: seal, scale: 1.7, alpha: 0, duration: initial,
@@ -409,9 +442,10 @@ export class BattleScene extends UiScene {
         this.presentRage(sourceView, action.rageBefore ?? 0);
         sourceView.readyLabel.setVisible(true);
       }
-      this.time.delayedCall(attackAt, () => {
-        this.skillVfx.cast(skillId, home, dest);
-        sourceView?.animation.play('attack');
+      this.bridge.after(attackAt, () => {
+        const hand={x:home.x+direction*24,y:home.y-52};
+        this.skillVfx.cast(skillId,hand,dest);
+        sourceView?.animation.play('ultimate',initial-attackAt);
         if (!sourceView) return;
         this.presentRage(sourceView, action.rageAfter ?? 0);
         sourceView.readyLabel.setVisible(false);
@@ -420,18 +454,16 @@ export class BattleScene extends UiScene {
         this.tweens.add({ targets: sourceView.art, x: launch.x, y: launch.y,
           duration: dragon ? 210 : ULTIMATE_TIMING.lunge, ease: 'Cubic.Out' });
       });
-    } else if (action.kind === 'action') sourceView?.animation.play('attack');
+    } else if(action.kind==='action')this.bridge.after(160,()=>sourceView?.animation.play('attack',initial-160));
 
     if (!skill && sourceView && enemy && action.kind === 'action') {
       sourceView.art.setDepth(5);
       // Ranged magic/support attacks stay on their slot; melee fighters approach.
       const approach = source.role === 'ranger' || source.role === 'mage' ? home : {
-        x: dest.x + (source.side === 'player' ? -78 : 78), y: dest.y + 6,
+        x: dest.x + (source.side === 'player' ? -BATTLE_LAYOUT.approachGap : BATTLE_LAYOUT.approachGap), y: dest.y + 6,
       };
-      this.tweens.add({ targets: sourceView.art, x: approach.x, y: approach.y,
-        duration: initial * 0.7, ease: 'Quad.InOut',
-        yoyo: true, hold: 35,
-        onComplete: () => sourceView.art.setPosition(home.x, home.y).setDepth(1) });
+      this.bridge.after(60,()=>this.tweens.add({ targets: sourceView.art, x: approach.x, y: approach.y,
+        duration:160,ease:'Quad.InOut' }));
     }
 
     // Preserve Core order, including counterattacks and heals interleaved with hits.
@@ -448,7 +480,7 @@ export class BattleScene extends UiScene {
       if (contact >= 0 && dragonTravel && target) {
         const first = contact === 0;
         const startsAt = first ? DRAGON_TIMING.launch : at - gap + 25;
-        this.time.delayedCall(startsAt, () => {
+        this.bridge.after(startsAt, () => {
           if (!this.ending) this.skillVfx.sweepDragon(dragonTravel, launch, this.position(target),
             at - startsAt, first, direction < 0);
         });
@@ -459,26 +491,30 @@ export class BattleScene extends UiScene {
         hasTravel = true;
         const arc = profile.style === 'earth' || profile.style === 'formation' ? 8 :
           profile.style === 'spear' ? 12 : target.side === source.side ? 44 : 32;
-        this.time.delayedCall(at - duration, () => {
-          if (!this.ending) this.skillVfx.travel(skillId, launch, this.position(target), duration, arc);
+        this.bridge.after(at - duration, () => {
+          if (!this.ending){const point=this.position(target);
+            const hand={x:launch.x+direction*24,y:launch.y-52};
+            this.skillVfx.travel(skillId,hand,{x:point.x,y:point.y-52},duration,arc);}
         });
       }
-      this.time.delayedCall(at, () => {
+      this.bridge.after(at, () => {
         if (this.ending) return;
         if (hits.includes(event)) this.presentHit(engine.units.find(unit => unit.uid === event.source) ?? source, event, skillId);
         else this.presentStatus(event, skillId);
         if (contact >= 0 && contact === dragonContacts.length - 1) this.skillVfx.dismissDragon();
-      });
+      },index);
     });
     const afterHits = initial + Math.max(0, playback.length - 1) * gap + 115;
     const retreat = dragon ? DRAGON_TIMING.retreat : ULTIMATE_TIMING.retreat;
-    if (skill && moves && sourceView) this.time.delayedCall(afterHits, () => {
+    if (sourceView&&action.kind==='action') this.bridge.after(afterHits, () => {
+      if(sourceView.character.dead)return;
+      sourceView.animation.play('run');
       this.tweens.add({ targets: sourceView.art, x: home.x, y: home.y,
         duration: retreat, ease: 'Cubic.InOut',
-        onComplete: () => sourceView.art.setPosition(home.x, home.y).setDepth(1) });
+        onComplete: () => {sourceView.art.setPosition(home.x, home.y).setDepth(home.y/1000);sourceView.animation.play('idle');} });
     });
     const total = events.find(e => e.kind === 'total');
-    if (total) this.time.delayedCall(afterHits + 90, () => {
+    if (total) this.bridge.after(afterHits + 90, () => {
       if (this.ending) return;
       const label = this.text(640, 424, `TỔNG SÁT THƯƠNG  ${total.amount ?? 0}`, 29, '#ffdb76', {
         fontFamily: 'Georgia, serif', fontStyle: 'bold', stroke: '#4b2031', strokeThickness: 6,
@@ -490,28 +526,29 @@ export class BattleScene extends UiScene {
     this.lines.unshift(`Lượt ${engine.turn} · ${previewLine}`);
     this.lines.length = Math.min(this.lines.length, 3);
     this.log.setText(this.lines.join('\n'));
-    return afterHits + (total ? 330 : skill && moves ? retreat : 100);
+    // Let the last confirmed KO finish its real clip/fade before another turn/result.
+    return Math.max(afterHits+retreat,afterHits+535);
   }
 
   private presentHit(attacker: BattleUnit, hit: BattleEvent, skillId?: string) {
     const victim = this.engine?.units.find(u => u.uid === hit.target);
     const view = victim && this.views.get(victim.uid);
     if (!victim || !view) return;
+    if(view.character.dead&&hit.kind!=='heal')return;
     const { x, y } = this.position(victim);
     if (hit.kind === 'dodge') {
       this.floating(x, y - 86, 'NÉ ĐÒN', '#e0eeff', 19);
       return;
     }
     const heals = hit.kind === 'heal';
-    if (skillId && hit.skillId === skillId) this.skillVfx.impact(skillId, { x, y }, heals, attacker.side === 'enemy');
+    if (skillId && hit.skillId === skillId) this.skillVfx.impact(skillId,{x,y:y-52},heals,attacker.side==='enemy');
     if (!heals && hit.remainingHp === 0) {
-      view.animation.play('death');
-      this.tweens.killTweensOf(view.sprite);
-      if (!view.animation.available) this.tweens.add({ targets: view.art, alpha: 0.28, duration: 300 });
-      view.ko.setVisible(true);
-    } else if (!heals) view.animation.play('hit');
+      view.character.die();this.updateCounts();
+    } else if (!heals) view.character.react(hit.critical);
+    else if(view.character.dead&&(hit.remainingHp??0)>0)view.character.revive();
     if (typeof hit.remainingHp === 'number') {
-      view.hp.setScale(hit.remainingHp / victim.maxHp, 1);
+      this.tweens.killTweensOf(view.hp);
+      this.tweens.add({targets:view.hp,scaleX:hit.remainingHp/victim.maxHp,duration:160,ease:'Sine.Out'});
       view.hpLabel.setText(`${hit.remainingHp} / ${victim.maxHp}`);
     }
     if (typeof hit.remainingShield === 'number') {
@@ -531,23 +568,32 @@ export class BattleScene extends UiScene {
     const number = `${heals ? '+' : '−'}${hit.amount ?? 0}`;
     this.floating(x, y - 58, number, heals ? '#a2ffd1' : hit.critical ? '#ffe279' : '#ffb59b',
       hit.critical ? 36 : hit.skill ? 31 : 27);
+    if(!this.reducedMotion){
+    if(!heals&&!skillId){
+      const spark=this.add.graphics().setPosition(x,y-56).setDepth(12).lineStyle(hit.critical?3:2,0xffe6a0,.95);
+      for(let i=0;i<6;i++){const angle=i*Math.PI/3;spark.lineBetween(Math.cos(angle)*5,Math.sin(angle)*5,Math.cos(angle)*17,Math.sin(angle)*17);}
+      this.tweens.add({targets:spark,alpha:0,scale:1.3,duration:140,onComplete:()=>spark.destroy()});
+    }
     view.hit.setFillStyle(heals ? 0x74ffc3 : 0xffac83, 0.46).setAlpha(1);
     view.sprite.setTintFill(heals ? 0xa7ffd0 : 0xffe0ba);
-    this.tweens.add({ targets: view.hit, alpha: 0, duration: 240,
+    this.tweens.add({ targets: view.hit, alpha: 0, duration: hit.critical||hit.skill?180:100,
       onComplete: () => view.sprite.clearTint() });
-    if (!heals) {
+    }
+    if (!heals&&!this.reducedMotion) {
       const dragon = skillId?.replace(/:signature$/, '') === DRAGON_SKILL && hit.skillId === skillId;
-      this.cameras.main.shake(dragon ? 145 / this.speed : hit.skill ? 95 : 45,
+      this.cameras.main.shake((dragon ? 145 : hit.skill ? 95 : 45)/this.speed,
         dragon ? 0.0034 : hit.skill ? 0.0022 : 0.0008);
     }
   }
 
   private floating(x: number, y: number, label: string, color: string, size: number) {
-    const popup = this.text(x, y, label, size, color, {
-      fontStyle: 'bold', stroke: '#261927', strokeThickness: 5,
-    }).setOrigin(0.5).setDepth(12);
+    let popup=this.floatingPool.find(text=>!text.active);
+    if(!popup){popup=this.text(0,0,'',size,color,{fontStyle:'bold',stroke:'#261927',strokeThickness:4})
+      .setOrigin(.5).setDepth(12);this.floatingPool.push(popup);}
+    popup.setPosition(x,y).setText(label).setFontSize(size).setColor(color).setAlpha(1).setVisible(true).setActive(true);
+    const activePopup=popup;
     this.tweens.add({ targets: popup, y: y - 49, alpha: 0, duration: 520,
-      onComplete: () => popup.destroy() });
+      onComplete: () => activePopup.setVisible(false).setActive(false) });
   }
 
   private presentStatus(event: BattleEvent, skillId?: string) {
@@ -575,15 +621,24 @@ export class BattleScene extends UiScene {
     }
   }
 
-  private endBattle(winner: 'player' | 'enemy') {
+  private endBattle(winner: 'player' | 'enemy',skipped=false) {
+    if(this.ending)return;
     this.ending = true;
+    for(const control of this.controls){control.hit.disableInteractive();control.image.setTint(0x8b8073).setAlpha(.65);control.text.setAlpha(.75);}
+    this.bridge.cancel();this.intro?.destroy();this.intro=undefined;
     this.time.removeAllEvents();
     this.tweens.killAll();
     this.skillVfx.clear();
     this.cutIn?.destroy();
     this.cutIn = undefined;
-    for (const view of this.views.values()) view.sprite.anims.stop();
-    this.showResult(winner);
+    for (const unit of this.engine?.units??[]){
+      const view=this.views.get(unit.uid);if(!view)continue;
+      if(unit.hp<=0)view.character.die();view.character.settle();
+      if(unit.hp>0&&unit.side===winner&&view.animation.supports('victory'))view.animation.play('victory');
+    }
+    for(const text of this.floatingPool)text.setVisible(false).setActive(false);
+    const victory=!skipped&&[...this.views.values()].some(v=>v.animation.supports('victory'));
+    if(victory)this.time.delayedCall(800,()=>this.showResult(winner));else this.showResult(winner);
   }
 
   private showResult(winner: 'player' | 'enemy') {
