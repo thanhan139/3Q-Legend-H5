@@ -1,0 +1,156 @@
+{
+  "smoothPngCount": 18,
+  "bakedSmoothPngCount": 16,
+  "extraRuntimePngCount": 2,
+  "notes": [
+    "Check-in PNG contains a decorative baked 7; this is not a dynamic login-day value.",
+    "Menu icon WebP atlas, palace, portraits and character poses contain no player-stat UI labels.",
+    "No bitmap was regenerated, painted over, or stretched; original asset bytes are unchanged."
+  ],
+  "assets": [
+    {
+      "path": "assets/ui/lobby_smooth/hud/empty_button_red.png",
+      "bakedText": false,
+      "sha256": "673b6a159fe9b78a66d88f4abd2e67d10322ef9c7290ff7d71c3803451c0f380",
+      "policy": "dynamic fields require contentRect",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/hud/empty_button_gold.png",
+      "bakedText": false,
+      "sha256": "209d1ed52178e679179cf7f56258f47f8fde2f5f9db0c6f1065326df91a97349",
+      "policy": "dynamic fields require contentRect",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/welfare_labelled.png",
+      "bakedText": true,
+      "sha256": "a513defba44921758dac0c1962a6eb144a7bf2dc837c6a950cf48cc2b2e8dee0",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/first_topup_labelled.png",
+      "bakedText": true,
+      "sha256": "02ddf47d9dc4ee784c40c7b4d735ea426b83666d39a570fac6bf794d72121028",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/checkin_labelled.png",
+      "bakedText": true,
+      "sha256": "e3ad0ac392a9898b25e239ec9cdc373af780217a929b193ee806a79c6f1a86ac",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/mail_labelled.png",
+      "bakedText": true,
+      "sha256": "8dd31ae8ec5616e071290c47aedffedbb125c84257a7d60b2680502259e12c80",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/missions_labelled.png",
+      "bakedText": true,
+      "sha256": "c0f64dfeae0ead0a214f91327eae9abd11c4a18b67671d1861f9c968451d0ac2",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/feature_icons/settings_labelled.png",
+      "bakedText": true,
+      "sha256": "14f446bb457b4b3f73628fa199634d87b7799ddaafbad00aac3bb96d791c3db1",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/formation_default.png",
+      "bakedText": true,
+      "sha256": "93089a3aa35705099b870b642df4da000ce685ef7adcab5d16256ba0d8a14a2a",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/formation_selected.png",
+      "bakedText": true,
+      "sha256": "6ddbc47a95a8ebcffb5a414dce7f0e9e86d1db0144c30b1fb46ecb532aca5d15",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/heroes_default.png",
+      "bakedText": true,
+      "sha256": "d9f2af2bb35782070671468d2b859823eb959affae8d11e684c6b6fb3186a8c5",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/heroes_selected.png",
+      "bakedText": true,
+      "sha256": "e509e9aa4b0eae0946a40c645e8f648e13af6d190811ba0321913f34606e4e39",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/inventory_default.png",
+      "bakedText": true,
+      "sha256": "6b000de12c76f9aedc68fbcca619c175cafdf2d3f5d1c29b8bfa2452a44501be",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/inventory_selected.png",
+      "bakedText": true,
+      "sha256": "3ba57371988d5db8614a35cb544e681ba9ecdd87eafeea50c9531b6a67784a51",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/summon_default.png",
+      "bakedText": true,
+      "sha256": "ad65a8bf1687ff1c1c90d532a108f00614b5b4b6c309cc9b8667a6fdb9495cb0",
+      "policy": "no Phaser label overlay",
+      "usage": "retained"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/bottom_nav/summon_selected.png",
+      "bakedText": true,
+      "sha256": "fd7bc40a342134778adada8988645ac1255728b7c95a9a305fb91f25891fa8c3",
+      "policy": "no Phaser label overlay",
+      "usage": "quarantined hover image: right border clipped; use complete default with tint"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/campaign/button_chinh_chien_default.png",
+      "bakedText": true,
+      "sha256": "95526a3df8f49484a9364f82fe781c4b8c8cc04dfb7699ea66cd6bc2e4c29d32",
+      "policy": "no Phaser label overlay",
+      "usage": "not drawn: replaced by blank panel and separately fitted CTA label"
+    },
+    {
+      "path": "assets/ui/lobby_smooth/campaign/button_chinh_chien_selected.png",
+      "bakedText": true,
+      "sha256": "a3f1da5f5ca883d8daa267e670c66099995ef10e21fe7e87bb9114714cbf1786",
+      "policy": "no Phaser label overlay",
+      "usage": "not drawn: replaced by blank panel and separately fitted CTA label"
+    },
+    {
+      "path": "assets/ui/welfare_v21/tabs/tab_normal_hd.png",
+      "bakedText": false,
+      "sha256": "2de6a2b04d4944d2ce5126cac8593bbbcb47d354cc4fb67d0d64ecf0ef4bfd2c",
+      "usage": "audited candidate rejected: internal divider intersects the third profile row; not drawn"
+    },
+    {
+      "path": "assets/ui/pvp_v1/panels/panel_season_status.png",
+      "bakedText": false,
+      "sha256": "262b0fcb162ef9a7fab7b0b701eb6bc53bc8a28045a8133281647dc8f866cc85",
+      "usage": "existing clean runtime art reused byte-for-byte"
+    },
+    {
+      "path": "assets/ui/welfare_v21/icons/icon_dong_copper_hd.png",
+      "bakedText": false,
+      "sha256": "baac9857fa782b22aa1cbf98cf99b0e2f4878549bc0f9a09d8ba1b43301fed06",
+      "usage": "existing clean runtime art reused byte-for-byte"
+    }
+  ]
+}

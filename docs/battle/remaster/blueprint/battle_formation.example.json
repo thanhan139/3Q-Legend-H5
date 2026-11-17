@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "referenceViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "safeRects": {
+    "arena": {
+      "top": 112,
+      "bottom": 605
+    },
+    "header": {
+      "top": 0,
+      "bottom": 112
+    },
+    "hud": {
+      "top": 605,
+      "bottom": 720
+    }
+  },
+  "roles": {
+    "frontline": "near_center",
+    "backline": "outer_edge"
+  },
+  "rowFootY": [
+    240,
+    395,
+    550
+  ],
+  "columnX": {
+    "ally": {
+      "backline": 170,
+      "frontline": 420
+    },
+    "enemy": {
+      "frontline": 860,
+      "backline": 1110
+    }
+  },
+  "slotsPerSide": 6,
+  "slotAddress": "team/front-or-back/row-index-0-2",
+  "footAnchor": {
+    "type": "from_each_animation_frame_metadata",
+    "staticReferenceOnly": {
+      "originX": 0.5,
+      "originY": 0.933036
+    }
+  },
+  "heroRender": {
+    "targetVisibleHeightPxAt1280x720": 124,
+    "minVisibleHeightPxAt1280x720": 110,
+    "maxVisibleHeightPxAt1280x720": 135,
+    "keepAspectRatio": true
+  },
+  "slotBehavior": {
+    "onDeath": "KEEP_EMPTY",
+    "onRevive": "RESTORE_ORIGINAL_SLOT",
+    "allowSurvivorReflow": false
+  },
+  "layoutScaling": "recompute_from_safe_rects_not_hardcoded_physical_pixels"
+}

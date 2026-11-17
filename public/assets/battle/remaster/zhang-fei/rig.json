@@ -1,0 +1,116 @@
+{
+  "heroId": "zhang-fei",
+  "texture": "assets/battle/remaster/zhang-fei/parts-v2.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "95a73973013231bd8f49e35f9255ca0613804cb9621dbcf1d7233465a75e247e",
+  "frames": {
+    "head": [
+      90,
+      9,
+      180,
+      294
+    ],
+    "torso": [
+      325,
+      9,
+      288,
+      299
+    ],
+    "upperNear": [
+      665,
+      10,
+      243,
+      293
+    ],
+    "foreNear": [
+      984,
+      40,
+      237,
+      238
+    ],
+    "upperFar": [
+      47,
+      320,
+      222,
+      282
+    ],
+    "foreFar": [
+      350,
+      356,
+      245,
+      227
+    ],
+    "thighNear": [
+      677,
+      317,
+      210,
+      305
+    ],
+    "shinNear": [
+      1015,
+      317,
+      182,
+      302
+    ],
+    "thighFar": [
+      45,
+      632,
+      207,
+      297
+    ],
+    "shinFar": [
+      381,
+      633,
+      180,
+      298
+    ],
+    "weapon": [
+      744,
+      628,
+      96,
+      308
+    ],
+    "cape": [
+      942,
+      650,
+      309,
+      264
+    ],
+    "hair": [
+      5,
+      974,
+      303,
+      244
+    ],
+    "skirt": [
+      317,
+      950,
+      308,
+      293
+    ],
+    "accessory": [
+      668,
+      1020,
+      232,
+      184
+    ],
+    "headHit": [
+      1031,
+      951,
+      182,
+      294
+    ]
+  },
+  "pipeline": "layered-rig",
+  "rasterModified": false,
+  "provenance": {
+    "sourceKit": "Hero_Remaster_Static_Sprites_v1.0",
+    "sourceHeroKey": "truong_phi",
+    "referenceSha256": "1ea49aca7e7c6d1d92c4c98e1f2df25eba7893659b3ba2eee1d8e2a2459a265c",
+    "authoring": "Repainted isolated body parts, built-in imagegen; native Phaser articulated cutout rig",
+    "artApproval": "prototype; final artist review pending"
+  }
+}

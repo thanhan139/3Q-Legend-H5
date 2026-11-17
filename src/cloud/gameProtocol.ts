@@ -2,11 +2,13 @@ import type { SaveV2 } from '../domain/types';
 import type { Mission } from '../domain/welfare';
 import type { EquipmentId } from '../data/equipmentConfig';
 import type { TutorialProgress, TutorialStep } from '../domain/tutorial';
+import type { VipSnapshot, VipGiftKind } from '../domain/vip';
 
 export interface CloudSave {
   save: SaveV2;
   revision: string;
   tutorial?: TutorialProgress;
+  vip?: VipSnapshot;
 }
 
 export interface BattleTicket {
@@ -18,6 +20,7 @@ export interface BattleTicket {
 }
 
 export type GameCommand =
+  | { type: 'vipClaim'; tier: number; kind: VipGiftKind; period: string }
   | { type: 'tutorial'; version: number; step: TutorialStep; action: 'name' | 'next' | 'skip'; name?: string }
   | { type: 'checkIn' | 'firstTopupDemo' }
   | { type: 'daily'; mission: Mission }

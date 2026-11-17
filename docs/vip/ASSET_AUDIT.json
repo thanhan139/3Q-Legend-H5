@@ -1,0 +1,1667 @@
+[
+  {
+    "source": "assets/badges/vip_00.png",
+    "runtime": "assets/vip/badges/vip_00.png",
+    "size": [
+      270,
+      131
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "322fa4ac7f69c93dc57c8c734ea59799b4b8c635f5ea1266ed3c343e47b38c21",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_01.png",
+    "runtime": "assets/vip/badges/vip_01.png",
+    "size": [
+      250,
+      140
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ee8b5b5cf78ef48cdddcd9106a85d393000a1702d9ac5b204226d121bf56cfaf",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_02.png",
+    "runtime": "assets/vip/badges/vip_02.png",
+    "size": [
+      242,
+      147
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "8b3d2357d05d4872d9c4ee2283527a09cdb83f8a625363814f6563bb1b493416",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_03.png",
+    "runtime": "assets/vip/badges/vip_03.png",
+    "size": [
+      245,
+      154
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c8cd80b1cb372d4d87aafde44f89b518ba041acc8c364686c6b5068c7316ba99",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_04.png",
+    "runtime": "assets/vip/badges/vip_04.png",
+    "size": [
+      269,
+      164
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0e1f28b2c849b2e237dba6a624c94b934abfbbf4830276fb2f5c70cd32f1a312",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_05.png",
+    "runtime": "assets/vip/badges/vip_05.png",
+    "size": [
+      262,
+      158
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "004b0f8136f8faf8cebcdfb5147b0e0fb158f48ef997939c024715528058d807",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_06.png",
+    "runtime": "assets/vip/badges/vip_06.png",
+    "size": [
+      255,
+      158
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "3c9aaf2b8fbc59908e24df61a7b057eed3325245681eda775dd1b13c46299cee",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_07.png",
+    "runtime": "assets/vip/badges/vip_07.png",
+    "size": [
+      264,
+      171
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "782b6a446811cfcbb1e3af6aafc009584c9f9761de2ae3af44e41f405a7eb257",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_08.png",
+    "runtime": "assets/vip/badges/vip_08.png",
+    "size": [
+      284,
+      180
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c38462caa17cc3bc09bac3e079c164e70c1e3a2524f0b1ca20b671c6563d21a0",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_09.png",
+    "runtime": "assets/vip/badges/vip_09.png",
+    "size": [
+      288,
+      192
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "99f1db1bf5c72d2a05a7185b8b569201c257b40c9136c4ad14c5ed9e40f5ff46",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_10.png",
+    "runtime": "assets/vip/badges/vip_10.png",
+    "size": [
+      261,
+      168
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "93bc1f10d4a84a58d9ad9fdb90b7e7c115333acc409a53f29b84fc9707d1f80c",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_11.png",
+    "runtime": "assets/vip/badges/vip_11.png",
+    "size": [
+      269,
+      178
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "55719231e5f787c0a1a949f366a2ea2d125ca9c059cb4e011e24a32f80678fa0",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_12.png",
+    "runtime": "assets/vip/badges/vip_12.png",
+    "size": [
+      263,
+      187
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d6248c3c920e6359e94d473f1c99c675e29d1c7c61093b6d113bf6728b282e9e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_13.png",
+    "runtime": "assets/vip/badges/vip_13.png",
+    "size": [
+      282,
+      192
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "533329a37ad90663f939b9e2107d41ec06b2935258876cfcb51e26145bbcccc4",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_14.png",
+    "runtime": "assets/vip/badges/vip_14.png",
+    "size": [
+      318,
+      191
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a7abb8c10791cff3b008172367c27ec24839141cc5d1ffd22cee9365de283c8e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_15.png",
+    "runtime": "assets/vip/badges/vip_15.png",
+    "size": [
+      310,
+      213
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0a30f4991f8afad47b251407487aa491b8b4535e340dfcf677e7daaa6dbed5ca",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_16.png",
+    "runtime": "assets/vip/badges/vip_16.png",
+    "size": [
+      300,
+      245
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ebc4b15221e504b1c73c9834ba80c0ab21c3cafe7eb651e75ef7f90131079751",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_17.png",
+    "runtime": "assets/vip/badges/vip_17.png",
+    "size": [
+      352,
+      270
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b57fddcc04050c417e90aa3383b9d4e7b3056711c227d8600fd012e2697c1fec",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_18.png",
+    "runtime": "assets/vip/badges/vip_18.png",
+    "size": [
+      423,
+      358
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "63a856981be31b63cb4cf5b50909255aa834ce616b5bf5717269c78d2ee2071d",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/progress/vip_header_progress.png",
+    "runtime": null,
+    "size": [
+      1347,
+      217
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "4ffee868f3c32c9b58be90738ddbfae16dea9e46dc2682875d2c89283bb5de0f",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/progress/bar_filled_sample.png",
+    "runtime": null,
+    "size": [
+      655,
+      58
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "90931d733bc4b4ca92324fa246655b36ae1e5b8ce31c6f63551d444b37f0f53b",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/progress/bar_empty_sample.png",
+    "runtime": null,
+    "size": [
+      628,
+      59
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "49961aca96b3d77eea0755aac65338d4e0240921f2546e1cc32935b7a7664340",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/progress/milestone_six_gifts.png",
+    "runtime": null,
+    "size": [
+      1286,
+      113
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d60f01fa1a03268cf585344447e0249f3a591cda0a483008bf0c8ff8ccea8360",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_locked_wood.png",
+    "runtime": "assets/vip/rewards/chest_locked_wood.png",
+    "size": [
+      195,
+      142
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "34e29cd313d1c63d0befd22d8c4dbfaf44591f037c79652b9ece1f1ff99568f1",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_ready_gold.png",
+    "runtime": "assets/vip/rewards/chest_ready_gold.png",
+    "size": [
+      217,
+      186
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "74879a048b129e168a4f28221eb5b1ae3c0926514a44f3e113753663b8d43095",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_claimed_gray.png",
+    "runtime": "assets/vip/rewards/chest_claimed_gray.png",
+    "size": [
+      185,
+      144
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a4481818d6995ce360ecdac97702e82324da47f87119a4d717f447a2ab66588c",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_dragon_gold.png",
+    "runtime": null,
+    "size": [
+      218,
+      184
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "3e7fbfaee56803260885a0228958bb2e860d9ec9c6408ba19cb699eaad936cd1",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_premium_purple.png",
+    "runtime": null,
+    "size": [
+      212,
+      192
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "92eacca6e23b4e249a01b362ab5c089b3cf9a2ad17e2f9072652f989bd2d242f",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_opened_gold.png",
+    "runtime": null,
+    "size": [
+      232,
+      181
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "3cc971ea3ac22b6782f8e9425fede15d2af5895b30bdec5434337885542c4185",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/buttons/btn_claim.png",
+    "runtime": null,
+    "size": [
+      312,
+      75
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b6ddfa6809e803345a92ec623a6008eaf9d291a9b0d342b89ec8ae59b4d7b781",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/buttons/btn_claimed.png",
+    "runtime": null,
+    "size": [
+      330,
+      100
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b67547b186634f0f91cd25439cb08ef411d828acdad85f1ae3f92cad41d5b35b",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/buttons/btn_go_recharge.png",
+    "runtime": null,
+    "size": [
+      314,
+      74
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b5418742b1d07ebc3f372aac16ae6932253f67ba75778b3949de139b9efd6196",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/buttons/btn_prev.png",
+    "runtime": null,
+    "size": [
+      89,
+      106
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b994524a4391617a9cb809005e80e43727ff272586b7a6c222d6a2a45f026d2e",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/buttons/btn_next.png",
+    "runtime": null,
+    "size": [
+      120,
+      86
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "bd7cb34401cef258d861a8fb6c75bbd9410a1be9e9de8802ba3245494f348559",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/buttons/btn_close.png",
+    "runtime": null,
+    "size": [
+      152,
+      95
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "094a3bd236e610fa1df4462733acf4db89fd5168f2d5ff2960d6685e555a96b6",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/tabs/tab_privileges.png",
+    "runtime": null,
+    "size": [
+      282,
+      92
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "dc5399fa735bd9de93385e0e26442de127b2c2168c094d6ddcc61561343cfb9f",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/tabs/tab_vip_gifts.png",
+    "runtime": null,
+    "size": [
+      280,
+      99
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "f75888402aa450a9da00dbdb83026ac1fd0d510ffa51caf4f1f0afec39f17a29",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/tabs/tab_vip_shop.png",
+    "runtime": null,
+    "size": [
+      284,
+      63
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c9a9333b5b6a350f0aef738143796211a0c067fdb13d3b3f262d10bd81071699",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/tabs/tab_benefits.png",
+    "runtime": null,
+    "size": [
+      299,
+      89
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "36b1395e77959064ea51fe8d4ed0f8583d9fd8759636213aace264b946163372",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/perks_card.png",
+    "runtime": null,
+    "size": [
+      205,
+      272
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "31a5bc8955395a9088df1075c5776d8edb6f3f74727c600af68f37d1937b98f3",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/panels/gift_card.png",
+    "runtime": null,
+    "size": [
+      208,
+      272
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "05f56b656a1e60fa259b2b390a96628a4e2825167888b2de87a034d63ebe9a74",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/panels/shop_card.png",
+    "runtime": null,
+    "size": [
+      204,
+      274
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ae3ab3bc47b58064a7a1e25bda64a717d90c1549a0a5e912d642b544f0da80e8",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/panels/prestige_card.png",
+    "runtime": null,
+    "size": [
+      196,
+      273
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0a51708945acd04d4c7cc6da54fb031a1014e7991ee995dad2b6c8c8344c77e2",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/frame_blue.png",
+    "runtime": null,
+    "size": [
+      120,
+      119
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d546c6ca4e17ec59cabeb831b33b092d0c689cc7c573439a40f003f7b55e12d9",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/frame_purple.png",
+    "runtime": null,
+    "size": [
+      144,
+      129
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c7bd2a552349020f4de8e9bb2211e87054c74291d8103c72ff3a478fee03ebf0",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/frame_gold.png",
+    "runtime": null,
+    "size": [
+      134,
+      116
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "fc83fcb140d46c4c91a6bacb3f7ee0a4df4467e381120a1a2d3e38fff0299988",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/notification_dot.png",
+    "runtime": null,
+    "size": [
+      37,
+      19
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "e64b5508030cfd3ca16a05d0c6dbc8e389d147fd6d16307c3739f40f94fe881d",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/imperial_flag.png",
+    "runtime": null,
+    "size": [
+      177,
+      206
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "3b444b596770a02899ddad01d767684453eb48f3df0486a36f2115ea6a25219c",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/red_ribbon.png",
+    "runtime": null,
+    "size": [
+      371,
+      77
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "52ea920660f5388b3636fece1af8ec7dde2542f3eca0586b14a3f73dfd714141",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/gold_cloud.png",
+    "runtime": null,
+    "size": [
+      203,
+      84
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ea3a132b3107b089d8c77d9d2844272614e9536fe0d9a517eb9b864e632873c6",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/wallet_gold.png",
+    "runtime": null,
+    "size": [
+      193,
+      72
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "acc062d3510ab2958be90683f519d6cdd2edcf9be3775070253a79127cd9c2c8",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/wallet_silver.png",
+    "runtime": null,
+    "size": [
+      178,
+      72
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5923a7ff595bb29a98bac8ca45ff72335ec8d54391866c81f3d0f67e81c30201",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/wallet_jade.png",
+    "runtime": null,
+    "size": [
+      196,
+      85
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "f8e1af1291547b19830fe90128eb703749252035da1742e9f4bfc21336155a22",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/panels/vip_title.png",
+    "runtime": "assets/vip/vip_title.png",
+    "size": [
+      484,
+      140
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0186826c0ae44c2a299ca357f8e56c695834494264ac9c6b6ebf9dbb0949db3e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/panels/heading_privileges.png",
+    "runtime": null,
+    "size": [
+      254,
+      87
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "09136a7a8c20b56ab1d0ecd6c0beb44ec0ea3bbdd91e3f1894a0387f0128c5d0",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/heading_daily.png",
+    "runtime": null,
+    "size": [
+      277,
+      86
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "998fbf61d80ca81aee3c504f200a64b7b2f9d17e8c825e8c08f742ed9f443961",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/heading_recharge.png",
+    "runtime": null,
+    "size": [
+      271,
+      87
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "c21fa72896398475e952634d0c08a23dd95d4b6f1da1ed70f658a9c7858a18ad",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/heading_levelup.png",
+    "runtime": null,
+    "size": [
+      266,
+      84
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d719a8e30307e0e212fd269fd06766c324c305fb1a8142206077998c69391344",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/perks_list.png",
+    "runtime": null,
+    "size": [
+      402,
+      452
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "dda8341546c9a8d424337276740cc883a6eec1c843afea4c473ca93e9d2bd410",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/daily_rewards.png",
+    "runtime": null,
+    "size": [
+      430,
+      210
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "42e899e75a6245ffd69719d5eda878d445dae7c4d6b228ff292b3ed40ced4518",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/levelup_rewards.png",
+    "runtime": null,
+    "size": [
+      450,
+      231
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c4e28e671ef7fcedc9f00940b4a294b84712a13d1c6a1f82563eec50947499d3",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/panels/tier_benefits_list.png",
+    "runtime": null,
+    "size": [
+      270,
+      474
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "33416d33ca026ccdca002b11b6425a767e2b44f0536965aed91f0443480f8985",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/panels/prestige_portrait.png",
+    "runtime": null,
+    "size": [
+      292,
+      253
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "f1c78677a937c58a2383127789b660f7f5da86406f726ebf2de160685a0f9caa",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_red_gold_ingot.png",
+    "runtime": null,
+    "size": [
+      119,
+      140
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "2dc1456bdc44a68ac66b5682d8592e4237499cbde55f9d352f9e4cf15bfd1718",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_bronze_coins.png",
+    "runtime": null,
+    "size": [
+      119,
+      141
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b208f2d248fe37c9fe97f1c05e12b149dd10371f2ef21e68893bd4d271957219",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_purple_crystal.png",
+    "runtime": null,
+    "size": [
+      121,
+      142
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "69afad3bbe8698d37e939cd783f2bcd9e2ddb2003831abf58d0dc93df6ed202c",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_scroll.png",
+    "runtime": null,
+    "size": [
+      138,
+      145
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "87ad77ed718b0545b7daaae54e898d55d1652889d3e03fda81ba5238fc303d2e",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_gold_feather.png",
+    "runtime": null,
+    "size": [
+      126,
+      139
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "4cecdc70ff404f2d55051dddc4896367a17169193f917fbd7eb0e7cfbe22a278",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_jade_pendant.png",
+    "runtime": null,
+    "size": [
+      129,
+      139
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5576b64091bf45e7b73396cf03bfa96b04f081e321e818f439d2bd5fe38cab35",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_gold_armor.png",
+    "runtime": null,
+    "size": [
+      137,
+      141
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "f603de35246f15ab3948ab5f38f8022f9f1569dae60d1b447d342a78d7f6e2f4",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/item_book.png",
+    "runtime": null,
+    "size": [
+      145,
+      144
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "66c5d0480edc7c98515995fad39dd109ab3b49d2e49781fda7a7e317a18a2091",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_plain.png",
+    "runtime": null,
+    "size": [
+      141,
+      138
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "8d64e14d1e8ce99959c4d425b3b23e645fc2589dc1147bc58122dbcd36a8e82d",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_red_dragon.png",
+    "runtime": null,
+    "size": [
+      145,
+      136
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5c4b38b195f2643575b6ad34e1a11a9a5e4e41ddac75e1914342948302be0e6d",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_purple.png",
+    "runtime": null,
+    "size": [
+      150,
+      137
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "9e71e7ff84fb6984422de377a449b11032704cba884cc454625128256a550997",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/rewards/chest_premium_dragon.png",
+    "runtime": null,
+    "size": [
+      177,
+      158
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "55ee253ef1c2c433691a561e86e0f577d888b755fcf1968a600df5433e2520de",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/perk_sweep.png",
+    "runtime": null,
+    "size": [
+      98,
+      127
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "e702307db2d8703d3f77bef52b4e376b0210575d4f0c8ad7e088e0f47fc60099",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_auto_battle.png",
+    "runtime": null,
+    "size": [
+      106,
+      132
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "f86cd9cdb31c3250a0527b55d288a1a07334f3372d18f04a26d7943b212adb99",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_speed_x2.png",
+    "runtime": null,
+    "size": [
+      96,
+      130
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "afaf3cbb7b9281e1bbe777a88e30652830affb176cd000d9b82930897ee78746",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_speed_x3.png",
+    "runtime": null,
+    "size": [
+      100,
+      129
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "479accea1d3718d5af8f1c46c40ad044b1174a0d439dfd98daa65712e639dfc4",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_speed_x4.png",
+    "runtime": null,
+    "size": [
+      101,
+      128
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "e8b41dd539c847d5ee1d9cd92bf397ef66a97738fa88c6abe42efaa97f75ef10",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_buy_stamina.png",
+    "runtime": null,
+    "size": [
+      105,
+      108
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5b3fe0cfdb30981a5e62aa65a6fd5d29d19568c0d94cc023b759eb64ac946547",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_buy_dungeon.png",
+    "runtime": null,
+    "size": [
+      119,
+      113
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "6aff342465e86b2b680a928f3b4c7e6ce876753e9bb06dd6c86f2d19e0ce8a03",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/icons/perk_shop_discount.png",
+    "runtime": null,
+    "size": [
+      135,
+      117
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "2daec190fe623e31f100a5942c07e1e64ef9d39ccc2e0310f125215997bec49a",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/ornaments/prestige_vip15.png",
+    "runtime": null,
+    "size": [
+      186,
+      237
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ce326f555402cf6a4158c087a31c9f19022885f07053cbdecf455bdfa4ab06cc",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/ornaments/prestige_vip16.png",
+    "runtime": null,
+    "size": [
+      192,
+      237
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "7e0b287114b685e19918782387878f985840727ab045b26523ba6c317bb568a3",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/ornaments/prestige_vip18.png",
+    "runtime": null,
+    "size": [
+      192,
+      248
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "3077307a806d936e84a4c12bd52dd3c42c6b7c331787e9aef670e3849975fdc4",
+    "status": "review",
+    "decision": "excluded: baked headings, sample content or alternate static labels"
+  },
+  {
+    "source": "assets/ornaments/portal_gold.png",
+    "runtime": null,
+    "size": [
+      171,
+      182
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "afae22a47788a6fb22da4de49ca06e117f238d60fb960cc771210a313fc12257",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/portal_purple.png",
+    "runtime": null,
+    "size": [
+      173,
+      171
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "d9f1a45a89a0934ec9bcc16d0c7a8c8d365d172db33cf0e4b3b4f030cc4ab540",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/portal_red.png",
+    "runtime": null,
+    "size": [
+      150,
+      169
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "de24c26de2df9785186f84d6fba8a1b17adcf579d22517c6aaca747ee4f36ca2",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/divider_small.png",
+    "runtime": null,
+    "size": [
+      234,
+      29
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "5183298771dc2ca53bf6172763f91d769d744f7eeb3e9e9fb1b31933d92a863a",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/divider_tassel.png",
+    "runtime": null,
+    "size": [
+      257,
+      80
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "078c8cf880f1decf5bd0bf1c8742863601e1f21f4ec2502ca2fa00d8d091d73f",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/divider_straight.png",
+    "runtime": null,
+    "size": [
+      145,
+      50
+    ],
+    "alphaRange": [
+      0,
+      248
+    ],
+    "sha256": "eaf5ad6dca7353ddfc35351c458b017717fd8295f9570b059b3a3590de433a53",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/ornaments/border_corner.png",
+    "runtime": null,
+    "size": [
+      174,
+      167
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "421b101718c8652341af06e6d1cf3a40bf266450c1bfafc3d8eba634f2a6a62b",
+    "status": "review",
+    "decision": "excluded: neighboring text/art and incomplete frame crop"
+  },
+  {
+    "source": "assets/ornaments/bottom_scroll.png",
+    "runtime": null,
+    "size": [
+      201,
+      81
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "85e9518d7919f3381920b14580d87918d2c30d02e6d2c824b1736168193ed4e0",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_1.png",
+    "runtime": null,
+    "size": [
+      104,
+      112
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "sha256": "b2121c13448b130acd13184f22a0f6af6496e69f53fa2e73269a0d1de6ee22b2",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_2.png",
+    "runtime": null,
+    "size": [
+      104,
+      98
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "9c6bbc802542ae03cc067a940f1fef2edf35deff6550981568564c375ca31d76",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_3.png",
+    "runtime": null,
+    "size": [
+      106,
+      99
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "2bdc2df1265d6d47105b786db18d30e6c6ff1c63591eb4a49ec5b47ed94cad8e",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_4.png",
+    "runtime": null,
+    "size": [
+      103,
+      103
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "cad58c0c9e51f700282e7150eef36a4eb880a80f331c912a68b512c1bf9a7143",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_5.png",
+    "runtime": null,
+    "size": [
+      105,
+      102
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "489e8e1222a19761c1442cf08e109e6055a25b5abf75f2a5b964e1c0bfdcb62a",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/icons/reward_slot_6.png",
+    "runtime": null,
+    "size": [
+      106,
+      101
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "aaf919978b451f6137adbcc29ae5ac2ca791c386e033ef64afd213c1d296c565",
+    "status": "review",
+    "decision": "excluded: unused illustrative/alternate art; six-gift strip is not a 19-level meter"
+  },
+  {
+    "source": "assets/runtime_blank/button_gold.png",
+    "runtime": "assets/vip/runtime_blank/button_gold.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a324b9f3d87402e135d8100488e81163d2898f0b94d5aaf03e6361f698d33e64",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/button_red.png",
+    "runtime": "assets/vip/runtime_blank/button_red.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "797aa5e7befa86bcf2da529b377f783ff5d958c9cbda3a255262ec2e4fe12f46",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/button_disabled.png",
+    "runtime": "assets/vip/runtime_blank/button_disabled.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a4d24a8236e0f6c346a113966ea30dfe54b8068d1d95dcfdbefb557b5358a58a",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/tab_normal.png",
+    "runtime": "assets/vip/runtime_blank/tab_normal.png",
+    "size": [
+      245,
+      69
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d81aca08e65c57ad0622bc697420d19f4e643229d60a245278bd18d6a417d7b7",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/tab_selected.png",
+    "runtime": "assets/vip/runtime_blank/tab_selected.png",
+    "size": [
+      245,
+      69
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "21f2f4fb0e9990e7a92452db0cead2913b95c0a9bab986052675bb75b3d7e1b1",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/panel_dark.png",
+    "runtime": "assets/vip/runtime_blank/panel_dark.png",
+    "size": [
+      650,
+      460
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "839f2d9668e35d8a2107e5148abf45a4efd3be4a23fbe107345093cfbdc74db3",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/panel_light.png",
+    "runtime": "assets/vip/runtime_blank/panel_light.png",
+    "size": [
+      500,
+      310
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "73ca1052f9aaf7fafc6214bdb25f742259c9fb1aa288e811cfe058e0bb4cb802",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/item_slot.png",
+    "runtime": "assets/vip/runtime_blank/item_slot.png",
+    "size": [
+      114,
+      114
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "cf518b26d06e2b98eab4f229cd6c40056044b4202c32d42f77045c0b2f5802d2",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/progress_track.png",
+    "runtime": "assets/vip/runtime_blank/progress_track.png",
+    "size": [
+      720,
+      54
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "cca9a497818f0c8d158ebbb65a9afc4d078beed8d088d4a0b7d5a28378e4085c",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/progress_fill_tilable.png",
+    "runtime": "assets/vip/runtime_blank/progress_fill_tilable.png",
+    "size": [
+      256,
+      33
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a8596da3c72c8e2ef12bc2383bf4fef5f5ab0e10ed75367fce2809ee17d1d079",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/reward_card.png",
+    "runtime": "assets/vip/runtime_blank/reward_card.png",
+    "size": [
+      420,
+      270
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "74e992e22b5e40961736d1e9c7dc1d7dd250b2a0930bdfb50985a75cf802d347",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  }
+]

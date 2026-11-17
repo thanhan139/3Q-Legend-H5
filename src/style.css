@@ -1,3 +1,4 @@
+@font-face { font-family: InventoryMenu; src: url('/assets/fonts/NotoSerif-Bold-Vietnamese.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
 :root{font-family:Arial,Helvetica,sans-serif;color:#fff;background:#10162c;
   --safe-top:env(safe-area-inset-top, 0px);--safe-right:env(safe-area-inset-right, 0px);
   --safe-bottom:env(safe-area-inset-bottom, 0px);--safe-left:env(safe-area-inset-left, 0px);}

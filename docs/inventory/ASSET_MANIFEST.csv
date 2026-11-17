@@ -1,0 +1,68 @@
+﻿path,texture_key,width,height,role,status,sizing,notes
+assets/background/inventory_hall_clean.png,inventory.inventory_hall_clean,1920,1080,Background 16:9 without baked UI,ready,cover,"Use image cover/crop, never stretch nonuniformly."
+assets/panels/inventory_grid_panel.png,inventory.inventory_grid_panel,1000,584,Blank ornamented frame; put dynamic text and item contents on separate layers,ready,9slice,"Prefer nine-slice; stretch only central fill, not corners."
+assets/panels/item_detail_panel.png,inventory.item_detail_panel,414,584,Blank ornamented frame; put dynamic text and item contents on separate layers,ready,9slice,"Prefer nine-slice; stretch only central fill, not corners."
+assets/panels/title_banner_blank.png,inventory.title_banner_blank,510,102,Blank ornamented frame; put dynamic text and item contents on separate layers,ready,9slice,"Prefer nine-slice; stretch only central fill, not corners."
+assets/panels/detail_title_plaque_blank.png,inventory.detail_title_plaque_blank,360,61,Blank ornamented frame; put dynamic text and item contents on separate layers,ready,9slice,"Prefer nine-slice; stretch only central fill, not corners."
+assets/panels/detail_parchment_blank.png,inventory.detail_parchment_blank,369,258,Description parchment (no baked text),ready,9slice,
+assets/panels/item_detail_header_blank.png,inventory.item_detail_header_blank,385,147,Item portrait/title area,ready,9slice,
+assets/panels/item_tooltip_blank.png,inventory.item_tooltip_blank,425,356,Reusable tooltip popup,ready,9slice,
+assets/slots/item_slot_default.png,inventory.item_slot_default,174,135,"Item slot frame, no label/icon/count",ready,fixed,"ContentRect: icon x=34..140,y=28..104; label 12..161,y=8..27; count y=107..131. Render all dynamic."
+assets/slots/item_slot_selected.png,inventory.item_slot_selected,214,175,Selected item frame with gold glow,ready,fixed,Draw slot at same center; selected has 20px outer glow padding.
+assets/slots/item_slot_disabled.png,inventory.item_slot_disabled,174,135,Unavailable/disabled item slot,ready,fixed,
+assets/slots/item_slot_r.png,inventory.item_slot_r,174,135,R rarity border,ready,fixed,
+assets/slots/item_slot_sr.png,inventory.item_slot_sr,174,135,SR rarity border,ready,fixed,
+assets/slots/item_slot_ssr.png,inventory.item_slot_ssr,174,135,SSR rarity border,ready,fixed,
+assets/slots/item_slot_sssplus.png,inventory.item_slot_sssplus,174,135,SSSPLUS rarity border,ready,fixed,
+assets/tabs/tab_selected.png,inventory.tab_selected,217,59,Blank category tab; Phaser renders category icon and Vietnamese text,ready,9slice,Tab label must stay inside contentRect with 14px horizontal padding.
+assets/tabs/tab_default.png,inventory.tab_default,217,59,Blank category tab; Phaser renders category icon and Vietnamese text,ready,9slice,Tab label must stay inside contentRect with 14px horizontal padding.
+assets/tabs/tab_disabled.png,inventory.tab_disabled,217,59,Blank category tab; Phaser renders category icon and Vietnamese text,ready,9slice,Tab label must stay inside contentRect with 14px horizontal padding.
+assets/buttons/button_gold.png,inventory.button_gold,264,75,Blank button; label and icon rendered by Phaser,ready,9slice,
+assets/buttons/button_red.png,inventory.button_red,265,75,Blank button; label and icon rendered by Phaser,ready,9slice,
+assets/buttons/button_back.png,inventory.button_back,240,69,Blank button; label and icon rendered by Phaser,ready,9slice,
+assets/buttons/button_green.png,inventory.button_green,265,75,Blank button; label and icon rendered by Phaser,ready,9slice,
+assets/buttons/button_pressed.png,inventory.button_pressed,264,75,Pressed interaction state,ready,9slice,
+assets/buttons/button_disabled.png,inventory.button_disabled,264,75,Disabled interaction state,ready,9slice,
+assets/panels/header_bg_blank.png,inventory.header_bg_blank,1560,162,"Blank content-area backing, no baked text",ready,9slice,
+assets/panels/grid_section_bg_blank.png,inventory.grid_section_bg_blank,1000,565,"Blank content-area backing, no baked text",ready,9slice,
+assets/panels/detail_section_bg_blank.png,inventory.detail_section_bg_blank,410,565,"Blank content-area backing, no baked text",ready,9slice,
+assets/decor/gold_divider.png,inventory.gold_divider,1370,48,Gold ornate separator; transparent canvas,ready,horizontal,
+assets/decor/gold_inner_divider.png,inventory.gold_inner_divider,420,24,Gold ornate separator; transparent canvas,ready,horizontal,
+assets/effects/glow_gold.png,inventory.glow_gold,192,192,"Soft additive selection/rarity glow, no UI text",ready,fixed,
+assets/effects/glow_purple.png,inventory.glow_purple,192,192,"Soft additive selection/rarity glow, no UI text",ready,fixed,
+assets/effects/glow_blue.png,inventory.glow_blue,192,192,"Soft additive selection/rarity glow, no UI text",ready,fixed,
+assets/effects/glow_red.png,inventory.glow_red,192,192,"Soft additive selection/rarity glow, no UI text",ready,fixed,
+assets/panels/hero_fragment_portrait_frame.png,inventory.hero_fragment_portrait_frame,157,155,"Empty portrait frame, portrait from hero registry",ready,fixed,
+assets/icons_reference/golden_key.png,inventory.golden_key,128,128,Optional extracted icon reference: Chìa Khóa Vàng,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/hero_exp.png,inventory.hero_exp,128,128,Optional extracted icon reference: EXP Tướng,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/enhancement_crystal.png,inventory.enhancement_crystal,128,128,Optional extracted icon reference: Đá Cường Hóa,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/divine_weapon_shard.png,inventory.divine_weapon_shard,128,128,Optional extracted icon reference: Mảnh Thần Binh,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/old_ingot.png,inventory.old_ingot,128,128,Optional extracted icon reference: Nguyên Bảo cũ,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/bui_nguyen_thieu_fragment.png,inventory.bui_nguyen_thieu_fragment,128,128,Optional extracted icon reference: Mảnh Bùi Nguyên Thiệu,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/hinh_dao_vinh_fragment.png,inventory.hinh_dao_vinh_fragment,128,128,Optional extracted icon reference: Mảnh Hình Đạo Vinh,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/trinh_vien_chi_fragment.png,inventory.trinh_vien_chi_fragment,128,128,Optional extracted icon reference: Mảnh Trình Viễn Chí,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/spirit_stone.png,inventory.spirit_stone,128,128,Optional extracted icon reference: Đá Thần Khí,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/ancient_jewel.png,inventory.ancient_jewel,128,128,Optional extracted icon reference: Ngọc Cổ Truyền,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/hero_chest.png,inventory.hero_chest,128,128,Optional extracted icon reference: Rương Tướng Cao Cấp,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/divine_chest.png,inventory.divine_chest,128,128,Optional extracted icon reference: Rương Thần Binh,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/skill_manual.png,inventory.skill_manual,128,128,Optional extracted icon reference: Sách Kỹ Năng,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/summon_scroll.png,inventory.summon_scroll,128,128,Optional extracted icon reference: Cuộn Chiêu Mộ,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/march_order.png,inventory.march_order,128,128,Optional extracted icon reference: Lệnh Xuất Chinh,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/silver_coin.png,inventory.silver_coin,128,128,Optional extracted icon reference: Bạc,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/spirit_crystal.png,inventory.spirit_crystal,128,128,Optional extracted icon reference: Linh Thạch,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/hero_soul.png,inventory.hero_soul,128,128,Optional extracted icon reference: Hồn Tướng,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/upgrade_gem.png,inventory.upgrade_gem,128,128,Optional extracted icon reference: Đá Tiến Cấp,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/icons_reference/surprise_pouch.png,inventory.surprise_pouch,128,128,Optional extracted icon reference: Túi Ngẫu Nhiên Cao Cấp,review,icon,Approximate alpha extraction from flattened approved concept. QA edges and prefer existing project inventory icon if sharper/matching.
+assets/decor/inventory_title_static.png,inventory.inventory_title_static,535,230,Decorative fixed title graphic: Túi Đồ,review,fixed,Includes baked static words; if localization/accessibility required render title using blank title banner instead.
+assets/buttons/button_back_static.png,inventory.button_back_static,290,105,Decorative fixed Về sảnh button,review,fixed,Baked fixed label; use button_back blank and dynamic text if needed.
+assets/decor/gold_dragon_divider.png,inventory.gold_dragon_divider,1355,95,"Gold dragon ornament divider, transparent background",ready,horizontal,
+assets/tabs/tab_all_static.png,inventory.tab_all_static,257,98,Decorated category tab with baked static label,review,fixed,Static baked label. Recommend blank tab and Phaser Text in runtime.
+assets/tabs/tab_resources_static.png,inventory.tab_resources_static,275,89,Decorated category tab with baked static label,review,fixed,Static baked label. Recommend blank tab and Phaser Text in runtime.
+assets/tabs/tab_fragments_static.png,inventory.tab_fragments_static,274,93,Decorated category tab with baked static label,review,fixed,Static baked label. Recommend blank tab and Phaser Text in runtime.
+assets/tabs/tab_items_static.png,inventory.tab_items_static,273,91,Decorated category tab with baked static label,review,fixed,Static baked label. Recommend blank tab and Phaser Text in runtime.
+assets/tabs/tab_divine_static.png,inventory.tab_divine_static,285,89,Decorated category tab with baked static label,review,fixed,Static baked label. Recommend blank tab and Phaser Text in runtime.
+assets/decor/left_three_kingdoms_banner.png,inventory.left_three_kingdoms_banner,130,359,"Red hanging Three Kingdoms banner, left",ready,fixed,
+assets/decor/right_three_kingdoms_banner.png,inventory.right_three_kingdoms_banner,152,359,"Red hanging Three Kingdoms banner, right",ready,fixed,
+assets/decor/guardian_dragon_left.png,inventory.guardian_dragon_left,143,308,"Gold dragon guardian statue on base, left",ready,fixed,Place as scene prop behind content or at screen edge.
+assets/decor/guardian_dragon_right.png,inventory.guardian_dragon_right,162,314,"Gold dragon guardian statue on base, right",ready,fixed,Place as scene prop behind content or at screen edge.
+assets/panels/detail_nameplate_dragon_blank.png,inventory.detail_nameplate_dragon_blank,385,77,Ornate blank item detail title strip with gold ends,ready,9slice,Check text center after scaling. Title is Phaser text.

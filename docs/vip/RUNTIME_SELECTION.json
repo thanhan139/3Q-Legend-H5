@@ -1,0 +1,527 @@
+[
+  {
+    "source": "assets/badges/vip_00.png",
+    "runtime": "assets/vip/badges/vip_00.png",
+    "size": [
+      270,
+      131
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "322fa4ac7f69c93dc57c8c734ea59799b4b8c635f5ea1266ed3c343e47b38c21",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_01.png",
+    "runtime": "assets/vip/badges/vip_01.png",
+    "size": [
+      250,
+      140
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ee8b5b5cf78ef48cdddcd9106a85d393000a1702d9ac5b204226d121bf56cfaf",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_02.png",
+    "runtime": "assets/vip/badges/vip_02.png",
+    "size": [
+      242,
+      147
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "8b3d2357d05d4872d9c4ee2283527a09cdb83f8a625363814f6563bb1b493416",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_03.png",
+    "runtime": "assets/vip/badges/vip_03.png",
+    "size": [
+      245,
+      154
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c8cd80b1cb372d4d87aafde44f89b518ba041acc8c364686c6b5068c7316ba99",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_04.png",
+    "runtime": "assets/vip/badges/vip_04.png",
+    "size": [
+      269,
+      164
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0e1f28b2c849b2e237dba6a624c94b934abfbbf4830276fb2f5c70cd32f1a312",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_05.png",
+    "runtime": "assets/vip/badges/vip_05.png",
+    "size": [
+      262,
+      158
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "004b0f8136f8faf8cebcdfb5147b0e0fb158f48ef997939c024715528058d807",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_06.png",
+    "runtime": "assets/vip/badges/vip_06.png",
+    "size": [
+      255,
+      158
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "3c9aaf2b8fbc59908e24df61a7b057eed3325245681eda775dd1b13c46299cee",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_07.png",
+    "runtime": "assets/vip/badges/vip_07.png",
+    "size": [
+      264,
+      171
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "782b6a446811cfcbb1e3af6aafc009584c9f9761de2ae3af44e41f405a7eb257",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_08.png",
+    "runtime": "assets/vip/badges/vip_08.png",
+    "size": [
+      284,
+      180
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "c38462caa17cc3bc09bac3e079c164e70c1e3a2524f0b1ca20b671c6563d21a0",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_09.png",
+    "runtime": "assets/vip/badges/vip_09.png",
+    "size": [
+      288,
+      192
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "99f1db1bf5c72d2a05a7185b8b569201c257b40c9136c4ad14c5ed9e40f5ff46",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_10.png",
+    "runtime": "assets/vip/badges/vip_10.png",
+    "size": [
+      261,
+      168
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "93bc1f10d4a84a58d9ad9fdb90b7e7c115333acc409a53f29b84fc9707d1f80c",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_11.png",
+    "runtime": "assets/vip/badges/vip_11.png",
+    "size": [
+      269,
+      178
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "55719231e5f787c0a1a949f366a2ea2d125ca9c059cb4e011e24a32f80678fa0",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_12.png",
+    "runtime": "assets/vip/badges/vip_12.png",
+    "size": [
+      263,
+      187
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d6248c3c920e6359e94d473f1c99c675e29d1c7c61093b6d113bf6728b282e9e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_13.png",
+    "runtime": "assets/vip/badges/vip_13.png",
+    "size": [
+      282,
+      192
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "533329a37ad90663f939b9e2107d41ec06b2935258876cfcb51e26145bbcccc4",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_14.png",
+    "runtime": "assets/vip/badges/vip_14.png",
+    "size": [
+      318,
+      191
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a7abb8c10791cff3b008172367c27ec24839141cc5d1ffd22cee9365de283c8e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_15.png",
+    "runtime": "assets/vip/badges/vip_15.png",
+    "size": [
+      310,
+      213
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0a30f4991f8afad47b251407487aa491b8b4535e340dfcf677e7daaa6dbed5ca",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_16.png",
+    "runtime": "assets/vip/badges/vip_16.png",
+    "size": [
+      300,
+      245
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "ebc4b15221e504b1c73c9834ba80c0ab21c3cafe7eb651e75ef7f90131079751",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_17.png",
+    "runtime": "assets/vip/badges/vip_17.png",
+    "size": [
+      352,
+      270
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "b57fddcc04050c417e90aa3383b9d4e7b3056711c227d8600fd012e2697c1fec",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/badges/vip_18.png",
+    "runtime": "assets/vip/badges/vip_18.png",
+    "size": [
+      423,
+      358
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "63a856981be31b63cb4cf5b50909255aa834ce616b5bf5717269c78d2ee2071d",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_locked_wood.png",
+    "runtime": "assets/vip/rewards/chest_locked_wood.png",
+    "size": [
+      195,
+      142
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "34e29cd313d1c63d0befd22d8c4dbfaf44591f037c79652b9ece1f1ff99568f1",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_ready_gold.png",
+    "runtime": "assets/vip/rewards/chest_ready_gold.png",
+    "size": [
+      217,
+      186
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "sha256": "74879a048b129e168a4f28221eb5b1ae3c0926514a44f3e113753663b8d43095",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/rewards/chest_claimed_gray.png",
+    "runtime": "assets/vip/rewards/chest_claimed_gray.png",
+    "size": [
+      185,
+      144
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a4481818d6995ce360ecdac97702e82324da47f87119a4d717f447a2ab66588c",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/panels/vip_title.png",
+    "runtime": "assets/vip/vip_title.png",
+    "size": [
+      484,
+      140
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0186826c0ae44c2a299ca357f8e56c695834494264ac9c6b6ebf9dbb0949db3e",
+    "status": "review",
+    "decision": "runtime: reviewed standalone source; badge/fixed VIP word allowed; no fake amounts"
+  },
+  {
+    "source": "assets/runtime_blank/button_gold.png",
+    "runtime": "assets/vip/runtime_blank/button_gold.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a324b9f3d87402e135d8100488e81163d2898f0b94d5aaf03e6361f698d33e64",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/button_red.png",
+    "runtime": "assets/vip/runtime_blank/button_red.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "797aa5e7befa86bcf2da529b377f783ff5d958c9cbda3a255262ec2e4fe12f46",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/button_disabled.png",
+    "runtime": "assets/vip/runtime_blank/button_disabled.png",
+    "size": [
+      300,
+      82
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a4d24a8236e0f6c346a113966ea30dfe54b8068d1d95dcfdbefb557b5358a58a",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/tab_normal.png",
+    "runtime": "assets/vip/runtime_blank/tab_normal.png",
+    "size": [
+      245,
+      69
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "d81aca08e65c57ad0622bc697420d19f4e643229d60a245278bd18d6a417d7b7",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/tab_selected.png",
+    "runtime": "assets/vip/runtime_blank/tab_selected.png",
+    "size": [
+      245,
+      69
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "21f2f4fb0e9990e7a92452db0cead2913b95c0a9bab986052675bb75b3d7e1b1",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/panel_dark.png",
+    "runtime": "assets/vip/runtime_blank/panel_dark.png",
+    "size": [
+      650,
+      460
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "839f2d9668e35d8a2107e5148abf45a4efd3be4a23fbe107345093cfbdc74db3",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/panel_light.png",
+    "runtime": "assets/vip/runtime_blank/panel_light.png",
+    "size": [
+      500,
+      310
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "73ca1052f9aaf7fafc6214bdb25f742259c9fb1aa288e811cfe058e0bb4cb802",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/item_slot.png",
+    "runtime": "assets/vip/runtime_blank/item_slot.png",
+    "size": [
+      114,
+      114
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "cf518b26d06e2b98eab4f229cd6c40056044b4202c32d42f77045c0b2f5802d2",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/progress_track.png",
+    "runtime": "assets/vip/runtime_blank/progress_track.png",
+    "size": [
+      720,
+      54
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "cca9a497818f0c8d158ebbb65a9afc4d078beed8d088d4a0b7d5a28378e4085c",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/progress_fill_tilable.png",
+    "runtime": "assets/vip/runtime_blank/progress_fill_tilable.png",
+    "size": [
+      256,
+      33
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "a8596da3c72c8e2ef12bc2383bf4fef5f5ab0e10ed75367fce2809ee17d1d079",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/runtime_blank/reward_card.png",
+    "runtime": "assets/vip/runtime_blank/reward_card.png",
+    "size": [
+      420,
+      270
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "74e992e22b5e40961736d1e9c7dc1d7dd250b2a0930bdfb50985a75cf802d347",
+    "status": "ready",
+    "decision": "runtime: blank; Phaser owns live labels/data"
+  },
+  {
+    "source": "assets/progress/vip_header_progress.png",
+    "runtime": "assets/vip/vip_header_progress.png",
+    "size": [
+      1347,
+      217
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "4ffee868f3c32c9b58be90738ddbfae16dea9e46dc2682875d2c89283bb5de0f",
+    "status": "review",
+    "decision": "runtime: standalone dragon banner inspected; fixed VIP word only; dynamic progress and totals rendered separately"
+  }
+]

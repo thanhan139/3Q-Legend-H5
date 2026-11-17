@@ -36,6 +36,41 @@ function fixture() {
 }
 
 describe('cloud save boundary', () => {
+  it('commits a single-key draw once and rejects a concurrent stale batch', async () => {
+    const { ask, saves } = fixture();
+    const initial = { ...baseSave(), goldKeys: 11, clearedStages: ['1-1', '1-2', '1-3'], summonPity: 49, legendaryPity: 0 };
+    saves.set('alice', { state: initial, revision: 0 });
+    const intent = { action: 'command', command: { type: 'summon', count: 1 }, revision: '0', requestId: crypto.randomUUID() } as const;
+    const results = await Promise.all([ask(intent), ask({ ...intent, requestId: crypto.randomUUID(), command: { type: 'summon', count: 10 } })]);
+    expect(results[0]).toMatchObject({ status: 'ok' });
+    expect(results[1]).toMatchObject({ status: 'conflict' });
+    expect(saves.get('alice')!.state.goldKeys).toBe(10);
+    expect(saves.get('alice')!.state.lastSummon).toHaveLength(1);
+    expect(saves.get('alice')!.state.lastSummon![0].rarity).toMatch(/SSR|SSS\+/);
+    await ask(intent);
+    expect(saves.get('alice')!.revision).toBe(1);
+    expect(saves.get('alice')!.state.goldKeys).toBe(10);
+  });
+  it('reconciles a lost summon response by replaying one request ID without charging twice or crossing UID', async () => {
+    const { ask, saves } = fixture();
+    await ask({ action: 'initialize' });
+    await ask({ action: 'initialize' }, 'bob');
+    const initial = { ...baseSave(), goldKeys: 10, clearedStages: ['1-1', '1-2', '1-3'], summonPity: 49, legendaryPity: 99 };
+    saves.set('alice', { state: initial, revision: 0 });
+    const intent = { action: 'command', command: { type: 'summon', count: 10 }, revision: '0', requestId: crypto.randomUUID() } as const;
+    // First response is deliberately discarded, as with a dropped network response.
+    await ask(intent);
+    const confirmed = structuredClone(saves.get('alice'));
+    const replay = await ask(intent);
+    expect(replay).toMatchObject({ status: 'ok', receipt: { ok: true, draws: expect.arrayContaining([expect.objectContaining({ rarity: 'SSS+' })]) } });
+    expect(confirmed!.state.lastSummon![0].rarity).toBe('SSS+');
+    expect(saves.get('alice')).toEqual(confirmed);
+    expect(confirmed!.state.goldKeys).toBe(0);
+    expect(confirmed!.revision).toBe(1);
+    expect(saves.get('bob')!.state).toEqual(baseSave());
+    expect(await ask({ action: 'load' })).toMatchObject({ save: confirmed!.state });
+    expect(await ask({ ...intent, revision: '1', requestId: crypto.randomUUID() })).toMatchObject({ status: 'rejected' });
+  });
   it('requires a confirmed account and scopes reads to the verified UID', async () => {
     const { ask } = fixture();
     expect(await ask({ action: 'initialize' }, 'unconfirmed')).toEqual({ status: 'unauthorized' });

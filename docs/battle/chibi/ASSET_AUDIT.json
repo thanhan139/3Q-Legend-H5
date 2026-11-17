@@ -1,0 +1,53 @@
+{
+  "sources": [
+    {
+      "path": "public/assets/heroes/battle-sprites.webp",
+      "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+      "matchesHead": true
+    },
+    {
+      "path": "public/assets/battle/heroes/zhang-fei/poses.webp",
+      "sha256": "b15c29342e1080bb09d4a0c3f805a2dccc73a678282f8159609c58b82ad22c24",
+      "matchesHead": true
+    },
+    {
+      "path": "public/assets/battle/heroes/guan-yu/poses.webp",
+      "sha256": "e1229ab477b076880b95f83876f93137d3a6905da2cd5973889cd784c967d120",
+      "matchesHead": true
+    },
+    {
+      "path": "public/assets/battle/heroes/liu-bei/poses.webp",
+      "sha256": "73c581c774b895201fdc96bd692e764f3e602f6c11dbd2135e52463e8a28315c",
+      "matchesHead": true
+    }
+  ],
+  "heroCount": 23,
+  "animated": [
+    "zhang-fei",
+    "guan-yu",
+    "liu-bei"
+  ],
+  "staticOnly": [
+    "zhao-yun",
+    "huang-yueying",
+    "ma-chao",
+    "cao-cao",
+    "xiahou-dun",
+    "dian-wei",
+    "sun-quan",
+    "gan-ning",
+    "da-qiao",
+    "diao-chan",
+    "hua-xiong",
+    "lu-bu",
+    "zhuge-liang",
+    "pan-feng",
+    "xing-dao-rong",
+    "cheng-yuan-zhi",
+    "pei-yuan-shao",
+    "guan-ping",
+    "zhou-cang",
+    "cao-hong"
+  ],
+  "originalAssetsModified": false
+}

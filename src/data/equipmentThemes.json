@@ -1,0 +1,109 @@
+{
+  "version": "2.0",
+  "note": "Visual presets; hero_id slugs here are provisional. Match actual HeroConfig stable IDs in project, do not create new hero records.",
+  "default_theme": {
+    "background": "assets/background/equipment_hall_clean.png",
+    "hero_art": "use real hero art for unmapped heroes",
+    "fx": "neutral_golden_glow",
+    "ui": "shared_red_gold"
+  },
+  "heroes": [
+    {
+      "hero_id_hint": "quan_vu",
+      "display_name": "Quan Vũ",
+      "theme_name": "Thanh Long",
+      "primary": "#35ECA0",
+      "secondary": "#0F9B64",
+      "spirit": "emerald_dragon",
+      "fullbody": "assets/heroes/full_body/quan_vu_512x768.png",
+      "portrait": "assets/heroes/portraits/quan_vu_256.png",
+      "fx_back": "assets/fx/quan_vu/spirit_back_static.png",
+      "fx_front": "assets/fx/quan_vu/aura_front_static.png",
+      "fx_frames_pattern": "assets/fx/quan_vu/fx_loop_{frame:02d}.png",
+      "fx_atlas": "assets/fx/quan_vu/fx_loop_4x2.png",
+      "effect_description": [
+        "rồng xanh",
+        "linh khí ngọc lục"
+      ],
+      "limitations": "Spirit particle animation is illustrative procedural art, not a fully articulated dragon/crane/butterfly skeletal animation; actual effect direction should be QAed against reference."
+    },
+    {
+      "hero_id_hint": "trieu_van",
+      "display_name": "Triệu Vân",
+      "theme_name": "Lôi Long",
+      "primary": "#67CFFF",
+      "secondary": "#367AF2",
+      "spirit": "thunder_dragon",
+      "fullbody": "assets/heroes/full_body/trieu_van_512x768.png",
+      "portrait": "assets/heroes/portraits/trieu_van_256.png",
+      "fx_back": "assets/fx/trieu_van/spirit_back_static.png",
+      "fx_front": "assets/fx/trieu_van/aura_front_static.png",
+      "fx_frames_pattern": "assets/fx/trieu_van/fx_loop_{frame:02d}.png",
+      "fx_atlas": "assets/fx/trieu_van/fx_loop_4x2.png",
+      "effect_description": [
+        "rồng lam",
+        "sét xanh"
+      ],
+      "limitations": "Spirit particle animation is illustrative procedural art, not a fully articulated dragon/crane/butterfly skeletal animation; actual effect direction should be QAed against reference."
+    },
+    {
+      "hero_id_hint": "lu_bo",
+      "display_name": "Lữ Bố",
+      "theme_name": "Hỏa Long",
+      "primary": "#FF6A40",
+      "secondary": "#D72638",
+      "spirit": "fire_dragon",
+      "fullbody": "assets/heroes/full_body/lu_bo_512x768.png",
+      "portrait": "assets/heroes/portraits/lu_bo_256.png",
+      "fx_back": "assets/fx/lu_bo/spirit_back_static.png",
+      "fx_front": "assets/fx/lu_bo/aura_front_static.png",
+      "fx_frames_pattern": "assets/fx/lu_bo/fx_loop_{frame:02d}.png",
+      "fx_atlas": "assets/fx/lu_bo/fx_loop_4x2.png",
+      "effect_description": [
+        "hỏa long",
+        "hỏa diệm đỏ"
+      ],
+      "limitations": "Spirit particle animation is illustrative procedural art, not a fully articulated dragon/crane/butterfly skeletal animation; actual effect direction should be QAed against reference."
+    },
+    {
+      "hero_id_hint": "gia_cat_luong",
+      "display_name": "Gia Cát Lượng",
+      "theme_name": "Thiên Cơ",
+      "primary": "#E9F9EF",
+      "secondary": "#A5D8C1",
+      "spirit": "astral_crane",
+      "fullbody": "assets/heroes/full_body/gia_cat_luong_512x768.png",
+      "portrait": "assets/heroes/portraits/gia_cat_luong_256.png",
+      "fx_back": "assets/fx/gia_cat_luong/spirit_back_static.png",
+      "fx_front": "assets/fx/gia_cat_luong/aura_front_static.png",
+      "fx_frames_pattern": "assets/fx/gia_cat_luong/fx_loop_{frame:02d}.png",
+      "fx_atlas": "assets/fx/gia_cat_luong/fx_loop_4x2.png",
+      "effect_description": [
+        "hạc trắng",
+        "tinh tú",
+        "phù văn"
+      ],
+      "limitations": "Spirit particle animation is illustrative procedural art, not a fully articulated dragon/crane/butterfly skeletal animation; actual effect direction should be QAed against reference."
+    },
+    {
+      "hero_id_hint": "dieu_thuyen",
+      "display_name": "Điêu Thuyền",
+      "theme_name": "Hoa Nguyệt",
+      "primary": "#FF8DC5",
+      "secondary": "#FF519B",
+      "spirit": "moon_butterfly",
+      "fullbody": "assets/heroes/full_body/dieu_thuyen_512x768.png",
+      "portrait": "assets/heroes/portraits/dieu_thuyen_256.png",
+      "fx_back": "assets/fx/dieu_thuyen/spirit_back_static.png",
+      "fx_front": "assets/fx/dieu_thuyen/aura_front_static.png",
+      "fx_frames_pattern": "assets/fx/dieu_thuyen/fx_loop_{frame:02d}.png",
+      "fx_atlas": "assets/fx/dieu_thuyen/fx_loop_4x2.png",
+      "effect_description": [
+        "hoa đào",
+        "bướm hồng",
+        "ánh trăng"
+      ],
+      "limitations": "Spirit particle animation is illustrative procedural art, not a fully articulated dragon/crane/butterfly skeletal animation; actual effect direction should be QAed against reference."
+    }
+  ]
+}

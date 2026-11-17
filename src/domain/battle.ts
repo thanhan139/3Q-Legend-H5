@@ -6,6 +6,7 @@ import { RAGE_CONFIG, clampRage } from '../data/rageConfig';
 import { COMBAT_BALANCE } from '../data/skillCombat';
 import { signaturePassive, type Gear } from './equipment';
 import { heroStats } from './progression';
+import { vipBonuses } from './vip';
 import type { CampaignStage, HeroDefinition } from './types';
 
 export type Side = 'player' | 'enemy';
@@ -34,6 +35,7 @@ export interface BattleUnit {
   attackBuffActions: number;
   criticalBuffActions: number;
   criticalChance?: number;
+  vipCriticalDamage?: number;
   signatureBonus?: number;
   statuses?: Partial<Record<Status, { turns: number; value: number; source: string }>>;
 }
@@ -66,6 +68,13 @@ export interface BattleEvent {
   reason?: RageReason;
 }
 
+/** Preserve the legacy integer roll; paid VIP units can represent fractional percentage points. */
+export function battleCriticalRoll(actions: number, slot: number, targetSlot: number, hitIndex: number, precise = false) {
+  const coarse = (actions * 17 + slot * 13 + targetSlot * 7 + hitIndex * 11) % 100;
+  const fraction = precise ? ((Math.floor(actions / 100) * 37 + slot * 19 + targetSlot * 11 + hitIndex * 7) % 100) / 100 : 0;
+  return coarse + fraction;
+}
+
 function createUnit(id: string, side: Side, slot: number, scale = 1, exp = 0, stars = 1, gear?: readonly Gear[], synergy?: FactionSynergy): BattleUnit {
   const hero = HERO_BY_ID[id];
   if (!hero) throw new Error(`Unknown hero: ${id}`);
@@ -91,10 +100,19 @@ export function makeStageBattle(
   heroExp: Readonly<Record<string, number>> = {},
   heroStars: Readonly<Record<string, number>> = {},
   gear?: readonly Gear[],
+  vip = 0,
 ): BattleEngine {
   const allySynergy = factionSynergy(formation);
   const allies = formation.slice(0, 6).flatMap((id, slot) =>
     id ? [createUnit(id, 'player', slot, 1, heroExp[id] ?? 0, heroStars[id] ?? 1, gear, allySynergy)] : []);
+  const bonus = vipBonuses(vip);
+  if (vip > 0) for (const unit of allies) {
+    unit.maxHp = Math.round(unit.maxHp * (1 + bonus.hpPct / 100)); unit.hp = unit.maxHp;
+    unit.atk = Math.round(unit.atk * (1 + bonus.atkPct / 100));
+    unit.def = Math.round(unit.def * (1 + bonus.defPct / 100));
+    unit.criticalChance = (unit.criticalChance ?? 0) + bonus.critRatePoints;
+    unit.vipCriticalDamage = bonus.critDamagePct / 100;
+  }
   const opponents = stageOpponents(stage);
   const enemySynergy = factionSynergy(opponents);
   const enemies = opponents.map((id, index) =>
@@ -247,8 +265,7 @@ export class BattleEngine {
       const dodged = defender?.dodge ? chance(defender.dodge, target) : false;
       if (dodged) events.push({ ...metadata, kind: 'dodge', target: target.uid, hitIndex, hitCount });
       else {
-        // Keep the existing critical roll stable for deterministic playback.
-        const roll = (attacker.actions * 17 + attacker.slot * 13 + target.slot * 7 + hitIndex * 11) % 100;
+        const roll = battleCriticalRoll(attacker.actions, attacker.slot, target.slot, hitIndex, attacker.vipCriticalDamage !== undefined);
         const critical = roll < (COMBAT_BALANCE.criticalBaseChance + (attacker.criticalChance ?? 0) +
           (passive.crit ?? 0) + (move.crit ?? 0) + (hadCriticalBuff ? COMBAT_BALANCE.criticalBuffBonus : 0));
         const pierce = move.pierce && chance(move.pierceChance ?? 100, target) ? move.pierce : 0;
@@ -257,7 +274,7 @@ export class BattleEngine {
         const charm = target.statuses?.charm ? 1 + (passive.charmDamage ?? 0) : 1;
         const signature = skill ? 1 + (attacker.signatureBonus ?? 0) : 1;
         const raw = Math.max(20, Math.round((effectiveAtk * multiplier * signature * surge * charm - def * .52) *
-          (critical ? COMBAT_BALANCE.criticalDamageMultiplier + (passive.critDamage ?? 0) : 1)));
+          (critical ? COMBAT_BALANCE.criticalDamageMultiplier + (passive.critDamage ?? 0) + (attacker.vipCriticalDamage ?? 0) : 1)));
         const lost = this.damage(target, raw, events, { ...metadata, critical, hitIndex, hitCount });
         totalDamage += lost;
         damageEvents++;

@@ -1,0 +1,25 @@
+.inventory-menu-layer { position: fixed; inset: 0; z-index: 120; background: #10071055; }
+.inventory-category-menu { position: absolute; width: min(620px, calc(100vw - 24px)); box-sizing: border-box;
+  padding: 16px; border: 2px solid #e7b761; border-radius: 18px; color: #fff0cc;
+  background: linear-gradient(145deg, #57231c, #241013 78%); box-shadow: 0 0 0 4px #3b201a, 0 15px 60px #000b;
+  overflow: auto; max-height: calc(100dvh - 24px); font-family: Arial, sans-serif; }
+.inventory-category-menu h2 { font: 700 23px InventoryMenu, Georgia, serif; color: #ffdc84; margin: 0 48px 12px 4px; }
+.inventory-menu-close { position: absolute; right: 12px; top: 8px; min-width: 44px; min-height: 44px;
+  border: 0; background: transparent; color: #ffdc84; font-size: 30px; cursor: pointer; }
+.inventory-category-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.inventory-category-grid button { min-height: 60px; padding: 8px 5px; border: 1px solid #b97c3e; border-radius: 9px;
+  background: linear-gradient(#713623, #3b1717); color: #fff0cc; cursor: pointer; }
+.inventory-category-grid button:first-child { background: linear-gradient(#ffd777, #b97c2f); color: #361707; }
+.inventory-category-grid strong { display: block; font-size: 14px; line-height: 1.3; overflow-wrap: anywhere; }
+.inventory-category-grid span { display: block; margin-top: 5px; font-size: 11px; opacity: .75; }
+.inventory-category-grid button:hover, .inventory-category-grid button:focus-visible { border-color: #fff0a7; box-shadow: 0 0 12px #f2b55577; }
+.inventory-category-grid button:active { filter: brightness(.8); }
+.inventory-category-menu p { margin: 12px 0 0; color: #e1bc90; font-size: 13px; min-height: 17px; }
+@media (max-height: 500px) { .inventory-category-menu { padding: 12px; }
+  .inventory-category-menu h2 { font-size: 19px; margin-bottom: 8px; }
+  .inventory-category-grid { gap: 6px; }
+  .inventory-category-grid button { min-height: 47px; padding: 5px; }
+  .inventory-category-grid strong { font-size: 12px; }
+  .inventory-category-grid span { margin-top: 2px; font-size: 10px; }
+  .inventory-category-menu p { margin-top: 8px; font-size: 12px; }
+}

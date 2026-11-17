@@ -164,7 +164,7 @@ export class ResultScene extends UiScene {
       this.rewardCard(640 + (index - (reward.rewards.length - 1) / 2) * spacing, spacing, stageId, item, index);
     });
 
-    this.victoryButton('buttons.go_back_gold', 348, 'Về Sảnh', () => this.go('Lobby'), 17);
+    this.backToLobby(348,605,226,56);
     this.victoryButton('buttons.small_red_alt', 640, 'Chọn Ải', () => this.go('Campaign', {
       stageId: next, unlockedId: reward.firstClear ? following?.id : undefined,
     }));

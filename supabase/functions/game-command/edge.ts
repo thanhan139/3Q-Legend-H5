@@ -23,6 +23,12 @@ const legacyAllowed = Object.keys(legacyApprovals).length
   : undefined;
 
 const backend: GameBackend = {
+  async claimVip(uid, requestId, revision, command) {
+    const {data,error} = await admin.rpc('game_claim_vip', {p_uid:uid,p_request_id:requestId,
+      p_expected_revision:revision,p_tier:command.tier,p_kind:command.kind,p_period:command.period});
+    if (error) throw error;
+    return data;
+  },
   async user(token) {
     const { data, error } = await admin.auth.getUser(token);
     return error ? null : data.user;
@@ -43,7 +49,10 @@ const backend: GameBackend = {
       p_uid: uid, p_state: state, p_fingerprint: fingerprint ?? null,
     });
     if (error) throw error;
-    return data;
+    if (data?.status !== 'ok') return data;
+    const snapshot = await admin.rpc('game_load_online', { p_uid: uid });
+    if (snapshot.error) throw snapshot.error;
+    return { ...data, vip: snapshot.data?.vip };
   },
   async commit(uid, requestId, revision, command, state, receipt, tutorial) {
     const { data, error } = await admin.rpc('game_commit_online', { p_uid: uid, p_request_id: requestId,

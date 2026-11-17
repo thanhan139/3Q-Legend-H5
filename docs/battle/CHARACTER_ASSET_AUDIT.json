@@ -1,0 +1,580 @@
+[
+  {
+    "heroId": "zhang-fei",
+    "source": "public/assets/battle/heroes/zhang-fei/poses.webp",
+    "size": [
+      1536,
+      1024
+    ],
+    "sha256": "b15c29342e1080bb09d4a0c3f805a2dccc73a678282f8159609c58b82ad22c24",
+    "dedicatedClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "ready",
+      "run",
+      "attack2",
+      "skill",
+      "ultimate",
+      "criticalHit",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "guan-yu",
+    "source": "public/assets/battle/heroes/guan-yu/poses.webp",
+    "size": [
+      1536,
+      1024
+    ],
+    "sha256": "e1229ab477b076880b95f83876f93137d3a6905da2cd5973889cd784c967d120",
+    "dedicatedClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "ready",
+      "run",
+      "attack2",
+      "skill",
+      "ultimate",
+      "criticalHit",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "liu-bei",
+    "source": "public/assets/battle/heroes/liu-bei/poses.webp",
+    "size": [
+      1536,
+      1024
+    ],
+    "sha256": "73c581c774b895201fdc96bd692e764f3e602f6c11dbd2135e52463e8a28315c",
+    "dedicatedClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "ready",
+      "run",
+      "attack2",
+      "skill",
+      "ultimate",
+      "criticalHit",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "zhao-yun",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "huang-yueying",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "ma-chao",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "cao-cao",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "xiahou-dun",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "dian-wei",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "sun-quan",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "gan-ning",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "da-qiao",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "diao-chan",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "hua-xiong",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "lu-bu",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "zhuge-liang",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "pan-feng",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "xing-dao-rong",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "cheng-yuan-zhi",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "pei-yuan-shao",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "guan-ping",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "zhou-cang",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  },
+  {
+    "heroId": "cao-hong",
+    "source": "public/assets/heroes/battle-sprites.webp",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "8c71adc5187cf7bf0a078e9a9bd9ce9ca4a935607c7c0bd819d5d30844a5070a",
+    "dedicatedClips": [],
+    "adultBodyArt": false,
+    "layeredRig": false,
+    "missingClips": [
+      "idle",
+      "ready",
+      "run",
+      "attack",
+      "attack2",
+      "skill",
+      "ultimate",
+      "hit",
+      "criticalHit",
+      "death",
+      "victory"
+    ]
+  }
+]

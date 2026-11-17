@@ -1,0 +1,13 @@
+﻿hero_key,display_name_provisional,faction_provisional,static_reference,normalized_canvas,animation_status,hero_config_id,rig_source,idle_frames,run_frames,attack_frames,hit_frames,death_frames,visual_qa
+trieu_van,Triệu Vân,Thục,sprites/normalized/trieu_van.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+luu_bi,Lưu Bị,Thục,sprites/normalized/luu_bi.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+quan_vu,Quan Vũ,Thục,sprites/normalized/quan_vu.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+truong_phi,Trương Phi,Thục,sprites/normalized/truong_phi.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+hoang_trung,Hoàng Trung,Thục,sprites/normalized/hoang_trung.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+gia_cat_luong,Gia Cát Lượng,Thục,sprites/normalized/gia_cat_luong.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+ha_hau_don,Hạ Hầu Đôn,Ngụy,sprites/normalized/ha_hau_don.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+truong_lieu,Trương Liêu,Ngụy,sprites/normalized/truong_lieu.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+dien_vi,Điển Vi,Ngụy,sprites/normalized/dien_vi.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+tao_hong,Tào Hồng,Ngụy,sprites/normalized/tao_hong.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+hoa_hung,Hoa Hùng,Quần Hùng,sprites/normalized/hoa_hung.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED
+tao_nhan,Tào Nhân,Ngụy,sprites/normalized/tao_nhan.png,448x448,STATIC_ONLY,VERIFY_IN_REPO,MISSING,MISSING,MISSING,MISSING,MISSING,MISSING,REQUIRED

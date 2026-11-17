@@ -1,0 +1,442 @@
+[
+  {
+    "texture_key": "battle.stage_plaque_blank",
+    "file_path": "assets/runtime/plates/stage_plaque_blank.png",
+    "width": "571",
+    "height": "248",
+    "kind": "runtime_candidate",
+    "dynamic_text": "yes",
+    "notes": "Use dynamic stage text and subtitle in Phaser. Decorative 三國 crest is baked in.",
+    "sha256": "eccb5376f15eb6bd0e72b407da2b67124c193072c6eb47d01f792d71b9ae2220",
+    "alphaBounds": [
+      2,
+      2,
+      571,
+      248
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.turn_plaque_blank",
+    "file_path": "assets/runtime/plates/turn_plaque_blank.png",
+    "width": "438",
+    "height": "215",
+    "kind": "runtime_candidate",
+    "dynamic_text": "yes",
+    "notes": "Render LƯỢT N dynamically; use at top center.",
+    "sha256": "57eed13241e7900113a740330d36e7c162debc1ecb2e467eb94429db505eb8fb",
+    "alphaBounds": [
+      0,
+      2,
+      438,
+      215
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.back_lobby_blank",
+    "file_path": "assets/runtime/buttons/back_lobby_blank.png",
+    "width": "374",
+    "height": "102",
+    "kind": "runtime_candidate",
+    "dynamic_text": "yes",
+    "notes": "Left arrow preserved, render Về sảnh dynamically.",
+    "sha256": "1d6624eeccf8de9496c414e65034405a252d6493e5546561011227f0fc3d59a7",
+    "alphaBounds": [
+      0,
+      2,
+      374,
+      100
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.speed_blank",
+    "file_path": "assets/runtime/buttons/speed_blank.png",
+    "width": "249",
+    "height": "81",
+    "kind": "runtime_candidate",
+    "dynamic_text": "yes",
+    "notes": "Dynamic Tốc độ ×1/×2/×3/×4 based on actual entitlement; this blank button base is derived from green continue art but no continue control ships.",
+    "sha256": "608597067ff1f6c2c37e981e4b4d6150d87267ca1456b915090d2f327934b129",
+    "alphaBounds": [
+      0,
+      2,
+      249,
+      81
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.skip_blank",
+    "file_path": "assets/runtime/buttons/skip_blank.png",
+    "width": "312",
+    "height": "87",
+    "kind": "runtime_candidate",
+    "dynamic_text": "yes",
+    "notes": "Dynamic Bỏ qua; disabled when skip unavailable; server authoritative reward.",
+    "sha256": "72a59aa53ea7da035751dd7ef6f755478c361b0b714a959a031b7b6ae0d47993",
+    "alphaBounds": [
+      2,
+      2,
+      310,
+      87
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.versus_emblem",
+    "file_path": "assets/runtime/effects/versus_emblem.png",
+    "width": "280",
+    "height": "200",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Optional VS at battle start; should NOT permanently obscure hero animations.",
+    "sha256": "51ecdd6033b65b09052c2b1ee9fb21a7fa273d3a3ccbac4e48341135bbf414b5",
+    "alphaBounds": [
+      0,
+      0,
+      278,
+      200
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": true
+  },
+  {
+    "texture_key": "battle.ally_nameplate_empty",
+    "file_path": "assets/runtime/hud/ally_nameplate_empty.png",
+    "width": "328",
+    "height": "59",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Plain empty nameplate, appropriate for dynamic text. Crop originates from blank sample UI.",
+    "sha256": "34386aa0804e372dcb2ae437b114fedc49fb08bb4c6f823ed13e58ad5d433e0a",
+    "alphaBounds": [
+      2,
+      2,
+      328,
+      59
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.enemy_nameplate_empty",
+    "file_path": "assets/runtime/hud/enemy_nameplate_empty.png",
+    "width": "332",
+    "height": "91",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Alternative red nameplate. Check stretch to avoid touching ornate corners.",
+    "sha256": "549148472bec66aaa3a2b975f4dc8f2c4c74825b122a29412aff5f63acee86c2",
+    "alphaBounds": [
+      2,
+      0,
+      332,
+      90
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": true
+  },
+  {
+    "texture_key": "battle.bar_track_ally",
+    "file_path": "assets/runtime/hud/bar_track_ally.png",
+    "width": "467",
+    "height": "61",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Empty bar track; draw HP green/red fill with cropped mask or Phaser graphics, dynamic values.",
+    "sha256": "671bb598f88df94be6d0dfff8fcb8979ebafb58d59d5a1c1ce8dca74491f280e",
+    "alphaBounds": [
+      2,
+      2,
+      465,
+      61
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.bar_rage_track",
+    "file_path": "assets/runtime/hud/bar_rage_track.png",
+    "width": "452",
+    "height": "64",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Unfilled Rage/Nộ track, usable for 0..100.",
+    "sha256": "489cbc3f5dcbfca06056e81f4dfac3097ec2e7a9ef44d76e8b4ac124561b9d42",
+    "alphaBounds": [
+      2,
+      0,
+      452,
+      64
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": true
+  },
+  {
+    "texture_key": "battle.battle_log_frame",
+    "file_path": "assets/runtime/panels/battle_log_frame.png",
+    "width": "950",
+    "height": "188",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Gold-red journal frame; render localized combat log lines dynamically.",
+    "sha256": "318d68f5e2a9254abd658f50d7f939ade5582956c6f8cc0a2aab22558b061c97",
+    "alphaBounds": [
+      2,
+      0,
+      950,
+      188
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.turn_order_frame",
+    "file_path": "assets/runtime/panels/turn_order_frame.png",
+    "width": "984",
+    "height": "119",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Frame includes five decorative placeholder cells. For arbitrary queue use dynamic separate slots.",
+    "sha256": "8fce77a5d76614fdcd8513807e3ce8855c27d3e89aedfdb996f7ad6633952e29",
+    "alphaBounds": [
+      2,
+      0,
+      984,
+      119
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "excluded: five baked placeholder cells conflict with dynamic six-position forecast",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.turn_queue_cell",
+    "file_path": "assets/runtime/panels/turn_queue_cell.png",
+    "width": "94",
+    "height": "96",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Repeat as needed for queue thumbnails. Render hero portrait dynamic in slot.",
+    "sha256": "cd1e985620cb1fa99aab08121cc2f402df996fb1e2e043896f0dfacf8ccd0ca8",
+    "alphaBounds": [
+      0,
+      2,
+      94,
+      96
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "excluded: incomplete corner crop, not a complete cell",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.ground_ring_ally",
+    "file_path": "assets/runtime/ground/ground_ring_ally.png",
+    "width": "178",
+    "height": "82",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Place at feet for ally; use sparingly, do not cover feet.",
+    "sha256": "30cbdfc15660202bec6c2074baa6d5709c62670e3cf535a108b39cab454a023e",
+    "alphaBounds": [
+      2,
+      2,
+      176,
+      80
+    ],
+    "alphaRange": [
+      0,
+      252
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.ground_ring_blue",
+    "file_path": "assets/runtime/ground/ground_ring_blue.png",
+    "width": "169",
+    "height": "83",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Alternative activation ring for abilities.",
+    "sha256": "c128de64cf286790ca6e0f935d110f6e9a282baaa2e509e3ce06f665818eadfd",
+    "alphaBounds": [
+      0,
+      2,
+      169,
+      81
+    ],
+    "alphaRange": [
+      0,
+      252
+    ],
+    "runtimeDecision": "not loaded",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.ground_ring_active",
+    "file_path": "assets/runtime/ground/ground_ring_active.png",
+    "width": "190",
+    "height": "154",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Active turn/ultimate highlight, use additive alpha and brief flash.",
+    "sha256": "e038c69704200f1b871944c31930047385491861de778d27e9e0d731631df649",
+    "alphaBounds": [
+      0,
+      0,
+      190,
+      152
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "not loaded",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.ground_ring_enemy",
+    "file_path": "assets/runtime/ground/ground_ring_enemy.png",
+    "width": "201",
+    "height": "86",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Subtle enemy foot indicator; optional.",
+    "sha256": "c8e221c39add2bb3e3ac39efc45771335c248bb7061d8be309dd3eac49ceb702",
+    "alphaBounds": [
+      0,
+      2,
+      201,
+      84
+    ],
+    "alphaRange": [
+      0,
+      253
+    ],
+    "runtimeDecision": "loaded and rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.gold_divider_thin",
+    "file_path": "assets/runtime/decor/gold_divider_thin.png",
+    "width": "340",
+    "height": "29",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Subtle header divider. Limited stretch only in middle segment.",
+    "sha256": "7e36e550e8615cfbd527fb57015f53b45bf4c59782b11d2f6a5114e063cfc9e2",
+    "alphaBounds": [
+      2,
+      2,
+      340,
+      29
+    ],
+    "alphaRange": [
+      0,
+      254
+    ],
+    "runtimeDecision": "preloaded, reserved; not rendered",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.gold_divider_scroll",
+    "file_path": "assets/runtime/decor/gold_divider_scroll.png",
+    "width": "376",
+    "height": "67",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Gold scroll motif decoration.",
+    "sha256": "1d402a1d8451289c7e6a559d60148c395a288da3157671c74004b39b394145ae",
+    "alphaBounds": [
+      0,
+      0,
+      376,
+      67
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "not loaded",
+    "cleanFrameApplied": false
+  },
+  {
+    "texture_key": "battle.gold_divider_maze",
+    "file_path": "assets/runtime/decor/gold_divider_maze.png",
+    "width": "380",
+    "height": "64",
+    "kind": "runtime_candidate",
+    "dynamic_text": "no",
+    "notes": "Gold decorative footer line.",
+    "sha256": "c7854e811157dc33078631f65a4cf2ee03aa132f41b1e8ed43c88009bfc16be4",
+    "alphaBounds": [
+      0,
+      0,
+      380,
+      64
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "runtimeDecision": "not loaded",
+    "cleanFrameApplied": false
+  }
+]

@@ -1,0 +1,92 @@
+{
+  "version": "2.0",
+  "reference_canvas": [
+    1280,
+    720
+  ],
+  "data_binding": {
+    "selectedHeroId": "single source of truth from existing GameStore",
+    "hero_identity": "existing HeroConfig and online SaveV2",
+    "equippedItems": "existing server-backed equipment state, per hero UID and slot id",
+    "combatPower": "existing calculator; never bake mockup numbers",
+    "currency": "current wallet; KNB and Đồng only in Lobby HUD"
+  },
+  "regions": {
+    "topbar": [
+      10,
+      7,
+      1258,
+      62
+    ],
+    "hero_roster": [
+      8,
+      74,
+      142,
+      620
+    ],
+    "hero_fullbody": [
+      430,
+      145,
+      385,
+      470
+    ],
+    "left_equipment_slots": [
+      [
+        275,
+        170
+      ],
+      [
+        275,
+        330
+      ],
+      [
+        275,
+        490
+      ]
+    ],
+    "right_equipment_slots": [
+      [
+        809,
+        170
+      ],
+      [
+        809,
+        330
+      ],
+      [
+        809,
+        490
+      ]
+    ],
+    "stats_panel": [
+      906,
+      78,
+      358,
+      565
+    ],
+    "bottom_toolbar": [
+      160,
+      653,
+      1070,
+      64
+    ]
+  },
+  "slot_policy": "Six display positions in approved 5 screenshots; bind only to real slot IDs from existing EquipmentConfig; if real backend has more, surface extra slots via paginated gear drawer rather than orphaning data.",
+  "responsive": {
+    "1920x1080": "scale-to-fit, preserve hero ratio and safe area",
+    "1280x720": "reference",
+    "844x390": "compact hero + horizontally scrollable equipment slots or modal stat drawer; preserve tap targets and avoid clipped text"
+  },
+  "animation_layers_order": [
+    "background",
+    "spirit_back_fx",
+    "pedestal",
+    "hero_fullbody",
+    "aura_front_fx",
+    "equipment_slots",
+    "hero_roster",
+    "stats_panel",
+    "footer_buttons"
+  ],
+  "selected_hero_switch": "update portrait, fullbody, theme, skills, stat numbers, equipment ownership and actions atomically from selectedHeroId, clear stale item selection"
+}

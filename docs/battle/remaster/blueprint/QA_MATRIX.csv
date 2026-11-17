@@ -1,0 +1,19 @@
+﻿id,priority,test_case,acceptance,evidence
+QA-01,P0,Triệu Vân idle/run,Body moves naturally; two feet step; no rigid PNG bob,10s real gameplay clip
+QA-02,P0,Điển Vi heavy weapon,Anticipation and weight visible; no broken hand/axe,Attack frame strip
+QA-03,P0,Full-body visibility,Feet/head/weapon visible in each 2x3 slot at 1280x720,Screenshot
+QA-04,P0,Mobile 844x390,"All heroes visible, HUD usable, no overlapping",Screenshot/device test
+QA-05,P0,Weapon impact sync,Impact flash matches resolved Core hit; no double damage,Battle event trace
+QA-06,P0,100 attack loops,Returns exactly to original slot; no drift or chained tween leak,Automated test
+QA-07,P0,Death removes all view parts,Body/HUD/shadow/effects hidden and slot remains empty,Gameplay capture
+QA-08,P0,Revive,One view restored in original slot; HP/Rage correct,Automated test
+QA-09,P0,Speed x1/x2/x3/x4,All visuals scale coherently and actions resolve once,Slow motion video + trace
+QA-10,P0,Skip,Atomic cancel; final combat outcome and reward applied exactly once,Integration test
+QA-11,P0,AoE and multi-hit,"Each target/hit animates exactly once, no stale hits",Integration test
+QA-12,P0,Counter and DOT,Valid interrupted animations and death from non-attack damage,Integration test
+QA-13,P0,Asset consistency,Same face/body/armor/weapon all clips; clear alpha; no extra limbs,Frame atlas contact sheet
+QA-14,P0,Actual FPS,60 desktop target; log observed mobile FPS and texture memory,Performance trace
+QA-15,P1,Ultimate and spawn,"Skill sockets, projectile and revive synchronized",Gameplay capture
+QA-16,P0,Regression,"Typecheck, build, Battle Core, SaveV2, Supabase unaffected",CI output
+QA-17,P0,Hero identity,Each hero texture correctly maps real HeroConfig ID,Audit comparison
+QA-18,P0,UI controls,Keep speed/skip; no continue/pause or team header banners,Screenshot

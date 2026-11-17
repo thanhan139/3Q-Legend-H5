@@ -16,6 +16,8 @@ import { gameStore } from '../domain/store';
 import { HeroAnimationController, heroAnimationTexture } from '../ui/HeroAnimationController';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
 import { UiScene } from '../ui/UiScene';
+import {loadEquipmentThemes,drawEquipmentTheme} from '../ui/equipmentThemeView';
+import {equipmentHeroModel} from '../ui/equipmentHeroModel';
 
 interface EquipmentView {
   heroId?: string;
@@ -41,12 +43,28 @@ export class EquipmentScene extends UiScene {
   constructor() { super('Equipment'); }
 
   private changing = false;
+  private selectedHeroId?:string;
+  preload(){loadEquipmentThemes(this);}
 
   create({ heroId, bag = false, slot, uid, enhanced = false, query = {}, page = 0 }: EquipmentView = {}) {
     this.changing = false;
+    this.data.remove('equipmentHeroView');
     const save = gameStore.snapshot;
     const items = (save.equipment ?? []).filter(item => !isSignature(item.itemId));
-    const selectedHero = heroId && save.heroes.includes(heroId) ? heroId : save.heroes[0];
+    const model=equipmentHeroModel(save,heroId,uid);
+    const switchingHero=this.selectedHeroId!==undefined&&this.selectedHeroId!==model?.selectedHeroId;
+    if(switchingHero)uid=undefined;
+    this.selectedHeroId=model?.selectedHeroId;
+    const selectedHero=this.selectedHeroId;
+    if(!bag&&selectedHero){
+      drawEquipmentTheme(this,selectedHero,id=>{
+        if(this.changing)return;this.changing=true;
+        this.scene.restart({heroId:id,bag:false,uid:undefined,slot:undefined});
+      },(selectedSlot,selectedUid)=>{
+        if(this.changing)return;this.changing=true;
+        this.scene.restart({heroId:this.selectedHeroId,bag:true,query:{slot:selectedSlot},uid:selectedUid});
+      });return;
+    }
     const hero = selectedHero ? HERO_BY_ID[selectedHero] : undefined;
     const ownGear = selectedHero ? items.filter(item => item.heroId === selectedHero) : [];
     const results = queryGear(items, bag ? query : { slot });
@@ -55,11 +73,13 @@ export class EquipmentScene extends UiScene {
     const selectedIndex = results.findIndex(item => item.uid === uid);
     const currentPage = selectedIndex >= 0 ? Math.floor(selectedIndex / pageSize) : Math.min(lastPage, Math.max(0, page));
     const visible = results.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
-    const selected = results[selectedIndex] ?? visible[0];
+    const selected = results[selectedIndex] ?? visible.find(item=>item.heroId===selectedHero) ?? visible.find(item=>!item.heroId);
     const restart = (changes: EquipmentView) => {
       if (this.changing) return;
       this.changing = true;
-      this.scene.restart({ heroId: selectedHero, bag, slot, query, page: currentPage, uid: selected?.uid, ...changes });
+      const switching=changes.heroId!==undefined&&changes.heroId!==selectedHero;
+      this.scene.restart({ heroId: selectedHero, bag, slot, query, page: currentPage, uid: selected?.uid, ...changes,
+        ...(switching?{uid:undefined,slot:undefined,page:0}:{}), });
     };
 
     this.add.image(640, 360, LOBBY_ASSETS.palace.key).setDisplaySize(1280, 720);
@@ -87,7 +107,7 @@ export class EquipmentScene extends UiScene {
       const sprite = this.add.sprite(214, 479, animated ? atlas : hasPose ? pose : BATTLE_SPRITES,
         animated ? 0 : hasPose ? undefined : battleSpriteFrames.get(hero.id)).setOrigin(0.5, 1).setDisplaySize(300, 300);
       if (animated) new HeroAnimationController(sprite, hero.id);
-      else this.tweens.add({ targets: sprite, scaleY: sprite.scaleY * 1.014, yoyo: true, repeat: -1, duration: 950 });
+      // Static fallback retains its anatomy; no independent scaleY breathing.
       this.frame(214, 519, 276, 40, 0x672b20);
       this.text(214, 519, `Lực chiến  ${number(combatPower(stats))}`, 22, '#ffdd88',
         { fontStyle: 'bold' }).setOrigin(0.5);

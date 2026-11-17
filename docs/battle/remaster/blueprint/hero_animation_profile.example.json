@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "1.0",
+  "heroId": "VERIFY_HERO_CONFIG_ID",
+  "heroKey": "trieu_van",
+  "displayName": "Triệu Vân",
+  "sourceStaticReference": "sprites/normalized/trieu_van.png",
+  "animationReady": false,
+  "authoringMethod": "DRAWN_FRAME_ATLAS",
+  "atlas": {
+    "image": "assets/battle/heroes/trieu_van/animation_atlas.png",
+    "data": "assets/battle/heroes/trieu_van/animation_atlas.json",
+    "frameFormat": "TexturePackerJSON"
+  },
+  "frameCoordinatePolicy": "TRIMMED_WITH_METADATA",
+  "referenceFootOrigin": {
+    "x": 0.5,
+    "y": 0.933036,
+    "appliesTo": "OLD_448x448_STATIC_PNG_ONLY"
+  },
+  "scalePolicy": {
+    "targetVisibleHeightPxAt1280x720": 124,
+    "uniformScaleOnly": true
+  },
+  "sockets": [
+    "foot_anchor",
+    "hand_r",
+    "hand_l",
+    "weapon_grip",
+    "weapon_tip",
+    "chest",
+    "head",
+    "projectile_spawn"
+  ],
+  "orientation": {
+    "allyFaces": "right",
+    "enemyFaces": "left",
+    "mirroringRequiresArtQA": true
+  },
+  "clips": {
+    "idle": {
+      "framePrefix": "trieu_van/idle/",
+      "frameCountTarget": 8,
+      "fpsTarget": 10,
+      "loop": true,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata"
+    },
+    "ready": {
+      "framePrefix": "trieu_van/ready/",
+      "frameCountTarget": 5,
+      "fpsTarget": 12,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata"
+    },
+    "run": {
+      "framePrefix": "trieu_van/run/",
+      "frameCountTarget": 8,
+      "fpsTarget": 12,
+      "loop": true,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata"
+    },
+    "attack_1": {
+      "framePrefix": "trieu_van/attack_1/",
+      "frameCountTarget": 12,
+      "fpsTarget": 18,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata",
+      "visualMarkers": [
+        {
+          "name": "windup",
+          "normalizedTime": 0.1
+        },
+        {
+          "name": "impact_visual",
+          "normalizedTime": 0.64
+        },
+        {
+          "name": "recover",
+          "normalizedTime": 0.84
+        }
+      ]
+    },
+    "skill": {
+      "framePrefix": "trieu_van/skill/",
+      "frameCountTarget": 14,
+      "fpsTarget": 16,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata",
+      "visualMarkers": [
+        {
+          "name": "cast_start",
+          "normalizedTime": 0.17
+        },
+        {
+          "name": "projectile_release",
+          "normalizedTime": 0.49
+        },
+        {
+          "name": "skill_complete",
+          "normalizedTime": 0.92
+        }
+      ]
+    },
+    "hit": {
+      "framePrefix": "trieu_van/hit/",
+      "frameCountTarget": 6,
+      "fpsTarget": 15,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata"
+    },
+    "death": {
+      "framePrefix": "trieu_van/death/",
+      "frameCountTarget": 12,
+      "fpsTarget": 15,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata",
+      "visualMarkers": [
+        {
+          "name": "hide_all",
+          "normalizedTime": 1.0
+        }
+      ]
+    },
+    "victory": {
+      "framePrefix": "trieu_van/victory/",
+      "frameCountTarget": 8,
+      "fpsTarget": 10,
+      "loop": false,
+      "ready": false,
+      "required": true,
+      "frameAnchorPolicy": "foot_anchor_metadata"
+    }
+  },
+  "notes": [
+    "This file is a template: frame names are not yet present.",
+    "Each frame must supply its own foot anchor after trimming.",
+    "Do not treat template as evidence of animation."
+  ]
+}

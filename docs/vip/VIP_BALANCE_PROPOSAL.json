@@ -1,0 +1,459 @@
+{
+  "schemaVersion": "vip-design-proposal-1.0",
+  "status": "DESIGN_ONLY_NOT_DEPLOYED",
+  "rechargeConversion": {
+    "vnd": 10000,
+    "baseKnb": 1000,
+    "premiumKnbGiftCountsTowardVip": false
+  },
+  "sourceOfTruth": "server_verified_paid_base_knb_total_only",
+  "levels": [
+    {
+      "vip": 0,
+      "thresholdBaseKnb": 0,
+      "thresholdVndEquivalent": 0,
+      "group": "F2P",
+      "badgeTexture": "vip_00",
+      "combatBonuses": {
+        "atkPct": 0,
+        "defPct": 0,
+        "hpPct": 0,
+        "critRatePoints": 0,
+        "critDamagePct": 0
+      },
+      "sweepPerDayCap": 3,
+      "oneTimeGoldKeysSuggested": 0,
+      "featureUnlockDescription": "Basic play, auto battle x2"
+    },
+    {
+      "vip": 1,
+      "thresholdBaseKnb": 1000,
+      "thresholdVndEquivalent": 10000,
+      "group": "low_spender",
+      "badgeTexture": "vip_01",
+      "combatBonuses": {
+        "atkPct": 1,
+        "defPct": 1,
+        "hpPct": 2,
+        "critRatePoints": 0.3,
+        "critDamagePct": 2
+      },
+      "sweepPerDayCap": 5,
+      "oneTimeGoldKeysSuggested": 0,
+      "featureUnlockDescription": "Daily bronze VIP chest"
+    },
+    {
+      "vip": 2,
+      "thresholdBaseKnb": 10000,
+      "thresholdVndEquivalent": 100000,
+      "group": "low_spender",
+      "badgeTexture": "vip_02",
+      "combatBonuses": {
+        "atkPct": 2,
+        "defPct": 1,
+        "hpPct": 3,
+        "critRatePoints": 0.5,
+        "critDamagePct": 3
+      },
+      "sweepPerDayCap": 8,
+      "oneTimeGoldKeysSuggested": 0,
+      "featureUnlockDescription": "Extra stamina purchase availability"
+    },
+    {
+      "vip": 3,
+      "thresholdBaseKnb": 50000,
+      "thresholdVndEquivalent": 500000,
+      "group": "low_spender",
+      "badgeTexture": "vip_03",
+      "combatBonuses": {
+        "atkPct": 3,
+        "defPct": 2,
+        "hpPct": 5,
+        "critRatePoints": 0.8,
+        "critDamagePct": 5
+      },
+      "sweepPerDayCap": 10,
+      "oneTimeGoldKeysSuggested": 1,
+      "featureUnlockDescription": "One additional team preset"
+    },
+    {
+      "vip": 4,
+      "thresholdBaseKnb": 150000,
+      "thresholdVndEquivalent": 1500000,
+      "group": "low_spender",
+      "badgeTexture": "vip_04",
+      "combatBonuses": {
+        "atkPct": 5,
+        "defPct": 3,
+        "hpPct": 8,
+        "critRatePoints": 1,
+        "critDamagePct": 7
+      },
+      "sweepPerDayCap": 15,
+      "oneTimeGoldKeysSuggested": 2,
+      "featureUnlockDescription": "Auto-advance between normal monster waves"
+    },
+    {
+      "vip": 5,
+      "thresholdBaseKnb": 300000,
+      "thresholdVndEquivalent": 3000000,
+      "group": "medium_high",
+      "badgeTexture": "vip_05",
+      "combatBonuses": {
+        "atkPct": 8,
+        "defPct": 5,
+        "hpPct": 12,
+        "critRatePoints": 2,
+        "critDamagePct": 10
+      },
+      "sweepPerDayCap": 20,
+      "oneTimeGoldKeysSuggested": 5,
+      "featureUnlockDescription": "Fast sweep for previously 3-starred stages; x3 PvE playback; VIP shop entry"
+    },
+    {
+      "vip": 6,
+      "thresholdBaseKnb": 500000,
+      "thresholdVndEquivalent": 5000000,
+      "group": "medium_high",
+      "badgeTexture": "vip_06",
+      "combatBonuses": {
+        "atkPct": 10,
+        "defPct": 6,
+        "hpPct": 15,
+        "critRatePoints": 2.5,
+        "critDamagePct": 13
+      },
+      "sweepPerDayCap": 25,
+      "oneTimeGoldKeysSuggested": 7,
+      "featureUnlockDescription": "Additional resource dungeon purchase option"
+    },
+    {
+      "vip": 7,
+      "thresholdBaseKnb": 1000000,
+      "thresholdVndEquivalent": 10000000,
+      "group": "high_spender",
+      "badgeTexture": "vip_07",
+      "combatBonuses": {
+        "atkPct": 13,
+        "defPct": 8,
+        "hpPct": 19,
+        "critRatePoints": 3.5,
+        "critDamagePct": 17
+      },
+      "sweepPerDayCap": 30,
+      "oneTimeGoldKeysSuggested": 10,
+      "featureUnlockDescription": "Queue up to 3 eligible stages"
+    },
+    {
+      "vip": 8,
+      "thresholdBaseKnb": 1500000,
+      "thresholdVndEquivalent": 15000000,
+      "group": "high_spender",
+      "badgeTexture": "vip_08",
+      "combatBonuses": {
+        "atkPct": 15,
+        "defPct": 10,
+        "hpPct": 22,
+        "critRatePoints": 4,
+        "critDamagePct": 20
+      },
+      "sweepPerDayCap": 40,
+      "oneTimeGoldKeysSuggested": 12,
+      "featureUnlockDescription": "Batch sweep x10"
+    },
+    {
+      "vip": 9,
+      "thresholdBaseKnb": 2000000,
+      "thresholdVndEquivalent": 20000000,
+      "group": "high_spender",
+      "badgeTexture": "vip_09",
+      "combatBonuses": {
+        "atkPct": 17,
+        "defPct": 11,
+        "hpPct": 25,
+        "critRatePoints": 4.5,
+        "critDamagePct": 23
+      },
+      "sweepPerDayCap": 50,
+      "oneTimeGoldKeysSuggested": 15,
+      "featureUnlockDescription": "x4 PvE playback"
+    },
+    {
+      "vip": 10,
+      "thresholdBaseKnb": 3000000,
+      "thresholdVndEquivalent": 30000000,
+      "group": "high_spender",
+      "badgeTexture": "vip_10",
+      "combatBonuses": {
+        "atkPct": 20,
+        "defPct": 13,
+        "hpPct": 30,
+        "critRatePoints": 5.5,
+        "critDamagePct": 27
+      },
+      "sweepPerDayCap": 65,
+      "oneTimeGoldKeysSuggested": 20,
+      "featureUnlockDescription": "Auto-repeat up to 10 cleared battles"
+    },
+    {
+      "vip": 11,
+      "thresholdBaseKnb": 4000000,
+      "thresholdVndEquivalent": 40000000,
+      "group": "server_boss",
+      "badgeTexture": "vip_11",
+      "combatBonuses": {
+        "atkPct": 22,
+        "defPct": 15,
+        "hpPct": 33,
+        "critRatePoints": 6,
+        "critDamagePct": 30
+      },
+      "sweepPerDayCap": 80,
+      "oneTimeGoldKeysSuggested": 25,
+      "featureUnlockDescription": "More dungeon purchase options"
+    },
+    {
+      "vip": 12,
+      "thresholdBaseKnb": 5500000,
+      "thresholdVndEquivalent": 55000000,
+      "group": "server_boss",
+      "badgeTexture": "vip_12",
+      "combatBonuses": {
+        "atkPct": 24,
+        "defPct": 17,
+        "hpPct": 36,
+        "critRatePoints": 6.5,
+        "critDamagePct": 33
+      },
+      "sweepPerDayCap": 100,
+      "oneTimeGoldKeysSuggested": 30,
+      "featureUnlockDescription": "Batch sweep x20"
+    },
+    {
+      "vip": 13,
+      "thresholdBaseKnb": 7000000,
+      "thresholdVndEquivalent": 70000000,
+      "group": "server_boss",
+      "badgeTexture": "vip_13",
+      "combatBonuses": {
+        "atkPct": 26,
+        "defPct": 19,
+        "hpPct": 40,
+        "critRatePoints": 7,
+        "critDamagePct": 36
+      },
+      "sweepPerDayCap": 120,
+      "oneTimeGoldKeysSuggested": 40,
+      "featureUnlockDescription": "Auto chain cleared stages"
+    },
+    {
+      "vip": 14,
+      "thresholdBaseKnb": 8500000,
+      "thresholdVndEquivalent": 85000000,
+      "group": "server_boss",
+      "badgeTexture": "vip_14",
+      "combatBonuses": {
+        "atkPct": 28,
+        "defPct": 21,
+        "hpPct": 44,
+        "critRatePoints": 8,
+        "critDamagePct": 40
+      },
+      "sweepPerDayCap": 150,
+      "oneTimeGoldKeysSuggested": 50,
+      "featureUnlockDescription": "Batch sweep x50"
+    },
+    {
+      "vip": 15,
+      "thresholdBaseKnb": 10000000,
+      "thresholdVndEquivalent": 100000000,
+      "group": "ultra_whale",
+      "badgeTexture": "vip_15",
+      "combatBonuses": {
+        "atkPct": 31,
+        "defPct": 23,
+        "hpPct": 50,
+        "critRatePoints": 9,
+        "critDamagePct": 44
+      },
+      "sweepPerDayCap": 180,
+      "oneTimeGoldKeysSuggested": 70,
+      "featureUnlockDescription": "Skip normal monster waves in uncleared stages when power>=160% of recommended"
+    },
+    {
+      "vip": 16,
+      "thresholdBaseKnb": 15000000,
+      "thresholdVndEquivalent": 150000000,
+      "group": "ultra_whale",
+      "badgeTexture": "vip_16",
+      "combatBonuses": {
+        "atkPct": 34,
+        "defPct": 25,
+        "hpPct": 55,
+        "critRatePoints": 10,
+        "critDamagePct": 48
+      },
+      "sweepPerDayCap": 220,
+      "oneTimeGoldKeysSuggested": 90,
+      "featureUnlockDescription": "New-stage normal monster skip when power>=150%"
+    },
+    {
+      "vip": 17,
+      "thresholdBaseKnb": 25000000,
+      "thresholdVndEquivalent": 250000000,
+      "group": "ultra_whale",
+      "badgeTexture": "vip_17",
+      "combatBonuses": {
+        "atkPct": 37,
+        "defPct": 28,
+        "hpPct": 62,
+        "critRatePoints": 11,
+        "critDamagePct": 54
+      },
+      "sweepPerDayCap": 260,
+      "oneTimeGoldKeysSuggested": 120,
+      "featureUnlockDescription": "New-stage normal monster skip when power>=140%"
+    },
+    {
+      "vip": 18,
+      "thresholdBaseKnb": 50000000,
+      "thresholdVndEquivalent": 500000000,
+      "group": "ultra_whale",
+      "badgeTexture": "vip_18",
+      "combatBonuses": {
+        "atkPct": 42,
+        "defPct": 30,
+        "hpPct": 70,
+        "critRatePoints": 13,
+        "critDamagePct": 60
+      },
+      "sweepPerDayCap": 300,
+      "oneTimeGoldKeysSuggested": 200,
+      "featureUnlockDescription": "New-stage normal monster skip when power>=130%; stop at bosses"
+    }
+  ],
+  "combatModeMultipliers": {
+    "PvE": 1.0,
+    "PvP": 0.6
+  },
+  "bonusesAreNonCumulativeAcrossVipLevels": true,
+  "vipDailyRewardTiers": [
+    {
+      "vipMin": 1,
+      "vipMax": 4,
+      "tier": "bronze_silver",
+      "displayRewardCategories": [
+        "Dong",
+        "Hero EXP"
+      ]
+    },
+    {
+      "vipMin": 5,
+      "vipMax": 8,
+      "tier": "gold",
+      "displayRewardCategories": [
+        "Dong",
+        "Hero EXP",
+        "Upgrade Stone"
+      ]
+    },
+    {
+      "vipMin": 9,
+      "vipMax": 14,
+      "tier": "warlord",
+      "displayRewardCategories": [
+        "High grade materials",
+        "Hero upgrade materials"
+      ]
+    },
+    {
+      "vipMin": 15,
+      "vipMax": 17,
+      "tier": "emperor",
+      "displayRewardCategories": [
+        "Rare materials",
+        "Premium collectibles"
+      ]
+    },
+    {
+      "vipMin": 18,
+      "vipMax": 18,
+      "tier": "nine_dragon",
+      "displayRewardCategories": [
+        "Top material chest",
+        "Exclusive cosmetics"
+      ]
+    }
+  ],
+  "weeklyGoldKeysSuggested": [
+    {
+      "vipMin": 5,
+      "vipMax": 8,
+      "amount": 1
+    },
+    {
+      "vipMin": 9,
+      "vipMax": 14,
+      "amount": 2
+    },
+    {
+      "vipMin": 15,
+      "vipMax": 17,
+      "amount": 3
+    },
+    {
+      "vipMin": 18,
+      "vipMax": 18,
+      "amount": 5
+    }
+  ],
+  "vipShopDiscountSuggested": [
+    {
+      "vipMin": 0,
+      "vipMax": 4,
+      "pct": 0
+    },
+    {
+      "vipMin": 5,
+      "vipMax": 6,
+      "pct": 5
+    },
+    {
+      "vipMin": 7,
+      "vipMax": 8,
+      "pct": 7
+    },
+    {
+      "vipMin": 9,
+      "vipMax": 10,
+      "pct": 8
+    },
+    {
+      "vipMin": 11,
+      "vipMax": 14,
+      "pct": 10
+    },
+    {
+      "vipMin": 15,
+      "vipMax": 16,
+      "pct": 12
+    },
+    {
+      "vipMin": 17,
+      "vipMax": 17,
+      "pct": 14
+    },
+    {
+      "vipMin": 18,
+      "vipMax": 18,
+      "pct": 15
+    }
+  ],
+  "economyWarnings": [
+    "Gold Keys and reward quantities are BALANCE PROPOSALS; map to existing server inventory item IDs after review.",
+    "Do not auto-credit gifts from client, and do not create fake purchases.",
+    "Skip clear-stage still consumes stamina/counters and is not allowed for boss stage.",
+    "Do not silently change existing Summon SSR/SSS+ rates or pity 50/100.",
+    "Payment process integration requires verified server transaction, deduplication, refund handling and explicit user consent."
+  ]
+}

@@ -1,0 +1,876 @@
+{
+  "kit_sha256": "ac3901d99036591bbe086d8f9a29131c05ac433910cb4b39dfa912e7f09f9b2c",
+  "assets": [
+    {
+      "path": "assets/background/inventory_hall_clean.png",
+      "kit_status": "ready",
+      "size": [
+        1920,
+        1080
+      ],
+      "alpha_min_max": [
+        255,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/inventory_grid_panel.png",
+      "kit_status": "ready",
+      "size": [
+        1000,
+        584
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/item_detail_panel.png",
+      "kit_status": "ready",
+      "size": [
+        414,
+        584
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/title_banner_blank.png",
+      "kit_status": "ready",
+      "size": [
+        510,
+        102
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/detail_title_plaque_blank.png",
+      "kit_status": "ready",
+      "size": [
+        360,
+        61
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/detail_parchment_blank.png",
+      "kit_status": "ready",
+      "size": [
+        369,
+        258
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/panels/item_detail_header_blank.png",
+      "kit_status": "ready",
+      "size": [
+        385,
+        147
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/item_tooltip_blank.png",
+      "kit_status": "ready",
+      "size": [
+        425,
+        356
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/slots/item_slot_default.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        252,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/slots/item_slot_selected.png",
+      "kit_status": "ready",
+      "size": [
+        214,
+        175
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/slots/item_slot_disabled.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        253,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/slots/item_slot_r.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        252,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/slots/item_slot_sr.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        252,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/slots/item_slot_ssr.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        252,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/slots/item_slot_sssplus.png",
+      "kit_status": "ready",
+      "size": [
+        174,
+        135
+      ],
+      "alpha_min_max": [
+        252,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/tabs/tab_selected.png",
+      "kit_status": "ready",
+      "size": [
+        217,
+        59
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/tabs/tab_default.png",
+      "kit_status": "ready",
+      "size": [
+        217,
+        59
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/tabs/tab_disabled.png",
+      "kit_status": "ready",
+      "size": [
+        217,
+        59
+      ],
+      "alpha_min_max": [
+        145,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/buttons/button_gold.png",
+      "kit_status": "ready",
+      "size": [
+        264,
+        75
+      ],
+      "alpha_min_max": [
+        42,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/buttons/button_red.png",
+      "kit_status": "ready",
+      "size": [
+        265,
+        75
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/buttons/button_back.png",
+      "kit_status": "ready",
+      "size": [
+        240,
+        69
+      ],
+      "alpha_min_max": [
+        42,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/buttons/button_green.png",
+      "kit_status": "ready",
+      "size": [
+        265,
+        75
+      ],
+      "alpha_min_max": [
+        120,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/buttons/button_pressed.png",
+      "kit_status": "ready",
+      "size": [
+        264,
+        75
+      ],
+      "alpha_min_max": [
+        70,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/buttons/button_disabled.png",
+      "kit_status": "ready",
+      "size": [
+        264,
+        75
+      ],
+      "alpha_min_max": [
+        175,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/header_bg_blank.png",
+      "kit_status": "ready",
+      "size": [
+        1560,
+        162
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/grid_section_bg_blank.png",
+      "kit_status": "ready",
+      "size": [
+        1000,
+        565
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/detail_section_bg_blank.png",
+      "kit_status": "ready",
+      "size": [
+        410,
+        565
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/decor/gold_divider.png",
+      "kit_status": "ready",
+      "size": [
+        1370,
+        48
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/decor/gold_inner_divider.png",
+      "kit_status": "ready",
+      "size": [
+        420,
+        24
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/effects/glow_gold.png",
+      "kit_status": "ready",
+      "size": [
+        192,
+        192
+      ],
+      "alpha_min_max": [
+        0,
+        43
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/effects/glow_purple.png",
+      "kit_status": "ready",
+      "size": [
+        192,
+        192
+      ],
+      "alpha_min_max": [
+        0,
+        43
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/effects/glow_blue.png",
+      "kit_status": "ready",
+      "size": [
+        192,
+        192
+      ],
+      "alpha_min_max": [
+        0,
+        43
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/effects/glow_red.png",
+      "kit_status": "ready",
+      "size": [
+        192,
+        192
+      ],
+      "alpha_min_max": [
+        0,
+        43
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/hero_fragment_portrait_frame.png",
+      "kit_status": "ready",
+      "size": [
+        157,
+        155
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/icons_reference/golden_key.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/hero_exp.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/enhancement_crystal.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/divine_weapon_shard.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/old_ingot.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/bui_nguyen_thieu_fragment.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/hinh_dao_vinh_fragment.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/trinh_vien_chi_fragment.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/spirit_stone.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/ancient_jewel.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/hero_chest.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/divine_chest.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/skill_manual.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/summon_scroll.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/march_order.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/silver_coin.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/spirit_crystal.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/hero_soul.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/upgrade_gem.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/icons_reference/surprise_pouch.png",
+      "kit_status": "review",
+      "size": [
+        128,
+        128
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: flattened reference cutout; reuse project icon or exact hero registry portrait instead"
+    },
+    {
+      "path": "assets/decor/inventory_title_static.png",
+      "kit_status": "review",
+      "size": [
+        535,
+        230
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/buttons/button_back_static.png",
+      "kit_status": "review",
+      "size": [
+        290,
+        105
+      ],
+      "alpha_min_max": [
+        0,
+        253
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/decor/gold_dragon_divider.png",
+      "kit_status": "ready",
+      "size": [
+        1355,
+        95
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "runtime: blank texture; separate live labels and quantities"
+    },
+    {
+      "path": "assets/tabs/tab_all_static.png",
+      "kit_status": "review",
+      "size": [
+        257,
+        98
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/tabs/tab_resources_static.png",
+      "kit_status": "review",
+      "size": [
+        275,
+        89
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/tabs/tab_fragments_static.png",
+      "kit_status": "review",
+      "size": [
+        274,
+        93
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/tabs/tab_items_static.png",
+      "kit_status": "review",
+      "size": [
+        273,
+        91
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/tabs/tab_divine_static.png",
+      "kit_status": "review",
+      "size": [
+        285,
+        89
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "excluded: baked labels and/or neighboring art contamination"
+    },
+    {
+      "path": "assets/decor/left_three_kingdoms_banner.png",
+      "kit_status": "ready",
+      "size": [
+        130,
+        359
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/decor/right_three_kingdoms_banner.png",
+      "kit_status": "ready",
+      "size": [
+        152,
+        359
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/decor/guardian_dragon_left.png",
+      "kit_status": "ready",
+      "size": [
+        143,
+        308
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/decor/guardian_dragon_right.png",
+      "kit_status": "ready",
+      "size": [
+        162,
+        314
+      ],
+      "alpha_min_max": [
+        0,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    },
+    {
+      "path": "assets/panels/detail_nameplate_dragon_blank.png",
+      "kit_status": "ready",
+      "size": [
+        385,
+        77
+      ],
+      "alpha_min_max": [
+        249,
+        255
+      ],
+      "decision": "not needed: alternate frame/decor/rarity/effect"
+    }
+  ]
+}

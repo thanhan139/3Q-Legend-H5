@@ -1,0 +1,116 @@
+{
+  "heroId": "zhao-yun",
+  "texture": "assets/battle/remaster/zhao-yun/parts-v2.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "16134124a63d646f2e3cc6403374e299ce38fabf37d61c4fcda80f64e84141fe",
+  "frames": {
+    "head": [
+      90,
+      10,
+      196,
+      291
+    ],
+    "torso": [
+      338,
+      13,
+      267,
+      291
+    ],
+    "upperNear": [
+      703,
+      10,
+      191,
+      290
+    ],
+    "foreNear": [
+      1032,
+      20,
+      147,
+      276
+    ],
+    "upperFar": [
+      74,
+      328,
+      198,
+      263
+    ],
+    "foreFar": [
+      376,
+      334,
+      194,
+      266
+    ],
+    "thighNear": [
+      702,
+      320,
+      170,
+      292
+    ],
+    "shinNear": [
+      1036,
+      324,
+      147,
+      295
+    ],
+    "thighFar": [
+      69,
+      635,
+      165,
+      292
+    ],
+    "shinFar": [
+      413,
+      636,
+      153,
+      292
+    ],
+    "weapon": [
+      753,
+      628,
+      64,
+      311
+    ],
+    "cape": [
+      951,
+      641,
+      292,
+      286
+    ],
+    "hair": [
+      19,
+      950,
+      277,
+      288
+    ],
+    "skirt": [
+      326,
+      955,
+      290,
+      290
+    ],
+    "accessory": [
+      690,
+      952,
+      188,
+      293
+    ],
+    "headHit": [
+      1031,
+      949,
+      195,
+      292
+    ]
+  },
+  "pipeline": "layered-rig",
+  "rasterModified": false,
+  "provenance": {
+    "sourceKit": "Hero_Remaster_Static_Sprites_v1.0",
+    "sourceHeroKey": "trieu_van",
+    "referenceSha256": "ee282a5f76dcad34bf622b33afb71baefc09953eb76e09caa7e8cc3d5e902741",
+    "authoring": "Repainted isolated body parts, built-in imagegen; native Phaser articulated cutout rig",
+    "artApproval": "prototype; final artist review pending"
+  }
+}

@@ -42,7 +42,8 @@ export class FormationScene extends UiScene {
     this.text(164, 36, 'BÀY TRẬN', 28, '#ffecb3', { fontFamily: 'Georgia, serif', fontStyle: 'bold' }).setOrigin(0.5);
     this.text(321, 28, `${deployed}/${SLOT_COUNT} tướng`, 19, '#ffdf99');
     this.text(1005, 39, `Lực chiến  ${formationPower(save, synergy).toLocaleString('vi-VN')}`, 22, '#ffdf99').setOrigin(1, 0.5);
-    this.control('buttons.go_back_gold', 1147, 39, 186, 55, fromArena ? 'Về Đấu Trường' : 'Về sảnh', () => fromArena ? this.go('Arena', { page: 'prepare' }) : this.go('Lobby'), true, 18);
+    if(fromArena)this.control('buttons.go_back_gold',1147,39,186,55,'Về Đấu Trường',()=>this.go('Arena',{page:'prepare'}),true,18);
+    else this.backToLobby(1147,39,192,54);
 
     for (const [y, label] of [[139, 'TUYẾN SAU'], [346, 'TUYẾN TRƯỚC']] as const) {
       this.art('frames.section_title_teal', 74, y, 129, 30);

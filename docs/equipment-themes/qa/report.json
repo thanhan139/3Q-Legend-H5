@@ -1,0 +1,289 @@
+{
+  "reports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "guan-yu",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 4,
+        "name": "Quan Vũ"
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "zhao-yun",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 7,
+        "name": "Triệu Vân"
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "lu-bu",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 0,
+        "name": "Lữ Bố"
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "zhuge-liang",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 2,
+        "name": "Gia Cát Lượng"
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "diao-chan",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": "__BASE",
+        "name": "Điêu Thuyền"
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "selectedHeroId": "zhang-fei",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "visual": {
+        "texture": "battle-sprites",
+        "uniform": true,
+        "animated": false,
+        "name": "Trương Phi"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "guan-yu",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 2,
+        "name": "Quan Vũ"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "zhao-yun",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 3,
+        "name": "Triệu Vân"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "lu-bu",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 7,
+        "name": "Lữ Bố"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "zhuge-liang",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 1,
+        "name": "Gia Cát Lượng"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "diao-chan",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": "__BASE",
+        "name": "Điêu Thuyền"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "selectedHeroId": "zhang-fei",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "visual": {
+        "texture": "battle-sprites",
+        "uniform": true,
+        "animated": false,
+        "name": "Trương Phi"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "guan-yu",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 7,
+        "name": "Quan Vũ"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "zhao-yun",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 3,
+        "name": "Triệu Vân"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "lu-bu",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 7,
+        "name": "Lữ Bố"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "zhuge-liang",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": 3,
+        "name": "Gia Cát Lượng"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "diao-chan",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "visual": {
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "uniform": true,
+        "animated": true,
+        "frame": "__BASE",
+        "name": "Điêu Thuyền"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "selectedHeroId": "zhang-fei",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "visual": {
+        "texture": "battle-sprites",
+        "uniform": true,
+        "animated": false,
+        "name": "Trương Phi"
+      }
+    }
+  ],
+  "errors": [],
+  "switches": 20,
+  "slotNavigation": true,
+  "foreignSelectionReset": true,
+  "saveUnchanged": true,
+  "realAccount": false
+}

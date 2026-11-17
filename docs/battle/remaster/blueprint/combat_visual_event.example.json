@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "RESOLVED_CORE_EVENT_TO_VISUAL_TIMELINE_ADAPTER_EXAMPLE",
+  "exampleNotProduction": true,
+  "battleId": "demo-battle",
+  "actionId": "demo-action-005",
+  "actorId": "hero-id-01",
+  "actorSlot": "ally/frontline/0",
+  "actionType": "attack_1",
+  "resultFromBattleCore": {
+    "valid": true,
+    "damageAlreadyResolved": true,
+    "grantedRewards": false
+  },
+  "targets": [
+    {
+      "heroId": "enemy-id-01",
+      "slot": "enemy/frontline/0",
+      "hitIndex": 0,
+      "damage": 143,
+      "hpBefore": 300,
+      "hpAfter": 157,
+      "critical": false,
+      "dead": false
+    }
+  ],
+  "visualTimelineMs": [
+    {
+      "at": 0,
+      "event": "ACTOR_READY"
+    },
+    {
+      "at": 80,
+      "event": "APPROACH_START"
+    },
+    {
+      "at": 320,
+      "event": "STRIKE_START"
+    },
+    {
+      "at": 747,
+      "event": "IMPACT_VISUAL",
+      "dedupeKey": "demo-action-005:hit-0:enemy-id-01"
+    },
+    {
+      "at": 987,
+      "event": "RETURN_START"
+    },
+    {
+      "at": 1250,
+      "event": "VISUAL_ACTION_COMPLETE"
+    }
+  ],
+  "rules": [
+    "Never mutate gameplay damage from visual markers",
+    "Exactly once dedupe per actionId+hitIndex+targetId",
+    "Skip reconciles to final authoritative snapshot"
+  ]
+}

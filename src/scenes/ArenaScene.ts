@@ -72,8 +72,9 @@ export class ArenaScene extends UiScene {
     this.art('panel_arena_nav', 124, 401, 215, 600);
     this.art('title_arena', 280, 47, 535, 67);
     this.label(290, 47, page === 'result' && ranked ? 'KẾT QUẢ XẾP HẠNG' : titles[page], 30);
-    this.action('return', 57, 47, 73, '‹', () => page === 'arena' ? this.go('Lobby') : open('arena'));
-    [[899, 'icon_dong_wallet', 'Đồng', funds.copper], [1095, 'reward_gold_ingot', 'Vàng', funds.gold]].forEach(
+    if(page!=='arena')this.action('return',57,47,73,'‹',()=>open('arena'));
+    this.backToLobby(1152,47,192,54);
+    [[720, 'icon_dong_wallet', 'Đồng', funds.copper], [925, 'reward_gold_ingot', 'Vàng', funds.gold]].forEach(
       ([x, icon, label, amount]) => {
         this.art('score_display', Number(x), 48, 174, 49);
         this.art(String(icon), Number(x) - 62, 48, 30, 29);
