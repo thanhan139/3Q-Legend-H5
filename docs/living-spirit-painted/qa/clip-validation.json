@@ -1,0 +1,16 @@
+[
+  {
+    "hero": "zhuge-liang",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4424,
+    "error": null
+  },
+  {
+    "hero": "diao-chan",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4528,
+    "error": null
+  }
+]

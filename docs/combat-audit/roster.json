@@ -1,0 +1,730 @@
+[
+  {
+    "id": "zhao-yun",
+    "name": "Triệu Vân",
+    "role": "fighter",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1380,
+      "atk": 235,
+      "def": 68,
+      "speed": 122
+    },
+    "normal": "Long Thương",
+    "ultimate": "Thất Tiến Thất Xuất",
+    "passive": "Long Đảm",
+    "actions": [
+      "zhao-yun:normal",
+      "zhao-yun:ultimate"
+    ],
+    "actorFrame": 3,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "thrust",
+    "packSignature": "trieu_van_thunder_spear",
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      10,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "zhang-fei",
+    "name": "Trương Phi",
+    "role": "tank",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1560,
+      "atk": 145,
+      "def": 85,
+      "speed": 78
+    },
+    "normal": "Trượng Vân",
+    "ultimate": "Nộ Hống Trường Bản",
+    "passive": "Hổ Khiếu",
+    "actions": [
+      "zhang-fei:normal",
+      "zhang-fei:ultimate"
+    ],
+    "actorFrame": 0,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "thrust",
+    "packSignature": "truong_phi_war_roar",
+    "bodyClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "actorAlphaBounds": [
+      3,
+      5,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "guan-yu",
+    "name": "Quan Vũ",
+    "role": "fighter",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1180,
+      "atk": 205,
+      "def": 46,
+      "speed": 100
+    },
+    "normal": "Võ Thánh Trảm",
+    "ultimate": "Thanh Long Trảm",
+    "passive": "Võ Thánh",
+    "actions": [
+      "guan-yu:normal",
+      "guan-yu:ultimate"
+    ],
+    "actorFrame": 1,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": "quan_vu_green_dragon_slash",
+    "bodyClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "actorAlphaBounds": [
+      4,
+      3,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "liu-bei",
+    "name": "Lưu Bị",
+    "role": "support",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1100,
+      "atk": 134,
+      "def": 48,
+      "speed": 98
+    },
+    "normal": "Song Cổ Kiếm",
+    "ultimate": "Nhân Đức Chi Quang",
+    "passive": "Nhân Nghĩa",
+    "actions": [
+      "liu-bei:normal",
+      "liu-bei:ultimate"
+    ],
+    "actorFrame": 2,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [
+      "idle",
+      "attack",
+      "hit",
+      "death"
+    ],
+    "actorAlphaBounds": [
+      3,
+      5,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "huang-yueying",
+    "name": "Hoàng Nguyệt Anh",
+    "role": "mage",
+    "rarity": "SR",
+    "stats": {
+      "hp": 970,
+      "atk": 221,
+      "def": 34,
+      "speed": 110
+    },
+    "normal": "Cơ Quan Nỗ",
+    "ultimate": "Mộc Ngưu Lưu Mã",
+    "passive": "Xảo Công",
+    "actions": [
+      "huang-yueying:normal",
+      "huang-yueying:ultimate"
+    ],
+    "actorFrame": 4,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "ranged",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      7,
+      3,
+      248,
+      253
+    ]
+  },
+  {
+    "id": "ma-chao",
+    "name": "Mã Siêu",
+    "role": "ranger",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1030,
+      "atk": 226,
+      "def": 38,
+      "speed": 117
+    },
+    "normal": "Tây Lương Thương",
+    "ultimate": "Thiết Kỵ Xung Phong",
+    "passive": "Cẩm Mã Siêu",
+    "actions": [
+      "ma-chao:normal",
+      "ma-chao:ultimate"
+    ],
+    "actorFrame": 5,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "thrust",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      11,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "cao-cao",
+    "name": "Tào Tháo",
+    "role": "mage",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1160,
+      "atk": 252,
+      "def": 50,
+      "speed": 115
+    },
+    "normal": "Ỷ Thiên Trảm",
+    "ultimate": "Ngụy Vũ Hùng Phong",
+    "passive": "Kiêu Hùng",
+    "actions": [
+      "cao-cao:normal",
+      "cao-cao:ultimate"
+    ],
+    "actorFrame": 6,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      4,
+      3,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "xiahou-dun",
+    "name": "Hạ Hầu Đôn",
+    "role": "tank",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1480,
+      "atk": 163,
+      "def": 83,
+      "speed": 87
+    },
+    "normal": "Độc Nhãn Đao",
+    "ultimate": "Bất Khuất Hộ Quân",
+    "passive": "Cương Liệt",
+    "actions": [
+      "xiahou-dun:normal",
+      "xiahou-dun:ultimate"
+    ],
+    "actorFrame": 7,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      7,
+      3,
+      248,
+      253
+    ]
+  },
+  {
+    "id": "dian-wei",
+    "name": "Điển Vi",
+    "role": "tank",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1420,
+      "atk": 155,
+      "def": 79,
+      "speed": 74
+    },
+    "normal": "Song Kích",
+    "ultimate": "Ác Lai Trấn Ải",
+    "passive": "Hộ Chủ",
+    "actions": [
+      "dian-wei:normal",
+      "dian-wei:ultimate"
+    ],
+    "actorFrame": 8,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      19,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "sun-quan",
+    "name": "Tôn Quyền",
+    "role": "fighter",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 1200,
+      "atk": 238,
+      "def": 54,
+      "speed": 112
+    },
+    "normal": "Bích Nhãn Kiếm",
+    "ultimate": "Giang Đông Hiệu Lệnh",
+    "passive": "Đế Nghiệp",
+    "actions": [
+      "sun-quan:normal",
+      "sun-quan:ultimate"
+    ],
+    "actorFrame": 9,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      13,
+      3,
+      242,
+      253
+    ]
+  },
+  {
+    "id": "gan-ning",
+    "name": "Cam Ninh",
+    "role": "ranger",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 975,
+      "atk": 180,
+      "def": 35,
+      "speed": 118
+    },
+    "normal": "Cẩm Phàm Đao",
+    "ultimate": "Dạ Tập",
+    "passive": "Cẩm Phàm",
+    "actions": [
+      "gan-ning:normal",
+      "gan-ning:ultimate"
+    ],
+    "actorFrame": 10,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      14,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "da-qiao",
+    "name": "Đại Kiều",
+    "role": "support",
+    "rarity": "SR",
+    "stats": {
+      "hp": 1050,
+      "atk": 172,
+      "def": 38,
+      "speed": 103
+    },
+    "normal": "Lạc Hoa",
+    "ultimate": "Cam Lộ Ngọc Vũ",
+    "passive": "Ngọc Khiết",
+    "actions": [
+      "da-qiao:normal",
+      "da-qiao:ultimate"
+    ],
+    "actorFrame": 11,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "magic",
+    "packSignature": "dai_kieu_blossom_heal",
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      15,
+      3,
+      241,
+      253
+    ]
+  },
+  {
+    "id": "diao-chan",
+    "name": "Điêu Thuyền",
+    "role": "mage",
+    "rarity": "SSR",
+    "stats": {
+      "hp": 990,
+      "atk": 250,
+      "def": 38,
+      "speed": 126
+    },
+    "normal": "Phi Y",
+    "ultimate": "Quốc Sắc Thiên Hương",
+    "passive": "Điểm Ảnh",
+    "actions": [
+      "diao-chan:normal",
+      "diao-chan:ultimate"
+    ],
+    "actorFrame": 12,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "magic",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      6,
+      3,
+      249,
+      253
+    ]
+  },
+  {
+    "id": "hua-xiong",
+    "name": "Hoa Hùng",
+    "role": "fighter",
+    "rarity": "SR",
+    "stats": {
+      "hp": 1110,
+      "atk": 178,
+      "def": 44,
+      "speed": 94
+    },
+    "normal": "Quan Tây Đao",
+    "ultimate": "Hổ Lao Phá Trận",
+    "passive": "Quan Tây Uy",
+    "actions": [
+      "hua-xiong:normal",
+      "hua-xiong:ultimate"
+    ],
+    "actorFrame": 13,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      13,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "lu-bu",
+    "name": "Lữ Bố",
+    "role": "fighter",
+    "rarity": "SSS+",
+    "stats": {
+      "hp": 1430,
+      "atk": 260,
+      "def": 62,
+      "speed": 116
+    },
+    "normal": "Kích Vô Song",
+    "ultimate": "Phương Thiên Loạn Vũ",
+    "passive": "Vô Song",
+    "actions": [
+      "lu-bu:normal",
+      "lu-bu:ultimate"
+    ],
+    "actorFrame": 14,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      4,
+      3,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "zhuge-liang",
+    "name": "Gia Cát Lượng",
+    "role": "mage",
+    "rarity": "SSS+",
+    "stats": {
+      "hp": 1120,
+      "atk": 255,
+      "def": 51,
+      "speed": 118
+    },
+    "normal": "Vũ Phiến",
+    "ultimate": "Bát Trận Đồ",
+    "passive": "Ngọa Long",
+    "actions": [
+      "zhuge-liang:normal",
+      "zhuge-liang:ultimate"
+    ],
+    "actorFrame": 15,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "magic",
+    "packSignature": "gia_cat_luong_bagua_cast",
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      3,
+      4,
+      252,
+      253
+    ]
+  },
+  {
+    "id": "pan-feng",
+    "name": "Phan Phượng",
+    "role": "tank",
+    "rarity": "R",
+    "stats": {
+      "hp": 1250,
+      "atk": 125,
+      "def": 61,
+      "speed": 82
+    },
+    "normal": "Đại Phủ",
+    "ultimate": "Khai Sơn Phủ",
+    "passive": "Thượng Tướng",
+    "actions": [
+      "pan-feng:normal",
+      "pan-feng:ultimate"
+    ],
+    "actorFrame": 16,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      16,
+      5,
+      240,
+      251
+    ]
+  },
+  {
+    "id": "xing-dao-rong",
+    "name": "Hình Đạo Vinh",
+    "role": "fighter",
+    "rarity": "R",
+    "stats": {
+      "hp": 1100,
+      "atk": 160,
+      "def": 41,
+      "speed": 95
+    },
+    "normal": "Lê Hoa Phủ",
+    "ultimate": "Mãnh Phủ",
+    "passive": "Linh Lăng Dũng",
+    "actions": [
+      "xing-dao-rong:normal",
+      "xing-dao-rong:ultimate"
+    ],
+    "actorFrame": 17,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      8,
+      22,
+      248,
+      251
+    ]
+  },
+  {
+    "id": "cheng-yuan-zhi",
+    "name": "Trình Viễn Chí",
+    "role": "fighter",
+    "rarity": "R",
+    "stats": {
+      "hp": 1050,
+      "atk": 165,
+      "def": 38,
+      "speed": 96
+    },
+    "normal": "Hoàng Cân Thương",
+    "ultimate": "Liệt Thương",
+    "passive": "Khăn Vàng",
+    "actions": [
+      "cheng-yuan-zhi:normal",
+      "cheng-yuan-zhi:ultimate"
+    ],
+    "actorFrame": 18,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "thrust",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      23,
+      5,
+      232,
+      251
+    ]
+  },
+  {
+    "id": "pei-yuan-shao",
+    "name": "Bùi Nguyên Thiệu",
+    "role": "ranger",
+    "rarity": "R",
+    "stats": {
+      "hp": 920,
+      "atk": 162,
+      "def": 34,
+      "speed": 108
+    },
+    "normal": "Sơn Trại Tiễn",
+    "ultimate": "Song Tiễn",
+    "passive": "Ẩn Lâm",
+    "actions": [
+      "pei-yuan-shao:normal",
+      "pei-yuan-shao:ultimate"
+    ],
+    "actorFrame": 19,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "ranged",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      27,
+      5,
+      228,
+      251
+    ]
+  },
+  {
+    "id": "guan-ping",
+    "name": "Quan Bình",
+    "role": "fighter",
+    "rarity": "SR",
+    "stats": {
+      "hp": 1160,
+      "atk": 190,
+      "def": 46,
+      "speed": 99
+    },
+    "normal": "Thanh Đao",
+    "ultimate": "Thanh Long Tiểu Trảm",
+    "passive": "Tiểu Võ Thánh",
+    "actions": [
+      "guan-ping:normal",
+      "guan-ping:ultimate"
+    ],
+    "actorFrame": 20,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      17,
+      5,
+      238,
+      251
+    ]
+  },
+  {
+    "id": "zhou-cang",
+    "name": "Chu Thương",
+    "role": "tank",
+    "rarity": "SR",
+    "stats": {
+      "hp": 1370,
+      "atk": 148,
+      "def": 72,
+      "speed": 85
+    },
+    "normal": "Hộ Đao",
+    "ultimate": "Thiết Vệ Trấn Thủ",
+    "passive": "Trung Vệ",
+    "actions": [
+      "zhou-cang:normal",
+      "zhou-cang:ultimate"
+    ],
+    "actorFrame": 21,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      32,
+      5,
+      223,
+      251
+    ]
+  },
+  {
+    "id": "cao-hong",
+    "name": "Tào Hồng",
+    "role": "fighter",
+    "rarity": "SR",
+    "stats": {
+      "hp": 1200,
+      "atk": 184,
+      "def": 53,
+      "speed": 94
+    },
+    "normal": "Thiết Kiếm",
+    "ultimate": "Hộ Giá",
+    "passive": "Hộ Kỵ",
+    "actions": [
+      "cao-hong:normal",
+      "cao-hong:ultimate"
+    ],
+    "actorFrame": 22,
+    "ownedFormationAccepted": true,
+    "summonable": true,
+    "visualStyle": "melee",
+    "packSignature": null,
+    "bodyClips": [],
+    "actorAlphaBounds": [
+      24,
+      5,
+      232,
+      251
+    ]
+  }
+]

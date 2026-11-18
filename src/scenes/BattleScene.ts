@@ -28,6 +28,10 @@ import { makeArenaPracticeBattle, makeStageBattle, BattleEngine, type BattleEven
 import { gameStore } from '../domain/store';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
 import { UiScene } from '../ui/UiScene';
+import {CombatFeedbackVfx,loadCombatFeedback} from '../ui/CombatFeedbackVfx';
+import {combatHeroMelee} from '../ui/combatHeroProfiles';
+import {duoActor,duoActorKey,duoClips,CombatDuoVfx,loadCombatDuo} from '../ui/CombatDuo';
+import {isDuoSkillCast} from '../ui/combatDuoConfig';
 
 interface BattleData { stageId?: string; arenaPractice?: boolean; rankedArena?: ArenaResult }
 type UnitPosition = Pick<BattleUnit, 'side' | 'slot'>;
@@ -62,6 +66,8 @@ const INK = 0x171822;
 export class BattleScene extends UiScene {
   private engine?: BattleEngine;
   private skillVfx!: SkillVFXManager;
+  private combatFeedback!:CombatFeedbackVfx;
+  private duoVfx!:CombatDuoVfx;
   private stageId = '1-1';
   private battleId = '';
   private ticket?: BattleTicket;
@@ -86,7 +92,7 @@ export class BattleScene extends UiScene {
   private controls:ReturnType<BattleUi['button']>[]=[];
 
   constructor() { super('Battle'); }
-  preload(){loadBattleUi(this);}
+  preload(){loadBattleUi(this);loadCombatFeedback(this);loadCombatDuo(this);}
   override text(x:number,y:number,value:string,size=22,color='#fff5dc',options:Partial<Phaser.Types.GameObjects.Text.TextStyle>={}){
     return super.text(x,y,value,size,color,{fontFamily:BATTLE_FONT,resolution:2,padding:{top:2,bottom:2},...options});
   }
@@ -112,6 +118,8 @@ export class BattleScene extends UiScene {
     this.bridge=new BattleAnimationEventBridge(this);
     const restoreClock=bindBattlePresentationClock(this);
     this.skillVfx = new SkillVFXManager(this);
+    this.combatFeedback=new CombatFeedbackVfx(this,this.reducedMotion);
+    this.duoVfx=new CombatDuoVfx(this,this.reducedMotion);
     const visibility=()=>{this.suspended=document.hidden;this.applyPlaybackRate();};
     document.addEventListener('visibilitychange',visibility);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -120,6 +128,8 @@ export class BattleScene extends UiScene {
       this.bridge.cancel();this.intro?.destroy();this.intro=undefined;
       for(const view of this.views.values())view.character.destroy();
       this.skillVfx.clear();
+      this.combatFeedback.clear();
+      this.duoVfx.clear();
       this.cutIn?.destroy();
       this.cutIn = undefined;
     });
@@ -220,6 +230,8 @@ export class BattleScene extends UiScene {
     this.time.timeScale = rate;
     this.tweens.timeScale = rate;
     this.skillVfx?.setPlaybackRate(rate);
+    this.combatFeedback?.setRate(rate);
+    this.duoVfx?.setRate(rate);
     for (const view of this.views.values()) view.animation.setPlaybackRate(rate);
   }
 
@@ -244,7 +256,9 @@ export class BattleScene extends UiScene {
     const visualId=heroFamily(unit.heroId),foot=chibiFoot(visualId),size=battleCharacterDisplaySize(visualId);
     const sprite=this.add.sprite(0,BATTLE_LAYOUT.footY,BATTLE_SPRITES,battleSpriteFrames.get(visualId))
       .setOrigin(foot.x,foot.y).setScale(size/256).setFlipX(unit.side==='enemy');
-    const animation=new HeroAnimationController(sprite,visualId);
+    const duo=duoActor(visualId);
+    if(duo)sprite.setScale(Math.min(128/duo.maxInkHeight,170/duo.maxInkWidth));
+    const animation=new HeroAnimationController(sprite,visualId,duoClips(visualId),duo?{x:duo.origin[0],y:duo.origin[1]}:undefined,duo?duoActorKey(visualId):undefined);
     const hit = this.add.ellipse(0, -10, 118, 105, 0xf9b383, 0).setAlpha(0);
     art.add([shadow, sprite, hit]);
     animation.setPlaybackRate(this.speed);
@@ -379,6 +393,8 @@ export class BattleScene extends UiScene {
 
   private presentRage(view: UnitView, rage: number) {
     const ready = rage >= RAGE_CONFIG.skillThreshold;
+    const unit=this.engine?.units.find(u=>this.views.get(u.uid)===view);
+    if(unit)this.duoVfx?.setReady(unit.heroId,unit.uid,view.art,ready&&!view.character.dead);
     const ratio = rage / RAGE_CONFIG.max;
     view.rageBar.setScale(ratio, 1).setFillStyle(ready ? 0xffe575 : 0xe9b94d);
     view.rageLabel.setText(`NỘ ${rage}/${RAGE_CONFIG.max}`).setColor(ready ? '#fff49a' : '#f8d997');
@@ -405,8 +421,9 @@ export class BattleScene extends UiScene {
     const profile = ultimateProfile(source.heroId);
     const title = ATTACK_SKILLS.get(action.skillId?.replace(/:signature$/, '') ?? '')?.name ?? profile.title;
     const dragon = source.heroId === 'guan-yu' && skillId?.replace(/:signature$/, '') === DRAGON_SKILL;
+    const special=Boolean(duoActor(source.heroId));
     const attackAt = dragon ? DRAGON_TIMING.attack : ULTIMATE_TIMING.attack;
-    const initial = dragon ? DRAGON_TIMING.impact : skill ? attackAt + profile.castMs : 480;
+    const initial = dragon ? DRAGON_TIMING.impact : skill ? attackAt + profile.castMs : special?680:480;
     const gap = dragon ? DRAGON_TIMING.gap : skill ? profile.impactGapMs : 105;
     const firstTarget = hits.find(hit => hit.source === source.uid && hit.kind !== 'heal')?.target;
     const enemy = engine.units.find(unit => unit.uid === firstTarget && unit.side !== source.side);
@@ -416,7 +433,7 @@ export class BattleScene extends UiScene {
       .setColor(skill ? '#ffdc80' : '#ffe7bd');
 
     const direction = source.side === 'player' ? 1 : -1;
-    const melee = source.role === 'fighter' || source.role === 'tank';
+    const melee = special||combatHeroMelee(source.heroId);
     const stride = dragon ? 82 : profile.style === 'spear' || profile.style === 'warlord' ? 112 : 58;
     const moves = dragon || (melee && Boolean(enemy));
     const launch = moves ? {
@@ -426,10 +443,18 @@ export class BattleScene extends UiScene {
 
     if(action.kind==='action'&&sourceView&&!sourceView.character.dead){
       sourceView.animation.play('ready');
+      if(!special)this.combatFeedback.cast(source.heroId,home,hits.some(h=>h.kind==='heal'&&h.source===source.uid));
       this.bridge.after(60,()=>{if(moves)sourceView.animation.play('run');});
     }
 
     if (skillId) {
+      if(isDuoSkillCast(action,source.heroId)){
+        this.bridge.after(60,()=>this.duoVfx.cast(source.heroId,home,source.uid));
+        const first=hits.find(h=>h.source===source.uid),target=engine.units.find(u=>u.uid===first?.target);
+        if(target)this.bridge.after(Math.max(0,initial-11*1000/16),()=>{
+          const point=this.position(target);this.duoVfx.full(source.heroId,{x:home.x,y:home.y-55},{x:point.x,y:point.y-52},target.uid);
+        });
+      }
       this.turn.setText(`LƯỢT ${engine.turn}`);
       this.presentCutIn(source, title, skillId, dragon);
       if (dragon&&!this.reducedMotion) {
@@ -444,7 +469,7 @@ export class BattleScene extends UiScene {
       }
       this.bridge.after(attackAt, () => {
         const hand={x:home.x+direction*24,y:home.y-52};
-        this.skillVfx.cast(skillId,hand,dest);
+        if(!special)this.skillVfx.cast(skillId,hand,dest);
         sourceView?.animation.play('ultimate',initial-attackAt);
         if (!sourceView) return;
         this.presentRage(sourceView, action.rageAfter ?? 0);
@@ -454,16 +479,17 @@ export class BattleScene extends UiScene {
         this.tweens.add({ targets: sourceView.art, x: launch.x, y: launch.y,
           duration: dragon ? 210 : ULTIMATE_TIMING.lunge, ease: 'Cubic.Out' });
       });
-    } else if(action.kind==='action')this.bridge.after(160,()=>sourceView?.animation.play('attack',initial-160));
+    } else if(action.kind==='action'){const strikeAt=special?460:160;this.bridge.after(strikeAt,()=>sourceView?.animation.play('attack',initial-strikeAt));}
+    if(special&&!skill&&sourceView&&action.kind==='action')this.bridge.after(initial-125,()=>this.duoVfx.swing(source.heroId,{x:sourceView.art.x+direction*45,y:sourceView.art.y-55},source.uid));
 
     if (!skill && sourceView && enemy && action.kind === 'action') {
       sourceView.art.setDepth(5);
       // Ranged magic/support attacks stay on their slot; melee fighters approach.
-      const approach = source.role === 'ranger' || source.role === 'mage' ? home : {
+      const approach = !melee ? home : {
         x: dest.x + (source.side === 'player' ? -BATTLE_LAYOUT.approachGap : BATTLE_LAYOUT.approachGap), y: dest.y + 6,
       };
       this.bridge.after(60,()=>this.tweens.add({ targets: sourceView.art, x: approach.x, y: approach.y,
-        duration:160,ease:'Quad.InOut' }));
+        duration:special?400:160,ease:'Quad.InOut' }));
     }
 
     // Preserve Core order, including counterattacks and heals interleaved with hits.
@@ -476,6 +502,10 @@ export class BattleScene extends UiScene {
     playback.forEach((event, index) => {
       const at = initial + index * gap;
       const target = engine.units.find(unit => unit.uid === event.target);
+      if(!skill&&!melee&&target&&event.kind==='damage'&&event.source===source.uid){
+        this.bridge.after(at-260,()=>{if(!this.ending)this.combatFeedback.travel(source.heroId,
+          {x:home.x+direction*24,y:home.y-52},{x:this.position(target).x,y:this.position(target).y-52},260,(hits.length>1),target.uid);});
+      }
       const contact = dragonContacts.indexOf(event);
       if (contact >= 0 && dragonTravel && target) {
         const first = contact === 0;
@@ -485,7 +515,7 @@ export class BattleScene extends UiScene {
             at - startsAt, first, direction < 0);
         });
       }
-      if (!dragon && skillId && effect?.travel && target && event.source === source.uid &&
+      if (!special && !dragon && skillId && effect?.travel && target && event.source === source.uid &&
         event.skillId === skillId && (hits.includes(event) || !hasTravel)) {
         const duration = hasTravel ? gap - 22 : ULTIMATE_TIMING.maxTravel;
         hasTravel = true;
@@ -504,7 +534,7 @@ export class BattleScene extends UiScene {
         if (contact >= 0 && contact === dragonContacts.length - 1) this.skillVfx.dismissDragon();
       },index);
     });
-    const afterHits = initial + Math.max(0, playback.length - 1) * gap + 115;
+    const afterHits = initial + Math.max(0, playback.length - 1) * gap + (special?350:115);
     const retreat = dragon ? DRAGON_TIMING.retreat : ULTIMATE_TIMING.retreat;
     if (sourceView&&action.kind==='action') this.bridge.after(afterHits, () => {
       if(sourceView.character.dead)return;
@@ -541,8 +571,15 @@ export class BattleScene extends UiScene {
       return;
     }
     const heals = hit.kind === 'heal';
-    if (skillId && hit.skillId === skillId) this.skillVfx.impact(skillId,{x,y:y-52},heals,attacker.side==='enemy');
+    const actorView=this.views.get(attacker.uid),facing=attacker.side==='player'?1:-1;
+    if(duoActor(attacker.heroId))this.duoVfx.impact(attacker.heroId,{x,y},victim.uid,Boolean(hit.skill));
+    else this.combatFeedback.hit(attacker.heroId,{x,y},victim.uid,Boolean(hit.skill),heals,Boolean(hit.critical),attacker.side==='enemy',
+      actorView?{x:actorView.art.x+facing*52,y:actorView.art.y-55}:undefined);
+    if (!duoActor(attacker.heroId)&&skillId && hit.skillId === skillId) this.skillVfx.impact(skillId,{x,y:y-52},heals,attacker.side==='enemy');
     if (!heals && hit.remainingHp === 0) {
+      this.duoVfx.setReady(victim.heroId,victim.uid,view.art,false);
+      this.time.delayedCall(600,()=>this.duoVfx.clearOwner(victim.uid));
+      this.combatFeedback.death({x,y},victim.uid);
       view.character.die();this.updateCounts();
     } else if (!heals) view.character.react(hit.critical);
     else if(view.character.dead&&(hit.remainingHp??0)>0)view.character.revive();
@@ -601,6 +638,7 @@ export class BattleScene extends UiScene {
     const target = this.engine?.units.find(u => u.uid === event.target);
     if (!target) return;
     const { x, y } = this.position(target);
+    if(event.kind==='shield'||event.kind==='buff')this.combatFeedback.status({x,y},target.uid,event.kind==='shield');
     if (event.status) {
       const badges = { armor: 'armor_break', weaken: 'attack_down', bleed: 'bleed',
         stun: 'stun', charm: 'stun', taunt: 'taunt' } as const;
@@ -629,6 +667,8 @@ export class BattleScene extends UiScene {
     this.time.removeAllEvents();
     this.tweens.killAll();
     this.skillVfx.clear();
+    this.combatFeedback.clear();
+    this.duoVfx.clear();
     this.cutIn?.destroy();
     this.cutIn = undefined;
     for (const unit of this.engine?.units??[]){

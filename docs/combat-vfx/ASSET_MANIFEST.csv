@@ -1,0 +1,29 @@
+﻿category,key,frames,fps,sheet_path,attach,visual_source
+melee,melee_slash_arc,8,16,assets/vfx/melee/melee_slash_arc/melee_slash_arc_4col.png,weapon_tip,thanh_long__green_blade_wave.png
+melee,melee_thrust,6,18,assets/vfx/melee/melee_thrust/melee_thrust_4col.png,weapon_tip,chan_dia__blue_spear_dash.png
+melee,melee_hit_spark,8,20,assets/vfx/melee/melee_hit_spark/melee_hit_spark_4col.png,target_center,chan_dia__orange_impact_star.png
+melee,melee_heavy_impact,10,18,assets/vfx/melee/melee_heavy_impact/melee_heavy_impact_4col.png,target_center,thanh_long__gold_earth_impact.png
+melee,melee_ground_shock,8,16,assets/vfx/melee/melee_ground_shock/melee_ground_shock_4col.png,target_foot,chan_dia__gold_shockwave.png
+ranged,ranged_projectile_arrow,4,16,assets/vfx/ranged/ranged_projectile_arrow/ranged_projectile_arrow_4col.png,projectile,procedural
+ranged,ranged_arrow_trail,6,18,assets/vfx/ranged/ranged_arrow_trail/ranged_arrow_trail_4col.png,projectile,chan_dia__blue_lightning_trail.png
+ranged,ranged_impact,8,20,assets/vfx/ranged/ranged_impact/ranged_impact_4col.png,target_center,thanh_long__blue_star_impact.png
+ranged,ranged_multi_shot,10,18,assets/vfx/ranged/ranged_multi_shot/ranged_multi_shot_4col.png,projectile,procedural
+mage,magic_cast_circle,12,16,assets/vfx/mage/magic_cast_circle/magic_cast_circle_4col.png,caster_foot,thanh_long__blue_magic_seal.png
+mage,magic_charge,8,16,assets/vfx/mage/magic_charge/magic_charge_4col.png,caster_center,trieu_hoi__purple_vortex.png
+mage,magic_projectile,8,18,assets/vfx/mage/magic_projectile/magic_projectile_4col.png,projectile,trieu_hoi__purple_slash.png
+mage,magic_impact_burst,12,18,assets/vfx/mage/magic_impact_burst/magic_impact_burst_4col.png,target_center,trieu_hoi__ssr_purple_burst.png
+mage,magic_aoe_ground,12,16,assets/vfx/mage/magic_aoe_ground/magic_aoe_ground_4col.png,target_foot,trieu_hoi__gold_magic_circle.png
+heal,heal_cast_circle,8,14,assets/vfx/heal/heal_cast_circle/heal_cast_circle_4col.png,caster_foot,trieu_hoi__gold_magic_circle.png
+heal,heal_target_glow,10,16,assets/vfx/heal/heal_target_glow/heal_target_glow_4col.png,target_center,trieu_hoi__gold_light_pillar.png
+heal,heal_particles,8,16,assets/vfx/heal/heal_particles/heal_particles_4col.png,target_center,trieu_hoi__purple_wisps.png
+heal,support_shield,10,16,assets/vfx/heal/support_shield/support_shield_4col.png,target_center,thanh_long__blue_magic_seal.png
+heal,buff_activate,8,18,assets/vfx/heal/buff_activate/buff_activate_4col.png,target_center,trieu_hoi__gold_starburst.png
+death,death_flash,5,18,assets/vfx/death/death_flash/death_flash_4col.png,target_center,trieu_hoi__gold_starburst.png
+death,death_dissolve,12,16,assets/vfx/death/death_dissolve/death_dissolve_4col.png,target_center,trieu_hoi__purple_dust_impact.png
+death,death_particles,10,16,assets/vfx/death/death_particles/death_particles_4col.png,target_center,trieu_hoi__purple_wisps.png
+death,death_shadow_fade,8,16,assets/vfx/death/death_shadow_fade/death_shadow_fade_4col.png,target_foot,chan_dia__dust_cloud.png
+signature,quan_vu_green_dragon_slash,12,18,assets/signature/quan_vu/quan_vu_green_dragon_slash_4col.png,target_center,thanh_long__green_blade_wave.png + thanh_long__azure_dragon_arc.png
+signature,trieu_van_thunder_spear,12,18,assets/signature/trieu_van/trieu_van_thunder_spear_4col.png,target_center,chan_dia__blue_spear_dash.png + chan_dia__blue_lightning_trail.png
+signature,truong_phi_war_roar,12,18,assets/signature/truong_phi/truong_phi_war_roar_4col.png,target_center,chan_dia__red_fire_slash.png + chan_dia__gold_shockwave.png
+signature,gia_cat_luong_bagua_cast,12,18,assets/signature/gia_cat_luong/gia_cat_luong_bagua_cast_4col.png,target_center,trieu_hoi__gold_magic_circle.png + trieu_hoi__gold_talismans.png
+signature,dai_kieu_blossom_heal,12,18,assets/signature/dai_kieu/dai_kieu_blossom_heal_4col.png,target_center,trieu_hoi__petal_fragments.png + trieu_hoi__purple_wisps.png

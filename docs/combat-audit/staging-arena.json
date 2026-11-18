@@ -1,0 +1,8 @@
+{
+  "function": "arena-command",
+  "version": 5,
+  "status": "ACTIVE",
+  "luBu": true,
+  "diaoChan": true,
+  "playerRowsQueried": false
+}

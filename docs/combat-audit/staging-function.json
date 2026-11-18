@@ -1,0 +1,11 @@
+{
+  "project": "ovvlhcpwothevvoblybx",
+  "function": "game-command",
+  "version": 10,
+  "status": "ACTIVE",
+  "luBuConfig": true,
+  "diaoChanConfig": true,
+  "luBuSkill": true,
+  "diaoChanSkill": true,
+  "playerRowsQueried": false
+}

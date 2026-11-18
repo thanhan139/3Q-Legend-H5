@@ -280,7 +280,7 @@ export class LobbyScene extends UiScene {
     this.closeInventoryMenu = openInventoryMenu(this, { x: canvas.left + layout.dock[2] * ratio,
       y: canvas.top + (layout.dockY - 55) * ratio }, () => this.go('Inventory'), () => {
       this.closeInventoryMenu = undefined; this.input.enabled = true;
-    }, (scene, data) => this.go(scene, data ?? { bag: true }));
+    }, scene => this.go(scene, { bag: true }));
   }
 
   private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,

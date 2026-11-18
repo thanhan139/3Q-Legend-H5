@@ -1,0 +1,147 @@
+{
+  "atlases": [
+    {
+      "path": "public/assets/spirits/dieu_thuyen/atlas/idle_4x4.png",
+      "size": [
+        1536,
+        1536
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 16,
+      "distinct": 16,
+      "nonblank": 16,
+      "sha256": "64edff16f1a14fe7b861e78ab23250402bb7c492336ff7a08f3fffaad255fa19"
+    },
+    {
+      "path": "public/assets/spirits/dieu_thuyen/atlas/power_up_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "1de84b3e8644c1d155bf47cafaff4965a189a0b2bfb0cee4b1098b95c2e84ca9"
+    },
+    {
+      "path": "public/assets/spirits/dieu_thuyen/atlas/selected_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "00ff9536bc0e2a7f774414dd825e0f13cf050755152b941e70b22c1f0f1ee5fe"
+    },
+    {
+      "path": "public/assets/spirits/gia_cat_luong/atlas/idle_4x4.png",
+      "size": [
+        1536,
+        1536
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 16,
+      "distinct": 16,
+      "nonblank": 16,
+      "sha256": "c9ae45404a5ce5e0a3853cfaa1d21fbdcf0320bbb5b915332eafa09227f66228"
+    },
+    {
+      "path": "public/assets/spirits/gia_cat_luong/atlas/power_up_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "6b985ca2790342fabf05b3cf00e198fb5da6e045151cb6673cc4dea0f2e2569c"
+    },
+    {
+      "path": "public/assets/spirits/gia_cat_luong/atlas/selected_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "224b43efb9b4aae7e99578ac8fa9795b2375631407ff100ddfa640af2e2ac74c"
+    },
+    {
+      "path": "public/assets/spirits/lu_bo/atlas/idle_4x4.png",
+      "size": [
+        1536,
+        1536
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 16,
+      "distinct": 16,
+      "nonblank": 16,
+      "sha256": "c45c8f9994c3f1c5a2cea4ccc026ba38bc9d29728c1c6816ea348020d58e98c0"
+    },
+    {
+      "path": "public/assets/spirits/lu_bo/atlas/power_up_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "cee7acea0a4ff240f970061c743446564f2456608e9d42310df22316ce2cbc8f"
+    },
+    {
+      "path": "public/assets/spirits/lu_bo/atlas/selected_4x3.png",
+      "size": [
+        1536,
+        1152
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 12,
+      "distinct": 12,
+      "nonblank": 12,
+      "sha256": "2e241226224ca3405e97ea00d4826f727d2e91d703abf21931b1e1a7391a0085"
+    }
+  ],
+  "phase2AUnchanged": {
+    "public\\assets\\spirits\\quan_vu\\atlas\\idle_4x4.png": "d5114225120011ff72ae348d12a64b306bc9d33ec4b76bee809f429494bbe9fd",
+    "public\\assets\\spirits\\quan_vu\\atlas\\power_up_4x3.png": "22234c4a3ea4259367aece8a9a67a77945619e3a389412da259d98a3ff55bffd",
+    "public\\assets\\spirits\\quan_vu\\atlas\\selected_4x3.png": "7d939031ef64826b59462c70aedf3b2e2612405f3e38a2eb7a44ff0149776d7f",
+    "public\\assets\\spirits\\trieu_van\\atlas\\idle_4x4.png": "f404ac9784541772020ec6bd8ddd78319c11b1858bd49ae9a25bc432bd327e82",
+    "public\\assets\\spirits\\trieu_van\\atlas\\power_up_4x3.png": "43ab90336d4b77921b07d3722cf9f47fe287f0b7d0b24c9efee5c43538e74a0f",
+    "public\\assets\\spirits\\trieu_van\\atlas\\selected_4x3.png": "43bedbe85f6330e9f11fe0f4891ad8308c6d7bf2a9880b4e4309d49020599c32"
+  }
+}

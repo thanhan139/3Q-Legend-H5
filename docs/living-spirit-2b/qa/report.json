@@ -1,0 +1,808 @@
+{
+  "reports": [
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Equipment",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Heroes",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Equipment",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Heroes",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Equipment",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Heroes",
+      "heroId": "guan-yu",
+      "slug": "quan_vu",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:quan_vu:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "guan-yu",
+        "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png",
+        "power": 1142,
+        "expectedPower": 1142,
+        "gear": [
+          "qa-guan"
+        ],
+        "expectedGear": [
+          "qa-guan"
+        ]
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Equipment",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Heroes",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Equipment",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Heroes",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Equipment",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Heroes",
+      "heroId": "zhao-yun",
+      "slug": "trieu_van",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:trieu_van:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhao-yun",
+        "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png",
+        "power": 1239,
+        "expectedPower": 1239,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Equipment",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Heroes",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Equipment",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Heroes",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Equipment",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Heroes",
+      "heroId": "lu-bu",
+      "slug": "lu_bo",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:lu_bo:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "lu-bu",
+        "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png",
+        "power": 1306,
+        "expectedPower": 1306,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Equipment",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Heroes",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Equipment",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Heroes",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Equipment",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Heroes",
+      "heroId": "zhuge-liang",
+      "slug": "gia_cat_luong",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:gia_cat_luong:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "zhuge-liang",
+        "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png",
+        "power": 1209,
+        "expectedPower": 1209,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Equipment",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scene": "Heroes",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Equipment",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "scene": "Heroes",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Equipment",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 0,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scene": "Heroes",
+      "heroId": "diao-chan",
+      "slug": "dieu_thuyen",
+      "clip": "idle",
+      "reduced": false,
+      "texture": "livingSpirit:dieu_thuyen:idle",
+      "frame": 1,
+      "playing": true,
+      "completeListeners": 1,
+      "count": 1,
+      "behind": true,
+      "uniform": true,
+      "identity": {
+        "heroId": "diao-chan",
+        "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png",
+        "power": 1150,
+        "expectedPower": 1150,
+        "gear": [],
+        "expectedGear": []
+      }
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5198/assets/spirits/quan_vu/atlas/idle_4x4.png",
+    "http://127.0.0.1:5198/assets/spirits/quan_vu/atlas/selected_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/quan_vu/atlas/power_up_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/trieu_van/atlas/idle_4x4.png",
+    "http://127.0.0.1:5198/assets/spirits/trieu_van/atlas/selected_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/trieu_van/atlas/power_up_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/lu_bo/atlas/idle_4x4.png",
+    "http://127.0.0.1:5198/assets/spirits/lu_bo/atlas/selected_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/lu_bo/atlas/power_up_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/gia_cat_luong/atlas/idle_4x4.png",
+    "http://127.0.0.1:5198/assets/spirits/gia_cat_luong/atlas/selected_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/gia_cat_luong/atlas/power_up_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/dieu_thuyen/atlas/idle_4x4.png",
+    "http://127.0.0.1:5198/assets/spirits/dieu_thuyen/atlas/selected_4x3.png",
+    "http://127.0.0.1:5198/assets/spirits/dieu_thuyen/atlas/power_up_4x3.png"
+  ],
+  "performance": [
+    {
+      "heroId": "guan-yu",
+      "frames": 125,
+      "elapsed": 2202.2000000029802,
+      "fps": 56.76142039770722
+    },
+    {
+      "heroId": "zhao-yun",
+      "frames": 126,
+      "elapsed": 2213.7999999970198,
+      "fps": 56.91571054303443
+    },
+    {
+      "heroId": "lu-bu",
+      "frames": 125,
+      "elapsed": 2202.2999999970198,
+      "fps": 56.75884302782053
+    },
+    {
+      "heroId": "zhuge-liang",
+      "frames": 125,
+      "elapsed": 2211.1000000089407,
+      "fps": 56.53294740151714
+    },
+    {
+      "heroId": "diao-chan",
+      "frames": 126,
+      "elapsed": 2216.999999997017,
+      "fps": 56.833558863405294
+    }
+  ],
+  "memory": {
+    "before": 9155064,
+    "after": 8678812,
+    "delta": -476252
+  },
+  "sourceFrames": true,
+  "serverBoundary": "controlled QA stub; no live account mutations",
+  "switches": 50,
+  "confirmedOnly": true,
+  "networkAndRejection": true
+}

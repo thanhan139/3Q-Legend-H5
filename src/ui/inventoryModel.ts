@@ -8,14 +8,14 @@ export const INVENTORY_TABS = [
 ] as const;
 export type InventoryCategory = typeof INVENTORY_TABS[number][0];
 export interface InventoryEntry {
-  id: string; name: string; quantity: number; category: InventoryCategory;
-  description: string; icon?: string; textureKey?: string; heroId?: string; rarity: Rarity;
+  id: ItemId; name: string; quantity: number; category: InventoryCategory;
+  description: string; icon?: string; heroId?: string; rarity: Rarity;
   destination?: { scene: string; label: string; data?: object };
 }
 
 /** Presentation only: quantities and identities come from the existing confirmed SaveV2. */
 export function inventoryEntries(save: SaveV2): InventoryEntry[] {
-  const definitions: (Omit<InventoryEntry, 'quantity'> & { id: ItemId })[] = [
+  const definitions: Omit<InventoryEntry, 'quantity'>[] = [
     { id: ITEM_IDS.goldenKey, name: 'Chìa Khóa Vàng', category: 'items', icon: 'key', rarity: 'SSR',
       description: 'Dùng tại Điện Chiêu Mộ. Mỗi lượt chiêu mộ tiêu hao một Chìa Khóa Vàng. Phần thưởng do máy chủ xác nhận.',
       destination: { scene: 'Summon', label: 'Đến Chiêu Mộ' } },

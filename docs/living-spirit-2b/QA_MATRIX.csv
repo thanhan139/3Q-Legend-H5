@@ -1,0 +1,13 @@
+﻿Test ID,Area,Pass criterion,Evidence
+SP-01,Integrity,All 200 frame PNG open and RGBA 384x384,PIL verify + pixel read
+SP-02,Atlas,"15 atlases open; 5 idle=1536x1536, 10 others=1536x1152",PNG verify
+SP-03,GIF,15 animated GIF open and expected frame counts,PIL n_frames
+SP-04,Frame quality,Nonidentical adjacent frames; no blank frames,Pixel differ
+SP-05,Mapping,selectedHeroId maps one theme and never swaps item owner,Runtime tests
+SP-06,Layering,"Spirit remains behind hero, below inventory/skill/UI",screenshots
+SP-07,Switching,50 rapid switches show correct spirit and no leaked instance,heap snapshots
+SP-08,Cường hóa,Only confirmed transaction triggers power_up once,integration test
+SP-09,Responsive,1280x720 1920x1080 844x390 no crop,screenshots
+SP-10,Accessibility,Low quality/reduced motion static frame supported,runtime check
+SP-11,Mobile,"only selected theme loaded, no 15 atlas preload",network/GPU logs
+SP-12,Build,TS build and regressions pass,CI logs

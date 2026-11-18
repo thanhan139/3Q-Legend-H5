@@ -1,0 +1,36 @@
+﻿hero_id,hero_name,clip,asset_status,note
+quan_vu,Quan Vũ,idle,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,run,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,attack,PILOT_QA_REQUIRED,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,skill_cast,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,hit_react,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,death,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+quan_vu,Quan Vũ,victory,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,idle,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,run,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,attack,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,skill_cast,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,hit_react,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,death,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+trieu_van,Triệu Vân,victory,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,idle,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,run,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,attack,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,skill_cast,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,hit_react,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,death,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+truong_phi,Trương Phi,victory,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,idle,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,run,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,attack,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,skill_cast,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,hit_react,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,death,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+gia_cat_luong,Gia Cát Lượng,victory,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,idle,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,run,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,attack,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,skill_cast,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,hit_react,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,death,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân
+dai_kieu,Đại Kiều,victory,NOT_INCLUDED_REQUIRES_VERIFIED_SPRITESHEET_OR_RIG,VFX riêng của tướng không thay thế animation chuyển động tay/chân

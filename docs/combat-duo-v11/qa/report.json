@@ -1,0 +1,1462 @@
+{
+  "reports": [
+    {
+      "id": "lu-bu",
+      "mode": "ready",
+      "width": 1280,
+      "height": 720,
+      "fx": [],
+      "events": []
+    },
+    {
+      "id": "lu-bu",
+      "mode": "attack",
+      "width": 1280,
+      "height": 720,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 280,
+          "absorbed": 0,
+          "remainingHp": 9720,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "skill",
+      "width": 1280,
+      "height": 720,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 13
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 2
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "ready",
+      "width": 1280,
+      "height": 720,
+      "fx": [],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "attack",
+      "width": 1280,
+      "height": 720,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 218,
+          "absorbed": 0,
+          "remainingHp": 9782,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "skill",
+      "width": 1280,
+      "height": 720,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 15
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 4
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 1
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "ready",
+      "width": 1920,
+      "height": 1080,
+      "fx": [],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "attack",
+      "width": 1920,
+      "height": 1080,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 280,
+          "absorbed": 0,
+          "remainingHp": 9720,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "skill",
+      "width": 1920,
+      "height": 1080,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 13
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 2
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "ready",
+      "width": 1920,
+      "height": 1080,
+      "fx": [],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "attack",
+      "width": 1920,
+      "height": 1080,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 218,
+          "absorbed": 0,
+          "remainingHp": 9782,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "skill",
+      "width": 1920,
+      "height": 1080,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 15
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 4
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 1
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "ready",
+      "width": 844,
+      "height": 390,
+      "fx": [],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "attack",
+      "width": 844,
+      "height": 390,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "lu-bu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 280,
+          "absorbed": 0,
+          "remainingHp": 9720,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "mode": "skill",
+      "width": 844,
+      "height": 390,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 13
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 2
+        }
+      ],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "ready",
+      "width": 844,
+      "height": 390,
+      "fx": [],
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "attack",
+      "width": 844,
+      "height": 390,
+      "fx": [
+        {
+          "name": "combat.duo.basic_swing",
+          "frame": 2
+        },
+        {
+          "name": "combat.duo.basic_hit",
+          "frame": 0
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "diao-chan:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 218,
+          "absorbed": 0,
+          "remainingHp": 9782,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ]
+    },
+    {
+      "id": "diao-chan",
+      "mode": "skill",
+      "width": 844,
+      "height": 390,
+      "fx": [
+        {
+          "name": "combat.duo.rage_full",
+          "frame": 15
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 4
+        },
+        {
+          "name": "combat.duo.rage_impact",
+          "frame": 1
+        }
+      ],
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "speeds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "skipOnce": true,
+  "realAccount": false
+}

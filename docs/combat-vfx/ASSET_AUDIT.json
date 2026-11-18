@@ -1,0 +1,396 @@
+[
+  {
+    "id": "melee_slash_arc",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "185f737f7489c16dac6a5fe1edc306e87c822c1b29325c459b22c1e01b8c4a3c"
+  },
+  {
+    "id": "melee_thrust",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      240
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "6a9edfafb0d09d410006fef7a1b7ca97cd735bb69aaa0a9133735317021c02f5"
+  },
+  {
+    "id": "melee_hit_spark",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "0e6554dca9935165581dc95900da28653e255872dd3a02ff74d0436a07f8a4a5"
+  },
+  {
+    "id": "melee_heavy_impact",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      245
+    ],
+    "blankFrames": [],
+    "distinct": 10,
+    "sha256": "d8d58268abba60acf284d1159c77f877c307c09ce1381f9c3798cbb1a555150d"
+  },
+  {
+    "id": "melee_ground_shock",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      249
+    ],
+    "blankFrames": [],
+    "distinct": 5,
+    "sha256": "f1999554bdeae66e3fed0587b3d96060009cf3e1026d4debfd95f261fc4f3c00"
+  },
+  {
+    "id": "ranged_projectile_arrow",
+    "size": [
+      1024,
+      256
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 3,
+    "sha256": "b5cdc813c3367bcd8ddcd4568dc2281b8b1fb465c8d374966276943902ee41ee"
+  },
+  {
+    "id": "ranged_arrow_trail",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      240
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "e94ff655ee96834c8c6c328e9da0b038fbc8060df6f80f535d1672351072b460"
+  },
+  {
+    "id": "ranged_impact",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "424fa810a10f6195c5d1587a1f9c1316c158c1e0c5b79d4d18fbd7165f8f9e44"
+  },
+  {
+    "id": "ranged_multi_shot",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "4f76fbe0d465fdc54811d22eebb6289c05700f20a82cc9cff94c863742c97268"
+  },
+  {
+    "id": "magic_cast_circle",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      250
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "ce175245fc2a9dc167d9876d8d9b1f8b40f8c0478ece557ced9d5991a148e2fd"
+  },
+  {
+    "id": "magic_charge",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      249
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "be4ab170c15de8f255b11016713b8ece2d859c008cc6ca8712184294822ebd76"
+  },
+  {
+    "id": "magic_projectile",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "13202660ac5912ad262a4743b4cde78c8ea55d0c3444601f10bd39b99292ba55"
+  },
+  {
+    "id": "magic_impact_burst",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      246
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "e768dbe1b79c6e3e2f9ec8ae20464ca1be7d7509495a4c7e546cd8160c74b02b"
+  },
+  {
+    "id": "magic_aoe_ground",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      250
+    ],
+    "blankFrames": [],
+    "distinct": 7,
+    "sha256": "5df4e170aa241e3105743a2a567c94a1643596147de3e9e01faaf020df5047ee"
+  },
+  {
+    "id": "heal_cast_circle",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      247
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "6e0b903655431443caa394834ed304f36487d279a197d3c4ee88242c72c2629e"
+  },
+  {
+    "id": "heal_target_glow",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      245
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "1d5dfc1e83bd57450952b9bd2a3c210b4882fe93148a712848f58d24723e00e5"
+  },
+  {
+    "id": "heal_particles",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 5,
+    "sha256": "b982f37a35e644c6477bba5bb55cc68af54801bebfbfac42d86b674a117cb01b"
+  },
+  {
+    "id": "support_shield",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      254
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "00632dd8e709719dc33d5e0ab612e49f41fcdc1a344aca1307770f663b102c36"
+  },
+  {
+    "id": "buff_activate",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      244
+    ],
+    "blankFrames": [],
+    "distinct": 8,
+    "sha256": "7d60b063ae4f0a12582adabe5253b8c4083dc6a41f311158589454bca5140177"
+  },
+  {
+    "id": "death_flash",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      247
+    ],
+    "blankFrames": [],
+    "distinct": 5,
+    "sha256": "bb26fb26816cea8300fda902319be4fdcca08d7d4566bae20301c2dfa7d0ddbe"
+  },
+  {
+    "id": "death_dissolve",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      246
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "36c38a244230d9bb30db6827f55394eb25736635d767c3f440cc8817dc8f6c6c"
+  },
+  {
+    "id": "death_particles",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      245
+    ],
+    "blankFrames": [],
+    "distinct": 6,
+    "sha256": "1486565bb1f0c9a31872b4e29e181383efeb2a2a91ca35a79fe371ee7baa6af9"
+  },
+  {
+    "id": "death_shadow_fade",
+    "size": [
+      1024,
+      512
+    ],
+    "alpha": [
+      0,
+      51
+    ],
+    "blankFrames": [
+      7
+    ],
+    "distinct": 8,
+    "sha256": "9af692174e653196c09626d3c13254857da3df0d7a0a364521b106fb1e82345f"
+  },
+  {
+    "id": "quan_vu_green_dragon_slash",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "882339603ac5d1ec2193a1bc3a7adb298af78c6b711382a00fc9ac004d9a4e80"
+  },
+  {
+    "id": "trieu_van_thunder_spear",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "f58b7082d1c02724d18bc08a18ae3945e665da241abc82d70d4b31daf513b3ad"
+  },
+  {
+    "id": "truong_phi_war_roar",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "3be72f9fc9bf657e4cab3b40171d45df943285d514b087d2e3534a8ccd95e9cd"
+  },
+  {
+    "id": "gia_cat_luong_bagua_cast",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "454a24f97bb69e728247c89b53b86b612ed79061a49ca2133543351c553c355a"
+  },
+  {
+    "id": "dai_kieu_blossom_heal",
+    "size": [
+      1024,
+      768
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "blankFrames": [],
+    "distinct": 12,
+    "sha256": "962566cea0ea9114ff034e5770322f92b65e616fbfb3d5a52ed34fa36da40c37"
+  }
+]

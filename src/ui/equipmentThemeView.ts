@@ -67,8 +67,8 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
   const portrait=preset?scene.add.image(72,y,key(preset.portrait.replace('assets/',''))):scene.add.image(72,y,PORTRAITS,atlasOrder.indexOf(heroFamily(id)));
   portrait.setScale(54/Math.max(portrait.width,portrait.height));
   const hit=scene.add.zone(72,y,84,74).setInteractive({useHandCursor:true}).setName('equipment.hero.'+id);
-  scene.tutorialTarget('hero.card.'+id,hit);
   hit.on('pointerup',()=>choose(id));
+  scene.tutorialTarget('hero.card.'+id,hit);
  }
  for(const direction of [-1,1]){const x=72+direction*28;art('ui/buttons/action_round.png',x,641,46,46);label(x,641,direction<0?'‹':'›',25,40);
   scene.add.zone(x,641,48,48).setInteractive({useHandCursor:true}).on('pointerup',()=>choose(roster[(index+direction+roster.length)%roster.length]));}

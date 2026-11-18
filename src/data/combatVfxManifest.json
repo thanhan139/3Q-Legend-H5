@@ -1,0 +1,855 @@
+{
+  "formatVersion": "1.0",
+  "frameFormat": "RGBA PNG",
+  "atlasType": "fixed_grid_spritesheet",
+  "direction": "right-facing for arrows; rotate/flip gameplay as needed",
+  "data": [
+    {
+      "id": "melee_slash_arc",
+      "category": "melee",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "weapon_tip",
+      "spritesheet": "assets/vfx/melee/melee_slash_arc/melee_slash_arc_4col.png",
+      "frames": [
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_00.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_01.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_02.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_03.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_04.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_05.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_06.png",
+        "assets/vfx/melee/melee_slash_arc/frames/melee_slash_arc_07.png"
+      ],
+      "source": "thanh_long__green_blade_wave.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "melee_thrust",
+      "category": "melee",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 6,
+      "columns": 4,
+      "rows": 2,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "weapon_tip",
+      "spritesheet": "assets/vfx/melee/melee_thrust/melee_thrust_4col.png",
+      "frames": [
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_00.png",
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_01.png",
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_02.png",
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_03.png",
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_04.png",
+        "assets/vfx/melee/melee_thrust/frames/melee_thrust_05.png"
+      ],
+      "source": "chan_dia__blue_spear_dash.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "melee_hit_spark",
+      "category": "melee",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 20,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/melee/melee_hit_spark/melee_hit_spark_4col.png",
+      "frames": [
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_00.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_01.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_02.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_03.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_04.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_05.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_06.png",
+        "assets/vfx/melee/melee_hit_spark/frames/melee_hit_spark_07.png"
+      ],
+      "source": "chan_dia__orange_impact_star.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "melee_heavy_impact",
+      "category": "melee",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 10,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/melee/melee_heavy_impact/melee_heavy_impact_4col.png",
+      "frames": [
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_00.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_01.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_02.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_03.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_04.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_05.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_06.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_07.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_08.png",
+        "assets/vfx/melee/melee_heavy_impact/frames/melee_heavy_impact_09.png"
+      ],
+      "source": "thanh_long__gold_earth_impact.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "melee_ground_shock",
+      "category": "melee",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_foot",
+      "spritesheet": "assets/vfx/melee/melee_ground_shock/melee_ground_shock_4col.png",
+      "frames": [
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_00.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_01.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_02.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_03.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_04.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_05.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_06.png",
+        "assets/vfx/melee/melee_ground_shock/frames/melee_ground_shock_07.png"
+      ],
+      "source": "chan_dia__gold_shockwave.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "ranged_projectile_arrow",
+      "category": "ranged",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 4,
+      "columns": 4,
+      "rows": 1,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "projectile",
+      "spritesheet": "assets/vfx/ranged/ranged_projectile_arrow/ranged_projectile_arrow_4col.png",
+      "frames": [
+        "assets/vfx/ranged/ranged_projectile_arrow/frames/ranged_projectile_arrow_00.png",
+        "assets/vfx/ranged/ranged_projectile_arrow/frames/ranged_projectile_arrow_01.png",
+        "assets/vfx/ranged/ranged_projectile_arrow/frames/ranged_projectile_arrow_02.png",
+        "assets/vfx/ranged/ranged_projectile_arrow/frames/ranged_projectile_arrow_03.png"
+      ],
+      "source": "procedural",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "ranged_arrow_trail",
+      "category": "ranged",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 6,
+      "columns": 4,
+      "rows": 2,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "projectile",
+      "spritesheet": "assets/vfx/ranged/ranged_arrow_trail/ranged_arrow_trail_4col.png",
+      "frames": [
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_00.png",
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_01.png",
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_02.png",
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_03.png",
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_04.png",
+        "assets/vfx/ranged/ranged_arrow_trail/frames/ranged_arrow_trail_05.png"
+      ],
+      "source": "chan_dia__blue_lightning_trail.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "ranged_impact",
+      "category": "ranged",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 20,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/ranged/ranged_impact/ranged_impact_4col.png",
+      "frames": [
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_00.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_01.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_02.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_03.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_04.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_05.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_06.png",
+        "assets/vfx/ranged/ranged_impact/frames/ranged_impact_07.png"
+      ],
+      "source": "thanh_long__blue_star_impact.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "ranged_multi_shot",
+      "category": "ranged",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 10,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "projectile",
+      "spritesheet": "assets/vfx/ranged/ranged_multi_shot/ranged_multi_shot_4col.png",
+      "frames": [
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_00.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_01.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_02.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_03.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_04.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_05.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_06.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_07.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_08.png",
+        "assets/vfx/ranged/ranged_multi_shot/frames/ranged_multi_shot_09.png"
+      ],
+      "source": "procedural",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "magic_cast_circle",
+      "category": "mage",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "caster_foot",
+      "spritesheet": "assets/vfx/mage/magic_cast_circle/magic_cast_circle_4col.png",
+      "frames": [
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_00.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_01.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_02.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_03.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_04.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_05.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_06.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_07.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_08.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_09.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_10.png",
+        "assets/vfx/mage/magic_cast_circle/frames/magic_cast_circle_11.png"
+      ],
+      "source": "thanh_long__blue_magic_seal.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "magic_charge",
+      "category": "mage",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "caster_center",
+      "spritesheet": "assets/vfx/mage/magic_charge/magic_charge_4col.png",
+      "frames": [
+        "assets/vfx/mage/magic_charge/frames/magic_charge_00.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_01.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_02.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_03.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_04.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_05.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_06.png",
+        "assets/vfx/mage/magic_charge/frames/magic_charge_07.png"
+      ],
+      "source": "trieu_hoi__purple_vortex.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "magic_projectile",
+      "category": "mage",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "projectile",
+      "spritesheet": "assets/vfx/mage/magic_projectile/magic_projectile_4col.png",
+      "frames": [
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_00.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_01.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_02.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_03.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_04.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_05.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_06.png",
+        "assets/vfx/mage/magic_projectile/frames/magic_projectile_07.png"
+      ],
+      "source": "trieu_hoi__purple_slash.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "magic_impact_burst",
+      "category": "mage",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/mage/magic_impact_burst/magic_impact_burst_4col.png",
+      "frames": [
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_00.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_01.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_02.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_03.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_04.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_05.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_06.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_07.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_08.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_09.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_10.png",
+        "assets/vfx/mage/magic_impact_burst/frames/magic_impact_burst_11.png"
+      ],
+      "source": "trieu_hoi__ssr_purple_burst.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "magic_aoe_ground",
+      "category": "mage",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_foot",
+      "spritesheet": "assets/vfx/mage/magic_aoe_ground/magic_aoe_ground_4col.png",
+      "frames": [
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_00.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_01.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_02.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_03.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_04.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_05.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_06.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_07.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_08.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_09.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_10.png",
+        "assets/vfx/mage/magic_aoe_ground/frames/magic_aoe_ground_11.png"
+      ],
+      "source": "trieu_hoi__gold_magic_circle.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "heal_cast_circle",
+      "category": "heal",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 14,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "caster_foot",
+      "spritesheet": "assets/vfx/heal/heal_cast_circle/heal_cast_circle_4col.png",
+      "frames": [
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_00.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_01.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_02.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_03.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_04.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_05.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_06.png",
+        "assets/vfx/heal/heal_cast_circle/frames/heal_cast_circle_07.png"
+      ],
+      "source": "trieu_hoi__gold_magic_circle.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "heal_target_glow",
+      "category": "heal",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 10,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/heal/heal_target_glow/heal_target_glow_4col.png",
+      "frames": [
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_00.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_01.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_02.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_03.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_04.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_05.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_06.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_07.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_08.png",
+        "assets/vfx/heal/heal_target_glow/frames/heal_target_glow_09.png"
+      ],
+      "source": "trieu_hoi__gold_light_pillar.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "heal_particles",
+      "category": "heal",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/heal/heal_particles/heal_particles_4col.png",
+      "frames": [
+        "assets/vfx/heal/heal_particles/frames/heal_particles_00.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_01.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_02.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_03.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_04.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_05.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_06.png",
+        "assets/vfx/heal/heal_particles/frames/heal_particles_07.png"
+      ],
+      "source": "trieu_hoi__purple_wisps.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "support_shield",
+      "category": "heal",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 10,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/heal/support_shield/support_shield_4col.png",
+      "frames": [
+        "assets/vfx/heal/support_shield/frames/support_shield_00.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_01.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_02.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_03.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_04.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_05.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_06.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_07.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_08.png",
+        "assets/vfx/heal/support_shield/frames/support_shield_09.png"
+      ],
+      "source": "thanh_long__blue_magic_seal.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "buff_activate",
+      "category": "heal",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/heal/buff_activate/buff_activate_4col.png",
+      "frames": [
+        "assets/vfx/heal/buff_activate/frames/buff_activate_00.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_01.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_02.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_03.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_04.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_05.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_06.png",
+        "assets/vfx/heal/buff_activate/frames/buff_activate_07.png"
+      ],
+      "source": "trieu_hoi__gold_starburst.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "death_flash",
+      "category": "death",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 5,
+      "columns": 4,
+      "rows": 2,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/death/death_flash/death_flash_4col.png",
+      "frames": [
+        "assets/vfx/death/death_flash/frames/death_flash_00.png",
+        "assets/vfx/death/death_flash/frames/death_flash_01.png",
+        "assets/vfx/death/death_flash/frames/death_flash_02.png",
+        "assets/vfx/death/death_flash/frames/death_flash_03.png",
+        "assets/vfx/death/death_flash/frames/death_flash_04.png"
+      ],
+      "source": "trieu_hoi__gold_starburst.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "death_dissolve",
+      "category": "death",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/death/death_dissolve/death_dissolve_4col.png",
+      "frames": [
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_00.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_01.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_02.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_03.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_04.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_05.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_06.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_07.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_08.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_09.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_10.png",
+        "assets/vfx/death/death_dissolve/frames/death_dissolve_11.png"
+      ],
+      "source": "trieu_hoi__purple_dust_impact.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "death_particles",
+      "category": "death",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 10,
+      "columns": 4,
+      "rows": 3,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/vfx/death/death_particles/death_particles_4col.png",
+      "frames": [
+        "assets/vfx/death/death_particles/frames/death_particles_00.png",
+        "assets/vfx/death/death_particles/frames/death_particles_01.png",
+        "assets/vfx/death/death_particles/frames/death_particles_02.png",
+        "assets/vfx/death/death_particles/frames/death_particles_03.png",
+        "assets/vfx/death/death_particles/frames/death_particles_04.png",
+        "assets/vfx/death/death_particles/frames/death_particles_05.png",
+        "assets/vfx/death/death_particles/frames/death_particles_06.png",
+        "assets/vfx/death/death_particles/frames/death_particles_07.png",
+        "assets/vfx/death/death_particles/frames/death_particles_08.png",
+        "assets/vfx/death/death_particles/frames/death_particles_09.png"
+      ],
+      "source": "trieu_hoi__purple_wisps.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "death_shadow_fade",
+      "category": "death",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 8,
+      "columns": 4,
+      "rows": 2,
+      "fps": 16,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_foot",
+      "spritesheet": "assets/vfx/death/death_shadow_fade/death_shadow_fade_4col.png",
+      "frames": [
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_00.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_01.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_02.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_03.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_04.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_05.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_06.png",
+        "assets/vfx/death/death_shadow_fade/frames/death_shadow_fade_07.png"
+      ],
+      "source": "chan_dia__dust_cloud.png",
+      "status": "animated_vfx"
+    },
+    {
+      "id": "quan_vu_green_dragon_slash",
+      "category": "signature",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/signature/quan_vu/quan_vu_green_dragon_slash_4col.png",
+      "frames": [
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_00.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_01.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_02.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_03.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_04.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_05.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_06.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_07.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_08.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_09.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_10.png",
+        "assets/signature/quan_vu/frames/quan_vu_green_dragon_slash_11.png"
+      ],
+      "source": "thanh_long__green_blade_wave.png + thanh_long__azure_dragon_arc.png",
+      "status": "signature_vfx_loop"
+    },
+    {
+      "id": "trieu_van_thunder_spear",
+      "category": "signature",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/signature/trieu_van/trieu_van_thunder_spear_4col.png",
+      "frames": [
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_00.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_01.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_02.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_03.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_04.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_05.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_06.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_07.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_08.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_09.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_10.png",
+        "assets/signature/trieu_van/frames/trieu_van_thunder_spear_11.png"
+      ],
+      "source": "chan_dia__blue_spear_dash.png + chan_dia__blue_lightning_trail.png",
+      "status": "signature_vfx_loop"
+    },
+    {
+      "id": "truong_phi_war_roar",
+      "category": "signature",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/signature/truong_phi/truong_phi_war_roar_4col.png",
+      "frames": [
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_00.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_01.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_02.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_03.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_04.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_05.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_06.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_07.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_08.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_09.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_10.png",
+        "assets/signature/truong_phi/frames/truong_phi_war_roar_11.png"
+      ],
+      "source": "chan_dia__red_fire_slash.png + chan_dia__gold_shockwave.png",
+      "status": "signature_vfx_loop"
+    },
+    {
+      "id": "gia_cat_luong_bagua_cast",
+      "category": "signature",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/signature/gia_cat_luong/gia_cat_luong_bagua_cast_4col.png",
+      "frames": [
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_00.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_01.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_02.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_03.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_04.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_05.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_06.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_07.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_08.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_09.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_10.png",
+        "assets/signature/gia_cat_luong/frames/gia_cat_luong_bagua_cast_11.png"
+      ],
+      "source": "trieu_hoi__gold_magic_circle.png + trieu_hoi__gold_talismans.png",
+      "status": "signature_vfx_loop"
+    },
+    {
+      "id": "dai_kieu_blossom_heal",
+      "category": "signature",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frameCount": 12,
+      "columns": 4,
+      "rows": 3,
+      "fps": 18,
+      "loop": 0,
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "attachment": "target_center",
+      "spritesheet": "assets/signature/dai_kieu/dai_kieu_blossom_heal_4col.png",
+      "frames": [
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_00.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_01.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_02.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_03.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_04.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_05.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_06.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_07.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_08.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_09.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_10.png",
+        "assets/signature/dai_kieu/frames/dai_kieu_blossom_heal_11.png"
+      ],
+      "source": "trieu_hoi__petal_fragments.png + trieu_hoi__purple_wisps.png",
+      "status": "signature_vfx_loop"
+    }
+  ]
+}

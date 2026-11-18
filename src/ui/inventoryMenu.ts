@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import {INVENTORY_CATEGORY_CONFIG as assets} from './inventoryCategoryConfig';
 import {inventoryCategoryLayout} from './inventoryCategoryLayout';
 const KEY='InventoryCategoryPopup';
-export function openInventoryMenu(owner:Phaser.Scene,_anchor:{x:number;y:number},open:()=>void,closed:()=>void,navigate?:(scene:string,data?:{collection?:string})=>void){
+export function openInventoryMenu(owner:Phaser.Scene,_anchor:{x:number;y:number},open:()=>void,closed:()=>void,navigate?:(scene:string)=>void){
  let disposed=false;
  const close=()=>{if(disposed)return;disposed=true;owner.scene.remove(KEY);requestAnimationFrame(closed);};
  class Popup extends Phaser.Scene{
@@ -51,7 +51,7 @@ export function openInventoryMenu(owner:Phaser.Scene,_anchor:{x:number;y:number}
     hit.on('pointerup',(_p:unknown,_x:unknown,_y:unknown,e:Phaser.Types.Input.EventData)=>{e.stopPropagation();animate(1,false);if(this.dragged)return;const px=(_p as Phaser.Input.Pointer).x*ratio,py=(_p as Phaser.Input.Pointer).y*ratio;if(px<l.x+14||px>l.x+l.width-14||py<l.top-8||py>l.y+l.height-30){close();return;}
      for(const item of this.content.list)if(item.type==='Text')(item as Phaser.GameObjects.Text).setColor('#f6dfae');
      glow.setPosition(cx,cy+l.icon*.38).setVisible(true);name.setColor('#ffe392');
-     if(c.destination==='Inventory'){close();if(navigate)navigate('Inventory',{collection:c.id});else open();}else if(c.destination&&navigate){close();navigate(c.destination);}else notice.setText('Tính năng đang phát triển');
+     if(c.destination==='Inventory'){close();open();}else if(c.destination&&navigate){close();navigate(c.destination);}else notice.setText('Tính năng đang phát triển');
     });
    }
    this.root.setAlpha(0);this.tweens.add({targets:this.root,alpha:1,duration:160});

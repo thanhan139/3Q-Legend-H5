@@ -1,0 +1,92 @@
+[
+  {
+    "path": "public/assets/spirits/quan_vu/atlas/idle_4x4.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 16,
+    "sha256": "d5114225120011ff72ae348d12a64b306bc9d33ec4b76bee809f429494bbe9fd",
+    "nonblankFrames": 16
+  },
+  {
+    "path": "public/assets/spirits/quan_vu/atlas/power_up_4x3.png",
+    "size": [
+      1536,
+      1152
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 12,
+    "sha256": "22234c4a3ea4259367aece8a9a67a77945619e3a389412da259d98a3ff55bffd",
+    "nonblankFrames": 12
+  },
+  {
+    "path": "public/assets/spirits/quan_vu/atlas/selected_4x3.png",
+    "size": [
+      1536,
+      1152
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 12,
+    "sha256": "7d939031ef64826b59462c70aedf3b2e2612405f3e38a2eb7a44ff0149776d7f",
+    "nonblankFrames": 12
+  },
+  {
+    "path": "public/assets/spirits/trieu_van/atlas/idle_4x4.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 16,
+    "sha256": "f404ac9784541772020ec6bd8ddd78319c11b1858bd49ae9a25bc432bd327e82",
+    "nonblankFrames": 16
+  },
+  {
+    "path": "public/assets/spirits/trieu_van/atlas/power_up_4x3.png",
+    "size": [
+      1536,
+      1152
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 12,
+    "sha256": "43ab90336d4b77921b07d3722cf9f47fe287f0b7d0b24c9efee5c43538e74a0f",
+    "nonblankFrames": 12
+  },
+  {
+    "path": "public/assets/spirits/trieu_van/atlas/selected_4x3.png",
+    "size": [
+      1536,
+      1152
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "uniqueFrames": 12,
+    "sha256": "43bedbe85f6330e9f11fe0f4891ad8308c6d7bf2a9880b4e4309d49020599c32",
+    "nonblankFrames": 12
+  }
+]

@@ -1,6 +1,4 @@
-import categories from '../data/inventoryCategoryAssets.json';
 import type Phaser from 'phaser';
-import { EQUIPMENT } from '../domain/equipment';
 import {loadSharedUi} from './sharedUi';
 export const INVENTORY_FONT = 'InventoryVietnamese';
 export const INVENTORY_ART = {
@@ -24,17 +22,8 @@ export function loadInventoryArt(scene: Phaser.Scene) {
   for (const [id, file] of Object.entries(INVENTORY_ART)) {
     if (!scene.textures.exists(`inventory.${id}`)) scene.load.image(`inventory.${id}`, `${import.meta.env.BASE_URL}assets/inventory/${file}`);
   }
-  // Display the actual equipment artwork in category inventories.
-  for (const [id, gear] of Object.entries(EQUIPMENT)) {
-    const key = 'inventory.gear.' + id;
-    if (!scene.textures.exists(key)) scene.load.image(key, import.meta.env.BASE_URL + 'assets/equipment/' + gear.art);
-  }
   for (const [id, file] of Object.entries(INVENTORY_ICONS)) {
     if (!scene.textures.exists(`inventory.icon.${id}`)) scene.load.image(`inventory.icon.${id}`, `${import.meta.env.BASE_URL}${file}`);
-  }
-  for (const cat of categories) {
-    const key = 'inventory.category.' + cat.id;
-    if (!scene.textures.exists(key)) scene.load.image(key, import.meta.env.BASE_URL + 'assets/inventory/categories/' + cat.file);
   }
   if (![...document.fonts].some(face => face.family === INVENTORY_FONT && face.status === 'loaded')) {
     scene.load.font({ key: INVENTORY_FONT, url: `${import.meta.env.BASE_URL}assets/fonts/NotoSerif-Bold-Vietnamese.woff2`,

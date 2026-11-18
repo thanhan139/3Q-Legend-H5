@@ -1,0 +1,4802 @@
+{
+  "reports": [
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "melee",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 241,
+          "absorbed": 0,
+          "remainingHp": 9759,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 841,
+          "y": 189,
+          "frame": 0
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "projectile",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 138,
+          "absorbed": 0,
+          "remainingHp": 9862,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "magic",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 251,
+          "absorbed": 0,
+          "remainingHp": 9749,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "kind": "rage",
+          "target": "player-0",
+          "reason": "skill-effect"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_cast_circle",
+          "x": 172,
+          "y": 238,
+          "frame": 8
+        },
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "quan-vu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 1,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1236,
+          "absorbed": 0,
+          "remainingHp": 8764,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 2,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-1",
+          "amount": 1219,
+          "absorbed": 0,
+          "remainingHp": 8781,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 804,
+          "absorbed": 0,
+          "remainingHp": 9196,
+          "remainingShield": 0
+        },
+        {
+          "source": "enemy-2",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-0",
+          "amount": 164,
+          "absorbed": 0,
+          "remainingHp": 9836,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 821,
+          "absorbed": 0,
+          "remainingHp": 9179,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 5,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-4",
+          "amount": 1242,
+          "absorbed": 0,
+          "remainingHp": 8758,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 6,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-5",
+          "amount": 1245,
+          "absorbed": 0,
+          "remainingHp": 8755,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-2",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-5",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-1",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-4",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-5",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 6567,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 529,
+          "y": 169,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_heavy_impact",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_ground_shock",
+          "x": 885,
+          "y": 238,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.quan_vu_green_dragon_slash",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "trieu-van",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9872,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 144,
+          "absorbed": 0,
+          "remainingHp": 9728,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9600,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9472,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 5,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9344,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 6,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9216,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 7,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9000,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1000,
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "truong-phi",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 416,
+          "absorbed": 0,
+          "remainingHp": 9584,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "dodge",
+          "target": "enemy-1",
+          "hitIndex": 2,
+          "hitCount": 3
+        },
+        {
+          "source": "enemy-1",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-2",
+          "amount": 337,
+          "absorbed": 0,
+          "remainingHp": 9663,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 395,
+          "absorbed": 0,
+          "remainingHp": 9605,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "stun",
+          "duration": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 811,
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 505,
+          "y": 515,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.truong_phi_war_roar",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "gia-cat-luong",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 691,
+          "absorbed": 0,
+          "remainingHp": 9309,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 688,
+          "absorbed": 0,
+          "remainingHp": 9312,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1379,
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.magic_aoe_ground",
+          "x": 885,
+          "y": 238,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.gia_cat_luong_bagua_cast",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "heal",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "kind": "shield",
+          "target": "player-0",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        },
+        {
+          "kind": "shield",
+          "target": "player-1",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "melee",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 241,
+          "absorbed": 0,
+          "remainingHp": 9759,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 841,
+          "y": 189,
+          "frame": 0
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "projectile",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 138,
+          "absorbed": 0,
+          "remainingHp": 9862,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "magic",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 251,
+          "absorbed": 0,
+          "remainingHp": 9749,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "kind": "rage",
+          "target": "player-0",
+          "reason": "skill-effect"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_cast_circle",
+          "x": 172,
+          "y": 238,
+          "frame": 8
+        },
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "quan-vu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 1,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1236,
+          "absorbed": 0,
+          "remainingHp": 8764,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 2,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-1",
+          "amount": 1219,
+          "absorbed": 0,
+          "remainingHp": 8781,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 804,
+          "absorbed": 0,
+          "remainingHp": 9196,
+          "remainingShield": 0
+        },
+        {
+          "source": "enemy-2",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-0",
+          "amount": 164,
+          "absorbed": 0,
+          "remainingHp": 9836,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 821,
+          "absorbed": 0,
+          "remainingHp": 9179,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 5,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-4",
+          "amount": 1242,
+          "absorbed": 0,
+          "remainingHp": 8758,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 6,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-5",
+          "amount": 1245,
+          "absorbed": 0,
+          "remainingHp": 8755,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-2",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-5",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-1",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-4",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-5",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 6567,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 529,
+          "y": 169,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_heavy_impact",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_ground_shock",
+          "x": 885,
+          "y": 238,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.quan_vu_green_dragon_slash",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "trieu-van",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9872,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 144,
+          "absorbed": 0,
+          "remainingHp": 9728,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9600,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9472,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 5,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9344,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 6,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9216,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 7,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9000,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1000,
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "truong-phi",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 416,
+          "absorbed": 0,
+          "remainingHp": 9584,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "dodge",
+          "target": "enemy-1",
+          "hitIndex": 2,
+          "hitCount": 3
+        },
+        {
+          "source": "enemy-1",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-2",
+          "amount": 337,
+          "absorbed": 0,
+          "remainingHp": 9663,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 395,
+          "absorbed": 0,
+          "remainingHp": 9605,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "stun",
+          "duration": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 811,
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 505,
+          "y": 515,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.truong_phi_war_roar",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "gia-cat-luong",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 691,
+          "absorbed": 0,
+          "remainingHp": 9309,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 688,
+          "absorbed": 0,
+          "remainingHp": 9312,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1379,
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.magic_aoe_ground",
+          "x": 885,
+          "y": 238,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.gia_cat_luong_bagua_cast",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "heal",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "kind": "shield",
+          "target": "player-0",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        },
+        {
+          "kind": "shield",
+          "target": "player-1",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "melee",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "guan-yu:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 241,
+          "absorbed": 0,
+          "remainingHp": 9759,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 841,
+          "y": 189,
+          "frame": 0
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "projectile",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 138,
+          "absorbed": 0,
+          "remainingHp": 9862,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "magic",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 251,
+          "absorbed": 0,
+          "remainingHp": 9749,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "zhuge-liang:normal",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "kind": "rage",
+          "target": "player-0",
+          "reason": "skill-effect"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_cast_circle",
+          "x": 172,
+          "y": 238,
+          "frame": 8
+        },
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 0
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "quan-vu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 1,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1236,
+          "absorbed": 0,
+          "remainingHp": 8764,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 2,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-1",
+          "amount": 1219,
+          "absorbed": 0,
+          "remainingHp": 8781,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 804,
+          "absorbed": 0,
+          "remainingHp": 9196,
+          "remainingShield": 0
+        },
+        {
+          "source": "enemy-2",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-0",
+          "amount": 164,
+          "absorbed": 0,
+          "remainingHp": 9836,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 821,
+          "absorbed": 0,
+          "remainingHp": 9179,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 5,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-4",
+          "amount": 1242,
+          "absorbed": 0,
+          "remainingHp": 8758,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 6,
+          "hitCount": 6,
+          "kind": "damage",
+          "target": "enemy-5",
+          "amount": 1245,
+          "absorbed": 0,
+          "remainingHp": 8755,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-2",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-5",
+          "status": "armor",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-1",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-4",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-5",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 6567,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "guan-yu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 529,
+          "y": 169,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_heavy_impact",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_ground_shock",
+          "x": 885,
+          "y": 238,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.quan_vu_green_dragon_slash",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "trieu-van",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9872,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 144,
+          "absorbed": 0,
+          "remainingHp": 9728,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9600,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 4,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9472,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 5,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9344,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 6,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 128,
+          "absorbed": 0,
+          "remainingHp": 9216,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": true,
+          "hitIndex": 7,
+          "hitCount": 7,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9000,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1000,
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhao-yun:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 5
+        },
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 559,
+          "y": 349,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.trieu_van_thunder_spear",
+          "x": 885,
+          "y": 186,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "truong-phi",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 416,
+          "absorbed": 0,
+          "remainingHp": 9584,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "dodge",
+          "target": "enemy-1",
+          "hitIndex": 2,
+          "hitCount": 3
+        },
+        {
+          "source": "enemy-1",
+          "actionId": 1,
+          "kind": "damage",
+          "target": "player-2",
+          "amount": 337,
+          "absorbed": 0,
+          "remainingHp": 9663,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 3,
+          "hitCount": 3,
+          "kind": "damage",
+          "target": "enemy-2",
+          "amount": 395,
+          "absorbed": 0,
+          "remainingHp": 9605,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "stun",
+          "duration": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-2",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 811,
+          "source": "player-2",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhang-fei:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_thrust",
+          "x": 505,
+          "y": 515,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.truong_phi_war_roar",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "gia-cat-luong",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 691,
+          "absorbed": 0,
+          "remainingHp": 9309,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 2,
+          "hitCount": 2,
+          "kind": "damage",
+          "target": "enemy-3",
+          "amount": 688,
+          "absorbed": 0,
+          "remainingHp": 9312,
+          "remainingShield": 0
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-0",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-3",
+          "status": "weaken",
+          "duration": 2
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-3",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1379,
+          "source": "player-3",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "zhuge-liang:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.magic_impact_burst",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        },
+        {
+          "name": "combat.feedback.magic_aoe_ground",
+          "x": 885,
+          "y": 238,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.gia_cat_luong_bagua_cast",
+          "x": 885,
+          "y": 186,
+          "frame": 3
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "heal",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 295,
+          "remainingHp": 4295
+        },
+        {
+          "kind": "shield",
+          "target": "player-0",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        },
+        {
+          "kind": "shield",
+          "target": "player-1",
+          "amount": 103,
+          "remainingShield": 103,
+          "source": "player-4",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "da-qiao:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.dai_kieu_blossom_heal",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "lu-bu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 559,
+          "y": 169,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "diao-chan",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "ma-chao",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 215,
+          "absorbed": 0,
+          "remainingHp": 9785,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "gan-ning",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 148,
+          "absorbed": 0,
+          "remainingHp": 9852,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "huang-yueying",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9784,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 277.5128205128205,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 352,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "label": "pei-yuan-shao",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 130,
+          "absorbed": 0,
+          "remainingHp": 9870,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "lu-bu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 559,
+          "y": 169,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "diao-chan",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "ma-chao",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 215,
+          "absorbed": 0,
+          "remainingHp": 9785,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "gan-ning",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 148,
+          "absorbed": 0,
+          "remainingHp": 9852,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "huang-yueying",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9784,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 277.5128205128205,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 352,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "label": "pei-yuan-shao",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 130,
+          "absorbed": 0,
+          "remainingHp": 9870,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "lu-bu",
+      "events": [
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "player-0",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 1008,
+          "absorbed": 0,
+          "remainingHp": 8992,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-0",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        },
+        {
+          "kind": "total",
+          "amount": 1008,
+          "source": "player-0",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "lu-bu:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.melee_slash_arc",
+          "x": 559,
+          "y": 169,
+          "frame": 2
+        },
+        {
+          "name": "combat.feedback.melee_hit_spark",
+          "x": 885,
+          "y": 186,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "diao-chan",
+      "events": [
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-1",
+          "target": "player-1",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "reason": "skill-cost",
+          "actionId": 1
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-0",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-1",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-2",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-3",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-4",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "heal",
+          "target": "player-5",
+          "amount": 3000,
+          "remainingHp": 7000
+        },
+        {
+          "source": "player-1",
+          "skill": true,
+          "actionType": "skill",
+          "actionId": 1,
+          "skillId": "diao-chan:ultimate",
+          "rageBefore": 100,
+          "rageAfter": 0,
+          "kind": "status",
+          "target": "enemy-1",
+          "status": "charm",
+          "duration": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 186,
+          "frame": 4
+        },
+        {
+          "name": "combat.feedback.heal_target_glow",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.heal_particles",
+          "x": 395,
+          "y": 352,
+          "frame": 1
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "ma-chao",
+      "events": [
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "player-2",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-2",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "ma-chao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 215,
+          "absorbed": 0,
+          "remainingHp": 9785,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-2",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "gan-ning",
+      "events": [
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "player-3",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-3",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "gan-ning:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 148,
+          "absorbed": 0,
+          "remainingHp": 9852,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-3",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "huang-yueying",
+      "events": [
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "player-4",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-4",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "huang-yueying:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 216,
+          "absorbed": 0,
+          "remainingHp": 9784,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-4",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 277.5128205128205,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 352,
+          "frame": 2
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "label": "pei-yuan-shao",
+      "events": [
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "kind": "action"
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "player-5",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "reason": "normal-attack",
+          "actionId": 1
+        },
+        {
+          "source": "player-5",
+          "skill": false,
+          "actionType": "normal",
+          "actionId": 1,
+          "skillId": "pei-yuan-shao:normal",
+          "rageBefore": 0,
+          "rageAfter": 30,
+          "critical": false,
+          "hitIndex": 1,
+          "hitCount": 1,
+          "kind": "damage",
+          "target": "enemy-0",
+          "amount": 130,
+          "absorbed": 0,
+          "remainingHp": 9870,
+          "remainingShield": 0
+        },
+        {
+          "kind": "rage",
+          "source": "player-5",
+          "target": "enemy-0",
+          "rageBefore": 0,
+          "rageAfter": 10,
+          "reason": "damage-taken",
+          "actionId": 1
+        }
+      ],
+      "fx": [
+        {
+          "name": "combat.feedback.ranged_projectile_arrow",
+          "x": 505.16666666666674,
+          "y": 369.025641025641,
+          "frame": 1
+        },
+        {
+          "name": "combat.feedback.ranged_arrow_trail",
+          "x": 196,
+          "y": 518,
+          "frame": 2
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "speeds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "imported": [
+    "melee_slash_arc",
+    "melee_thrust",
+    "melee_hit_spark",
+    "melee_heavy_impact",
+    "melee_ground_shock",
+    "ranged_projectile_arrow",
+    "ranged_arrow_trail",
+    "ranged_impact",
+    "ranged_multi_shot",
+    "magic_cast_circle",
+    "magic_charge",
+    "magic_projectile",
+    "magic_impact_burst",
+    "magic_aoe_ground",
+    "heal_cast_circle",
+    "heal_target_glow",
+    "heal_particles",
+    "support_shield",
+    "buff_activate",
+    "death_flash",
+    "death_dissolve",
+    "death_particles",
+    "death_shadow_fade",
+    "quan_vu_green_dragon_slash",
+    "trieu_van_thunder_spear",
+    "truong_phi_war_roar",
+    "gia_cat_luong_bagua_cast",
+    "dai_kieu_blossom_heal"
+  ],
+  "skipOnce": true,
+  "coreUnchanged": true,
+  "realAccount": false
+}
