@@ -26,7 +26,8 @@ export type GameCommand =
   | { type: 'daily'; mission: Mission }
   | { type: 'formation'; slot: number; heroId: string | null }
   | { type: 'jewelryEquip'; uid: string; heroId: string }
-  | { type: 'jewelryUnequip' | 'jewelryEnhance'; uid: string }
+  | { type: 'jewelryUnequip'; uid: string }
+  | { type: 'jewelryEnhance'; uid: string; rulesVersion: 2 }
   | { type: 'jewelryClaim'; stageId: string }
   | { type: 'equip'; uid: string; heroId: string }
   | { type: 'unequip' | 'skin'; uid: string }

@@ -4,7 +4,8 @@ import { HERO_BY_ID } from '../src/data/heroes';
 import { BattleEngine, battleCriticalRoll, makeArenaBattle, makeStageBattle } from '../src/domain/battle';
 import { COMBAT_BALANCE } from '../src/data/skillCombat';
 import { RAGE_CONFIG } from '../src/data/rageConfig';
-import { JEWELRY_ITEMS, JEWELRY_REWARDS, jewelryBonus, jewelryEnhanceCost, type JewelryItem } from '../src/domain/jewelry';
+import { JEWELRY_ITEMS, JEWELRY_REWARDS, jewelryBonus, jewelryEnhancement,
+  resolveJewelryEnhancement, type JewelryEnhancementReceipt, type JewelryItem } from '../src/domain/jewelry';
 import { formationPower, heroStats } from '../src/domain/progression';
 import { baseSave, GameStore, normalizeSave } from '../src/domain/store';
 import { validateLegacy } from '../src/cloud/validateLegacy';
@@ -33,7 +34,7 @@ const firstStrike = (battle: BattleEngine, actions = 0, skill = false) => {
   return battle.step().find(event => event.kind === 'damage' || event.kind === 'dodge')!;
 };
 
-describe('Trang Sức V1', () => {
+describe('Trang Sức', () => {
   it('routes both entry points and awards every catalog item exactly once across cleared milestones', () => {
     expect(heroTabRoute('jewelry', hero)).toEqual({ scene: 'Jewelry', data: { heroId: hero, tab: 'jewelry' } });
     expect(INVENTORY_CATEGORY_CONFIG.find(category => category.id === 'trang_suc')?.destination).toBe('Jewelry');
@@ -68,18 +69,63 @@ describe('Trang Sức V1', () => {
     expect(jewelryBonus(hero, [ring(), { ...necklace(), itemId: 'necklace_ssr_tiger' }]).activeSet).toBeNull();
     const flat = jewelryBonus(hero, set).stats;
     expect(heroStat(set).atk).toBe(Math.round((heroStat([]).atk + flat.atk) * 1.02));
-    const store = new GameStore(memory, saveWith([{ ...ring(), level: 49 }, necklace()]));
-    const cost = jewelryEnhanceCost(store.snapshot.jewelry![0]);
+    const store = new GameStore(memory, saveWith([{ ...ring(), level: 49 }, necklace()], { coins: 20_000, jewelryEssence: 100 }));
+    const cost = jewelryEnhancement(store.snapshot.jewelry![0])!;
     const before = formationPower(store.snapshot);
-    expect(store.enhanceJewel(uid(1))).toBe(true);
+    expect(store.enhanceJewel(uid(1), .009)).toMatchObject({ success: true, fromLevel: 49, toLevel: 50, highestCheckpoint: 40 });
     expect(store.snapshot.jewelry?.[0].level).toBe(50);
-    expect(store.snapshot.coins).toBe(baseSave().coins - cost.gold);
-    expect(store.snapshot.jewelryEssence).toBe(30 - cost.essence);
-    expect(store.enhanceJewel(uid(1))).toBe(false);
+    expect(store.snapshot.coins).toBe(20_000 - cost.gold);
+    expect(store.snapshot.jewelryEssence).toBe(100 - cost.essence);
+    expect(store.enhanceJewel(uid(1), 0)).toBe(false);
     expect(formationPower(store.snapshot)).toBeGreaterThan(before);
     const poor = new GameStore(memory, saveWith(set, { jewelryEssence: 0 }));
-    expect(poor.enhanceJewel(uid(1))).toBe(false);
+    expect(poor.enhanceJewel(uid(1), 0)).toBe(false);
     expect(poor.snapshot.coins).toBe(baseSave().coins);
+  });
+
+  it.each([
+    [8, 100, 8], [9, 70, 8], [10, 75, 10], [18, 75, 17], [19, 45, 17],
+    [20, 65, 20], [28, 65, 27], [29, 20, 27], [30, 55, 30], [38, 55, 37],
+    [39, 8, 36], [40, 45, 40], [48, 45, 47], [49, 1, 47],
+  ])('uses the exact probability boundary and failure floor from +%i', (level, chance, failLevel) => {
+    const item = { ...ring(), level };
+    expect(jewelryEnhancement(item)).toMatchObject({ chance, failLevel });
+    expect(resolveJewelryEnhancement(item, chance / 100 - 1e-12)).toMatchObject({ success: true, toLevel: level + 1 });
+    if (chance < 100) expect(resolveJewelryEnhancement(item, chance / 100)).toMatchObject({ success: false, toLevel: failLevel });
+  });
+
+  it('backfills legacy checkpoints without changing levels, and a committed downgrade updates combat and power', () => {
+    const legacyRing = { ...ring(), level: 49 };
+    const legacySave = saveWith([legacyRing, necklace()], { coins: 20_000, jewelryEssence: 90 });
+    expect(normalizeSave(legacySave).jewelry?.[0]).toMatchObject({ level: 49, highestCheckpoint: 40 });
+    expect(normalizeSave(saveWith([{ ...ring(), level: 8, highestCheckpoint: 40 }])).jewelry?.[0])
+      .toMatchObject({ level: 8 });
+    const store = new GameStore(memory, legacySave);
+    const before = stage([legacyRing, necklace()]);
+    const arena = makeArenaBattle(arenaSquad(legacySave), arenaSquad(saveWith([])));
+    const replay = structuredClone(arena.units);
+    expect(store.enhanceJewel(uid(1), .9)).toMatchObject({
+      success: false, fromLevel: 49, toLevel: 47, goldSpent: 9_900, essenceSpent: 45, highestCheckpoint: 40,
+    });
+    const after = store.snapshot;
+    expect(after.coins).toBe(10_100);
+    expect(after.jewelryEssence).toBe(45);
+    expect(stage(after.jewelry).units[0].maxHp).toBeLessThan(before.units[0].maxHp);
+    expect(formationPower(after)).toBeLessThan(formationPower(legacySave));
+    expect(makeArenaBattle(arenaSquad(after), arenaSquad(saveWith([]))).units[0].criticalChance!)
+      .toBeLessThan(arena.units[0].criticalChance!);
+    expect(new BattleEngine(replay).finish()).toBe(arena.finish());
+    expect(after.jewelry).toHaveLength(2);
+  });
+
+  it.each([
+    ['ring_r_blue', 45, 23, 4725], ['ring_sr_green', 68, 34, 6795], ['ring_ssr_dragon', 90, 45, 9900],
+  ])('charges the exact +50 cost for %s and requires the full quoted balance', (itemId, essence, failEssence, gold) => {
+    const item = { ...ring(), itemId, level: 49 };
+    expect(jewelryEnhancement(item)).toMatchObject({ essence, failEssence, gold });
+    const store = new GameStore(memory, saveWith([item], { coins: gold, jewelryEssence: essence - 1 }));
+    expect(store.enhanceJewel(uid(1), 0.9)).toBe(false);
+    expect(store.snapshot.coins).toBe(gold);
   });
 
   it('handles old saves, invalid IDs, duplicate slots and blocks jewelry from legacy imports', () => {
@@ -159,7 +205,7 @@ describe('Trang Sức V1', () => {
     const backend: GameBackend = {
       user: async token => rows[token] ? { id: token, email_confirmed_at: 'confirmed' } : null,
       read: async id => structuredClone(rows[id]),
-      create: async () => ({}), sign: async () => '', verify: async () => false,
+      create: async () => ({}), sign: async () => '0'.repeat(64), verify: async () => false,
       receipt: async (id, requestId) => receipts.has(id + requestId),
       commit: async (id, requestId, revision, command, state) => {
         const key = id + requestId, prior = receipts.get(key);
@@ -179,10 +225,44 @@ describe('Trang Sức V1', () => {
     expect(await send(claim, 'alice', 0, uid(10))).toMatchObject({ status: 'ok' });
     expect(await send(claim, 'alice', 1, uid(11))).toMatchObject({ status: 'rejected' });
     expect(await send({ type: 'jewelryEquip', uid: acquired.uid, heroId: hero }, 'bob', 0, uid(12))).toMatchObject({ status: 'rejected' });
-    const enhanced = { type: 'jewelryEnhance', uid: acquired.uid } as const;
+    const enhanced = { type: 'jewelryEnhance', uid: acquired.uid, rulesVersion: 2 } as const;
     const responses = await Promise.all([send(enhanced, 'alice', 1, uid(13)), send(enhanced, 'alice', 1, uid(14))]);
     expect(responses.map(result => 'status' in result ? result.status : undefined).sort()).toEqual(['conflict', 'ok']);
     expect(rows.alice.state.jewelry![0].level).toBe(1);
-    expect(rows.alice.state.coins).toBe(baseSave().coins - jewelryEnhanceCost(acquired).gold);
+    expect(rows.alice.state.coins).toBe(baseSave().coins - jewelryEnhancement(acquired)!.gold);
+  });
+
+  it('commits a failed server sample once even when the same request races or retries', async () => {
+    let state = saveWith([{ ...ring(), level: 39 }], { coins: 10_000, jewelryEssence: 100 });
+    let revision = 0;
+    let recorded: JewelryEnhancementReceipt | undefined;
+    const signed: string[] = [];
+    const backend: GameBackend = {
+      user: async () => ({ id: 'alice', email_confirmed_at: 'confirmed' }),
+      read: async () => ({ revision, state }),
+      create: async () => ({}), verify: async () => false,
+      sign: async payload => { signed.push(payload); return 'f'.repeat(64); },
+      receipt: async () => !!recorded,
+      commit: async (_uid, _id, expected, _command, next, value) => {
+        if (recorded) return { status: 'ok', receipt: recorded };
+        if (Number(expected) !== revision) return { status: 'conflict' };
+        recorded = value as JewelryEnhancementReceipt;
+        state = next;
+        revision++;
+        return { status: 'ok', receipt: recorded };
+      },
+    };
+    const send = () => handleGameRequest({ action: 'command', revision: '0', requestId: uid(49),
+      command: { type: 'jewelryEnhance', uid: uid(1), rulesVersion: 2 } }, 'token', backend);
+    const double = await Promise.all([send(), send()]);
+    expect(double[0]).toEqual(double[1]);
+    expect(double[0]).toMatchObject({ status: 'ok', receipt: { success: false, fromLevel: 39, toLevel: 36 } });
+    expect(revision).toBe(1);
+    expect(state.jewelryEssence).toBe(85);
+    expect(state.coins).toBe(5_520);
+    expect(new Set(signed).size).toBe(1);
+    const count = signed.length;
+    expect(await send()).toEqual(double[0]);
+    expect(signed.length).toBe(count);
   });
 });

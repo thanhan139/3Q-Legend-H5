@@ -1,5 +1,7 @@
 # Trang Sức V1
 
+Quy tắc cường hóa mới và kết quả mô phỏng nằm trong [Trang Sức V2](JEWELRY_V2.md).
+
 Mở từ **Võ Tướng → Trang Sức** hoặc **Túi Đồ → Trang Sức**. Màn dùng chung tướng đang chọn với Võ Tướng và Trang Bị. Kho hỗ trợ lọc loại/phẩm chất, phân trang và xem chênh lệch khi thay hoặc tháo.
 
 Mỗi mốc Chinh Chiến cho phép nhận một lần các món được cấu hình, kể cả mốc đã vượt trước khi cập nhật. Có 16 mẫu, mỗi mẫu có UID do server cấp. Mỗi tướng có một Nhẫn và một Dây Chuyền. Khi chuyển món sang tướng khác, slot đích được thay trong cùng giao dịch. Cường hóa đến +50, tiêu hao Vàng và Tinh Hoa Trang Sức. Cấu hình cấp thưởng, giá và chỉ số nằm trong `src/domain/jewelry.ts`.

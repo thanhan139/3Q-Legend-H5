@@ -16,7 +16,19 @@ interface JewelryDefinition {
   id: string; type: JewelrySlot; rarity: JewelryRarity; name: string; asset: string;
   color: string; setId: JewelrySetId | null; size: number[];
 }
-export interface JewelryItem { uid: string; itemId: string; level: number; heroId?: string }
+export type JewelryCheckpoint = 0 | 10 | 20 | 30 | 40;
+export interface JewelryItem { uid: string; itemId: string; level: number; heroId?: string; highestCheckpoint?: JewelryCheckpoint }
+export interface JewelryEnhancementReceipt {
+  kind: 'jewelryEnhancement';
+  uid: string;
+  success: boolean;
+  fromLevel: number;
+  toLevel: number;
+  targetLevel: number;
+  highestCheckpoint: JewelryCheckpoint;
+  goldSpent: number;
+  essenceSpent: number;
+}
 
 export const JEWELRY_ITEMS = artwork as readonly JewelryDefinition[];
 export const JEWELRY: Readonly<Record<string, JewelryDefinition>> = Object.fromEntries(JEWELRY_ITEMS.map(def => [def.id, def]));
@@ -33,11 +45,43 @@ const slotStats: Record<JewelrySlot, JewelryStats> = {
   ring: { hp: 0, atk: 11, def: 2, crit: .55, accuracy: .65, dodge: 0 },
   necklace: { hp: 55, atk: 0, def: 3, crit: 0, accuracy: 0, dodge: .65 },
 };
-const essenceCost = 1;
+export const JEWELRY_ENHANCEMENT_RULES = [
+  { maxTarget: 9, chance: 100, loss: 0, goldFactor: 1, ssrEssence: 1 },
+  { maxTarget: 10, chance: 70, loss: 1, goldFactor: 2, ssrEssence: 2 },
+  { maxTarget: 19, chance: 75, loss: 1, goldFactor: 2, ssrEssence: 2 },
+  { maxTarget: 20, chance: 45, loss: 2, goldFactor: 3, ssrEssence: 5 },
+  { maxTarget: 29, chance: 65, loss: 1, goldFactor: 3, ssrEssence: 5 },
+  { maxTarget: 30, chance: 20, loss: 2, goldFactor: 5, ssrEssence: 12 },
+  { maxTarget: 39, chance: 55, loss: 1, goldFactor: 5, ssrEssence: 12 },
+  { maxTarget: 40, chance: 8, loss: 3, goldFactor: 8, ssrEssence: 30 },
+  { maxTarget: 49, chance: 45, loss: 1, goldFactor: 8, ssrEssence: 30 },
+  { maxTarget: 50, chance: 1, loss: 2, goldFactor: 15, ssrEssence: 90 },
+] as const;
+const essenceFactor: Record<JewelryRarity, number> = { R: .5, SR: .75, SSR: 1 };
+export const jewelryCheckpoint = (level: number): JewelryCheckpoint =>
+  Math.min(40, Math.floor(level / 10) * 10) as JewelryCheckpoint;
 
-export function jewelryEnhanceCost(item: JewelryItem) {
-  const rarity = rarityBalance[JEWELRY[item.itemId].rarity];
-  return { gold: rarity.gold + rarity.step * item.level, essence: essenceCost };
+export function jewelryEnhancement(item: JewelryItem) {
+  const targetLevel = item.level + 1;
+  const rule = JEWELRY_ENHANCEMENT_RULES.find(rule => rule.maxTarget >= targetLevel);
+  if (!rule) return undefined;
+  const grade = JEWELRY[item.itemId].rarity, rarity = rarityBalance[grade];
+  // Older saves have no checkpoint field. The current level proves all prior checkpoints.
+  const checkpoint = jewelryCheckpoint(item.level);
+  const essence = Math.ceil(rule.ssrEssence * essenceFactor[grade]);
+  return { ...rule, targetLevel, checkpoint, failLevel: Math.max(checkpoint, item.level - rule.loss),
+    gold: (rarity.gold + rarity.step * item.level) * rule.goldFactor, essence, failEssence: Math.ceil(essence / 2) };
+}
+
+/** Pure resolution. Only the authenticated command supplies the secret-derived roll. */
+export function resolveJewelryEnhancement(item: JewelryItem, roll: number): JewelryEnhancementReceipt | undefined {
+  const attempt = jewelryEnhancement(item);
+  if (!attempt || !Number.isFinite(roll) || roll < 0 || roll >= 1) return undefined;
+  const success = roll < attempt.chance / 100;
+  const toLevel = success ? attempt.targetLevel : attempt.failLevel;
+  return { kind: 'jewelryEnhancement', uid: item.uid, success, fromLevel: item.level, toLevel,
+    targetLevel: attempt.targetLevel, highestCheckpoint: jewelryCheckpoint(toLevel), goldSpent: attempt.gold,
+    essenceSpent: success ? attempt.essence : attempt.failEssence };
 }
 
 export function jewelryStats(item: JewelryItem): JewelryStats {
@@ -69,7 +113,9 @@ export function normalizeJewelry(raw: unknown, heroes: readonly string[]): Jewel
     const slot = owned ? `${item.heroId}:${JEWELRY[item.itemId].type}` : '';
     const heroId = owned && !slots.has(slot) ? item.heroId : undefined;
     if (heroId) slots.add(slot);
-    result.push({ uid: item.uid, itemId: item.itemId, level: item.level, ...(heroId ? { heroId } : {}) });
+    const highestCheckpoint = jewelryCheckpoint(item.level);
+    result.push({ uid: item.uid, itemId: item.itemId, level: item.level,
+      ...(highestCheckpoint ? { highestCheckpoint } : {}), ...(heroId ? { heroId } : {}) });
   }
   return result;
 }

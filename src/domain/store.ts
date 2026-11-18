@@ -5,7 +5,7 @@ import type { EquipmentId } from '../data/equipmentConfig';
 import { advanceMission, CHECK_IN, DAILY_MISSIONS, grantWallet, normalizeWelfare, TOPUP_HERO, TOPUP_REWARD, welfareDay, welfareStatus, type Mission } from './welfare';
 import { HERO_BY_ID, HERO_RARITIES, LEGENDARY_PITY_LIMIT, PITY_LIMIT, SLOT_COUNT, heroFamily } from '../data/heroes';
 import { HERO_MILESTONES, STAGES, SUMMON_UNLOCK_STAGE } from '../data/campaign';
-import { equipJewelry, jewelryEnhanceCost, JEWELRY_MAX_LEVEL, JEWELRY_REWARDS, JEWELRY_UID, JEWELRY_ESSENCE_PER_ITEM, normalizeJewelry } from './jewelry';
+import { equipJewelry, jewelryEnhancement, resolveJewelryEnhancement, JEWELRY_REWARDS, JEWELRY_UID, JEWELRY_ESSENCE_PER_ITEM, normalizeJewelry } from './jewelry';
 import type { SaveV2 } from './types';
 import { drawSummon, DUPLICATE_SHARDS, type SummonReward } from './summon';
 
@@ -185,16 +185,19 @@ export class GameStore {
     return this.commit(next);
   }
 
-  enhanceJewel(uid: string): boolean {
+  enhanceJewel(uid: string, roll: number) {
     const next = this.snapshot;
     next.jewelry = normalizeJewelry(next.jewelry, next.heroes);
     const item = next.jewelry.find(candidate => candidate.uid === uid);
-    if (!item || item.level >= JEWELRY_MAX_LEVEL) return false;
-    const cost = jewelryEnhanceCost(item);
-    if (walletBalance(next).gold < cost.gold || !changeInventory(next, ITEM_IDS.jewelryEssence, -cost.essence)) return false;
-    next.coins -= cost.gold;
-    item.level++;
-    return this.commit(next);
+    if (!item) return false;
+    const cost = jewelryEnhancement(item);
+    if (!cost || walletBalance(next).gold < cost.gold || inventoryQuantity(next, ITEM_IDS.jewelryEssence) < cost.essence) return false;
+    const receipt = resolveJewelryEnhancement(item, roll);
+    if (!receipt || !changeInventory(next, ITEM_IDS.jewelryEssence, -receipt.essenceSpent)) return false;
+    next.coins -= receipt.goldSpent;
+    item.level = receipt.toLevel;
+    item.highestCheckpoint = receipt.highestCheckpoint;
+    return this.commit(next) ? receipt : false;
   }
 
   claimJewelry(stageId: string, issueUid: () => string): boolean {

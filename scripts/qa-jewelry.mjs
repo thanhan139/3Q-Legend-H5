@@ -5,7 +5,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { createServer } from 'vite';
 
-const folder = '.vite/jewelry-qa';
+const folder = '.vite/jewelry-v2-qa';
 await mkdir(folder, { recursive: true });
 await writeFile(folder + '/index.html', '<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="game"></div><script type="module" src="./fixture.ts"></script>');
 await writeFile(folder + '/fixture.ts', `
@@ -26,7 +26,7 @@ save.jewelryEssence = 75;
 save.jewelry = JEWELRY_ITEMS.map((item, i) => ({uid: crypto.randomUUID(), itemId: item.id, level: 10,
   ...(['ring_ssr_phoenix','necklace_ssr_phoenix'].includes(item.id) ? {heroId:'guan-yu'} : {})}));
 const owner = 'jewelry-fixture';
-let state = save, revision = 1, fail = false;
+let state = save, revision = 1, fail = false, rollIsFailure = false;
 const cloud = cloudRepository as any;
 cloud.owner = owner;
 const reply = () => ({status:'ok', save:state, revision:String(revision), tutorial:legacyTutorial()});
@@ -35,6 +35,7 @@ const backend = {
   user: async () => ({id:owner,email_confirmed_at:'confirmed'}),
   read: async () => ({state,revision}),
   receipt: async () => false,
+  sign: async () => (rollIsFailure ? 'f' : '0').repeat(64),
   commit: async (_uid,_request,_revision,_cmd,next,receipt) => { state = next; revision++; return {...reply(),receipt}; }
 };
 cloud.send = async intent => {
@@ -44,8 +45,8 @@ cloud.send = async intent => {
 const game = new Phaser.Game({ type:Phaser.WEBGL, parent:'game', width:1280, height:720,
   scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH}, scene:[JewelryScene] });
 bindViewportResize(game,document.getElementById('game')!);
-window.qa = {game, gameStore, fail:()=>fail=true, revision:()=>revision,
-  replace: next => { state=next; revision++; cloud.apply(reply()); game.scene.getScene('Jewelry').scene.restart(); }};
+window.qa = {game, gameStore, fail:()=>fail=true, miss:()=>rollIsFailure=true, succeed:()=>rollIsFailure=false, revision:()=>revision,
+  replace: next => { state=next; revision++; cloud.apply(reply()); game.scene.getScene('Jewelry').scene.restart({heroId:'guan-yu'}); }};
 `);
 
 const vite = await createServer({ server: { host: '127.0.0.1', port: 5203, strictPort: true, watch: null }, clearScreen: false });
@@ -73,23 +74,27 @@ try {
   };
   const expectText = text => page.waitForFunction(text =>
     window.qa.game.scene.getScene('Jewelry').children.list.some(object => object.text?.includes(text)), text);
-  const capture = async (width, height) => {
+  const capture = async (width, height, suffix = '') => {
     await page.setViewportSize({ width, height });
-    await page.waitForTimeout(320);
+    await page.waitForFunction(([w, h]) => {
+      const rect = window.qa.game.canvas.getBoundingClientRect();
+      return Math.round(rect.width) === w && Math.round(rect.height) === h;
+    }, [width, height]);
+    await page.waitForTimeout(180);
     const issues = await page.evaluate(() => {
       const scene = window.qa.game.scene.getScene('Jewelry'), camera = scene.cameras.main;
       const canvas = scene.game.canvas.getBoundingClientRect();
       const inside = box => box.left >= camera.scrollX && box.top >= camera.scrollY &&
         box.right <= camera.scrollX + scene.scale.width && box.bottom <= camera.scrollY + scene.scale.height;
       return {
-        clipped: scene.children.list.filter(o => o.type === 'Text' || o.input?.enabled)
+        clipped: scene.children.list.filter(o => (o.type === 'Text' || o.input?.enabled) && o.name !== 'jewelry.enhance.backdrop')
           .filter(o => !inside(o.getBounds())).map(o => o.text ?? o.name),
         stretched: scene.children.list.filter(o => o.type === 'Image' && Math.abs(o.scaleX - o.scaleY) > .001).map(o => o.texture.key),
         viewport: [Math.round(canvas.width), Math.round(canvas.height)],
       };
     });
     assert.deepEqual(issues, { clipped: [], stretched: [], viewport: [width, height] });
-    await page.screenshot({ path: `${folder}/jewelry-${width}x${height}.png` });
+    await page.screenshot({ path: `${folder}/jewelry${suffix}-${width}x${height}.png` });
   };
   await expectText('Kho Trang Sức');
   await click('#jewelry.hero.guan-yu');
@@ -107,9 +112,12 @@ try {
   await click('#jewelry.commit.equip', true);
   await expectText('Đã trang bị.');
   assert.equal(await page.evaluate(uid => window.qa.gameStore.snapshot.jewelry.find(i => i.uid === uid).heroId, item.uid), 'guan-yu');
+  await click('#jewelry.open.enhance', true);
+  await expectText('Thành công 75%');
   await click('#jewelry.commit.enhance', true);
-  await expectText('Đã cường hóa');
+  await expectText('Thành công · +10 → +11');
   assert.equal(await page.evaluate(uid => window.qa.gameStore.snapshot.jewelry.find(i => i.uid === uid).level, item.uid), 11);
+  await click('#jewelry.enhance.close', true);
   await click('#jewelry.commit.unequip', true);
   await expectText('Đã tháo');
   assert.equal(await page.evaluate(uid => window.qa.gameStore.snapshot.jewelry.find(i => i.uid === uid).heroId, item.uid), undefined);
@@ -118,6 +126,33 @@ try {
   await click('Nhận mốc', true);
   await expectText('Đã nhận trang sức');
   assert.equal(await page.evaluate(() => window.qa.gameStore.snapshot.jewelry.length), 1);
+  const replaceWithSSR = level => page.evaluate(level => {
+    const save = window.qa.gameStore.snapshot;
+    window.qa.replace({ ...save, coins: 50_000, jewelryEssence: 300, jewelry: [
+      { uid: crypto.randomUUID(), itemId: 'ring_ssr_dragon', level, heroId: 'guan-yu' },
+    ] });
+  }, level);
+  await replaceWithSSR(49);
+  await expectText('Nhẫn Thanh Long Linh Ngọc');
+  await click('#jewelry.open.enhance', true);
+  await expectText('Thành công 1%');
+  await expectText('Nếu thất bại: +47');
+  for (const [w,h] of [[1920,1080],[1280,720],[844,390]]) await capture(w,h,'-enhance');
+  await page.evaluate(() => window.qa.miss());
+  await click('#jewelry.commit.enhance', true);
+  await expectText('Thất bại · +49 → +47');
+  const failed = await page.evaluate(() => window.qa.gameStore.snapshot);
+  assert.equal(failed.jewelry[0].level, 47);
+  assert.equal(failed.coins, 40_100);
+  assert.equal(failed.jewelryEssence, 255);
+  await capture(844,390,'-failed');
+  await replaceWithSSR(39);
+  await expectText('Nhẫn Thanh Long Linh Ngọc');
+  await click('#jewelry.open.enhance', true);
+  await page.evaluate(() => window.qa.succeed());
+  await click('#jewelry.commit.enhance', true);
+  await expectText('Thành công · +39 → +40');
+  await capture(1280,720,'-checkpoint');
   assert.deepEqual(errors, []);
   console.log('Jewelry scene passed at 1920x1080, 1280x720 and 844x390. Screenshots: ' + folder);
 } finally {

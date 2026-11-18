@@ -45,7 +45,14 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
     case 'formation': return (command.heroId === null || idOK(command.heroId)) && store.updateFormation(command.slot, command.heroId);
     case 'jewelryEquip': return idOK(command.uid) && idOK(command.heroId) && store.equipJewel(command.uid, command.heroId);
     case 'jewelryUnequip': return idOK(command.uid) && store.unequipJewel(command.uid);
-    case 'jewelryEnhance': return idOK(command.uid) && store.enhanceJewel(command.uid);
+    case 'jewelryEnhance': {
+      if (!idOK(command.uid) || command.rulesVersion !== 2) return false;
+      // HMAC is keyed by the server secret. A racing copy of the same request can
+      // compute the same sample, but a retry cannot get a different outcome.
+      const digest = await backend.sign(JSON.stringify(['jewelry-enhancement-v2', uid, requestId, command.uid]));
+      if (!/^[0-9a-f]{64}$/.test(digest)) throw new Error('Invalid server enhancement sample');
+      return store.enhanceJewel(command.uid, Number.parseInt(digest.slice(0, 12), 16) / 2 ** 48);
+    }
     case 'jewelryClaim': return idOK(command.stageId) && store.claimJewelry(command.stageId, () => crypto.randomUUID());
     case 'equip': return idOK(command.uid) && idOK(command.heroId) && store.equipGear(command.uid, command.heroId);
     case 'unequip': return idOK(command.uid) && store.unequipGear(command.uid);

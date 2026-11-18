@@ -1,4 +1,4 @@
-import type Phaser from 'phaser';
+import Phaser from 'phaser';
 import { cloudRepository } from '../cloud/cloudRepository';
 import type { GameCommand } from '../cloud/gameProtocol';
 import { HERO_BY_ID, heroFamily } from '../data/heroes';
@@ -6,7 +6,8 @@ import { CHIBI_SOURCES } from '../data/chibiBattle';
 import themeAssets from '../data/equipmentThemeAssets.json';
 import {
   equipJewelry, JEWELRY, JEWELRY_ITEMS, JEWELRY_MAX_LEVEL, JEWELRY_REWARDS, JEWELRY_SETS,
-  jewelryBonus, jewelryEnhanceCost, normalizeJewelry, type JewelryItem, type JewelryRarity, type JewelrySlot,
+  jewelryBonus, jewelryEnhancement, jewelryStats, normalizeJewelry,
+  type JewelryEnhancementReceipt, type JewelryItem, type JewelryRarity, type JewelrySlot,
 } from '../domain/jewelry';
 import { combatPower, heroStats } from '../domain/progression';
 import { gameStore } from '../domain/store';
@@ -30,6 +31,9 @@ const STAT_ROWS = [
 ] as const;
 const number = (value: number) => value.toLocaleString('vi-VN', { maximumFractionDigits: 2 });
 const asset = (path: string) => `assets/jewelry/${path}.png`;
+const PANEL = 'assets/inventory/panels/item_detail_panel.png';
+const DRAGON = 'assets/summon/complete/portrait_frames/portrait_dragon.png';
+const RARITY_GLOW = { R: 0x70caff, SR: 0xc471ff, SSR: 0xffb94d };
 const PAGE_SIZE = 12;
 const HERO_PAGE_SIZE = 5;
 interface View {
@@ -39,6 +43,8 @@ interface View {
   rarity?: JewelryRarity;
   page?: number;
   message?: string;
+  enhancing?: boolean;
+  enhancement?: JewelryEnhancementReceipt;
 }
 
 export class JewelryScene extends UiScene {
@@ -55,6 +61,7 @@ export class JewelryScene extends UiScene {
       ...JEWELRY_ITEMS.map(item => item.asset),
       ...STAT_ROWS.map(([id]) => asset(`ui/stats/${id}`)),
       ...['r', 'sr', 'ssr', 'active'].map(id => asset(`ui/badges/${id}`)),
+      PANEL, DRAGON,
     ]) {
       if (!this.textures.exists(path)) this.load.image(path, import.meta.env.BASE_URL + path);
     }
@@ -80,7 +87,7 @@ export class JewelryScene extends UiScene {
     const restart = (next: View) => {
       if (this.restarting || this.pending) return;
       this.restarting = true;
-      this.scene.restart({ ...view, heroId: id, message: undefined, ...next });
+      this.scene.restart({ ...view, heroId: id, message: undefined, enhancement: undefined, ...next });
     };
     const tabs = [['detail', 'Chi tiết'], ['skills', 'Kỹ năng'], ['equipment', 'Trang Bị'],
       ['jewelry', 'Trang Sức'], ['signature', 'Thần Binh']] as const;
@@ -177,8 +184,10 @@ export class JewelryScene extends UiScene {
       this.events.once('shutdown', shutdown);
       this.statusText.setText('Đang xác nhận với máy chủ…');
       let message: string;
+      let enhancement: JewelryEnhancementReceipt | undefined;
       try {
-        await cloudRepository.execute(command);
+        const receipt = await cloudRepository.execute<JewelryEnhancementReceipt | boolean>(command);
+        if (typeof receipt === 'object' && receipt?.kind === 'jewelryEnhancement') enhancement = receipt;
         message = success;
       } catch (error) {
         message = error instanceof Error ? error.message : 'Không thể lưu. Hãy thử lại.';
@@ -186,13 +195,13 @@ export class JewelryScene extends UiScene {
         this.events.off('shutdown', shutdown);
         this.pending = false;
       }
-      if (active) restart({ message, uid: selected?.uid });
+      if (active) restart({ message, uid: selected?.uid, enhancement });
     };
     const reward = JEWELRY_REWARDS.find(entry => entry.itemIds.some(itemId => !inventory.some(item => item.itemId === itemId)));
     const unlocked = !!reward && save.clearedStages.includes(reward.stageId);
     this.control(1142, 121, 164, 46, unlocked ? `Nhận mốc ${reward.stageId}` : 'Mốc Chinh Chiến',
       unlocked ? () => void run({ type: 'jewelryClaim', stageId: reward.stageId }, 'Đã nhận trang sức và Tinh Hoa.') : undefined, unlocked);
-    this.statusText = this.label(994, 682, view.message ?? (reward ? `Trang sức thưởng từ mốc Ải ${reward.stageId}.` : 'Đã nhận đủ thưởng mốc.'), 14, 490);
+    this.statusText = this.label(994, 677, view.message ?? (reward ? `Trang sức thưởng từ mốc Ải ${reward.stageId}.` : 'Đã nhận đủ thưởng mốc.'), 14, 490);
     if (!selected) return;
 
     this.label(994, 476, `${JEWELRY[selected.itemId].name}  +${selected.level}`, 19, 492);
@@ -211,14 +220,90 @@ export class JewelryScene extends UiScene {
       void run(action ? { type: 'jewelryUnequip', uid: selected.uid } :
         { type: 'jewelryEquip', uid: selected.uid, heroId: id }, action ? 'Đã tháo trang sức.' : 'Đã trang bị.'), true)
       .setName(action ? 'jewelry.commit.unequip' : 'jewelry.commit.equip');
-    const cost = jewelryEnhanceCost(selected), capped = selected.level >= JEWELRY_MAX_LEVEL;
-    const enough = walletBalance(save).gold >= cost.gold && inventoryQuantity(save, ITEM_IDS.jewelryEssence) >= cost.essence;
-    this.control(1097, 646, 285, 50, capped ? 'Đã đạt +50' : `Cường Hóa · ${number(cost.gold)} V · ${cost.essence} TH`,
-      !capped && enough ? () => void run({ type: 'jewelryEnhance', uid: selected.uid }, 'Đã cường hóa trang sức.') : undefined, !capped && enough)
-      .setName('jewelry.commit.enhance');
+    const capped = selected.level >= JEWELRY_MAX_LEVEL;
+    this.control(1097, 646, 285, 50, capped ? 'Đã đạt +50' : 'Cường Hóa',
+      capped ? undefined : () => restart({ enhancing: true, uid: selected.uid }), !capped)
+      .setName('jewelry.open.enhance');
+    if (view.enhancing) this.enhancePanel(selected, view, restart, run);
   }
 
   private statusText!: Phaser.GameObjects.Text;
+
+  private enhancePanel(item: JewelryItem, view: View, restart: (view: View) => void,
+    run: (command: GameCommand, success: string) => Promise<void>) {
+    const result = view.enhancement?.uid === item.uid ? view.enhancement : undefined;
+    const previous = result ? { ...item, level: result.fromLevel } : item;
+    const attempt = jewelryEnhancement(previous);
+    const next = jewelryEnhancement(item);
+    if (!attempt) return;
+    const save = gameStore.snapshot;
+    const enough = walletBalance(save).gold >= attempt.gold &&
+      inventoryQuantity(save, ITEM_IDS.jewelryEssence) >= attempt.essence;
+    const close = () => restart({ enhancing: false });
+    this.add.rectangle(640, 360, 4000, 2600, 0x0a050a, .83).setName('jewelry.enhance.backdrop').setInteractive();
+    this.frame(205, 62, 870, 595);
+    this.title(640, 113, 532, 'Cường Hóa Trang Sức');
+    this.control(1012, 110, 75, 57, '×', close).setName('jewelry.enhance.close');
+    this.itemPreview(337, 237, item);
+    this.label(744, 170, JEWELRY[item.itemId].name, 23, 563);
+    this.label(744, 210, `+${previous.level} → +${attempt.targetLevel}   •   Thành công ${attempt.chance}%`, 25, 566);
+    const outcome = !attempt.loss ? 'Thành công chắc chắn' : `Nếu thất bại: +${attempt.failLevel}`;
+    this.label(744, 250, `${outcome}   •   ${attempt.checkpoint ? 'Khóa mốc +' + attempt.checkpoint : 'Chưa khóa mốc'}`, 18, 564);
+    this.label(744, 283, `Thành công: ${number(attempt.gold)} Vàng · ${attempt.essence} Tinh Hoa`, 17, 555);
+    this.label(744, 312, attempt.loss ? `Thất bại: ${number(attempt.gold)} Vàng · ${attempt.failEssence} Tinh Hoa` :
+      'Không có hình phạt ở cấp mục tiêu này.', 17, 555);
+    if (result) this.label(337, 312, `Đã dùng ${number(result.goldSpent)} V · ${result.essenceSpent} TH`, 14, 212);
+    const table = this.add.graphics().fillStyle(0x240d16, .88).fillRoundedRect(245, 337, 790, 180, 10);
+    table.lineStyle(1, 0xc59558, .62).strokeRoundedRect(245, 337, 790, 180, 10);
+    this.label(430, 360, 'Chỉ số món', 18, 260);
+    this.label(681, 360, `+${previous.level} → +${result?.toLevel ?? attempt.targetLevel}`, 18, 162, '#ffe1a5');
+    this.label(882, 360, result ? 'Thay đổi thực tế' : attempt.loss ? `Nếu trượt → +${attempt.failLevel}` : 'Nếu trượt', 17, 230);
+    const from = jewelryStats(previous);
+    const after = jewelryStats({ ...previous, level: result?.toLevel ?? attempt.targetLevel });
+    const fail = jewelryStats({ ...previous, level: attempt.failLevel });
+    const rows = [
+      ['HP', 'hp'], ['Công', 'atk'], ['Thủ', 'def'], ['Bạo Kích', 'crit'], ['Chính Xác', 'accuracy'], ['Né Tránh', 'dodge'],
+    ] as const;
+    for (const [i, [label, stat]] of rows.entries()) {
+      const y = 388 + i * 22;
+      const scale = i >= 3 ? '%' : '';
+      this.label(430, y, label, 16, 205);
+      this.label(681, y, `${number(from[stat])}${scale} → ${number(after[stat])}${scale}`, 16, 220);
+      const delta = result ? after[stat] - from[stat] : fail[stat] - from[stat];
+      const pretty = Math.round(delta * 100) / 100;
+      this.label(882, y, result || attempt.loss ? `${pretty > 0 ? '+' : ''}${number(pretty)}${scale}` : '—', 16, 170,
+        pretty < 0 ? '#ffac9a' : pretty > 0 ? '#b8ec9b' : '#ddbd9a');
+    }
+    let banner = view.message || (enough ? 'Kết quả do máy chủ xác nhận sau mỗi lần thử.' : 'Cần đủ Vàng và Tinh Hoa cho lần thử.');
+    if (result) {
+      banner = `${result.success ? 'Thành công' : 'Thất bại'} · +${result.fromLevel} → +${result.toLevel}`;
+      if (result.success && (result.toLevel === 40 || result.toLevel === 50)) {
+        const glow = this.add.ellipse(640, 548, 545, 66, 0xeea339, .36).setBlendMode('ADD');
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+          this.tweens.add({ targets: glow, alpha: .1, scale: 1.12, duration: 660, yoyo: true, repeat: 1 });
+      } else if (!result.success) {
+        const shade = this.add.rectangle(640, 550, 545, 48, 0x080208, .58);
+        this.tweens.add({ targets: shade, alpha: .26, duration: 400 });
+      }
+    }
+    this.statusText = this.label(640, 550, banner, result ? 25 : 17, 748,
+      result ? result.success ? '#ffe09a' : '#ffc3b7' : '#ead4ab');
+    this.control(429, 609, 254, 64, 'Quay lại kho', close);
+    this.control(830, 609, 324, 64, result ? next ? 'Lần thử tiếp theo' : 'Đã đạt +50' : 'Xác nhận cường hóa',
+      result ? next ? () => restart({ enhancing: true }) : undefined :
+        enough ? () => void run({ type: 'jewelryEnhance', uid: item.uid, rulesVersion: 2 }, 'Đã xác nhận cấp mới.') : undefined,
+      result ? !!next : enough)
+      .setName(result ? 'jewelry.enhance.next' : 'jewelry.commit.enhance');
+    this.input.keyboard?.once('keydown-ESC', close);
+    this.events.once('shutdown', () => this.input.keyboard?.off('keydown-ESC', close));
+  }
+
+  private itemPreview(x: number, y: number, item: JewelryItem) {
+    const definition = JEWELRY[item.itemId];
+    this.add.ellipse(x, y, 148, 104, RARITY_GLOW[definition.rarity], .12);
+    this.art(definition.asset, x, y, 135, 135);
+    this.art(DRAGON, x, y, 150, 150);
+  }
 
   update() {
     if (!this.restarting && this.owner !== cloudRepository.uid) {
@@ -237,9 +322,9 @@ export class JewelryScene extends UiScene {
       this.add.rectangle(111, y, 170, 74, selected ? 0x552719 : 0x28171c, .86)
         .setStrokeStyle(selected ? 2 : 1, selected ? 0xf6bd57 : 0x93704d, .82);
       const theme = equipmentHeroModel(save, heroId)?.theme;
-      if (theme) this.art(THEME + theme.portrait.replace('assets/', ''), 61, y, 54, 54);
-      else this.add.image(61, y, PORTRAITS, atlasOrder.indexOf(heroFamily(heroId))).setScale(54 / PORTRAIT_TILE);
       this.art(THEME + `equipment/frames/slot_${selected ? 'selected' : 'sr'}.png`, 61, y, 60, 60);
+      if (theme) this.art(THEME + theme.portrait.replace('assets/', ''), 61, y, 48, 48);
+      else this.add.image(61, y, PORTRAITS, atlasOrder.indexOf(heroFamily(heroId))).setScale(48 / PORTRAIT_TILE);
       this.label(139, y - 11, hero.name, 16, 104);
       this.label(139, y + 13, `Cấp ${heroStats(hero, save.heroExp[heroId]).level} · ${save.heroStars?.[heroId] ?? 1} sao`, 13, 104);
       this.hit(111, y, 172, 78, `jewelry.hero.${heroId}`, () => choose(heroId));
@@ -254,6 +339,7 @@ export class JewelryScene extends UiScene {
   private itemCard(x: number, y: number, item: JewelryItem | undefined, active: boolean, action: () => void, size = 106) {
     const def = item && JEWELRY[item.itemId];
     const frame = active ? 'selected' : def?.rarity.toLowerCase() ?? 'empty';
+    if (def) this.add.ellipse(x, y + 2, size * 1.03, size * .84, RARITY_GLOW[def.rarity], active ? .27 : .13);
     this.art(THEME + `equipment/frames/slot_${frame}.png`, x, y, size, size);
     if (item && def) {
       this.art(def.asset, x, y, size * .83, size * .83);
@@ -269,9 +355,14 @@ export class JewelryScene extends UiScene {
   }
 
   private frame(x: number, y: number, width: number, height: number, alpha = .92) {
-    this.add.graphics().fillStyle(0x271019, alpha).fillRoundedRect(x, y, width, height, 15)
-      .lineStyle(2, 0xbc8446, .9).strokeRoundedRect(x, y, width, height, 15)
-      .lineStyle(1, 0xe8b979, .33).strokeRoundedRect(x + 5, y + 5, width - 10, height - 10, 12);
+    if (this.game.renderer.type === Phaser.WEBGL) {
+      const borderScale = .5;
+      this.add.nineslice(x + width / 2, y + height / 2, PANEL, undefined,
+        width / borderScale, height / borderScale, 49, 49, 55, 55).setScale(borderScale).setAlpha(alpha);
+    } else {
+      this.add.graphics().fillStyle(0x271019, alpha).fillRoundedRect(x, y, width, height, 15)
+        .lineStyle(2, 0xbc8446).strokeRoundedRect(x, y, width, height, 15);
+    }
   }
 
   private art(key: string, x: number, y: number, width: number, height: number) {
