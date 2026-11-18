@@ -27,8 +27,8 @@ export class HeroAnimationController {
   private disposed = false;
 
   constructor(private readonly sprite: Phaser.GameObjects.Sprite, private readonly id: string,
-    private readonly clips:CharacterClipSet=HERO_CLIPS) {
-    this.atlas = heroAnimationTexture(id);
+    private readonly clips:CharacterClipSet=HERO_CLIPS,private readonly origin?:{x:number;y:number},atlas?:string) {
+    this.atlas = atlas??heroAnimationTexture(id);
     sprite.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.complete, this);
     sprite.on(Phaser.Animations.Events.ANIMATION_UPDATE,this.alignFoot,this);
     this.play('idle');
@@ -72,7 +72,7 @@ export class HeroAnimationController {
 
   private alignFoot(){
     if(!this.available)return;
-    const foot=chibiFoot(this.id,Number(this.sprite.frame.name));this.sprite.setOrigin(foot.x,foot.y);
+    const foot=this.origin??chibiFoot(this.id,Number(this.sprite.frame.name));this.sprite.setOrigin(foot.x,foot.y);
   }
 
   private complete() {

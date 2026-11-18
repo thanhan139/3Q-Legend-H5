@@ -1,0 +1,262 @@
+{
+  "errors": [],
+  "reports": [
+    {
+      "selectedHeroId": "guan-yu",
+      "tab": "skills",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "active": true,
+      "expectedPower": 1142,
+      "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png"
+    },
+    {
+      "selectedHeroId": "guan-yu",
+      "tab": "signature",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "active": true,
+      "expectedPower": 1142,
+      "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png"
+    },
+    {
+      "selectedHeroId": "guan-yu",
+      "tab": "equipment",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "active": true,
+      "expectedPower": 1142,
+      "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png"
+    },
+    {
+      "selectedHeroId": "guan-yu",
+      "tab": "detail",
+      "theme": "Thanh Long",
+      "gearUids": [
+        "qa-guan"
+      ],
+      "power": 1142,
+      "active": true,
+      "expectedPower": 1142,
+      "texture": "equipment.theme.heroes/full_body/quan_vu_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhao-yun",
+      "tab": "skills",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "active": true,
+      "expectedPower": 1239,
+      "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhao-yun",
+      "tab": "signature",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "active": true,
+      "expectedPower": 1239,
+      "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhao-yun",
+      "tab": "equipment",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "active": true,
+      "expectedPower": 1239,
+      "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhao-yun",
+      "tab": "detail",
+      "theme": "Lôi Long",
+      "gearUids": [],
+      "power": 1239,
+      "active": true,
+      "expectedPower": 1239,
+      "texture": "equipment.theme.heroes/full_body/trieu_van_512x768.png"
+    },
+    {
+      "selectedHeroId": "lu-bu",
+      "tab": "skills",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "active": true,
+      "expectedPower": 1306,
+      "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png"
+    },
+    {
+      "selectedHeroId": "lu-bu",
+      "tab": "signature",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "active": true,
+      "expectedPower": 1306,
+      "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png"
+    },
+    {
+      "selectedHeroId": "lu-bu",
+      "tab": "equipment",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "active": true,
+      "expectedPower": 1306,
+      "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png"
+    },
+    {
+      "selectedHeroId": "lu-bu",
+      "tab": "detail",
+      "theme": "Hỏa Long",
+      "gearUids": [],
+      "power": 1306,
+      "active": true,
+      "expectedPower": 1306,
+      "texture": "equipment.theme.heroes/full_body/lu_bo_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhuge-liang",
+      "tab": "skills",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "active": true,
+      "expectedPower": 1209,
+      "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhuge-liang",
+      "tab": "signature",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "active": true,
+      "expectedPower": 1209,
+      "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhuge-liang",
+      "tab": "equipment",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "active": true,
+      "expectedPower": 1209,
+      "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhuge-liang",
+      "tab": "detail",
+      "theme": "Thiên Cơ",
+      "gearUids": [],
+      "power": 1209,
+      "active": true,
+      "expectedPower": 1209,
+      "texture": "equipment.theme.heroes/full_body/gia_cat_luong_512x768.png"
+    },
+    {
+      "selectedHeroId": "diao-chan",
+      "tab": "skills",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "active": true,
+      "expectedPower": 1150,
+      "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png"
+    },
+    {
+      "selectedHeroId": "diao-chan",
+      "tab": "signature",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "active": true,
+      "expectedPower": 1150,
+      "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png"
+    },
+    {
+      "selectedHeroId": "diao-chan",
+      "tab": "equipment",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "active": true,
+      "expectedPower": 1150,
+      "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png"
+    },
+    {
+      "selectedHeroId": "diao-chan",
+      "tab": "detail",
+      "theme": "Hoa Nguyệt",
+      "gearUids": [],
+      "power": 1150,
+      "active": true,
+      "expectedPower": 1150,
+      "texture": "equipment.theme.heroes/full_body/dieu_thuyen_512x768.png"
+    },
+    {
+      "selectedHeroId": "zhang-fei",
+      "tab": "skills",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "active": true,
+      "expectedPower": 1030,
+      "texture": "battle-sprites"
+    },
+    {
+      "selectedHeroId": "zhang-fei",
+      "tab": "signature",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "active": true,
+      "expectedPower": 1030,
+      "texture": "battle-sprites"
+    },
+    {
+      "selectedHeroId": "zhang-fei",
+      "tab": "equipment",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "active": true,
+      "expectedPower": 1030,
+      "texture": "battle-sprites"
+    },
+    {
+      "selectedHeroId": "zhang-fei",
+      "tab": "detail",
+      "theme": "default",
+      "gearUids": [
+        "qa-zhang"
+      ],
+      "power": 1030,
+      "active": true,
+      "expectedPower": 1030,
+      "texture": "battle-sprites"
+    }
+  ],
+  "realAccount": false
+}

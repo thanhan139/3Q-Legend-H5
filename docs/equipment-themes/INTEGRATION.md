@@ -1,5 +1,7 @@
 # Equipment UI Themes v2.0
 
+**Unified UI update:** Heroes and Equipment now share the themed shell, tabs and UID-scoped selection. The legacy hero renderer and three-column bag layout have been removed. The bag is now a modal inside the new screen. See [current implementation and screenshots](../hero-system/INTEGRATION.md).
+
 **v2.0.1 update:** the repaired Điêu Thuyền atlas is now active with 650×464 frames, indices 0–7. The older truncated-atlas/fallback description below records v2.0 history. All eight source images remain unchanged. Current verification: [hotfix report](hotfix-2.0.1/README.md).
 
 The hero equipment overview now uses one shared view for the entire roster. Five supplied themes are mapped explicitly to existing HeroConfig IDs: `guan-yu` → Thanh Long, `zhao-yun` → Lôi Long, `lu-bu` → Hỏa Long, `zhuge-liang` → Thiên Cơ, `diao-chan` → Hoa Nguyệt. Other heroes retain their own original artwork with a neutral pedestal; no unrelated full-body fallback is used. Battle retains its existing chibi sprites and animation path.

@@ -1,0 +1,347 @@
+{
+  "pack_version": "1.1.0",
+  "engine": "Phaser 3 / TypeScript",
+  "units": "pixels",
+  "team_layout": "2 columns x 3 rows each side, front column closest to enemy",
+  "hero_mapping_policy": "IDs lu_bo and dieu_thuyen here are asset keys, NOT authoritative heroId; resolve from project HeroConfig/ROSTER.md",
+  "actor_animations": {
+    "lu_bo": {
+      "texture_key": "combat_lu_bo",
+      "path": "assets/actors/lu_bo/lu_bo_poses_4x4.png",
+      "frameWidth": 384,
+      "frameHeight": 384,
+      "grid": [
+        4,
+        4
+      ],
+      "origin": [
+        0.5,
+        0.94
+      ],
+      "baseFPS": {
+        "idle": 5,
+        "run": 10,
+        "attack": 12,
+        "skill": 10,
+        "hit": 8,
+        "death": 8
+      },
+      "states": {
+        "idle": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "run": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "attack": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "skill": [
+          12,
+          13
+        ],
+        "hit": [
+          14
+        ],
+        "death": [
+          15
+        ]
+      },
+      "actor_pose_source": "Original 4x4 generated pose sheet. Hit/death are single authored pose; death should finish with runtime fade/cleanup, not claim a 12-frame death motion.",
+      "maxInkWidth": 361,
+      "maxInkHeight": 361
+    },
+    "dieu_thuyen": {
+      "texture_key": "combat_dieu_thuyen",
+      "path": "assets/actors/dieu_thuyen/dieu_thuyen_poses_4x4.png",
+      "frameWidth": 384,
+      "frameHeight": 384,
+      "grid": [
+        4,
+        4
+      ],
+      "origin": [
+        0.5,
+        0.94
+      ],
+      "baseFPS": {
+        "idle": 5,
+        "run": 10,
+        "attack": 12,
+        "skill": 10,
+        "hit": 8,
+        "death": 8
+      },
+      "states": {
+        "idle": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "run": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "attack": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "skill": [
+          12,
+          13
+        ],
+        "hit": [
+          14
+        ],
+        "death": [
+          15
+        ]
+      },
+      "actor_pose_source": "Original 4x4 generated pose sheet. Hit/death are single authored pose; death should finish with runtime fade/cleanup, not claim a 12-frame death motion.",
+      "maxInkWidth": 361,
+      "maxInkHeight": 361
+    }
+  },
+  "vfx_clips": {
+    "lu_bo": {
+      "basic_swing": {
+        "texture": "lu_bo_basic_swing",
+        "path": "assets/vfx/lu_bo/clips/basic_swing/basic_swing_sheet.png",
+        "frameWidth": 384,
+        "frameHeight": 384,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "basic_hit": {
+        "texture": "lu_bo_basic_hit",
+        "path": "assets/vfx/lu_bo/clips/basic_hit/basic_hit_sheet.png",
+        "frameWidth": 384,
+        "frameHeight": 384,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_ready": {
+        "texture": "lu_bo_rage_ready",
+        "path": "assets/vfx/lu_bo/clips/rage_ready/rage_ready_sheet.png",
+        "frameWidth": 256,
+        "frameHeight": 256,
+        "frames": 8,
+        "cols": 4,
+        "fps": 12,
+        "loop": true,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_charge": {
+        "texture": "lu_bo_rage_charge",
+        "path": "assets/vfx/lu_bo/clips/rage_charge/rage_charge_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_impact": {
+        "texture": "lu_bo_rage_impact",
+        "path": "assets/vfx/lu_bo/clips/rage_impact/rage_impact_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 12,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_full": {
+        "texture": "lu_bo_rage_full",
+        "path": "assets/vfx/lu_bo/clips/rage_full/rage_full_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 20,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    "dieu_thuyen": {
+      "basic_swing": {
+        "texture": "dieu_thuyen_basic_swing",
+        "path": "assets/vfx/dieu_thuyen/clips/basic_swing/basic_swing_sheet.png",
+        "frameWidth": 384,
+        "frameHeight": 384,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "basic_hit": {
+        "texture": "dieu_thuyen_basic_hit",
+        "path": "assets/vfx/dieu_thuyen/clips/basic_hit/basic_hit_sheet.png",
+        "frameWidth": 384,
+        "frameHeight": 384,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_ready": {
+        "texture": "dieu_thuyen_rage_ready",
+        "path": "assets/vfx/dieu_thuyen/clips/rage_ready/rage_ready_sheet.png",
+        "frameWidth": 256,
+        "frameHeight": 256,
+        "frames": 8,
+        "cols": 4,
+        "fps": 12,
+        "loop": true,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_charge": {
+        "texture": "dieu_thuyen_rage_charge",
+        "path": "assets/vfx/dieu_thuyen/clips/rage_charge/rage_charge_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 8,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_impact": {
+        "texture": "dieu_thuyen_rage_impact",
+        "path": "assets/vfx/dieu_thuyen/clips/rage_impact/rage_impact_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 12,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      },
+      "rage_full": {
+        "texture": "dieu_thuyen_rage_full",
+        "path": "assets/vfx/dieu_thuyen/clips/rage_full/rage_full_sheet.png",
+        "frameWidth": 512,
+        "frameHeight": 512,
+        "frames": 20,
+        "cols": 4,
+        "fps": 16,
+        "loop": false,
+        "origin": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  },
+  "common_vfx_clips": {
+    "punch_hit": {
+      "texture": "common_punch_hit",
+      "path": "assets/vfx/common/clips/punch_hit/punch_hit_sheet.png",
+      "frameWidth": 384,
+      "frameHeight": 384,
+      "frames": 8,
+      "cols": 4,
+      "fps": 16,
+      "loop": false,
+      "origin": [
+        0.5,
+        0.5
+      ]
+    },
+    "weapon_contact": {
+      "texture": "common_weapon_contact",
+      "path": "assets/vfx/common/clips/weapon_contact/weapon_contact_sheet.png",
+      "frameWidth": 384,
+      "frameHeight": 384,
+      "frames": 8,
+      "cols": 4,
+      "fps": 16,
+      "loop": false,
+      "origin": [
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "impact_events": {
+    "basic_attack": {
+      "actor_state": "attack",
+      "pose_contact_index": 10,
+      "vfx": "basic_hit",
+      "event": "BattleCore resolved action (authoritative)"
+    },
+    "rage_skill": {
+      "actor_state": "skill",
+      "vfx": "rage_full",
+      "impact_frame": 11,
+      "event": "BattleCore resolved Nộ skill (authoritative)",
+      "rage_threshold": "read from existing game config; never hardcode 100 in assets"
+    }
+  },
+  "animation_contract": {
+    "direction": "left side faces right, right side faces left; mirror only after QA (weapon handedness)",
+    "VFX_ySort": "back aura < actor < weapon slash < impact numbers < HUD",
+    "hit_stop_ms": 45,
+    "speed": "drive all tweens, timers, animation FPS and FX timeScale from central battle speed",
+    "skip": "cancel timelines and VFX, apply authoritative final state without replaying effects",
+    "death": "HP=0 then fade actor/HP/Nộ and delete linked FX; position stays vacant",
+    "damage": "VFX callbacks must NEVER apply damage or award rewards; only visualize game-command/Battle Core events"
+  }
+}

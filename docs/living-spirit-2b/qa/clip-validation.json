@@ -1,0 +1,37 @@
+[
+  {
+    "hero": "guan-yu",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4329,
+    "error": null
+  },
+  {
+    "hero": "zhao-yun",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4408,
+    "error": null
+  },
+  {
+    "hero": "lu-bu",
+    "width": 1280,
+    "height": 720,
+    "time": 0.434,
+    "error": null
+  },
+  {
+    "hero": "zhuge-liang",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4372,
+    "error": null
+  },
+  {
+    "hero": "diao-chan",
+    "width": 1280,
+    "height": 720,
+    "time": 0.4209,
+    "error": null
+  }
+]

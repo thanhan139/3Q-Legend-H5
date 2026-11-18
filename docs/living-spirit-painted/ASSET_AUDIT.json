@@ -1,0 +1,38 @@
+[
+  {
+    "path": "public/assets/spirits/painted-v2/gia_cat_luong/sheet_4x2.png",
+    "size": [
+      1774,
+      887
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "sha256": "db9ed1f6a9ff70b86077f02a2ecadd32233c3d3128cf813ad67eff5297b3d56d",
+    "frames": 8,
+    "frameWidth": 443,
+    "frameHeight": 443,
+    "gridRounding": "nearest cell origin, floor cell size; at most 1 pixel gutter",
+    "nonblankFrames": 8,
+    "distinctFrames": 8
+  },
+  {
+    "path": "public/assets/spirits/painted-v2/dieu_thuyen/sheet_4x2.png",
+    "size": [
+      1774,
+      887
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "sha256": "39b806a67de8e608b043f68118440186099549ccb2794732369368edd1654b4b",
+    "frames": 8,
+    "frameWidth": 443,
+    "frameHeight": 443,
+    "gridRounding": "nearest cell origin, floor cell size; at most 1 pixel gutter",
+    "nonblankFrames": 8,
+    "distinctFrames": 8
+  }
+]

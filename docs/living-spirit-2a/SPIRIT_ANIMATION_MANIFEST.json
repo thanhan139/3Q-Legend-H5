@@ -1,0 +1,121 @@
+{
+  "package": "3Q_Legend_Living_Spirit_Phase_2A_Pilot_v1.0",
+  "version": "1.0-split",
+  "content_type": "2D sprite frame animation with distinct changes per frame",
+  "frame_size": [
+    384,
+    384
+  ],
+  "atlas_padding": 0,
+  "atlas_layout": "row-major 4 cols",
+  "hero_mapping": {
+    "quan_vu": {
+      "name": "Quan Vũ",
+      "theme": "Thanh Long",
+      "color": "#45D69F",
+      "spirit": "animated_emerald_dragon",
+      "source": "AI-illustrated 16-frame dragon GIF; cleanup + effect composition",
+      "method": "source_dragon_frames",
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/quan_vu/atlas/idle_4x4.png",
+          "frames": 16,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 4,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "preview": "assets/spirits/quan_vu/preview/idle.gif"
+        },
+        "selected": {
+          "atlas": "assets/spirits/quan_vu/atlas/selected_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "preview": "assets/spirits/quan_vu/preview/selected.gif"
+        },
+        "power_up": {
+          "atlas": "assets/spirits/quan_vu/atlas/power_up_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "preview": "assets/spirits/quan_vu/preview/power_up.gif"
+        }
+      },
+      "suggested_visual_scale": 0.7,
+      "render_layer": "behind_hero",
+      "hero_id_hint": "quan_vu",
+      "notes": "Hero ID is provisional. Replace with canonical HeroConfig ID and keep source asset unchanged."
+    },
+    "trieu_van": {
+      "name": "Triệu Vân",
+      "theme": "Lôi Long",
+      "color": "#4BBDFD",
+      "spirit": "animated_thunder_dragon",
+      "source": "Recolored 16-frame source dragon with electric arc overlays; shares base dragon silhouette",
+      "method": "dragon_recolor_lightning",
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/trieu_van/atlas/idle_4x4.png",
+          "frames": 16,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 4,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "preview": "assets/spirits/trieu_van/preview/idle.gif"
+        },
+        "selected": {
+          "atlas": "assets/spirits/trieu_van/atlas/selected_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "preview": "assets/spirits/trieu_van/preview/selected.gif"
+        },
+        "power_up": {
+          "atlas": "assets/spirits/trieu_van/atlas/power_up_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "preview": "assets/spirits/trieu_van/preview/power_up.gif"
+        }
+      },
+      "suggested_visual_scale": 0.7,
+      "render_layer": "behind_hero",
+      "hero_id_hint": "trieu_van",
+      "notes": "Hero ID is provisional. Replace with canonical HeroConfig ID and keep source asset unchanged."
+    }
+  },
+  "qa": "inspect actual GIF and runtime animation; never display character art twice",
+  "limitations": [
+    "Dragon variants share a common base illustrated animated dragon silhouette (recolored and enhanced with unique FX), not separately authored skeletal rigs.",
+    "Crane and butterfly are original procedural vector-style animations with real wing articulation, not painted skeletal assets.",
+    "Selected and power_up are staged overlay/transition clips built on moving idle frames; they are not full cinematic guardian-beast sequences.",
+    "Animation pack does not contain new gameplay character animation nor replace battle rig or any UI or Save.",
+    "No pre-existing hero IDs or equipment values have been modified."
+  ],
+  "phase": "Phase_2A_Pilot",
+  "included_hero_slugs": [
+    "quan_vu",
+    "trieu_van"
+  ],
+  "distribution_notes": "Runtime atlases only; individual PNG frames intentionally omitted to avoid duplication. GIFs are previews only, never runtime textures. Paths preserved."
+}

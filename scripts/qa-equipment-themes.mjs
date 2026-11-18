@@ -37,7 +37,7 @@ try{browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrom
  assert.ok(await p.evaluate(()=>{const s=window.qa.game.scene.getScene('Equipment');return s.children.list.length<250&&s.input.listenerCount('wheel')===1;}));
  const before=await p.evaluate(()=>JSON.stringify(window.qa.gameStore.snapshot));
  const point=await p.evaluate(()=>{const s=window.qa.game.scene.getScene('Equipment'),c=s.cameras.main,ratio=s.game.canvas.getBoundingClientRect().width/s.scale.width;return{x:(220-c.scrollX)*ratio,y:(243-c.scrollY)*ratio};});
- await p.mouse.click(point.x,point.y);await p.waitForFunction(()=>!window.qa.game.scene.getScene('Equipment').data.get('equipmentHeroView'));
+ await p.mouse.click(point.x,point.y);await p.waitForFunction(()=>window.qa.game.scene.getScene('Equipment').data.get('equipmentManager'));
  await p.evaluate(()=>window.qa.game.scene.getScene('Equipment').scene.restart({heroId:'zhang-fei',bag:true,uid:'qa-guan'}));
  await p.waitForFunction(()=>window.qa.game.scene.getScene('Equipment').children.list.some(o=>o.type==='Text'&&o.text==='Đang dùng · Trương Phi'));
  assert.equal(await p.evaluate(()=>JSON.stringify(window.qa.gameStore.snapshot)),before);
