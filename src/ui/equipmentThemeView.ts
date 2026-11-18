@@ -4,7 +4,7 @@ import themes from '../data/equipmentThemes.json';
 import {equipmentHeroModel} from './equipmentHeroModel';
 import {gameStore} from '../domain/store';
 import {EQUIPMENT,EQUIPMENT_SLOTS,enhancement} from '../domain/equipment';
-import {HERO_BY_ID,heroFaction,heroFamily} from '../data/heroes';
+import {HERO_BY_ID,HEROES,heroFaction,heroFamily} from '../data/heroes';
 import {FactionConfig} from '../data/factions';
 import {HERO_SKILLS,DEFAULT_KIT} from '../data/heroSkills';
 import {factionSynergy} from '../domain/factionSynergy';
@@ -14,10 +14,13 @@ import {CHIBI_SOURCES} from '../data/chibiBattle';
 import type {UiScene} from './UiScene';
 import {loadSharedUi} from './sharedUi';
 import {SKILL_EFFECTS,skillTextureKey,skillTexturePath} from '../data/skillVfx';
+import {heroNavigation,heroTabRoute,type HeroTab} from './heroNavigation';
+import {loadLivingSpirit,LivingSpiritView} from './LivingSpiritView';
 const key=(p:string)=>'equipment.theme.'+p;
 const metadata:Record<string,{size:number[];bounds:number[]}>=assets;
-export function loadEquipmentThemes(scene:Phaser.Scene){
+export function loadEquipmentThemes(scene:Phaser.Scene,heroId=heroNavigation.selectedHeroId){
  loadSharedUi(scene);
+ loadLivingSpirit(scene,heroId);
  for(const id of gameStore.snapshot.heroes){const icon=SKILL_EFFECTS[HERO_BY_ID[id]?.ultimateSkillId]?.icon;
   if(icon&&!scene.textures.exists(skillTextureKey(icon)))scene.load.image(skillTextureKey(icon),import.meta.env.BASE_URL+skillTexturePath(icon));}
  if(![...document.fonts].some(f=>f.family==='InventoryVietnamese'&&f.status==='loaded'))scene.load.font({key:'InventoryVietnamese',url:import.meta.env.BASE_URL+'assets/fonts/NotoSerif-Bold-Vietnamese.woff2',format:'woff2'});
@@ -28,8 +31,10 @@ export function loadEquipmentThemes(scene:Phaser.Scene){
   else scene.load.image(key(p),import.meta.env.BASE_URL+'assets/equipment-themes/'+p);
  }
 }
-export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(id:string)=>void,manage:(slot?:keyof typeof EQUIPMENT_SLOTS,uid?:string)=>void){
- const save=gameStore.snapshot,model=equipmentHeroModel(save,selectedHeroId);if(!model)return;
+export interface HeroThemeOptions{tab?:HeroTab;collection?:boolean;content?:()=>void;spiritSuspended?:boolean;}
+export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(id:string)=>void,manage:(slot?:keyof typeof EQUIPMENT_SLOTS,uid?:string)=>void,options:HeroThemeOptions={}){
+ const save=gameStore.snapshot,model=equipmentHeroModel(save,selectedHeroId,undefined,options.collection);if(!model)return;
+ const tab=options.tab??'equipment',owned=save.heroes.includes(selectedHeroId);
  const {hero,theme,stats}=model;
  const art=(p:string,x:number,y:number,w:number,h:number)=>{
   const o=scene.add.image(x,y,key(p));o.setScale(Math.min(w/o.width,h/o.height));return o;
@@ -41,30 +46,40 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
   return t;
  };
  art('background/equipment_hall_clean.png',640,360,1280,720);
- art('ui/panels/header_nav.png',640,40,1260,70);label(250,38,'Trang Bị',27,270);
+ art('ui/panels/header_nav.png',640,40,1260,70);label(250,38,tab==='equipment'?'Trang Bị':'Võ Tướng',27,270);
  scene.backToLobby(1155,38,190,54);
+ for(const [i,[id,name]] of ([['detail','Chi tiết'],['skills','Kỹ năng'],['equipment','Trang Bị'],['signature','Thần Binh']] as const).entries()){
+  const x=455+i*163;
+  art('ui/panels/hero_title.png',x,39,155,47).setAlpha(id===tab?1:.55);
+  label(x,39,name,16,124,id===tab?'#fff0bb':'#d0b58c');
+  const hit=scene.add.zone(x,39,155,49).setName('hero.tab.'+id);
+  if(id!=='equipment'||owned)hit.setInteractive({useHandCursor:true}).on('pointerup',()=>{const route=heroTabRoute(id,selectedHeroId);scene.go(route.scene,{...route.data,collection:options.collection});});
+ }
  art('ui/panels/roster_rail.png',72,388,130,600);
- const index=save.heroes.indexOf(selectedHeroId),start=Math.max(0,Math.min(save.heroes.length-6,index-2));
+ const roster=options.collection?HEROES.map(h=>h.id):save.heroes;
+ const index=roster.indexOf(selectedHeroId),start=Math.max(0,Math.min(roster.length-6,index-2));
  label(72,95,'Võ Tướng',15,110);
- for(const [i,id] of save.heroes.slice(start,start+6).entries()){
+ for(const [i,id] of roster.slice(start,start+6).entries()){
   const h=HERO_BY_ID[id];if(!h)continue;const y=156+i*77;
   const selected=id===selectedHeroId;
   art('equipment/frames/'+(selected?'slot_selected.png':'slot_sr.png'),72,y,70,70);
-  const preset=themes.heroes.find(t=>t.display_name===h.name);
+  const preset=themes.heroes.find(t=>t.display_name===HERO_BY_ID[heroFamily(id)]?.name);
   const portrait=preset?scene.add.image(72,y,key(preset.portrait.replace('assets/',''))):scene.add.image(72,y,PORTRAITS,atlasOrder.indexOf(heroFamily(id)));
   portrait.setScale(54/Math.max(portrait.width,portrait.height));
   const hit=scene.add.zone(72,y,84,74).setInteractive({useHandCursor:true}).setName('equipment.hero.'+id);
+  scene.tutorialTarget('hero.card.'+id,hit);
   hit.on('pointerup',()=>choose(id));
  }
  for(const direction of [-1,1]){const x=72+direction*28;art('ui/buttons/action_round.png',x,641,46,46);label(x,641,direction<0?'‹':'›',25,40);
-  scene.add.zone(x,641,48,48).setInteractive({useHandCursor:true}).on('pointerup',()=>choose(save.heroes[(index+direction+save.heroes.length)%save.heroes.length]));}
- const wheel=(_p:unknown,_objects:unknown,_dx:number,dy:number)=>choose(save.heroes[(index+(dy>0?1:-1)+save.heroes.length)%save.heroes.length]);
+  scene.add.zone(x,641,48,48).setInteractive({useHandCursor:true}).on('pointerup',()=>choose(roster[(index+direction+roster.length)%roster.length]));}
+ const wheel=(p:Phaser.Input.Pointer,_objects:unknown,_dx:number,dy:number)=>{if(!scene.data.get('equipmentManager')&&p.worldX<140)choose(roster[(index+(dy>0?1:-1)+roster.length)%roster.length]);};
  scene.input.on('wheel',wheel);scene.events.once('shutdown',()=>scene.input.off('wheel',wheel));
  art('ui/panels/hero_title.png',517,109,470,62);label(517,108,hero.name,27,360).setName('equipment.heroName');
  label(517,153,hero.rarity+' · '+FactionConfig[heroFaction(hero)].name+' · Cấp '+stats.level,16,440);
  const starCount=Math.max(0,model.stars);for(let i=0;i<Math.min(starCount,10);i++)art('ui/decor/star_gold.png',517+(i-(Math.min(starCount,10)-1)/2)*22,181,20,20);
  if(starCount>10)label(517,181,starCount+' sao',15,250);
- if(theme){
+ const living=new LivingSpiritView(scene,selectedHeroId,heroNavigation.accountKey,options.spiritSuspended);
+ if(theme&&!living.sprite){
   const path=theme.fx_back.replace('assets/','');art(path,520,365,510,370).setAlpha(.66).setName('equipment.spirit');
   const atlas=theme.fx_atlas.replace('assets/',''),animation=key(atlas)+'.loop';
   if(!scene.anims.exists(animation))scene.anims.create({key:animation,frames:metadata[atlas]?scene.anims.generateFrameNumbers(key(atlas),{start:0,end:7}):Array.from({length:8},(_,i)=>({key:key(theme.fx_frames_pattern.replace('assets/','').replace('{frame:02d}',String(i).padStart(2,'0')))})),frameRate:8,repeat:-1});
@@ -97,6 +112,7 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
  const equippedCount=model.slots.filter(s=>s.item).length,extra=model.equipped.length-equippedCount;
  label(520,623,equippedCount+'/6 món đang trang bị'+(extra?' · '+extra+' món đặc biệt':''),14,390);
  art('ui/panels/stats_main.png',1067,357,360,560);
+ if(options.content)options.content();else{
  label(1067,110,'Thuộc Tính',22,285);
  [['HP',stats.hp],['Công',stats.atk],['Thủ',stats.def],['Tốc độ',stats.speed]].forEach(([n,v],i)=>{
   art('ui/panels/stat_row.png',1067,160+i*42,310,37);label(972,160+i*42,String(n),16,100);
@@ -116,6 +132,7 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
  label(1067,520,FactionConfig[heroFaction(hero)].name+' · '+(synergy?.count??0)+' tướng ra trận',16,295);
  label(1067,554,synergy?.bonus?'Cộng hưởng +'+synergy.bonus+'%':'Chưa kích hoạt cộng hưởng',15,295,'#b7dfa9');
  label(1067,592,theme?.theme_name??'Linh khí mặc định',15,295);
+ }
  art('ui/panels/bottom_nav_strip.png',699,680,1090,78);
  const actions=[{x:280,label:'Kho trang bị',icon:'weapon_ssr_01.png',run:()=>manage()},
   {x:520,label:'Cường hóa / Trang bị',icon:'enhancement_crystal.png',run:()=>manage()},
@@ -124,5 +141,5 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
  for(const action of actions){const frame=art('ui/buttons/action_round.png',action.x,663,54,54);art('equipment/icons/'+action.icon,action.x,663,34,34);
   label(action.x,704,action.label,14,215);scene.add.zone(action.x,680,220,80).setInteractive({useHandCursor:true})
    .on('pointerover',()=>frame.setTint(0xffe6a9)).on('pointerout',()=>frame.clearTint()).on('pointerup',action.run);}
- scene.data.set('equipmentHeroView',{selectedHeroId,theme:theme?.theme_name??'default',gearUids:model.equipped.map(g=>g.uid),selectedUid:model.selectedUid,power:model.power});
+ scene.data.set('equipmentHeroView',{selectedHeroId,tab,theme:theme?.theme_name??'default',gearUids:model.equipped.map(g=>g.uid),selectedUid:model.selectedUid,power:model.power});
 }

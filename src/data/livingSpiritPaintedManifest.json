@@ -1,0 +1,100 @@
+{
+  "hero_mapping": {
+    "gia_cat_luong": {
+      "hero_id_hint": "gia_cat_luong",
+      "theme": "Celestial Crane",
+      "visualVariant": "painted-v2",
+      "presentation": {
+        "x": 590,
+        "y": 350,
+        "height": 330
+      },
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/painted-v2/gia_cat_luong/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        },
+        "selected": {
+          "atlas": "assets/spirits/painted-v2/gia_cat_luong/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        },
+        "power_up": {
+          "atlas": "assets/spirits/painted-v2/gia_cat_luong/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        }
+      }
+    },
+    "dieu_thuyen": {
+      "hero_id_hint": "dieu_thuyen",
+      "theme": "Moon Lotus",
+      "visualVariant": "painted-v2",
+      "presentation": {
+        "x": 590,
+        "y": 350,
+        "height": 330
+      },
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/painted-v2/dieu_thuyen/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        },
+        "selected": {
+          "atlas": "assets/spirits/painted-v2/dieu_thuyen/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        },
+        "power_up": {
+          "atlas": "assets/spirits/painted-v2/dieu_thuyen/sheet_4x2.png",
+          "frames": 8,
+          "frameWidth": 443,
+          "frameHeight": 443,
+          "cols": 4,
+          "rows": 2,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "sourceWidth": 1774,
+          "sourceHeight": 887
+        }
+      }
+    }
+  }
+}

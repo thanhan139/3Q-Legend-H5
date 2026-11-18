@@ -1,0 +1,169 @@
+{
+  "package": "3Q_Legend_Living_Spirit_Phase_2B_Expansion_v1.0",
+  "version": "1.0-split",
+  "content_type": "2D sprite frame animation with distinct changes per frame",
+  "frame_size": [
+    384,
+    384
+  ],
+  "atlas_padding": 0,
+  "atlas_layout": "row-major 4 cols",
+  "hero_mapping": {
+    "lu_bo": {
+      "name": "Lữ Bố",
+      "theme": "Hỏa Long",
+      "color": "#FF6B37",
+      "spirit": "animated_fire_dragon",
+      "source": "Recolored 16-frame source dragon with ember/flame overlays; shares base dragon silhouette",
+      "method": "dragon_recolor_fire",
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/lu_bo/atlas/idle_4x4.png",
+          "frames": 16,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 4,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "preview": "assets/spirits/lu_bo/preview/idle.gif"
+        },
+        "selected": {
+          "atlas": "assets/spirits/lu_bo/atlas/selected_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "preview": "assets/spirits/lu_bo/preview/selected.gif"
+        },
+        "power_up": {
+          "atlas": "assets/spirits/lu_bo/atlas/power_up_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "preview": "assets/spirits/lu_bo/preview/power_up.gif"
+        }
+      },
+      "suggested_visual_scale": 0.7,
+      "render_layer": "behind_hero",
+      "hero_id_hint": "lu_bo",
+      "notes": "Hero ID is provisional. Replace with canonical HeroConfig ID and keep source asset unchanged."
+    },
+    "gia_cat_luong": {
+      "name": "Gia Cát Lượng",
+      "theme": "Thiên Cơ",
+      "color": "#E5FCF4",
+      "spirit": "animated_astral_crane",
+      "source": "Original procedural SVG crane with articulated wing shapes and talisman motion",
+      "method": "drawn_crane_wing_cycle",
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/gia_cat_luong/atlas/idle_4x4.png",
+          "frames": 16,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 4,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "preview": "assets/spirits/gia_cat_luong/preview/idle.gif"
+        },
+        "selected": {
+          "atlas": "assets/spirits/gia_cat_luong/atlas/selected_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "preview": "assets/spirits/gia_cat_luong/preview/selected.gif"
+        },
+        "power_up": {
+          "atlas": "assets/spirits/gia_cat_luong/atlas/power_up_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "preview": "assets/spirits/gia_cat_luong/preview/power_up.gif"
+        }
+      },
+      "suggested_visual_scale": 0.7,
+      "render_layer": "behind_hero",
+      "hero_id_hint": "gia_cat_luong",
+      "notes": "Hero ID is provisional. Replace with canonical HeroConfig ID and keep source asset unchanged."
+    },
+    "dieu_thuyen": {
+      "name": "Điêu Thuyền",
+      "theme": "Hoa Nguyệt",
+      "color": "#FF91D1",
+      "spirit": "animated_moon_butterflies",
+      "source": "Original procedural SVG butterfly wing cycles + moon, petals and particles",
+      "method": "drawn_butterfly_flight",
+      "clips": {
+        "idle": {
+          "atlas": "assets/spirits/dieu_thuyen/atlas/idle_4x4.png",
+          "frames": 16,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 4,
+          "duration_ms_per_frame": 145,
+          "repeat": -1,
+          "preview": "assets/spirits/dieu_thuyen/preview/idle.gif"
+        },
+        "selected": {
+          "atlas": "assets/spirits/dieu_thuyen/atlas/selected_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 95,
+          "repeat": 0,
+          "preview": "assets/spirits/dieu_thuyen/preview/selected.gif"
+        },
+        "power_up": {
+          "atlas": "assets/spirits/dieu_thuyen/atlas/power_up_4x3.png",
+          "frames": 12,
+          "frameWidth": 384,
+          "frameHeight": 384,
+          "cols": 4,
+          "rows": 3,
+          "duration_ms_per_frame": 85,
+          "repeat": 0,
+          "preview": "assets/spirits/dieu_thuyen/preview/power_up.gif"
+        }
+      },
+      "suggested_visual_scale": 0.7,
+      "render_layer": "behind_hero",
+      "hero_id_hint": "dieu_thuyen",
+      "notes": "Hero ID is provisional. Replace with canonical HeroConfig ID and keep source asset unchanged."
+    }
+  },
+  "qa": "inspect actual GIF and runtime animation; never display character art twice",
+  "limitations": [
+    "Dragon variants share a common base illustrated animated dragon silhouette (recolored and enhanced with unique FX), not separately authored skeletal rigs.",
+    "Crane and butterfly are original procedural vector-style animations with real wing articulation, not painted skeletal assets.",
+    "Selected and power_up are staged overlay/transition clips built on moving idle frames; they are not full cinematic guardian-beast sequences.",
+    "Animation pack does not contain new gameplay character animation nor replace battle rig or any UI or Save.",
+    "No pre-existing hero IDs or equipment values have been modified."
+  ],
+  "phase": "Phase_2B_Expansion",
+  "included_hero_slugs": [
+    "lu_bo",
+    "gia_cat_luong",
+    "dieu_thuyen"
+  ],
+  "distribution_notes": "Runtime atlases only; individual PNG frames intentionally omitted to avoid duplication. GIFs are previews only, never runtime textures. Paths preserved."
+}
