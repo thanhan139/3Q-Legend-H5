@@ -74,9 +74,9 @@ export class FormationScene extends UiScene {
       this.text(x, y + 24, `${index + 1} · ${hero?.name ?? 'Ô trống'}`, 17, selected ? '#ffdf97' : '#fff2d7', {
         fontStyle: 'bold', stroke: '#211822', strokeThickness: 5,
       }).setOrigin(0.5).setDepth(1);
-      const slotTarget = this.add.zone(x, y - 59, 162, 145).setInteractive({ useHandCursor: true })
-        .on('pointerup', () => this.scene.restart({ fromArena, slot: index, page: rosterPage }));
+      const slotTarget = this.add.zone(x, y - 59, 162, 145).setInteractive({ useHandCursor: true });
       this.tutorialTarget(`formation.slot.${index}`, slotTarget);
+      slotTarget.on('pointerup', () => this.scene.restart({ fromArena, slot: index, page: rosterPage }));
     }
 
     this.art('panels.roster_panel_six_cells', 992, 328, 440, 503);
@@ -97,9 +97,9 @@ export class FormationScene extends UiScene {
       this.text(x - 11, y + 10, ROLE_LABEL[hero.role], 12, '#dcc49e');
       this.text(x - 11, y + 26, status, 12, existing === slot ? '#a9efb9' : '#edddc5');
       const heroTarget = this.add.zone(x, y, 166, 87).setInteractive({ useHandCursor: true })
-        .on('pointerover', () => art.setTint(0xffdfab)).on('pointerout', () => art.clearTint())
-        .on('pointerup', () => saveSlot(id));
+        .on('pointerover', () => art.setTint(0xffdfab)).on('pointerout', () => art.clearTint());
       this.tutorialTarget(`formation.hero.${id}`, heroTarget);
+      heroTarget.on('pointerup', () => saveSlot(id));
     });
     this.pageControl(868, () => this.scene.restart({ fromArena, slot, page: rosterPage - 1 }), rosterPage > 0);
     this.add.rectangle(992, 524, 131, 28, 0x2f160f);
