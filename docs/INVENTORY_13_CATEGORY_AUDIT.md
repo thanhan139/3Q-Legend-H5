@@ -35,3 +35,11 @@ Nguồn tham chiếu: ảnh Túi Đồ do chủ dự án cung cấp. Đây là p
 5. Tránh trùng với `relic`, `signature`, `Forge`, Living Spirit hoặc đơn vị triệu hồi hiện hữu.
 
 Không xóa tài khoản hoặc reset tiến trình khi bổ sung danh mục.
+
+## Bổ sung dữ liệu online (migration 20261118111232)
+
+- Item catalog thêm 13 định nghĩa vật phẩm, mỗi danh mục một định nghĩa, **không cấp vật phẩm** cho người chơi.
+- `player_inventory_items` lưu `uid + item_id + quantity`, không nhân đôi `SaveV2` hoặc thay đổi vật phẩm hiện có.
+- Chỉ `authenticated` được đọc metadata; người chơi chỉ có thể đọc hàng của mình theo RLS `auth.uid() = uid`.
+- Frontend chỉ đọc số lượng thuộc UID đã xác thực; thất bại tải dữ liệu sẽ hiển thị lỗi thay vì lặng lẽ báo rỗng.
+- Chưa có giao dịch nhận/dùng/trang bị cho 9 danh mục chưa hoàn thiện gameplay. Khi triển khai phải dùng Edge Function, xác thực UID và idempotent ledger.
