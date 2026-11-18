@@ -13,6 +13,8 @@ import {
 } from '../domain/equipment';
 import { combatPower, heroStats } from '../domain/progression';
 import { gameStore } from '../domain/store';
+import { cloudRepository } from '../cloud/cloudRepository';
+import { heroNavigation } from '../ui/heroNavigation';
 import { HeroAnimationController, heroAnimationTexture } from '../ui/HeroAnimationController';
 import { BATTLE_SPRITES, battleSpriteFrames } from '../ui/battleSprites';
 import { UiScene } from '../ui/UiScene';
@@ -44,18 +46,26 @@ export class EquipmentScene extends UiScene {
 
   private changing = false;
   private selectedHeroId?:string;
-  preload(){loadEquipmentThemes(this);}
+  preload(){
+    const data = (this.sys.settings.data ?? {}) as EquipmentView;
+    loadEquipmentThemes(this, heroNavigation.candidate(gameStore.snapshot, cloudRepository.uid ?? 'local-ui', data.heroId));
+  }
 
   create({ heroId, bag = false, slot, uid, enhanced = false, query = {}, page = 0 }: EquipmentView = {}) {
     this.changing = false;
     this.data.remove('equipmentHeroView');
     const save = gameStore.snapshot;
     const items = (save.equipment ?? []).filter(item => !isSignature(item.itemId));
-    const model=equipmentHeroModel(save,heroId,uid);
+    const resolvedHeroId = heroNavigation.resolve(save, cloudRepository.uid ?? 'local-ui', heroId, 'equipment');
+    const model=equipmentHeroModel(save,resolvedHeroId,uid);
     const switchingHero=this.selectedHeroId!==undefined&&this.selectedHeroId!==model?.selectedHeroId;
     if(switchingHero)uid=undefined;
     this.selectedHeroId=model?.selectedHeroId;
     const selectedHero=this.selectedHeroId;
+    if (bag && selectedHero) {
+      this.renderBagOverlay(selectedHero, items, { heroId: selectedHero, bag, slot, uid, enhanced, query, page });
+      return;
+    }
     if(!bag&&selectedHero){
       drawEquipmentTheme(this,selectedHero,id=>{
         if(this.changing)return;this.changing=true;
@@ -230,6 +240,149 @@ export class EquipmentScene extends UiScene {
       const glow = this.text(1054, 286, `Cường hóa +${enhancement(selected)}`, 24, '#fff3c7',
         { stroke: '#652616', strokeThickness: 5, fontStyle: 'bold' }).setOrigin(0.5);
       this.tweens.add({ targets: glow, y: 183, alpha: 0, duration: 1100, onComplete: () => glow.destroy() });
+    }
+  }
+
+
+  /**
+   * Equipment management is an overlay on the approved dragon-palace hero screen.
+   * Never navigate to the deprecated three-column inventory layout for an owned hero.
+   */
+  private renderBagOverlay(heroId: string, items: Gear[], view: EquipmentView) {
+    const { uid, query = {}, page = 0, enhanced = false } = view;
+    const save = gameStore.snapshot;
+    const results = queryGear(items, query);
+    const pageSize = 12;
+    const lastPage = Math.max(0, Math.ceil(results.length / pageSize) - 1);
+    const selectedIndex = results.findIndex(item => item.uid === uid);
+    const currentPage = selectedIndex >= 0
+      ? Math.floor(selectedIndex / pageSize)
+      : Math.max(0, Math.min(page, lastPage));
+    const visible = results.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
+    const selected = results[selectedIndex] ?? visible.find(item => item.heroId === heroId)
+      ?? visible.find(item => !item.heroId) ?? visible[0];
+
+    const restart = (changes: EquipmentView = {}) => {
+      if (this.changing) return;
+      this.changing = true;
+      this.scene.restart({ heroId, bag: true, query, page: currentPage, uid: selected?.uid, ...changes });
+    };
+    const close = () => restart({ bag: false, slot: undefined, uid: undefined, query: undefined, page: 0 });
+
+    drawEquipmentTheme(this, heroId,
+      id => restart({ heroId: id, bag: true, query: {}, uid: undefined, slot: undefined, page: 0 }),
+      (slot, uid) => restart({ bag: true, query: { slot }, uid, page: 0 }));
+
+    // A modal layer preserves the full-body hero, six real slots and approved themed backdrop.
+    this.add.rectangle(640, 360, 1280, 720, 0x130d15, 0.54);
+    this.add.zone(640, 360, 1280, 720).setInteractive().on('pointerup', close);
+    this.frame(910, 380, 670, 590, 0x351b24, GOLD, 0.985);
+    this.add.zone(910, 380, 670, 590).setInteractive();
+    this.text(774, 111, 'KHO TRANG BỊ · ' + results.length + '/' + items.length,
+      19, '#ffdfa2', { fontStyle: 'bold' }).setOrigin(0.5);
+    this.action(1173, 112, 104, 'Đóng ×', close);
+    this.text(1091, 110, 'Trang bị đã chọn', 17, '#ffdda1', { fontStyle: 'bold' }).setOrigin(0.5);
+
+    const filter = (change: GearQuery) =>
+      restart({ query: { ...query, ...change }, uid: undefined, page: 0 });
+    this.action(650, 177, 116, 'Phẩm: ' + (query.rarity ?? 'Tất cả'),
+      () => filter({ rarity: cycle([undefined, 'R', 'SR', 'SSR'], query.rarity) }));
+    this.action(793, 177, 162, 'Loại: ' + (query.slot ? EQUIPMENT_SLOTS[query.slot] : 'Tất cả'),
+      () => filter({ slot: cycle([undefined, ...slots], query.slot) }));
+    this.action(926, 177, 96, 'Lọc lại', () => restart({ query: {}, uid: undefined, page: 0 }));
+    this.action(650, 224, 116, 'Chỉ số: ' + (query.stat ? STATS[query.stat] : 'Tất cả'),
+      () => filter({ stat: cycle([undefined, ...statKeys], query.stat) }));
+    this.action(793, 224, 162, 'Cấp: ' + (query.minimum ? '≥ +' + query.minimum : 'Tất cả'),
+      () => filter({ minimum: cycle([0, 5, 10, 15], query.minimum ?? 0) }));
+    this.action(926, 224, 96, 'Xếp: ' + SORT_LABEL[query.sort ?? 'rarity'],
+      () => filter({ sort: cycle(sortOptions, query.sort ?? 'rarity') }));
+
+    visible.forEach((item, index) => {
+      const x = 636 + (index % 4) * 92;
+      const y = 318 + Math.floor(index / 4) * 94;
+      this.tile(x, y, item, item.uid === selected?.uid, () => restart({ uid: item.uid }), 76);
+    });
+    if (lastPage > 0) {
+      this.action(656, 613, 102, '‹ Trước', () => restart({ page: currentPage - 1, uid: undefined }), currentPage > 0);
+      this.text(780, 613, (currentPage + 1) + '/' + (lastPage + 1), 16).setOrigin(0.5);
+      this.action(904, 613, 102, 'Sau ›', () => restart({ page: currentPage + 1, uid: undefined }), currentPage < lastPage);
+    }
+    if (!visible.length) {
+      this.text(782, 400, items.length ? 'Không có trang bị phù hợp.' : 'Kho chưa có trang bị.',
+        17, '#ecd0aa').setOrigin(0.5);
+      if (!items.length) this.action(783, 474, 205, 'Đến Chinh Chiến', () => this.go('Campaign'));
+    }
+
+    if (!selected) {
+      this.text(1094, 324, 'Chọn trang bị để xem\nthuộc tính và thao tác.',
+        17, '#efd2ad', { align: 'center' }).setOrigin(0.5);
+      this.data.set('equipmentBagOverlay', { selectedHeroId: heroId, query, selectedUid: undefined });
+      return;
+    }
+
+    const definition = EQUIPMENT[selected.itemId];
+    const rarity = gearRarity(selected);
+    const capped = !canEnhance(selected);
+    const cost = enhanceCost(selected);
+    const current = gearStats(selected);
+    const next = gearStats({ ...selected, level: selected.level + 1 });
+    const owner = selected.heroId ? HERO_BY_ID[selected.heroId]?.name : undefined;
+    this.text(1094, 157, definition.name, 20, '#ffe5b6', { fontStyle: 'bold',
+      align: 'center', wordWrap: { width: 242 } }).setOrigin(0.5);
+    this.tile(1094, 269, selected, true, undefined, 128);
+    this.text(1094, 346, definition.rarity + ' · ' + EQUIPMENT_SLOTS[definition.slot] +
+      ' · +' + enhancement(selected) + '/+' + rarity.cap, 15, '#ffdfa2').setOrigin(0.5);
+    this.text(1094, 372, owner ? 'Đang dùng · ' + owner : 'Đang trong túi',
+      14, '#eac19e').setOrigin(0.5);
+    statKeys.filter(key => current[key] > 0).forEach((key, index) => {
+      const y = 405 + index * 27;
+      this.text(990, y, STATS[key], 15, '#ffdead').setOrigin(0, 0.5);
+      this.text(1210, y, '+' + current[key] + (capped ? '' : ' › +' + next[key]),
+        15, '#ffebbf').setOrigin(1, 0.5);
+    });
+
+    const doAction = (command: GameCommand, mutate: () => boolean, changes: EquipmentView = {}) => {
+      if (this.changing) return;
+      void this.saveAction(command, mutate, ok => {
+        if (ok) restart(changes);
+        else this.toast('Thao tác chưa được lưu.');
+      });
+    };
+    if ((save.forge?.crafted || save.forge?.premiumClaimed) && isForgeWeapon(selected.itemId)) {
+      this.action(1094, 496, 222, selected.prestigeSkin ? 'Tắt skin' : 'Bật skin',
+        () => doAction({ type: 'skin', uid: selected.uid }, () => gameStore.togglePrestigeSkin(selected.uid)));
+    }
+    this.action(1094, 543, 238,
+      capped ? 'Đã đạt cấp tối đa' : 'Cường hóa · ' + number(cost) + ' vàng',
+      () => doAction({ type: 'enhance', uid: selected.uid, useStone: false },
+        () => gameStore.enhanceGear(selected.uid), { enhanced: true }),
+      !capped && walletBalance(save).gold >= cost);
+    if (!capped && definition.rarity === 'SSR' && inventoryQuantity(save, ITEM_IDS.enhancementStone) > 0) {
+      this.action(1094, 591, 238, 'Dùng đá · còn ' + inventoryQuantity(save, ITEM_IDS.enhancementStone),
+        () => doAction({ type: 'enhance', uid: selected.uid, useStone: true },
+          () => gameStore.enhanceGear(selected.uid, true), { enhanced: true }));
+    } else if (!capped && walletBalance(save).gold < cost) {
+      this.text(1094, 586, 'Không đủ vàng', 15, '#ffad93').setOrigin(0.5);
+    }
+    if (owner) {
+      this.action(1094, 638, 238, 'Tháo khỏi ' + owner,
+        () => doAction({ type: 'unequip', uid: selected.uid }, () => gameStore.unequipGear(selected.uid)));
+    } else {
+      const replace = items.some(item => item.heroId === heroId && EQUIPMENT[item.itemId].slot === definition.slot);
+      this.action(1094, 638, 238, (replace ? 'Thay' : 'Trang bị') + ' · ' + HERO_BY_ID[heroId].name,
+        () => doAction({ type: 'equip', uid: selected.uid, heroId },
+          () => gameStore.equipGear(selected.uid, heroId)));
+    }
+
+    if (enhanced) {
+      const ring = this.add.circle(1094, 269, 58).setStrokeStyle(3, rarity.metal);
+      this.tweens.add({ targets: ring, scale: 1.9, alpha: 0, duration: 650, onComplete: () => ring.destroy() });
+    }
+    this.data.set('equipmentBagOverlay', { selectedHeroId: heroId, query, selectedUid: selected.uid });
+    const key = this.input.keyboard;
+    if (key) {
+      key.on('keydown-ESC', close);
+      this.events.once('shutdown', () => key.off('keydown-ESC', close));
     }
   }
 
