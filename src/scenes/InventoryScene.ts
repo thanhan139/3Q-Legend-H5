@@ -219,6 +219,14 @@ export class InventoryScene extends UiScene {
       this.content.field('detail.empty', rect(box.x + 28, box.y + 130, box.width - 56, 180),
         this.collection ? COLLECTION_INFO[this.collection].description : 'Chọn vật phẩm để xem chi tiết',
         { size: 22, wrap: true, maxLines: 5, align: 'center' });
+      // Empty inventories can still reach the existing server-backed Forge/Equipment flows.
+      if (this.collection === 'than_binh') {
+        this.control('collection.forge', rect(box.x + 38, box.y + box.height - 94, box.width - 76, 62),
+          'Đến Lò Rèn', () => this.go('Forge'));
+      } else if (this.collection === 'trang_bi' || this.collection === 'bao_vat') {
+        this.control('collection.equipment', rect(box.x + 38, box.y + box.height - 94, box.width - 76, 62),
+          'Quản lý trang bị', () => this.go('Equipment', { bag: true }));
+      }
       return;
     }
     const iconY = box.y + (large ? 50 : 28), iconSize = large ? 140 : 116;
