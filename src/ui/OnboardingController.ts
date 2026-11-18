@@ -41,6 +41,7 @@ export class OnboardingController {
   private rendered = '';
   private help?: TutorialStep;
   private starterIndex = 0;
+  private readonly starterHeroes = ['zhang-fei', 'guan-yu', 'liu-bei'] as const;
   private slotSelected = false;
   private sending = false;
   private error = '';
@@ -62,7 +63,7 @@ export class OnboardingController {
     const target = (event: Event) => {
       const id = (event as CustomEvent<string>).detail;
       if (this.help) return;
-      if (id === `hero.card.${['zhang-fei', 'guan-yu', 'liu-bei'][this.starterIndex]}`) {
+      if (id === `hero.card.${this.starterHeroes[this.starterIndex]}`) {
         this.starterIndex = Math.min(3, this.starterIndex + 1); this.rendered = '';
       }
       if (id === 'formation.slot.0') { this.slotSelected = true; this.rendered = ''; }
@@ -132,7 +133,7 @@ export class OnboardingController {
     scene = this.currentScene();
     if (!scene || scene.sys.settings.key !== destination.scene) return;
     let targetId = '';
-    if (step === 'starter_heroes' && this.starterIndex < 3) targetId = `hero.card.${['zhang-fei', 'guan-yu', 'liu-bei'][this.starterIndex]}`;
+    if (step === 'starter_heroes' && this.starterIndex < 3) targetId = `hero.card.${this.starterHeroes[this.starterIndex]}`;
     if (step === 'formation') targetId = this.slotSelected ? 'formation.hero.zhang-fei' : 'formation.slot.0';
     if (step === 'campaign') targetId = 'campaign.enter';
     if (step === 'upgrade') targetId = 'hero.upgrade';
@@ -201,10 +202,10 @@ export class OnboardingController {
     if (step === 'starter_heroes' && this.help) {
       text.textContent = 'Trương Phi là Hộ Vệ chịu đòn tuyến trước; Quan Vũ là Đấu Sĩ gây sát thương; Lưu Bị là Hỗ Trợ hồi phục. Chọn tướng phù hợp để bảo vệ đội quân.';
     } else if (step === 'starter_heroes') {
-      const id = ['zhang-fei', 'guan-yu', 'liu-bei'][Math.min(this.starterIndex, 2)];
+      const id = this.starterHeroes[Math.min(this.starterIndex, 2)];
       const hero = HERO_BY_ID[id];
       text.textContent = this.starterIndex < 3 ? `${hero.name} · ${ROLE_LABEL[hero.role]}. ${id === 'zhang-fei'
-        ? 'Hộ Vệ che chắn cho đồng đội phía sau.' : id === 'guan-yu' ? 'Đấu Sĩ gây sát thương, cùng Trương Phi giữ tuyến trước.' : 'Hỗ Trợ hồi phục cho đội quân.'} Chạm chân dung để xem tướng.`
+        ? 'Hộ Vệ che chắn cho đồng đội phía sau.' : id === 'guan-yu' ? 'Đấu Sĩ gây sát thương, cùng Trương Phi giữ tuyến trước.' : 'Hỗ Trợ hồi phục cho đội quân.'} Chạm chân dung tướng bên trái hoặc bấm Tiếp tục để xem tướng kế tiếp.`
         : 'Ba võ tướng đã sẵn sàng đồng hành. Tiếp theo, hãy cùng bố trí đội hình.';
     } else text.textContent = step === 'battle' && scene.sys.settings.key === 'Result'
       ? 'Trận này chưa thắng. Không mất tài nguyên khởi đầu. Chạm Thử Lại để cùng đội quân tiếp tục ải 1-1.' : messages[step] ?? '';
@@ -233,7 +234,16 @@ export class OnboardingController {
       button('Về Trợ Giúp', () => { this.help = undefined; this.previous = ''; this.layer.replaceChildren(); scene.scene.start('Tutorial', { help: true }); });
     } else {
       if (!gameplay) button(step === 'welcome' ? 'Khởi hành' : step === 'battle_intro' ? 'Bắt đầu trận' : step === 'arena_intro' ? 'Hoàn thành' : 'Tiếp tục',
-        () => { void this.act(step === 'welcome' ? 'name' : 'next', name?.value); }, step === 'starter_heroes' && this.starterIndex < 3);
+        () => {
+          if (step === 'starter_heroes' && this.starterIndex < this.starterHeroes.length) {
+            this.starterIndex++;
+            this.rendered = '';
+            const nextHero = this.starterHeroes[this.starterIndex];
+            if (nextHero) scene.scene.restart({ heroId: nextHero });
+            return;
+          }
+          void this.act(step === 'welcome' ? 'name' : 'next', name?.value);
+        });
       button('Bỏ qua hướng dẫn', () => { if (window.confirm('Bỏ qua hướng dẫn? Tài nguyên và tiến trình đã nhận vẫn được giữ.')) void this.act('skip'); });
     }
     card.append(actions); surface.append(card);
