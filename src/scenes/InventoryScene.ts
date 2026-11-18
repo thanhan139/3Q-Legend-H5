@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { gameStore } from '../domain/store';
 import { HERO_BY_ID } from '../data/heroes';
-import { cloudRepository } from '../cloud/cloudRepository';
+import { cloudRepository, supabase } from '../cloud/cloudRepository';
 import { UiScene } from '../ui/UiScene';
 import { LobbyContent } from '../ui/LobbyContent';
 import { rect, type ContentRect } from '../ui/lobbyContentLayout';
@@ -9,6 +9,7 @@ import { coverScale, readSafeInsets } from '../ui/viewport';
 import { PORTRAITS, PORTRAIT_TILE, atlasOrder } from '../ui/heroPresentation';
 import { inventoryEntries, filterInventory, INVENTORY_TABS, type InventoryCategory, type InventoryEntry } from '../ui/inventoryModel';
 import { COLLECTION_INFO, collectionEntries, isCollectionId, type CollectionId } from '../ui/inventoryCollections';
+import { parseOnlineRows, onlineCollectionEntries, type OwnedOnlineItem } from '../ui/onlineInventory';
 import { inventoryLayout, INVENTORY_SLOT_CONTENT } from '../ui/inventoryLayout';
 import { INVENTORY_FONT, loadInventoryArt, inventoryKey, type InventoryArt } from '../ui/inventoryAssets';
 
@@ -17,6 +18,10 @@ export class InventoryScene extends UiScene {
   private content!: LobbyContent;
   private tab: InventoryCategory = 'all';
   private collection?: CollectionId;
+  private onlineItems: OwnedOnlineItem[] = [];
+  private onlineLoading = false;
+  private onlineError = '';
+  private onlineGeneration = 0;
   private selected?: string;
   private offset = 0;
   private detailOpen = false;
@@ -36,7 +41,8 @@ export class InventoryScene extends UiScene {
   constructor() { super('Inventory'); }
   // Actual viewport coordinates; other UiScene cameras retain their authored layout.
   init({ collection }: { collection?: string } = {}) { this.collection = isCollectionId(collection) ? collection : undefined;
-    this.tab = 'all'; this.selected = undefined; this.offset = 0; this.detailOpen = false; this.signature = ''; this.lastCheck = 0; }
+    this.tab = 'all'; this.selected = undefined; this.offset = 0; this.detailOpen = false; this.signature = ''; this.lastCheck = 0;
+    this.onlineItems = []; this.onlineError = ''; this.onlineLoading = false; this.onlineGeneration++; }
   preload() {
     loadInventoryArt(this);
     if (!this.textures.exists(PORTRAITS)) this.load.spritesheet(PORTRAITS,
@@ -46,6 +52,7 @@ export class InventoryScene extends UiScene {
     this.content = new LobbyContent(this, { fastFit: true, fontFamily: INVENTORY_FONT, resolution: 2, textPaddingY: 2 });
     this.owner = cloudRepository.uid;
     this.render();
+    if (this.collection) void this.loadOnlineInventory();
     const resize = () => this.render();
     const wheel = (pointer: Phaser.Input.Pointer, _objects: unknown[], _dx: number, dy: number) => {
       const v = this.layout.viewport;
@@ -69,7 +76,7 @@ export class InventoryScene extends UiScene {
       this.input.off('wheel', wheel); this.input.off('pointermove', move); this.input.off('pointerup', up);
       this.input.keyboard?.off('keydown-ESC', escape);
       this.input.keyboard?.off('keydown-PAGEDOWN', pageDown); this.input.keyboard?.off('keydown-PAGEUP', pageUp);
-      this.destroyClip();
+      this.destroyClip(); this.onlineGeneration++;
     });
     this.cameras.main.fadeIn(150, 17, 14, 20);
   }
@@ -77,13 +84,44 @@ export class InventoryScene extends UiScene {
     if (time - this.lastCheck < 250) return;
     this.lastCheck = time;
     const owner = cloudRepository.uid;
-    const signature = JSON.stringify(this.collection ? collectionEntries(gameStore.snapshot, this.collection) : inventoryEntries(gameStore.snapshot));
     const ownerChanged = owner !== this.owner;
     if (ownerChanged) {
       this.owner = owner; this.selected = undefined; this.tab = 'all'; this.offset = 0; this.detailOpen = false;
+      this.onlineItems = []; this.onlineError = ''; this.onlineGeneration++;
     }
-    if (ownerChanged || signature !== this.signature) this.render();
+    if (ownerChanged || this.inventorySignature() !== this.signature) this.render();
+    if (ownerChanged && this.collection) void this.loadOnlineInventory();
   }
+  private currentEntries(): InventoryEntry[] {
+    return this.collection
+      ? [...collectionEntries(gameStore.snapshot, this.collection), ...onlineCollectionEntries(this.onlineItems, this.collection)]
+      : inventoryEntries(gameStore.snapshot);
+  }
+  private inventorySignature() {
+    return JSON.stringify({ items: this.currentEntries(), loading: this.onlineLoading, error: this.onlineError });
+  }
+  private async loadOnlineInventory() {
+    const owner = this.owner, generation = ++this.onlineGeneration;
+    if (!this.collection) return;
+    this.onlineLoading = true; this.onlineError = ''; this.render();
+    try {
+      if (!owner || !supabase || !cloudRepository.active) throw new Error('not authenticated');
+      const { data, error } = await supabase.from('player_inventory_items')
+        .select('item_id,quantity,item:inventory_item_catalog(id,category_id,name_vi,description_vi,rarity)')
+        .eq('uid', owner).limit(500);
+      if (error) throw error;
+      if (generation !== this.onlineGeneration || this.owner !== owner) return;
+      this.onlineItems = parseOnlineRows(data);
+    } catch {
+      if (generation !== this.onlineGeneration || this.owner !== owner) return;
+      this.onlineError = 'Không thể tải kho đồ trực tuyến. Vui lòng thử lại.';
+    } finally {
+      if (generation === this.onlineGeneration && this.owner === owner) {
+        this.onlineLoading = false; this.render();
+      }
+    }
+  }
+
   private destroyClip() { this.grid?.clearMask(); this.clip?.destroy(); this.clipShape?.destroy(); this.clip = undefined; this.clipShape = undefined; }
 
   private render() {
@@ -99,9 +137,9 @@ export class InventoryScene extends UiScene {
     const background = this.add.image(width / 2 - safe.left, height / 2 - safe.top, inventoryKey('background'));
     background.setScale(coverScale(background.width, background.height, width, height));
     this.add.rectangle(width / 2, height / 2, width + 100, height + 100, 0x100607, .28);
-    const allEntries = this.collection ? collectionEntries(gameStore.snapshot, this.collection) : inventoryEntries(gameStore.snapshot);
+    const allEntries = this.currentEntries();
     this.entries = this.collection ? allEntries : filterInventory(allEntries, this.tab);
-    this.signature = JSON.stringify(allEntries);
+    this.signature = this.inventorySignature();
     if (!this.entries.some(entry => entry.id === this.selected)) this.selected = this.entries[0]?.id;
     this.offset = Phaser.Math.Clamp(this.offset, 0, this.layout.maxScroll(this.entries.length));
     const header = rect(this.layout.grid.x, 16, 440, 88);
@@ -161,10 +199,14 @@ export class InventoryScene extends UiScene {
     });
     if (!this.entries.length) {
       const info = this.collection ? COLLECTION_INFO[this.collection] : undefined;
-      this.content.field('empty.title', rect(viewport.x + 40, viewport.y + 110, viewport.width - 80, 58), info?.state === 'planned' ? 'CHƯA TRIỂN KHAI' : 'Chưa có vật phẩm', { size: 30, align: 'center' });
+      this.content.field('empty.title', rect(viewport.x + 40, viewport.y + 110, viewport.width - 80, 58),
+        this.onlineLoading ? 'Đang tải kho đồ…' : this.onlineError ? 'LỖI KẾT NỐI' : info?.state === 'planned' ? 'CHƯA MỞ TÍNH NĂNG' : 'Chưa có vật phẩm', { size: 30, align: 'center' });
       this.content.field('empty.description', rect(viewport.x + 45, viewport.y + 180, viewport.width - 90, 116),
-        info?.description ?? 'Vật phẩm nhận được từ hành trình sẽ xuất hiện tại đây. Hãy thử chọn danh mục khác.',
+        this.onlineError || (this.onlineLoading ? 'Đang xác nhận vật phẩm thuộc tài khoản với máy chủ.' :
+          info?.description ?? 'Vật phẩm nhận được từ hành trình sẽ xuất hiện tại đây. Hãy thử chọn danh mục khác.'),
         { size: 20, align: 'center', wrap: true, maxLines: 4 });
+      if (this.onlineError) this.control('reload-online-items', rect(viewport.x + viewport.width / 2 - 120, viewport.y + 300, 240, 54),
+        'Tải lại dữ liệu', () => { void this.loadOnlineInventory(); });
     }
     this.grid = this.add.container(0, -this.offset, this.children.list.slice(before)).setName('inventory.grid-content');
     this.clipShape = new Phaser.GameObjects.Graphics(this).fillStyle(0xffffff).fillRect(viewport.x, viewport.y, viewport.width, viewport.height);
