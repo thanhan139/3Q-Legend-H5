@@ -1,4 +1,5 @@
 import type Phaser from 'phaser';
+import { EQUIPMENT } from '../domain/equipment';
 import {loadSharedUi} from './sharedUi';
 export const INVENTORY_FONT = 'InventoryVietnamese';
 export const INVENTORY_ART = {
@@ -21,6 +22,11 @@ export function loadInventoryArt(scene: Phaser.Scene) {
   loadSharedUi(scene);
   for (const [id, file] of Object.entries(INVENTORY_ART)) {
     if (!scene.textures.exists(`inventory.${id}`)) scene.load.image(`inventory.${id}`, `${import.meta.env.BASE_URL}assets/inventory/${file}`);
+  }
+  // Display the actual equipment artwork in category inventories.
+  for (const [id, gear] of Object.entries(EQUIPMENT)) {
+    const key = 'inventory.gear.' + id;
+    if (!scene.textures.exists(key)) scene.load.image(key, import.meta.env.BASE_URL + 'assets/equipment/' + gear.art);
   }
   for (const [id, file] of Object.entries(INVENTORY_ICONS)) {
     if (!scene.textures.exists(`inventory.icon.${id}`)) scene.load.image(`inventory.icon.${id}`, `${import.meta.env.BASE_URL}${file}`);
