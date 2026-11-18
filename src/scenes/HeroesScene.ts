@@ -135,8 +135,10 @@ export class HeroesScene extends UiScene {
     this.text(x, y + 32, hero.name, 13, '#fff0cf', { fontStyle: 'bold' }).setOrigin(0.5);
     this.text(x, y + 47, owned ? `Lv.${heroLevel(save.heroExp[hero.id])} · ${'★'.repeat(save.heroStars?.[hero.id] ?? 1)}` :
       'Chưa sở hữu', 12, '#ffd784').setOrigin(0.5);
-    const card = this.add.zone(x, y, 121, 112).setInteractive({ useHandCursor: true }).on('pointerup', action);
+    const card = this.add.zone(x, y, 121, 112).setInteractive({ useHandCursor: true });
+    // Register tutorial progress before a scene restart can remove listeners.
     this.tutorialTarget(`hero.card.${hero.id}`, card);
+    card.on('pointerup', action);
   }
 
   private heroStage(hero: HeroDefinition, save: SaveV2, ascended: boolean) {
