@@ -1,6 +1,6 @@
 import {HERO_BY_ID} from '../data/heroes';
 import type {SaveV2} from '../domain/types';
-export type HeroTab='detail'|'skills'|'equipment'|'signature';
+export type HeroTab='detail'|'skills'|'equipment'|'signature'|'jewelry';
 /** Transient UI selection only. Account changes discard the previous selection. */
 export class HeroNavigation {
   selectedHeroId?:string;
@@ -17,4 +17,6 @@ export class HeroNavigation {
   }
 }
 export const heroNavigation=new HeroNavigation();
-export const heroTabRoute=(tab:HeroTab,heroId:string)=>({scene:tab==='equipment'?'Equipment':'Heroes',data:{heroId,tab}});
+export const heroTabRoute=(tab:HeroTab,heroId:string)=>({
+  scene:tab==='equipment'?'Equipment':tab==='jewelry'?'Jewelry':'Heroes',data:{heroId,tab},
+});

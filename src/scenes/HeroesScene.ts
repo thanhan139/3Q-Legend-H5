@@ -69,7 +69,7 @@ export class HeroesScene extends UiScene{
      heroAction(this,989,597,'Vũ khí khác',()=>update({signatureId:next,signatureUid:undefined}),true,144);
      heroAction(this,1145,597,`Bản ${item?items.indexOf(item)+1:0}/${items.length}`,()=>update({signatureUid:items[(items.indexOf(item!)+1)%items.length]?.uid}),items.length>1,144);
     }else{
-     const stars=save.heroStars?.[id]??1,exp=save.heroExp[id]??0,stats=heroStats(hero,exp,stars,save.equipment);
+     const stars=save.heroStars?.[id]??1,exp=save.heroExp[id]??0,stats=heroStats(hero,exp,stars,save.equipment,save.jewelry);
      text(111,'Chi Tiết Võ Tướng',21);
      [['Sinh lực',stats.hp],['Công',stats.atk],['Thủ',stats.def],['Tốc độ',stats.speed]].forEach(([s,v],i)=>text(164+i*40,`${s}   ${Number(v).toLocaleString('vi-VN')}`,19));
      const shards=inventoryQuantity(save,heroShardId(id));

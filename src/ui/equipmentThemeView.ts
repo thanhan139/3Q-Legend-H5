@@ -48,12 +48,12 @@ export function drawEquipmentTheme(scene:UiScene,selectedHeroId:string,choose:(i
  art('background/equipment_hall_clean.png',640,360,1280,720);
  art('ui/panels/header_nav.png',640,40,1260,70);label(250,38,tab==='equipment'?'Trang Bị':'Võ Tướng',27,270);
  scene.backToLobby(1155,38,190,54);
- for(const [i,[id,name]] of ([['detail','Chi tiết'],['skills','Kỹ năng'],['equipment','Trang Bị'],['signature','Thần Binh']] as const).entries()){
-  const x=455+i*163;
-  art('ui/panels/hero_title.png',x,39,155,47).setAlpha(id===tab?1:.55);
-  label(x,39,name,16,124,id===tab?'#fff0bb':'#d0b58c');
-  const hit=scene.add.zone(x,39,155,49).setName('hero.tab.'+id);
-  if(id!=='equipment'||owned)hit.setInteractive({useHandCursor:true}).on('pointerup',()=>{const route=heroTabRoute(id,selectedHeroId);scene.go(route.scene,{...route.data,collection:options.collection});});
+ for(const [i,[id,name]] of ([['detail','Chi tiết'],['skills','Kỹ năng'],['equipment','Trang Bị'],['jewelry','Trang Sức'],['signature','Thần Binh']] as const).entries()){
+  const x=425+i*132;
+  art('ui/panels/hero_title.png',x,39,125,47).setAlpha(id===tab?1:.55);
+  label(x,39,name,16,114,id===tab?'#fff0bb':'#d0b58c');
+  const hit=scene.add.zone(x,39,125,49).setName('hero.tab.'+id);
+  if((id!=='equipment'&&id!=='jewelry')||owned)hit.setInteractive({useHandCursor:true}).on('pointerup',()=>{const route=heroTabRoute(id,selectedHeroId);scene.go(route.scene,{...route.data,collection:options.collection});});
  }
  art('ui/panels/roster_rail.png',72,388,130,600);
  const roster=options.collection?HEROES.map(h=>h.id):save.heroes;

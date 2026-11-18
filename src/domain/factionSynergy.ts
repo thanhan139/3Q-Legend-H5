@@ -21,10 +21,10 @@ export function factionSynergy(formation: readonly (string | null)[]) {
 
 export type FactionSynergy = ReturnType<typeof factionSynergy>;
 
-export function applyFactionBonus<T extends EquipmentStats>(stats: T, id: FactionId, synergy?: FactionSynergy) {
+export function applyFactionBonus<T extends EquipmentStats & { criticalChance?: number }>(stats: T, id: FactionId, synergy?: FactionSynergy) {
   const bonus = synergy?.find(entry => entry.id === id)?.bonus ?? 0;
   const { stat } = FactionConfig[id];
-  const criticalChance = stat === 'criticalChance' ? bonus : 0;
+  const criticalChance = (stats.criticalChance ?? 0) + (stat === 'criticalChance' ? bonus : 0);
   if (stat === 'criticalChance' || !bonus) return { ...stats, criticalChance };
   return { ...stats, [stat]: Math.round(stats[stat] * (1 + bonus / 100)), criticalChance };
 }

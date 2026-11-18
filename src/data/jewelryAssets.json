@@ -1,0 +1,210 @@
+[
+  {
+    "id": "ring_r_blue",
+    "type": "ring",
+    "rarity": "R",
+    "name": "Nhẫn Hải Lam Linh Giới",
+    "setId": null,
+    "color": "blue",
+    "asset": "assets/jewelry/rings/r_blue.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_sr_green",
+    "type": "ring",
+    "rarity": "SR",
+    "name": "Nhẫn Thanh Ngọc Linh Giới",
+    "setId": null,
+    "color": "green",
+    "asset": "assets/jewelry/rings/sr_green.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_sr_violet",
+    "type": "ring",
+    "rarity": "SR",
+    "name": "Nhẫn Tử Tinh Linh Giới",
+    "setId": null,
+    "color": "purple",
+    "asset": "assets/jewelry/rings/sr_violet.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_sr_ice",
+    "type": "ring",
+    "rarity": "SR",
+    "name": "Nhẫn Băng Lam Linh Giới",
+    "setId": null,
+    "color": "ice",
+    "asset": "assets/jewelry/rings/sr_ice.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_ssr_phoenix",
+    "type": "ring",
+    "rarity": "SSR",
+    "name": "Nhẫn Chu Tước Hỏa Châu",
+    "setId": "phoenix",
+    "color": "red",
+    "asset": "assets/jewelry/rings/ssr_phoenix.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_ssr_dragon",
+    "type": "ring",
+    "rarity": "SSR",
+    "name": "Nhẫn Thanh Long Linh Ngọc",
+    "setId": "dragon",
+    "color": "green",
+    "asset": "assets/jewelry/rings/ssr_dragon.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_ssr_tiger",
+    "type": "ring",
+    "rarity": "SSR",
+    "name": "Nhẫn Bạch Hổ Huyền Kim",
+    "setId": "tiger",
+    "color": "gold",
+    "asset": "assets/jewelry/rings/ssr_tiger.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "ring_ssr_tortoise",
+    "type": "ring",
+    "rarity": "SSR",
+    "name": "Nhẫn Huyền Vũ U Tinh",
+    "setId": "tortoise",
+    "color": "purple",
+    "asset": "assets/jewelry/rings/ssr_tortoise.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_r_blue",
+    "type": "necklace",
+    "rarity": "R",
+    "name": "Dây Chuyền Hải Lam Linh Giới",
+    "setId": null,
+    "color": "blue",
+    "asset": "assets/jewelry/necklaces/r_blue.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_sr_green",
+    "type": "necklace",
+    "rarity": "SR",
+    "name": "Dây Chuyền Thanh Ngọc Linh Giới",
+    "setId": null,
+    "color": "green",
+    "asset": "assets/jewelry/necklaces/sr_green.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_sr_violet",
+    "type": "necklace",
+    "rarity": "SR",
+    "name": "Dây Chuyền Tử Tinh Linh Giới",
+    "setId": null,
+    "color": "purple",
+    "asset": "assets/jewelry/necklaces/sr_violet.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_sr_ice",
+    "type": "necklace",
+    "rarity": "SR",
+    "name": "Dây Chuyền Băng Lam Linh Giới",
+    "setId": null,
+    "color": "ice",
+    "asset": "assets/jewelry/necklaces/sr_ice.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_ssr_phoenix",
+    "type": "necklace",
+    "rarity": "SSR",
+    "name": "Dây Chuyền Chu Tước Hỏa Châu",
+    "setId": "phoenix",
+    "color": "red",
+    "asset": "assets/jewelry/necklaces/ssr_phoenix.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_ssr_dragon",
+    "type": "necklace",
+    "rarity": "SSR",
+    "name": "Dây Chuyền Thanh Long Linh Ngọc",
+    "setId": "dragon",
+    "color": "green",
+    "asset": "assets/jewelry/necklaces/ssr_dragon.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_ssr_tiger",
+    "type": "necklace",
+    "rarity": "SSR",
+    "name": "Dây Chuyền Bạch Hổ Huyền Kim",
+    "setId": "tiger",
+    "color": "gold",
+    "asset": "assets/jewelry/necklaces/ssr_tiger.png",
+    "size": [
+      384,
+      384
+    ]
+  },
+  {
+    "id": "necklace_ssr_tortoise",
+    "type": "necklace",
+    "rarity": "SSR",
+    "name": "Dây Chuyền Huyền Vũ U Tinh",
+    "setId": "tortoise",
+    "color": "purple",
+    "asset": "assets/jewelry/necklaces/ssr_tortoise.png",
+    "size": [
+      384,
+      384
+    ]
+  }
+]

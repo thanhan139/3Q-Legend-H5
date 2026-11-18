@@ -16,6 +16,9 @@ export interface InventoryEntry {
 /** Presentation only: quantities and identities come from the existing confirmed SaveV2. */
 export function inventoryEntries(save: SaveV2): InventoryEntry[] {
   const definitions: Omit<InventoryEntry, 'quantity'>[] = [
+    { id: ITEM_IDS.jewelryEssence, name: 'Tinh Hoa Trang Sức', category: 'resources', rarity: 'SR',
+      description: 'Nhận từ mốc Chinh Chiến. Dùng cùng Vàng để cường hóa Nhẫn và Dây Chuyền.',
+      destination: { scene: 'Jewelry', label: 'Đến Trang Sức' } },
     { id: ITEM_IDS.goldenKey, name: 'Chìa Khóa Vàng', category: 'items', icon: 'key', rarity: 'SSR',
       description: 'Dùng tại Điện Chiêu Mộ. Mỗi lượt chiêu mộ tiêu hao một Chìa Khóa Vàng. Phần thưởng do máy chủ xác nhận.',
       destination: { scene: 'Summon', label: 'Đến Chiêu Mộ' } },

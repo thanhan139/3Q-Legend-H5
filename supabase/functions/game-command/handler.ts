@@ -43,6 +43,10 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
     case 'daily': return typeof command.mission === 'string' &&
       Object.hasOwn(DAILY_MISSIONS, command.mission) && store.claimDaily(command.mission);
     case 'formation': return (command.heroId === null || idOK(command.heroId)) && store.updateFormation(command.slot, command.heroId);
+    case 'jewelryEquip': return idOK(command.uid) && idOK(command.heroId) && store.equipJewel(command.uid, command.heroId);
+    case 'jewelryUnequip': return idOK(command.uid) && store.unequipJewel(command.uid);
+    case 'jewelryEnhance': return idOK(command.uid) && store.enhanceJewel(command.uid);
+    case 'jewelryClaim': return idOK(command.stageId) && store.claimJewelry(command.stageId, () => crypto.randomUUID());
     case 'equip': return idOK(command.uid) && idOK(command.heroId) && store.equipGear(command.uid, command.heroId);
     case 'unequip': return idOK(command.uid) && store.unequipGear(command.uid);
     case 'enhance': return idOK(command.uid) && typeof command.useStone === 'boolean' &&
@@ -59,9 +63,9 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
         t.expiresAt < Date.now() || typeof t.signature !== 'string' || !/^[a-f0-9]{64}$/.test(t.signature) ||
         !await backend.verify(ticketPayload(uid, t), t.signature)) return false;
       const stage = STAGES.find(item => item.id === t.stageId && store.isUnlocked(item.id));
-      const { formation, heroExp, heroStars, equipment } = store.snapshot;
+      const { formation, heroExp, heroStars, equipment, jewelry } = store.snapshot;
       if (!stage || !formation.some(Boolean)) return false;
-      const winner = makeStageBattle(stage, formation, heroExp, heroStars, equipment, vipLevel(vip?.paidBaseKnbTotal)).finish();
+      const winner = makeStageBattle(stage, formation, heroExp, heroStars, equipment, vipLevel(vip?.paidBaseKnbTotal), jewelry).finish();
       return { winner, ...store.completeStage(stage.id, winner, requestId) };
     }
     default: return false;

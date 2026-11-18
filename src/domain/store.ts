@@ -5,6 +5,7 @@ import type { EquipmentId } from '../data/equipmentConfig';
 import { advanceMission, CHECK_IN, DAILY_MISSIONS, grantWallet, normalizeWelfare, TOPUP_HERO, TOPUP_REWARD, welfareDay, welfareStatus, type Mission } from './welfare';
 import { HERO_BY_ID, HERO_RARITIES, LEGENDARY_PITY_LIMIT, PITY_LIMIT, SLOT_COUNT, heroFamily } from '../data/heroes';
 import { HERO_MILESTONES, STAGES, SUMMON_UNLOCK_STAGE } from '../data/campaign';
+import { equipJewelry, jewelryEnhanceCost, JEWELRY_MAX_LEVEL, JEWELRY_REWARDS, JEWELRY_UID, JEWELRY_ESSENCE_PER_ITEM, normalizeJewelry } from './jewelry';
 import type { SaveV2 } from './types';
 import { drawSummon, DUPLICATE_SHARDS, type SummonReward } from './summon';
 
@@ -45,10 +46,14 @@ export function normalizeSave(data:unknown):SaveV2 {
     const stars = Math.min(MAX_HERO_STARS, safeNumber(raw.heroStars?.[id], 1));
     return stars > 1 ? [[id, stars]] : [];
   }));
+  const jewelry = normalizeJewelry(raw.jewelry, heroes);
+  const jewelryEssence = Math.min(Number.MAX_SAFE_INTEGER, safeNumber(raw.jewelryEssence, 0));
   const equipment = normalizeEquipment(raw.equipment, heroes);
   const save: SaveV2 = {
     forge: normalizeForge(raw.forge, clearedStages),
     ...(equipment.length ? { equipment } : {}),
+    ...(jewelry.length ? { jewelry } : {}),
+    ...(jewelryEssence ? { jewelryEssence } : {}),
     ...(Object.keys(heroStars).length ? { heroStars } : {}),
     ...(raw.welfare ? { welfare: normalizeWelfare(raw.welfare) } : {}),
     schemaVersion: 2,
@@ -165,6 +170,49 @@ export class GameStore {
     next[slot] = heroId;
     return this.commit({ ...this.state, formation: next });
   }
+  equipJewel(uid: string, heroId: string): boolean {
+    const next = this.snapshot;
+    next.jewelry = normalizeJewelry(next.jewelry, next.heroes);
+    return equipJewelry(next.jewelry, uid, heroId, next.heroes) && this.commit(next);
+  }
+
+  unequipJewel(uid: string): boolean {
+    const next = this.snapshot;
+    next.jewelry = normalizeJewelry(next.jewelry, next.heroes);
+    const item = next.jewelry.find(candidate => candidate.uid === uid);
+    if (!item?.heroId) return false;
+    delete item.heroId;
+    return this.commit(next);
+  }
+
+  enhanceJewel(uid: string): boolean {
+    const next = this.snapshot;
+    next.jewelry = normalizeJewelry(next.jewelry, next.heroes);
+    const item = next.jewelry.find(candidate => candidate.uid === uid);
+    if (!item || item.level >= JEWELRY_MAX_LEVEL) return false;
+    const cost = jewelryEnhanceCost(item);
+    if (walletBalance(next).gold < cost.gold || !changeInventory(next, ITEM_IDS.jewelryEssence, -cost.essence)) return false;
+    next.coins -= cost.gold;
+    item.level++;
+    return this.commit(next);
+  }
+
+  claimJewelry(stageId: string, issueUid: () => string): boolean {
+    const next = this.snapshot;
+    const reward = JEWELRY_REWARDS.find(entry => entry.stageId === stageId);
+    if (!reward || !next.clearedStages.includes(stageId)) return false;
+    const inventory = normalizeJewelry(next.jewelry, next.heroes);
+    const missing = reward.itemIds.filter(id => !inventory.some(item => item.itemId === id));
+    if (!missing.length) return false;
+    for (const itemId of missing) {
+      const uid = issueUid();
+      if (!JEWELRY_UID.test(uid) || inventory.some(item => item.uid === uid)) return false;
+      inventory.push({ itemId, uid, level: 0 });
+    }
+    next.jewelry = inventory;
+    return changeInventory(next, ITEM_IDS.jewelryEssence, JEWELRY_ESSENCE_PER_ITEM * missing.length) && this.commit(next);
+  }
+
   equipGear(uid: string, heroId: string): boolean {
     const next = this.snapshot;
     const item = next.equipment?.find(candidate => candidate.uid === uid);

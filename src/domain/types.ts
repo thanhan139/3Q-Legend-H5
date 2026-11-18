@@ -1,5 +1,6 @@
 import type { FactionId } from '../data/factions';
 import type { ForgeWallet } from './forge';
+import type { JewelryItem } from './jewelry';
 import type { Gear } from './equipment';
 import type { Welfare } from './welfare';
 import type { SummonReward } from './summon';
@@ -62,5 +63,7 @@ export interface SaveV2 extends Omit<SaveV1, 'schemaVersion'> {
   welfare?: Welfare;
   forge?: ForgeWallet;
   equipment?: Gear[];
+  jewelry?: JewelryItem[];
+  jewelryEssence?: number;
   heroStars?: Record<string, number>;
 }
