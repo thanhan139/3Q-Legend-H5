@@ -1,38 +1,38 @@
-import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { resolve } from 'node:path';
+import heroSource from '../src/scenes/HeroesScene.ts?raw';
+import themeSource from '../src/ui/equipmentThemeView.ts?raw';
+import baseManifest from '../src/data/livingSpiritManifest.json';
+import expansionManifest from '../src/data/livingSpiritExpansionManifest.json';
+import paintedManifest from '../src/data/livingSpiritPaintedManifest.json';
 
-const root = process.cwd();
-const file = (path: string) => readFileSync(resolve(root, path), 'utf8');
-
-describe('Restore approved dragon palace Võ Tướng screen', () => {
-  it('uses original themed hero shell, four tabs and all six equipment slots', () => {
-    const hero = file('src/scenes/HeroesScene.ts');
-    const theme = file('src/ui/equipmentThemeView.ts');
-    expect(hero).toContain('drawEquipmentTheme(this');
-    expect(hero).toContain('loadEquipmentThemes(this');
-    expect(theme).toContain("art('background/equipment_hall_clean.png'");
+describe('Approved Võ Tướng dragon-palace presentation', () => {
+  it('renders original four-tab hero hall with data-driven equipment slots', () => {
+    expect(heroSource).toContain('drawEquipmentTheme(this');
+    expect(heroSource).toContain('loadEquipmentThemes(this');
+    expect(themeSource).toContain("art('background/equipment_hall_clean.png'");
     for (const label of ['Chi tiết', 'Kỹ năng', 'Trang Bị', 'Thần Binh'])
-      expect(theme).toContain(label);
-    for (const label of ['Vũ Khí', 'Giày', 'Bảo Vật', 'Chiến Mã', 'Mũ', 'Giáp'])
-      expect(theme.toLowerCase()).toContain(label.toLowerCase());
-    expect(theme).toContain("scene.tutorialTarget('hero.card.'+id,hit)");
-    expect(theme.indexOf("scene.tutorialTarget('hero.card.'+id,hit)")).toBeLessThan(
-      theme.indexOf("hit.on('pointerup',()=>choose(id))")
-    );
+      expect(themeSource).toContain(label);
+    expect(themeSource).toContain('EQUIPMENT_SLOTS');
+    expect(themeSource).toContain('equipment.hero.');
   });
-  it('restores all five animation manifests and image assets used by the original hero hall', () => {
-    for (const manifest of ['livingSpiritManifest','livingSpiritExpansionManifest','livingSpiritPaintedManifest']) {
-      const data = JSON.parse(file('src/data/' + manifest + '.json'));
-      const visit = (v: unknown): string[] => {
-        if (typeof v === 'string') return /\.png$|\.webp$/.test(v) ? [v] : [];
-        if (Array.isArray(v)) return v.flatMap(visit);
-        if (v && typeof v === 'object') return Object.values(v).flatMap(visit);
-        return [];
-      };
-      const images = visit(data);
-      expect(images.length).toBeGreaterThan(0);
-      for (const src of images) expect(existsSync(resolve(root, 'public', src))).toBe(true);
+  it('advances tutorial on portrait touch before switching heroes', () => {
+    const registration = themeSource.indexOf("scene.tutorialTarget('hero.card.'+id,hit)");
+    const navigation = themeSource.indexOf("hit.on('pointerup',()=>choose(id))");
+    expect(registration).toBeGreaterThan(-1);
+    expect(navigation).toBeGreaterThan(registration);
+  });
+  it('includes the original spirit manifests and referenced image assets', () => {
+    const images = import.meta.glob('../public/assets/spirits/**/*.png');
+    const visit = (value: unknown): string[] => {
+      if (typeof value === 'string') return /\.png$|\.webp$/.test(value) ? [value] : [];
+      if (Array.isArray(value)) return value.flatMap(visit);
+      if (value && typeof value === 'object') return Object.values(value).flatMap(visit);
+      return [];
+    };
+    for (const manifest of [baseManifest, expansionManifest, paintedManifest]) {
+      const refs = visit(manifest);
+      expect(refs.length).toBeGreaterThan(0);
+      for (const ref of refs) expect(images['../public/' + ref]).toBeDefined();
     }
   });
 });
