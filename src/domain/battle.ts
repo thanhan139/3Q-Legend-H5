@@ -4,7 +4,7 @@ import { HERO_BY_ID, heroFamily, heroFaction } from '../data/heroes';
 import { stageOpponents } from '../data/campaign';
 import { RAGE_CONFIG, clampRage } from '../data/rageConfig';
 import { COMBAT_BALANCE } from '../data/skillCombat';
-import { signaturePassive, type Gear } from './equipment';
+import { signaturePassive, signatureTeamAura, type Gear } from './equipment';
 import type { JewelryItem } from './jewelry';
 import { heroStats } from './progression';
 import { vipBonuses } from './vip';
@@ -113,6 +113,11 @@ export function makeStageBattle(
   const allySynergy = factionSynergy(formation);
   const allies = formation.slice(0, 6).flatMap((id, slot) =>
     id ? [createUnit(id, 'player', slot, 1, heroExp[id] ?? 0, heroStars[id] ?? 1, gear, allySynergy, jewelry)] : []);
+  const aura = 1 + signatureTeamAura(gear, formation) / 100;
+  if (aura > 1) for (const unit of allies) {
+    unit.maxHp = Math.round(unit.maxHp * aura); unit.hp = unit.maxHp;
+    unit.atk = Math.round(unit.atk * aura); unit.def = Math.round(unit.def * aura);
+  }
   const bonus = vipBonuses(vip);
   if (vip > 0) for (const unit of allies) {
     unit.maxHp = Math.round(unit.maxHp * (1 + bonus.hpPct / 100)); unit.hp = unit.maxHp;
@@ -140,8 +145,17 @@ export function makeArenaBattle(attack: ArenaSquad, defense: ArenaSquad): Battle
   const units = (['player', 'enemy'] as const).flatMap(side => {
     const squad = side === 'player' ? attack : defense;
     const synergy = factionSynergy(squad.formation);
-    return squad.formation.slice(0, 6).flatMap((id, slot) => id
-      ? [createUnit(id, side, slot, 1, squad.heroExp[id] ?? 0, squad.heroStars?.[id] ?? 1, squad.equipment, synergy, squad.jewelry)] : []);
+    const aura = 1 + signatureTeamAura(squad.equipment, squad.formation) / 100;
+    return squad.formation.slice(0, 6).flatMap((id, slot) => {
+      if (!id) return [];
+      const unit = createUnit(id, side, slot, 1, squad.heroExp[id] ?? 0, squad.heroStars?.[id] ?? 1,
+        squad.equipment, synergy, squad.jewelry);
+      if (aura > 1) {
+        unit.maxHp = Math.round(unit.maxHp * aura); unit.hp = unit.maxHp;
+        unit.atk = Math.round(unit.atk * aura); unit.def = Math.round(unit.def * aura);
+      }
+      return [unit];
+    });
   });
   return new BattleEngine(units);
 }
