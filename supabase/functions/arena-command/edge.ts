@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.119.0';
 import { makeArenaBattle, type ArenaSquad } from '../../../src/domain/battle';
+import { arenaDefense, arenaSquad } from './squad';
 import { formationPower } from '../../../src/domain/progression';
 import type { SaveV2 } from '../../../src/domain/types';
 import type { ArenaRequest } from '../../../src/cloud/arenaProtocol';
@@ -10,13 +11,6 @@ const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE
 const origins = createAllowedOrigins(Deno.env.get('GAME_ALLOWED_ORIGINS') ?? '', Deno.env.get('SUPABASE_URL') ?? '');
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function squad(save: SaveV2): ArenaSquad {
-  return {
-    formation: save.formation, heroExp: save.heroExp, heroStars: save.heroStars,
-    equipment: save.equipment?.filter(item => item.heroId && save.formation.includes(item.heroId)),
-  };
-}
-
 async function command(uid: string, input: ArenaRequest) {
   const rpc = async (action: string, args: object = {}) => {
     const { data, error } = await admin.rpc('arena_command', { p_uid: uid, p_action: action, p_args: args });
@@ -24,7 +18,16 @@ async function command(uid: string, input: ArenaRequest) {
     return data;
   };
   if (input.action === 'view') return rpc('view');
-  if (input.action === 'claim' && Number.isSafeInteger(input.season)) return rpc('claim', { season: input.season });
+  if (input.action === 'claim' && Number.isSafeInteger(input.season)) {
+    const result = await rpc('claim', { season: input.season });
+    if (result.status === 'ok' || result.status === 'claimed') {
+      try {
+        const notice = await admin.rpc('mail_notify_arena_settlement',{p_uid:uid,p_season:input.season});
+        if (notice.error) console.error('Arena mail notification failed');
+      } catch { console.error('Arena mail notification failed'); }
+    }
+    return result;
+  }
   if (input.action !== 'challenge' && input.action !== 'publish') return { status: 'invalid' };
   if (input.action === 'challenge') {
     if (!uuid.test(input.opponent) || !uuid.test(input.requestId) || input.opponent === uid) return { status: 'invalid' };
@@ -39,24 +42,28 @@ async function command(uid: string, input: ArenaRequest) {
   const { data: save, error } = await admin.from('player_saves').select('state,revision').eq('uid', uid).maybeSingle();
   if (error) throw error;
   if (!save) return { status: 'missing' };
-  const attacker = squad(save.state as SaveV2);
+  const attacker = arenaSquad(save.state as SaveV2);
   if (!attacker.formation.some(Boolean)) return { status: 'formation' };
   if (input.action === 'publish') return rpc('publish', {
     revision: save.revision, defense: attacker, power: formationPower(save.state as SaveV2),
   });
   const view = await rpc('view');
   if (!view.enrolled || !view.season) return { status: 'unavailable' };
-  const { data: target, error: targetError } = await admin.from('arena_players').select('defense,defense_revision')
-    .eq('season', view.season).eq('uid', input.opponent).maybeSingle();
-  if (targetError) throw targetError;
-  if (!target) return { status: 'unavailable' };
-  const engine = makeArenaBattle(attacker, target.defense as ArenaSquad);
+  const [published, current] = await Promise.all([
+    admin.from('arena_players').select('defense,defense_revision').eq('season', view.season).eq('uid', input.opponent).maybeSingle(),
+    admin.from('player_saves').select('state,revision').eq('uid', input.opponent).maybeSingle(),
+  ]);
+  if (published.error || current.error) throw published.error ?? current.error;
+  if (!published.data || !current.data) return { status: 'unavailable' };
+  const engine = makeArenaBattle(attacker, arenaDefense(published.data.defense as ArenaSquad, current.data.state as SaveV2));
   const replay = structuredClone(engine.units);
-  return rpc('settle', {
+  const { data, error: settleError } = await admin.rpc('arena_settle_jewelry', {p_uid: uid, p_args: {
     opponent: input.opponent, requestId: input.requestId, season: view.season,
-    defenseRevision: target.defense_revision, attackRevision: save.revision,
+    defenseRevision: published.data.defense_revision, defenderSaveRevision: current.data.revision, attackRevision: save.revision,
     won: engine.finish() === 'player', replay,
-  });
+  }});
+  if (settleError) throw settleError;
+  return data;
 }
 
 Deno.serve(async request => {

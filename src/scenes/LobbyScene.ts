@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { walletBalance } from '../domain/resources';
 import { openAccount, logoutAccount } from '../cloud/accountDialog';
 import { cloudRepository, supabase } from '../cloud/cloudRepository';
+import { mailRepository } from '../cloud/mailRepository';
 import { welfareStatus } from '../domain/welfare';
 import { HeroAnimationController, heroAnimationTexture } from '../ui/HeroAnimationController';
 import { battleSpriteDisplaySize } from '../data/battleVisuals';
@@ -208,7 +209,7 @@ export class LobbyScene extends UiScene {
         [0, 'Phúc Lợi', () => this.go('Info', { page: 'Welfare' })],
         [1, 'Nạp Đầu', () => this.go('Info', { page: 'Topup' })],
         [2, 'Điểm Danh', () => this.go('Info', { page: 'Checkin' })],
-        [3, 'Hộp Thư', () => this.go('Info', { page: 'Mail' })],
+        [3, 'Hộp Thư', () => this.go('Mail')],
         [4, 'Nhiệm Vụ', () => this.go('Info', { page: 'Missions' })],
         [14, 'Cài Đặt', () => this.scene.restart({ settings: true })],
       ] as const;
@@ -220,12 +221,27 @@ export class LobbyScene extends UiScene {
         this.skinButton(687 + index * 105, 133, 100, 92, skins[index], skins[index], action,
           `lobby.${icon}`, false, rewardDots[index], label);
       });
+      const owner=mailRepository.uid;
+      if(owner){
+        const x=687+3*105+37,y=101;
+        const unreadBadge=this.add.circle(x,y,13,0xb81b24).setStrokeStyle(2,0xffdf8d).setVisible(false);
+        const unreadLabel=this.text(x,y,'',13,'#fff4cc',{fontStyle:'bold'}).setOrigin(.5).setVisible(false);
+        const refreshBadge=()=>void mailRepository.list(owner,'all',0).then(inbox=>{
+          if(!unreadBadge.scene||mailRepository.uid!==owner) return;
+          const unread=inbox.unread.all;
+          unreadBadge.setVisible(unread>0); unreadLabel.setText(String(unread)).setVisible(unread>0);
+        }).catch(()=>undefined);
+        refreshBadge(); this.time.addEvent({delay:20_000,loop:true,callback:refreshBadge});
+        window.addEventListener('focus',refreshBadge);
+        this.events.once('shutdown',()=>window.removeEventListener('focus',refreshBadge));
+      }
     }, l => ({ x: l.right, y: l.top }));
 
     this.anchor(() => {
       this.sideButton(228, 6, 'Bang Hội', () => this.popup('guild'), true);
       this.sideButton(343, 7, 'Đấu Trường', () => this.go('Arena'), false);
       this.sideButton(458, 8, 'Thế Giới', () => this.popup('world'), true);
+      this.sideButton(552, 11, 'Vạn Bảo Các', () => this.go('Shop'), false, 'lobby.shop');
     }, l => ({ x: l.left, y: l.centerY }));
 
     this.anchor(() => {
@@ -274,13 +290,10 @@ export class LobbyScene extends UiScene {
 
   private toggleInventoryMenu() {
     if (this.closeInventoryMenu) { this.closeInventoryMenu(); return; }
-    const layout = this.layout(), canvas = this.game.canvas.getBoundingClientRect();
-    const ratio = canvas.width / this.scale.width;
     this.input.enabled = false;
-    this.closeInventoryMenu = openInventoryMenu(this, { x: canvas.left + layout.dock[2] * ratio,
-      y: canvas.top + (layout.dockY - 55) * ratio }, () => this.go('Inventory'), () => {
+    this.closeInventoryMenu = openInventoryMenu(this, () => {
       this.closeInventoryMenu = undefined; this.input.enabled = true;
-    }, scene => this.go(scene, { bag: true }));
+    }, (scene,data) => this.go(scene,data));
   }
 
   private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,
@@ -318,7 +331,7 @@ export class LobbyScene extends UiScene {
     this.bindLobbyHit(hit, action, paint);
   }
 
-  private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean) {
+  private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean, target = `lobby.${frame}`) {
     // Kit side-nav default/selected PNGs contain baked red dots. Use a clean blank frame instead.
     const panel = this.content.frame(`side.${frame}`, smoothKey('red'), rect(9, y - 36, 204, 72), SMOOTH_FRAME);
     panel.image.setAlpha(locked ? 0.76 : 1);
@@ -328,8 +341,8 @@ export class LobbyScene extends UiScene {
     icon.setScale(iconSize / icon.frame.width).setAlpha(locked ? 0.65 : 1);
     this.content.field(`side.${frame}.label`, rect(inner.x + iconSize + 5, inner.y, inner.width - iconSize - 7, inner.height),
       label, { size: 17, minSize: 13, align: 'center', padding: 2 });
-    const hit = this.add.zone(111, y, 210, 76).setName(`lobby.${frame}`).setInteractive({ useHandCursor: true });
-    this.tutorialTarget(`lobby.${frame}`, hit);
+    const hit = this.add.zone(111, y, 210, 76).setName(target).setInteractive({ useHandCursor: true });
+    this.tutorialTarget(target, hit);
     this.bindLobbyHit(hit, action, state => panel.image.setAlpha(state === 'press' ? 0.65 : locked ? 0.76 : 1));
   }
 

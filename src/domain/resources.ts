@@ -5,6 +5,7 @@ export const ITEM_IDS = {
   heroExp: 'hero_exp',
   enhancementStone: 'enhancement_stone',
   forgeShard: 'forge_shard',
+  jewelryEssence: 'jewelry_essence',
   legacyGem: 'legacy_gem',
 } as const;
 
@@ -20,6 +21,7 @@ const saveFields = {
 
 export function inventoryQuantity(save: SaveV2, id: ItemId): number {
   switch (id) {
+    case ITEM_IDS.jewelryEssence: return save.jewelryEssence ?? 0;
     case ITEM_IDS.enhancementStone: return save.forge?.stones ?? 0;
     case ITEM_IDS.forgeShard: return save.forge?.shards ?? 0;
     case ITEM_IDS.goldenKey:
@@ -35,6 +37,9 @@ export function changeInventory(save: SaveV2, id: ItemId, delta: number): boolea
   const quantity = Math.min(Number.MAX_SAFE_INTEGER, inventoryQuantity(save, id) + delta);
   if (!Number.isSafeInteger(delta) || !Number.isSafeInteger(quantity) || quantity < 0) return false;
   switch (id) {
+    case ITEM_IDS.jewelryEssence:
+      save.jewelryEssence = quantity;
+      return true;
     case ITEM_IDS.enhancementStone:
       if (!save.forge) return false;
       save.forge.stones = quantity;

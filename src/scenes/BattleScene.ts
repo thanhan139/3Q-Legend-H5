@@ -175,7 +175,7 @@ export class BattleScene extends UiScene {
       arenaPractice?(rankedArena?'Phát lại xếp hạng':'Luyện tập · Không tính hạng'):stage!.name,14);
     this.controls.push(this.ui.button('back','back',rect(1048,22,210,58),arenaPractice?'Bố trận':'Về sảnh',
       ()=>arenaPractice?this.go('Arena',{page:'prepare'}):this.go('Lobby')));
-    const { formation, heroExp, heroStars, equipment } = gameStore.snapshot;
+    const { formation, heroExp, heroStars, equipment, jewelry } = gameStore.snapshot;
     if (!rankedArena && !formation.some(Boolean)) {
       this.panel(300, 231, 680, 246, INK);
       this.text(640, 306, 'Cần bố trí ít nhất một võ tướng để xuất trận.', 26).setOrigin(0.5);
@@ -183,8 +183,8 @@ export class BattleScene extends UiScene {
       return;
     }
 
-    this.engine = rankedArena ? new BattleEngine(structuredClone(rankedArena.replay)) : arenaPractice ? makeArenaPracticeBattle(formation, heroExp, heroStars, equipment)
-      : makeStageBattle(stage!, formation, heroExp, heroStars, equipment, vipLevel(cloudRepository.vip?.paidBaseKnbTotal));
+    this.engine = rankedArena ? new BattleEngine(structuredClone(rankedArena.replay)) : arenaPractice ? makeArenaPracticeBattle(formation, heroExp, heroStars, equipment, jewelry)
+      : makeStageBattle(stage!, formation, heroExp, heroStars, equipment, vipLevel(cloudRepository.vip?.paidBaseKnbTotal), jewelry);
     for (const side of ['player', 'enemy'] as const) {
       const units = this.engine.units.filter(unit => unit.side === side);
       this.aliveCounts[side]=units.length;

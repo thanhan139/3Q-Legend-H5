@@ -1,13 +1,16 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { handleGameRequest, type GameBackend, type SaveRow } from '../supabase/functions/game-command/handler';
 import { baseSave, GameStore } from '../src/domain/store';
 import type { GameCommand, GameIntent } from '../src/cloud/gameProtocol';
 import { validateLegacy } from '../src/cloud/validateLegacy';
+import { COPPER_ECONOMY } from '../src/domain/copperEconomy';
+import { welfareDay } from '../src/domain/welfare';
 
-function fixture() {
+function fixture(options: Pick<GameBackend, 'economyTestEnabled' | 'hasRankedWin'> = {}) {
   const saves = new Map<string, SaveRow>();
   const receipts = new Map<string, { command: GameCommand; receipt: unknown }>();
   const backend: GameBackend = {
+    ...options,
     async user(token) {
       return ['alice', 'bob', 'unconfirmed'].includes(token)
         ? { id: token, email_confirmed_at: token !== 'unconfirmed' ? '2026-11-15' : undefined } : null;
@@ -36,6 +39,64 @@ function fixture() {
 }
 
 describe('cloud save boundary', () => {
+  it('grants V1.4 campaign Copper once on first clear, and caps replay wins by Vietnam day', async () => {
+    const now = Date.parse('2026-11-19T16:59:00Z');
+    const clock = vi.spyOn(Date, 'now').mockReturnValue(now);
+    try {
+      const {ask,saves} = fixture({economyTestEnabled: uid => uid === 'alice'});
+      const battle = async (uid: string) => {
+        const revision = String(saves.get(uid)!.revision);
+        const result = await ask({action:'startBattle',stageId:'1-1',revision},uid);
+        if (!('ticket' in result)) throw new Error('Missing battle ticket');
+        const ticket = result.ticket as Extract<GameCommand,{type:'battle'}>['ticket'];
+        const command = {action:'command',command:{type:'battle',ticket},revision,requestId:ticket.id} as const;
+        const settled = await ask(command,uid);
+        expect(settled).toMatchObject({status:'ok',receipt:{winner:'player'}});
+        const revisionAfter = saves.get(uid)!.revision;
+        expect(await ask(command,uid)).toMatchObject({status:'ok'});
+        expect(saves.get(uid)?.revision).toBe(revisionAfter);
+      };
+      for (const uid of ['alice','bob']) await ask({action:'initialize'},uid);
+      await battle('alice');
+      await battle('bob');
+      expect(saves.get('alice')?.state).toMatchObject({copper:2000,coins:5200,gems:300});
+      expect(saves.get('bob')?.state.copper).toBeUndefined();
+      for (let n = 0; n <= COPPER_ECONOMY.replayDailyLimit; n++) await battle('alice');
+      expect(saves.get('alice')?.state).toMatchObject({copper:5000,coins:5200,gems:300});
+      clock.mockReturnValue(now + 60_000);
+      await battle('alice');
+      expect(saves.get('alice')?.state).toMatchObject({copper:6000,copperDaily:{campaignReplays:1}});
+      expect(validateLegacy({...baseSave(),copperDaily:{day:welfareDay(),arenaClaimed:true,campaignReplays:3}})).not.toHaveProperty('copperDaily');
+    } finally { clock.mockRestore(); }
+  });
+
+  it('keeps daily Copper and ranked claims scoped to verified UID, day and revision', async () => {
+    const start = Date.parse('2026-11-18T17:00:00Z');
+    const clock = vi.spyOn(Date, 'now').mockReturnValue(start);
+    const verified = vi.fn(async (uid: string, from: number) => uid === 'alice' && from === start);
+    try {
+      const {ask,saves} = fixture({economyTestEnabled:()=>true,hasRankedWin:verified});
+      const day = welfareDay();
+      const daily = {day,counts:{win:1},claimed:[]};
+      for (const uid of ['alice','bob']) saves.set(uid,{state:{...baseSave(),welfare:{checkIns:0,checkInDay:0,daily}},revision:0});
+      const intent = (command: GameCommand, revision: string) => ({action:'command',revision,requestId:crypto.randomUUID(),command} as const);
+      const reward = intent({type:'daily',mission:'win'},'0');
+      expect(await ask(reward)).toMatchObject({status:'ok',save:{copper:1000,coins:5250,gems:300}});
+      expect(await ask(reward)).toMatchObject({status:'ok',save:{copper:1000}});
+      expect(await ask(intent({type:'daily',mission:'win'},'1'))).toMatchObject({status:'rejected'});
+      const ranked = intent({type:'arenaCopper',day},'1');
+      expect(await ask(intent({type:'arenaCopper',day},'0'),'bob')).toMatchObject({status:'rejected'});
+      const simultaneous = await Promise.all([ask(ranked),ask({...ranked,requestId:crypto.randomUUID()})]);
+      expect(simultaneous.map(r => (r as {status:string}).status).sort()).toEqual(['conflict','ok']);
+      expect(await ask(ranked)).toMatchObject({status:'ok',save:{copper:5000,coins:5250,gems:300}});
+      expect(await ask(intent({type:'arenaCopper',day},'2'))).toMatchObject({status:'rejected'});
+      expect(verified).toHaveBeenCalledWith('alice',start,start+86_400_000);
+      clock.mockReturnValue(start+86_400_000);
+      expect(await ask(intent({type:'arenaCopper',day},'2'))).toMatchObject({status:'rejected'});
+      expect(await ask(intent({type:'arenaCopper',day:day+1},'2'))).toMatchObject({status:'rejected'});
+      expect(saves.get('bob')?.state.copper).toBeUndefined();
+    } finally { clock.mockRestore(); }
+  });
   it('commits a single-key draw once and rejects a concurrent stale batch', async () => {
     const { ask, saves } = fixture();
     const initial = { ...baseSave(), goldKeys: 11, clearedStages: ['1-1', '1-2', '1-3'], summonPity: 49, legendaryPity: 0 };

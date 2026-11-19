@@ -79,7 +79,7 @@ export class EquipmentScene extends UiScene{
     if(event)spiritPlayback(this).confirm(heroNavigation.accountKey,id,event);
     if(ok)restart({uid:selected.uid});else this.toast('Thao tác chưa được lưu.');
    });};
-   heroAction(this,946,475,capped?'Đã đạt cấp tối đa':`Cường hóa · ${cost.toLocaleString('vi-VN')} Vàng`,()=>run({type:'enhance',uid:selected.uid,useStone:false},()=>gameStore.enhanceGear(selected.uid)),!capped&&walletBalance(save).gold>=cost,342);
+   heroAction(this,946,475,capped?'Đã đạt cấp tối đa':`Cường hóa · ${cost.toLocaleString('vi-VN')} Đồng`,()=>run({type:'enhance',uid:selected.uid,useStone:false,feeCurrency:'copper'},()=>gameStore.enhanceGear(selected.uid)),!capped&&walletBalance(save).copper>=cost,342);
    if(def.rarity==='SSR'&&!capped)heroAction(this,946,525,'Dùng Đá Cường Hóa',()=>run({type:'enhance',uid:selected.uid,useStone:true},()=>gameStore.enhanceGear(selected.uid,true)),inventoryQuantity(save,ITEM_IDS.enhancementStone)>0,342);
    if(selected.heroId)heroAction(this,946,579,'Tháo trang bị',()=>run({type:'unequip',uid:selected.uid},()=>gameStore.unequipGear(selected.uid)),true,342);
    else heroAction(this,946,579,`Trang bị · ${hero.name}`,()=>run({type:'equip',uid:selected.uid,heroId:id},()=>gameStore.equipGear(selected.uid,id)),true,342);

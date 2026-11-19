@@ -2,6 +2,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2.119.0';
 import { handleGameRequest, type GameBackend } from './handler';
 import type { GameIntent } from '../../../src/cloud/gameProtocol';
 import { createAllowedOrigins, corsHeaders } from '../_shared/cors';
+import { hasStagingCheckoutGrant, isStagingProject } from '../../../src/config/staging';
 
 const env = (key: string) => {
   const value = Deno.env.get(key);
@@ -22,7 +23,35 @@ const legacyAllowed = Object.keys(legacyApprovals).length
   ? (uid: string, digest: string) => Object.hasOwn(legacyApprovals, uid) && legacyApprovals[uid] === digest
   : undefined;
 
+const projectUrl = env('SUPABASE_URL');
+const stagingQa = (uid: string) => isStagingProject(projectUrl) &&
+  (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
+
 const backend: GameBackend = {
+  shopIsStaging: isStagingProject(projectUrl),
+  shopTestEnabled(uid) {
+    return hasStagingCheckoutGrant(projectUrl,Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '',uid,async owner => {
+      const {data,error} = await admin.from('shop_staging_checkout_grants').select('uid').eq('uid',owner).maybeSingle();
+      if (error) throw error;
+      return data !== null;
+    });
+  },
+  economyTestEnabled: stagingQa,
+  async legacyShopEssenceUnits(uid, dayStart) {
+    const { data, error } = await admin.rpc('game_legacy_shop_essence_units', {
+      p_uid: uid, p_day_start: new Date(dayStart).toISOString(),
+    });
+    if (error) throw error;
+    if (!Number.isSafeInteger(data) || data < 0) throw new Error('Invalid legacy shop quota');
+    return data;
+  },
+  async hasRankedWin(uid, dayStart, dayEnd) {
+    const { data, error } = await admin.from('arena_matches').select('request_id')
+      .eq('attacker', uid).eq('won', true).gte('played_at', new Date(dayStart).toISOString())
+      .lt('played_at', new Date(dayEnd).toISOString()).limit(1);
+    if (error) throw error;
+    return data.length === 1;
+  },
   async claimVip(uid, requestId, revision, command) {
     const {data,error} = await admin.rpc('game_claim_vip', {p_uid:uid,p_request_id:requestId,
       p_expected_revision:revision,p_tier:command.tier,p_kind:command.kind,p_period:command.period});

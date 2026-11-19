@@ -33,7 +33,9 @@ export function validateLegacy(value: unknown): SaveV2 {
       (item.uid.startsWith('campaign:') && (!stages.includes(item.uid.slice(9)) || STAGE_GEAR[item.uid.slice(9)] !== item.itemId)) ||
       (item.heroId !== undefined && !raw.heroes.includes(item.heroId))))) return invalid();
 
-  const save = normalizeSave(raw);
+  // Jewelry can only originate in an authenticated server transaction.
+  const { jewelry: _jewelry, jewelryEssence: _essence, shopPurchases: _shop, copperDaily: _copperDaily, ...legacy } = raw;
+  const save = normalizeSave(legacy);
   if (raw.formation.some((id, i) => id !== save.formation[i]) ||
     (raw.equipment?.some(item => !save.equipment?.some(kept => kept.uid === item.uid && kept.heroId === item.heroId)))) return invalid();
   const days = [save.welfare?.checkInDay, save.welfare?.daily.day].filter((day): day is number => day !== undefined);

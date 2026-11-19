@@ -5,6 +5,7 @@ import { stageOpponents } from '../data/campaign';
 import { RAGE_CONFIG, clampRage } from '../data/rageConfig';
 import { COMBAT_BALANCE } from '../data/skillCombat';
 import { signaturePassive, type Gear } from './equipment';
+import type { JewelryItem } from './jewelry';
 import { heroStats } from './progression';
 import { vipBonuses } from './vip';
 import type { CampaignStage, HeroDefinition } from './types';
@@ -35,6 +36,9 @@ export interface BattleUnit {
   attackBuffActions: number;
   criticalBuffActions: number;
   criticalChance?: number;
+  accuracy?: number;
+  dodge?: number;
+  jewelryCrit?: number;
   vipCriticalDamage?: number;
   signatureBonus?: number;
   statuses?: Partial<Record<Status, { turns: number; value: number; source: string }>>;
@@ -75,10 +79,10 @@ export function battleCriticalRoll(actions: number, slot: number, targetSlot: nu
   return coarse + fraction;
 }
 
-function createUnit(id: string, side: Side, slot: number, scale = 1, exp = 0, stars = 1, gear?: readonly Gear[], synergy?: FactionSynergy): BattleUnit {
+function createUnit(id: string, side: Side, slot: number, scale = 1, exp = 0, stars = 1, gear?: readonly Gear[], synergy?: FactionSynergy, jewelry?: readonly JewelryItem[]): BattleUnit {
   const hero = HERO_BY_ID[id];
   if (!hero) throw new Error(`Unknown hero: ${id}`);
-  const base = heroStats(hero, exp, stars, gear);
+  const base = heroStats(hero, exp, stars, gear, jewelry);
   const stats = applyFactionBonus({ ...base, atk: Math.round(base.atk * scale), def: Math.round(base.def * scale) },
     heroFaction(hero), synergy);
   const passive = PASSIVE_SKILLS.get(hero.passiveSkillId);
@@ -88,6 +92,9 @@ function createUnit(id: string, side: Side, slot: number, scale = 1, exp = 0, st
     uid: `${side}-${slot}`, heroId: id, side, slot, name: hero.name,
     role: hero.role, color: hero.color, maxHp, hp: maxHp,
     atk: Math.round(stats.atk * (1 + (passive?.atk ?? 0))), def: stats.def, criticalChance: stats.criticalChance, signatureBonus: signaturePassive(gear, id),
+    ...(stats.accuracy ? { accuracy: stats.accuracy } : {}),
+    ...(stats.dodge ? { dodge: stats.dodge } : {}),
+    ...(base.criticalChance ? { jewelryCrit: base.criticalChance } : {}),
     speed, actions: 0, nextActionAt: 100 / speed,
     rage: RAGE_CONFIG.initial, skillLocked: false, shield: 0,
     attackBuffActions: 0, criticalBuffActions: 0,
@@ -101,10 +108,11 @@ export function makeStageBattle(
   heroStars: Readonly<Record<string, number>> = {},
   gear?: readonly Gear[],
   vip = 0,
+  jewelry?: readonly JewelryItem[],
 ): BattleEngine {
   const allySynergy = factionSynergy(formation);
   const allies = formation.slice(0, 6).flatMap((id, slot) =>
-    id ? [createUnit(id, 'player', slot, 1, heroExp[id] ?? 0, heroStars[id] ?? 1, gear, allySynergy)] : []);
+    id ? [createUnit(id, 'player', slot, 1, heroExp[id] ?? 0, heroStars[id] ?? 1, gear, allySynergy, jewelry)] : []);
   const bonus = vipBonuses(vip);
   if (vip > 0) for (const unit of allies) {
     unit.maxHp = Math.round(unit.maxHp * (1 + bonus.hpPct / 100)); unit.hp = unit.maxHp;
@@ -125,6 +133,7 @@ export interface ArenaSquad {
   heroExp: Readonly<Record<string, number>>;
   heroStars?: Readonly<Record<string, number>>;
   equipment?: readonly Gear[];
+  jewelry?: readonly JewelryItem[];
 }
 
 export function makeArenaBattle(attack: ArenaSquad, defense: ArenaSquad): BattleEngine {
@@ -132,15 +141,15 @@ export function makeArenaBattle(attack: ArenaSquad, defense: ArenaSquad): Battle
     const squad = side === 'player' ? attack : defense;
     const synergy = factionSynergy(squad.formation);
     return squad.formation.slice(0, 6).flatMap((id, slot) => id
-      ? [createUnit(id, side, slot, 1, squad.heroExp[id] ?? 0, squad.heroStars?.[id] ?? 1, squad.equipment, synergy)] : []);
+      ? [createUnit(id, side, slot, 1, squad.heroExp[id] ?? 0, squad.heroStars?.[id] ?? 1, squad.equipment, synergy, squad.jewelry)] : []);
   });
   return new BattleEngine(units);
 }
 
 export function makeArenaPracticeBattle(formation: (string | null)[],
   heroExp: Readonly<Record<string, number>>, heroStars: Readonly<Record<string, number>> = {},
-  gear?: readonly Gear[]): BattleEngine {
-  const squad = { formation, heroExp, heroStars, equipment: gear };
+  gear?: readonly Gear[], jewelry?: readonly JewelryItem[]): BattleEngine {
+  const squad = { formation, heroExp, heroStars, equipment: gear, jewelry };
   return makeArenaBattle(squad, squad);
 }
 
@@ -247,8 +256,9 @@ export class BattleEngine {
       rageBefore, rageAfter, reason: skill ? 'skill-cost' : 'normal-attack', actionId: this.turn });
 
     let rolls = 0;
-    const chance = (percent: number, target: BattleUnit) =>
-      ((attacker.actions * 37 + attacker.slot * 19 + target.slot * 13 + ++rolls * 23) % 100) < percent;
+    const nextRoll = (target: BattleUnit) =>
+      (attacker.actions * 37 + attacker.slot * 19 + target.slot * 13 + ++rolls * 23) % 100;
+    const chance = (percent: number, target: BattleUnit) => nextRoll(target) < percent;
     const changeRage = (target: BattleUnit, amount: number) => {
       const before = target.rage;
       target.rage = clampRage(before + amount);
@@ -262,14 +272,23 @@ export class BattleEngine {
     };
     const strike = (target: BattleUnit, multiplier: number, hitIndex: number, hitCount: number) => {
       const defender = PASSIVE_SKILLS.get(HERO_BY_ID[target.heroId]?.passiveSkillId);
-      const dodged = defender?.dodge ? chance(defender.dodge, target) : false;
+      const accuracy = attacker.accuracy ?? 0;
+      const dodge = target.dodge ?? 0;
+      const dodgeChance = Math.max(0, Math.min(75, (defender?.dodge ?? 0) + dodge - accuracy));
+      // Keep the original passive roll and its position among the action's skill rolls.
+      const jewelryRoll = accuracy || dodge;
+      const precisionRoll = jewelryRoll ? battleCriticalRoll(attacker.actions + 23, target.slot, attacker.slot, hitIndex, true) : 100;
+      const dodgeRoll = defender?.dodge
+        ? nextRoll(target) + (jewelryRoll ? precisionRoll % 1 : 0) : precisionRoll;
+      const dodged = dodgeRoll < dodgeChance;
       if (dodged) events.push({ ...metadata, kind: 'dodge', target: target.uid, hitIndex, hitCount });
       else {
-        const roll = battleCriticalRoll(attacker.actions, attacker.slot, target.slot, hitIndex, attacker.vipCriticalDamage !== undefined);
+        const roll = battleCriticalRoll(attacker.actions, attacker.slot, target.slot, hitIndex, attacker.vipCriticalDamage !== undefined || !!attacker.jewelryCrit);
         const critical = roll < (COMBAT_BALANCE.criticalBaseChance + (attacker.criticalChance ?? 0) +
           (passive.crit ?? 0) + (move.crit ?? 0) + (hadCriticalBuff ? COMBAT_BALANCE.criticalBuffBonus : 0));
         const pierce = move.pierce && chance(move.pierceChance ?? 100, target) ? move.pierce : 0;
-        const def = target.def * (1 - (target.statuses?.armor?.value ?? 0)) * (1 - pierce);
+        const accuracyPierce = Math.min(.15, accuracy / 200);
+        const def = target.def * (1 - (target.statuses?.armor?.value ?? 0)) * (1 - pierce) * (1 - accuracyPierce);
         const surge = move.surge && chance(move.surge, target) ? 1.1 : 1;
         const charm = target.statuses?.charm ? 1 + (passive.charmDamage ?? 0) : 1;
         const signature = skill ? 1 + (attacker.signatureBonus ?? 0) : 1;

@@ -2,6 +2,7 @@ import { SaveCache, type PendingCommand } from './saveCache';
 import { createClient, type Session } from '@supabase/supabase-js';
 
 import { gameStore } from '../domain/store';
+import type { ShopCatalog, ShopQuote, ShopReceipt } from '../domain/shop';
 import type { BattleTicket, CloudSave, GameCommand, GameIntent } from './gameProtocol';
 
 const url = import.meta.env.VITE_SUPABASE_URL?.trim();
@@ -12,6 +13,8 @@ interface Reply extends Partial<CloudSave> {
   status: string;
   ticket?: BattleTicket;
   receipt?: unknown;
+  catalog?: ShopCatalog;
+  quote?: ShopQuote;
 }
 
 export const cloudMessage = (status: string) => ({
@@ -22,6 +25,11 @@ export const cloudMessage = (status: string) => ({
   rejected: 'Server từ chối thao tác. Kiểm tra điều kiện và tài nguyên.',
   exists: 'Tài khoản đã có tiến trình online.',
   temporary: 'Không thể kết nối máy chủ',
+  staleOffer: 'Ưu đãi hoặc giá đã đổi. Hãy xem giá mới và xác nhận lại.',
+  shopLimit: 'Số lượng, số dư hoặc lượt mua không còn đủ.',
+  shopUnavailable: 'Cửa hàng chưa mở bán cho tài khoản này.',
+  shopQaAccessRequired: 'Chưa cấp quyền mua trên staging',
+  shopTutorialRequired: 'Hoàn thành hướng dẫn để mua hàng.',
 }[status] ?? 'Không thể xác nhận thao tác online.');
 
 
@@ -35,6 +43,7 @@ class CloudRepository {
   private get cache() { return new SaveCache(localStorage, `3q-account-save:${url}`); }
   get tutorial() { return this.current?.tutorial; }
   get vip() { return this.current?.vip; }
+  get economyV14() { return this.current?.economyV14 === true; }
   get busy() { return this.inFlight; }
   get status() {
     if (this.conflicted) return 'Tiến trình đã thay đổi trên thiết bị khác. Hãy thử lại.';
@@ -44,6 +53,44 @@ class CloudRepository {
 
   get active() { return this.owner !== undefined && this.current !== undefined; }
   get uid() { return this.owner; }
+  get hasPendingShop() { return this.shopPending()?.command.type === 'shopBuy'; }
+
+  private shopPending() {
+    return this.owner ? this.cache.read(this.owner).pending ?? this.pending : undefined;
+  }
+
+  async shopCatalog(): Promise<ShopCatalog> {
+    const reply = await this.shopRead({ action: 'shopCatalog' });
+    if (!reply.catalog) throw new Error(cloudMessage('temporary'));
+    return reply.catalog;
+  }
+
+  async shopQuote(offerId: string, quantity: number): Promise<ShopQuote> {
+    if (this.hasPendingShop) throw new Error('Hãy đối chiếu giao dịch đang chờ trước.');
+    const reply = await this.shopRead({ action: 'shopQuote', offerId, quantity });
+    if (!reply.quote) throw new Error(cloudMessage('temporary'));
+    return reply.quote;
+  }
+
+  private async shopRead(intent: Extract<GameIntent, { action: 'shopCatalog' | 'shopQuote' }>) {
+    const owner = this.owner;
+    if (!owner || !this.current) throw new Error(cloudMessage('unauthorized'));
+    const reply = await this.send(intent, owner);
+    if (owner !== this.owner) throw new Error(cloudMessage('unauthorized'));
+    this.apply(reply);
+    if (reply.status !== 'ok') throw new Error(cloudMessage(reply.status));
+    return reply;
+  }
+
+  buyShop(quote: ShopQuote) {
+    return this.execute<ShopReceipt>({ type: 'shopBuy', offerId: quote.offerId, quantity: quote.quantity }, quote);
+  }
+
+  retryShopPurchase() {
+    const pending = this.shopPending();
+    if (!pending || pending.command.type !== 'shopBuy') throw new Error('Không có giao dịch đang chờ.');
+    return this.execute<ShopReceipt>(pending.command, pending);
+  }
 
 
   private async send(intent: GameIntent, expectedOwner = this.owner): Promise<Reply> {
@@ -122,7 +169,8 @@ class CloudRepository {
     if (!reply.save || reply.revision === undefined) return;
     if (this.current && Number(reply.revision) < Number(this.current.revision)) return;
     if (!reply.tutorial) throw new Error('Máy chủ chưa cập nhật M8. Vui lòng thử lại sau.');
-    const confirmed: CloudSave = { save: reply.save, revision: reply.revision, tutorial: reply.tutorial, vip: reply.vip };
+    const confirmed: CloudSave = { save: reply.save, revision: reply.revision, tutorial: reply.tutorial, vip: reply.vip,
+      economyV14: reply.economyV14 ?? this.current?.economyV14 };
     if (this.owner) {
       try {
         this.cache.update(this.owner, old => ({ ...old, confirmed }));
@@ -176,13 +224,14 @@ class CloudRepository {
     this.pending = undefined;
   }
 
-  async execute<T>(command: GameCommand): Promise<T> {
+  async execute<T>(command: GameCommand, shopQuote?: { revision: string; requestId: string }): Promise<T> {
     if (!this.owner || !this.current || this.inFlight) throw new Error(cloudMessage('temporary'));
     const owner = this.owner;
     this.inFlight = true;
     try {
       const pending = this.cache.read(owner).pending ?? this.pending;
-      const matching = pending && JSON.stringify(pending.command) === JSON.stringify(command);
+      const matching = pending && JSON.stringify(pending.command) === JSON.stringify(command) &&
+        (!shopQuote || pending.requestId === shopQuote.requestId);
       if (pending && !matching) {
         this.pending = pending;
         const previous = await this.send(pending);
@@ -191,10 +240,11 @@ class CloudRepository {
         this.clearPending(previous);
         throw new Error('Đã đối chiếu giao dịch trước. Hãy thử lại thao tác.');
       }
+      if (command.type === 'shopBuy' && !shopQuote) throw new Error(cloudMessage('staleOffer'));
       const next = pending ?? {
         action: 'command', command,
-        revision: command.type === 'battle' ? command.ticket.revision : this.current.revision,
-        requestId: command.type === 'battle' ? command.ticket.id : crypto.randomUUID(),
+        revision: command.type === 'battle' ? command.ticket.revision : shopQuote?.revision ?? this.current.revision,
+        requestId: command.type === 'battle' ? command.ticket.id : shopQuote?.requestId ?? crypto.randomUUID(),
       };
       this.pending = this.cache.update(owner, old => ({ ...old, pending: old.pending ?? next })).pending;
       if (!this.pending || this.pending.requestId !== next.requestId)

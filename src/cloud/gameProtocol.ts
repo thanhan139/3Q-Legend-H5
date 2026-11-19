@@ -9,6 +9,7 @@ export interface CloudSave {
   revision: string;
   tutorial?: TutorialProgress;
   vip?: VipSnapshot;
+  economyV14?: boolean;
 }
 
 export interface BattleTicket {
@@ -20,20 +21,29 @@ export interface BattleTicket {
 }
 
 export type GameCommand =
+  | { type: 'shopBuy'; offerId: string; quantity: number }
   | { type: 'vipClaim'; tier: number; kind: VipGiftKind; period: string }
   | { type: 'tutorial'; version: number; step: TutorialStep; action: 'name' | 'next' | 'skip'; name?: string }
   | { type: 'checkIn' | 'firstTopupDemo' }
   | { type: 'daily'; mission: Mission }
+  | { type: 'arenaCopper'; day: number }
   | { type: 'formation'; slot: number; heroId: string | null }
+  | { type: 'jewelryEquip'; uid: string; heroId: string }
+  | { type: 'jewelryUnequip'; uid: string }
+  | { type: 'jewelryEnhance'; uid: string; rulesVersion: 3 }
+  | { type: 'jewelryClaim'; stageId: string }
   | { type: 'equip'; uid: string; heroId: string }
   | { type: 'unequip' | 'skin'; uid: string }
-  | { type: 'enhance'; uid: string; useStone: boolean }
+  | { type: 'enhance'; uid: string; useStone: true }
+  | { type: 'enhance'; uid: string; useStone: false; feeCurrency: 'copper' }
   | { type: 'forge'; itemId: EquipmentId; expectedCrafted: number }
   | { type: 'upgrade' | 'star'; heroId: string }
   | { type: 'summon'; count: 1 | 10 }
   | { type: 'battle'; ticket: BattleTicket };
 
 export type GameIntent =
+  | { action: 'shopCatalog' }
+  | { action: 'shopQuote'; offerId: string; quantity: number }
   | { action: 'load' }
   | { action: 'initialize' }
   | { action: 'import'; legacy: unknown; confirmed: true }

@@ -10,7 +10,7 @@ export function equipmentHeroModel(save:SaveV2,requested?:string,uid?:string,col
  if(!selectedHeroId)return undefined;
  const hero=HERO_BY_ID[selectedHeroId];if(!hero)return undefined;
  const equipped=(save.equipment??[]).filter(g=>g.heroId===selectedHeroId);
- const stats=heroStats(hero,save.heroExp[selectedHeroId],save.heroStars?.[selectedHeroId],save.equipment);
+ const stats=heroStats(hero,save.heroExp[selectedHeroId],save.heroStars?.[selectedHeroId],save.equipment,save.jewelry);
  return{selectedHeroId,hero,stats,power:combatPower(stats),stars:save.heroStars?.[selectedHeroId]??1,
   theme:themes.heroes.find(t=>t.hero_id_hint===ids[heroFamily(selectedHeroId)]),equipped,
   selectedUid:equipped.some(g=>g.uid===uid)?uid:undefined,

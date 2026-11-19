@@ -1,13 +1,13 @@
 import {cloudRepository} from '../cloud/cloudRepository';
 import type {GameCommand} from '../cloud/gameProtocol';
-import {HERO_BY_ID,heroFamily} from '../data/heroes';
+import {HERO_BY_ID} from '../data/heroes';
 import {ATTACK_SKILLS,PASSIVE_SKILLS,describeSkill,describePassive} from '../data/heroSkills';
-import {SignatureConfig,signatureIds,isSignature,type SignatureId} from '../data/signatureConfig';
+import {SignatureConfig,type SignatureId} from '../data/signatureConfig';
 import {HERO_MILESTONES,SUMMON_UNLOCK_STAGE} from '../data/campaign';
 import {gameStore} from '../domain/store';
 import {heroStats,HERO_PROGRESSION,MAX_HERO_STARS,starCost} from '../domain/progression';
 import {inventoryQuantity,heroShardId,ITEM_IDS,walletBalance} from '../domain/resources';
-import {EQUIPMENT,gearStats,enhancement,canEnhance,enhanceCost,signaturePassive} from '../domain/equipment';
+import {EQUIPMENT,canEnhance,enhanceCost,signaturePassive} from '../domain/equipment';
 import {FORGE} from '../domain/forge';
 import {drawEquipmentTheme,loadEquipmentThemes} from '../ui/equipmentThemeView';
 import {heroNavigation,type HeroTab} from '../ui/heroNavigation';
@@ -15,6 +15,7 @@ import {heroLabel,heroAction} from '../ui/heroUiControls';
 import {UiScene} from '../ui/UiScene';
 import {confirmedSpiritUpgrade} from '../ui/livingSpiritState';
 import {spiritPlayback} from '../ui/LivingSpiritView';
+import {signatureView} from '../ui/signatureView';
 
 interface HeroesData{heroId?:string;tab?:HeroTab;collection?:boolean;signatureTab?:boolean;skillTab?:boolean;skillIndex?:number;signatureId?:SignatureId;signatureUid?:string;}
 /** The only hero screen. All tabs use the same themed shell and selectedHeroId. */
@@ -49,27 +50,43 @@ export class HeroesScene extends UiScene{
      const bonus=signaturePassive(save.equipment,id);
      text(563,bonus?`Thần Binh · +${Math.round(bonus*100)}% sát thương tuyệt kỹ`:'Thần Binh chưa kích hoạt',15,74);
     }else if(tab==='signature'){
-     const equipped=save.equipment?.find(g=>g.heroId===id&&isSignature(g.itemId));
-     const exclusive=signatureIds.find(s=>SignatureConfig[s].hero===heroFamily(id));
-     const sid=data.signatureId??exclusive??(equipped?.itemId as SignatureId|undefined)??signatureIds[0];
-     const config=SignatureConfig[sid],items=(save.equipment??[]).filter(g=>g.itemId===sid);
-     const item=items.find(g=>g.uid===data.signatureUid)??items.find(g=>g.heroId===id)??items.find(g=>!g.heroId)??items[0];
-     text(111,'Thần Binh',22);text(151,config.name,19,48);
-     const icon=this.add.image(1067,228,`gear-${EQUIPMENT[sid].art}`);icon.setScale(Math.min(94/icon.width,94/icon.height));
-     text(296,`Chuyên thuộc ${HERO_BY_ID[config.hero].name}`,15);
-     const stats=gearStats(item??{uid:'',itemId:sid,level:1});
-     text(337,`HP +${stats.hp} · Công +${stats.atk}\nThủ +${stats.def} · Cường hóa +${item?enhancement(item):0}`,15,57);
-     text(398,`Đúng chủ: +${Math.round(config.bonus*100)}% sát thương tuyệt kỹ trước DEF.`,15,61);
-     text(445,item?(item.heroId?`Đang dùng · ${HERO_BY_ID[item.heroId]?.name}`:'Trong kho'):`${save.forge?.shards??0}/${FORGE.shardsRequired} Mảnh Thần Binh`,14);
+     const {cards,selected,stats,wielder}=signatureView(save,id,data.signatureId,data.signatureUid);
+     const {id:sid,item,copies:items}=selected,config=SignatureConfig[sid];
+     const shards=inventoryQuantity(save,ITEM_IDS.forgeShard);
+     text(110,'Thần Binh',22);
+     cards.forEach((card,index)=>{
+      const x=965+(index%3)*102,y=167+Math.floor(index/3)*84;
+      const chosen=card.id===sid;
+      this.add.rectangle(x,y,94,76,chosen?0x713321:0x301e27,.94)
+        .setStrokeStyle(chosen?2:1,chosen?0xffcc67:0x845b45);
+      const icon=this.add.image(x,y-10,`gear-${EQUIPMENT[card.id].art}`);
+      icon.setScale(Math.min(45/icon.width,45/icon.height)).setAlpha(card.state==='locked'?.62:1);
+      const status=card.state==='locked'?'Chưa rèn':`${card.state==='equipped'?'Đang đeo':'Trong kho'} +${card.upgrade}`;
+      heroLabel(this,x,y+23,status,12,91,20,card.state==='locked'?'#c6ae96':'#ffe0a2');
+      this.add.zone(x,y,98,82).setName(`signature.item.${card.id}`).setInteractive({useHandCursor:true})
+        .on('pointerup',()=>update({signatureId:card.id,signatureUid:undefined}));
+     });
+     text(316,config.name,18,46);
+     text(349,item?(wielder?`Đang trang bị · ${wielder} · +${selected.upgrade}`:`Trong kho · Cường hóa +${selected.upgrade}`):'Chưa sở hữu · Chưa chế tạo',14,38);
+     text(377,`Chuyên thuộc ${HERO_BY_ID[config.hero].name}`,14,35);
+     text(407,`${item?'':'Chỉ số gốc · '}HP +${stats.hp} · Công +${stats.atk} · Thủ +${stats.def}`,14,40);
+     text(436,`Đúng chủ: +${Math.round(config.bonus*100)}% sát thương tuyệt kỹ`,14,34);
+     text(462,`${shards}/${FORGE.shardsRequired} Mảnh Thần Binh`,14,33);
      if(item){
-      action(492,item.heroId?'Tháo Thần Binh':'Trang bị Thần Binh',()=>item.heroId?run({type:'unequip',uid:item.uid},()=>gameStore.unequipGear(item.uid)):run({type:'equip',uid:item.uid,heroId:id},()=>gameStore.equipGear(item.uid,id)),owned);
-      action(542,canEnhance(item)?`Nâng cấp · ${enhanceCost(item)} Vàng`:'Đã đạt cấp tối đa',()=>run({type:'enhance',uid:item.uid,useStone:false},()=>gameStore.enhanceGear(item.uid)),canEnhance(item)&&walletBalance(save).gold>=enhanceCost(item));
-     }else action(492,`Rèn · ${FORGE.shardsRequired} mảnh`,()=>run({type:'forge',itemId:sid,expectedCrafted:save.forge!.crafted},()=>gameStore.forgeWeapon(sid,save.forge!.crafted)),(save.forge?.shards??0)>=FORGE.shardsRequired);
-     const next=signatureIds[(signatureIds.indexOf(sid)+1)%signatureIds.length];
-     heroAction(this,989,597,'Vũ khí khác',()=>update({signatureId:next,signatureUid:undefined}),true,144);
-     heroAction(this,1145,597,`Bản ${item?items.indexOf(item)+1:0}/${items.length}`,()=>update({signatureUid:items[(items.indexOf(item!)+1)%items.length]?.uid}),items.length>1,144);
+      action(503,item.heroId?'Tháo Thần Binh':'Trang Bị Thần Binh',()=>item.heroId?run({type:'unequip',uid:item.uid},()=>gameStore.unequipGear(item.uid)):run({type:'equip',uid:item.uid,heroId:id},()=>gameStore.equipGear(item.uid,id)),owned).setName('signature.equip');
+      action(551,canEnhance(item)?`Cường Hóa · ${enhanceCost(item)} Đồng`:'Đã đạt cấp tối đa',()=>run({type:'enhance',uid:item.uid,useStone:false,feeCurrency:'copper'},()=>gameStore.enhanceGear(item.uid)),canEnhance(item)&&walletBalance(save).copper>=enhanceCost(item)).setName('signature.enhance');
+     }else if(save.forge){
+      const crafted=save.forge.crafted;
+      action(520,`Rèn · ${FORGE.shardsRequired} mảnh`,()=>run({type:'forge',itemId:sid,expectedCrafted:crafted},()=>gameStore.forgeWeapon(sid,crafted)),shards>=FORGE.shardsRequired).setName('signature.craft');
+     }
+     const goForge=()=>this.go('Forge',{itemId:sid,returnHeroId:id});
+     if(item&&items.length>1){
+      const index=items.indexOf(item);
+      heroAction(this,989,599,`Bản ${index+1}/${items.length}`,()=>update({signatureId:sid,signatureUid:items[(index+1)%items.length].uid}),true,144);
+      heroAction(this,1145,599,'Đến Lò Rèn',goForge,true,144).setName('signature.forge');
+     }else action(599,'Đến Lò Rèn',goForge).setName('signature.forge');
     }else{
-     const stars=save.heroStars?.[id]??1,exp=save.heroExp[id]??0,stats=heroStats(hero,exp,stars,save.equipment);
+     const stars=save.heroStars?.[id]??1,exp=save.heroExp[id]??0,stats=heroStats(hero,exp,stars,save.equipment,save.jewelry);
      text(111,'Chi Tiết Võ Tướng',21);
      [['Sinh lực',stats.hp],['Công',stats.atk],['Thủ',stats.def],['Tốc độ',stats.speed]].forEach(([s,v],i)=>text(164+i*40,`${s}   ${Number(v).toLocaleString('vi-VN')}`,19));
      const shards=inventoryQuantity(save,heroShardId(id));
