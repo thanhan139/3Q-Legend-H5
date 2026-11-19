@@ -2,13 +2,14 @@ import Phaser from 'phaser';
 import { UiScene } from '../ui/UiScene';
 import { loadSharedUi, sharedButton, UI_FONT } from '../ui/sharedUi';
 import { MAIL_ART, MAIL_LABELS, MAIL_REWARD_LABELS, type MailArt } from '../ui/mailAssets';
-import { canClaimMail, MAIL_CATEGORIES, MAIL_ITEMS, MAIL_PAGE_SIZE,
+import { canClaimMail, hasAttachments, MAIL_CATEGORIES, MAIL_ITEMS, MAIL_PAGE_SIZE,
   type MailCategory, type MailInbox, type MailRow } from '../cloud/mailProtocol';
 import { mailRepository, MailUnavailable } from '../cloud/mailRepository';
 import { rect } from '../ui/lobbyContentLayout';
 import { coverScale, readSafeInsets } from '../ui/viewport';
+import { adminMailConsole, composeMail, moderateMail } from '../ui/mailDialogs';
 
-const iconFrames = {all:3,system:6,event:0,personal:1} as const;
+const iconFrames = {all:3,admin:1,system:6,event:0,personal:8,sent:3} as const;
 const time = new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',minute:'2-digit',
   day:'2-digit',month:'2-digit',year:'numeric'});
 const format = new Intl.NumberFormat('vi-VN');
@@ -22,6 +23,9 @@ export class MailScene extends UiScene {
   private selected?: string;
   private showDetail = false;
   private bodyPage = 0;
+  private rewardPage = 0;
+  private modal?: HTMLDialogElement;
+  private staff = false;
   private page = 0;
   private offset = 0;
   private working = true;
@@ -50,19 +54,20 @@ export class MailScene extends UiScene {
     this.owner = mailRepository.uid;
     if (!this.owner) { this.scene.start('Boot'); return; }
     this.generation++;
-    this.category = 'all'; this.page = 0; this.offset = 0; this.bodyPage = 0;
+    this.category = 'all'; this.page = 0; this.offset = 0; this.bodyPage = 0; this.rewardPage = 0; this.staff=false;
     this.inbox = undefined; this.selected = undefined; this.showDetail = false;
     this.working = false; this.confirm = false; this.error = ''; this.notice = '';
     this.backdrop = this.add.image(640,360,key('palace'));
     const resize = () => this.render();
     const escape = () => {
+      if(this.modal?.open)return;
       if (this.confirm) { this.confirm=false; this.render(); }
       else if (this.mobile && this.showDetail) { this.showDetail=false; this.render(); }
       else this.go('Lobby');
     };
     let lastScroll=0;
     const scroll=(pointer:Phaser.Input.Pointer, delta:number)=>{
-      if (!this.layer || this.working || this.confirm || this.time.now-lastScroll<140 || !delta) return;
+      if (!this.layer || this.working || this.confirm || this.modal?.open || this.time.now-lastScroll<140 || !delta) return;
       const camera=this.cameras.main;
       const x=(pointer.x+camera.scrollX-this.layer.x)/this.layer.scaleX;
       const y=(pointer.y+camera.scrollY-this.layer.y)/this.layer.scaleY;
@@ -84,7 +89,17 @@ export class MailScene extends UiScene {
       this.generation++; this.scale.off(Phaser.Scale.Events.RESIZE,resize);
       this.input.keyboard?.off('keydown-ESC',escape);
       this.input.off('wheel',wheel); this.input.off('pointerup',swipe);
+      this.modal?.close(); this.modal=undefined;
     });
+    const owner=this.owner;
+    const generation=this.generation;
+    void mailRepository.send(owner,{action:'adminAccess'}).then(access=>{
+      if(this.generation!==generation||mailRepository.uid!==owner)return;
+      this.staff=Boolean(access.author||access.approver); if(this.staff)this.render();
+    }).catch(()=>undefined);
+    this.time.addEvent({delay:20_000,loop:true,callback:()=>{
+      if(!this.confirm&&!this.modal?.open&&!this.error)void this.run();
+    }});
     void this.run();
   }
 
@@ -120,9 +135,22 @@ export class MailScene extends UiScene {
   }
 
   private open(row: MailRow) {
-    this.selected=row.id; this.showDetail=true; this.bodyPage=0;
-    if (row.read_at) this.render();
+    this.selected=row.id; this.showDetail=true; this.bodyPage=0; this.rewardPage=0;
+    if (row.read_at||row.outgoing) this.render();
     else void this.run(async owner => { await mailRepository.send(owner,{action:'read',mailId:row.id}); });
+  }
+
+  private compose(row?:MailRow) {
+    if(!this.owner||this.working||this.modal?.open)return;
+    this.modal=composeMail(this.owner,row,()=>{
+      this.browse('sent');
+    },()=>{this.modal=undefined;});
+  }
+
+  private moderate(row:MailRow,kind:'block'|'report'|'delete') {
+    if(!this.owner||this.working||this.modal?.open)return;
+    this.modal=moderateMail(this.owner,row,kind,()=>void this.run(async()=>
+      kind==='block'?'Đã chặn người gửi.':kind==='report'?'Đã lưu báo cáo.':'Đã xóa thư.'),()=>{this.modal=undefined;});
   }
 
   private take(mailId?: string) {
@@ -220,14 +248,14 @@ export class MailScene extends UiScene {
       else { this.categories(); this.list(14,104,this.width-28,272); }
     } else {
       this.categories();
-      const empty=this.inbox?.total===0 && !this.error;
+      const empty=this.inbox?.total===0 && !this.error && this.category!=='sent';
       this.list(270,91,empty?990:418,565);
       if(!empty) this.detail(695,91,565,565,this.inbox?.rows.find(row=>row.id===this.selected));
     }
     if (this.error && this.inbox) {
       this.label(this.width/2,this.height-(this.mobile?13:31),this.error,this.mobile?12:17,this.width-204,25);
       const retry=()=>this.owner&&mailRepository.pending(this.owner)?this.take():void this.run();
-      this.action('reload',this.width-(this.mobile?350:405),this.mobile?2:22,105,48,'Thử lại',this.confirm?undefined:retry);
+      this.action('reload',this.width-(this.mobile?376:423),this.mobile?2:22,128,48,'Thử lại',this.confirm?undefined:retry);
     }
     if (this.notice && !this.error) this.label(this.width/2,this.height-(this.mobile?12:31),this.notice,15,this.width-32,24);
     if (this.confirm) this.dialog();
@@ -238,6 +266,10 @@ export class MailScene extends UiScene {
     this.place('title',this.mobile?145:224,y,this.mobile?262:402,this.mobile?46:72);
     this.icon('all',this.mobile?42:64,y,this.mobile?44:69);
     this.label(this.mobile?133:208,y,'Hộp Thư',this.mobile?26:39,this.mobile?175:280,60);
+    if(!this.error)this.action('compose',this.width-(this.mobile?376:423),y-25,this.mobile?128:142,50,'Soạn Thư',
+      this.working?undefined:()=>this.compose(),'gold');
+    if(this.staff&&this.owner) this.action('admin',this.width-(this.mobile?493:563),y-25,this.mobile?110:132,50,'Quản Trị',
+      this.working?undefined:()=>{if(this.owner)this.modal=adminMailConsole(this.owner,()=>{this.modal=undefined;});});
     this.action('back',this.width-(this.mobile?242:274),y-25,this.mobile?127:146,50,
       this.mobile&&this.showDetail?'← Danh sách':'Làm mới',this.working?undefined:()=>{
         if(this.mobile&&this.showDetail){this.showDetail=false;this.render();} else void this.run();
@@ -246,7 +278,7 @@ export class MailScene extends UiScene {
   }
 
   private categories() {
-    const w=this.mobile?(this.width-30)/4:180;
+    const w=this.mobile?(this.width-30)/MAIL_CATEGORIES.length:180;
     if(!this.mobile) this.frame(44,91,214,565);
     MAIL_CATEGORIES.forEach((id,i)=>{
       const x=this.mobile?15+i*w:61, y=this.mobile?55:126+i*79, h=this.mobile?48:59;
@@ -273,10 +305,10 @@ export class MailScene extends UiScene {
     const compact=this.mobile;
     const foot=compact?56:68;
     const inner=x+13, innerW=w-26;
-    this.label(inner+15,y+(compact?21:31),this.inbox?`Thư: ${this.inbox.total} / 50`:'Hộp thư',compact?16:20,150,30,'#fff1cc',true);
+    this.label(inner+15,y+(compact?21:31),this.inbox?(this.category==='sent'?`Đã gửi: ${this.inbox.filtered}`:`Thư: ${this.inbox.total}`):'Hộp thư',compact?16:20,180,30,'#fff1cc',true);
     if(!this.inbox?.rows.length){
       const text=this.error?'Không thể tải hộp thư':this.working?'Đang tải hộp thư…':
-        this.inbox?.total?'Danh mục này chưa có thư':'Hộp thư trống';
+        this.category==='sent'?'Chưa gửi thư':this.inbox?.total?'Danh mục này chưa có thư':'Hộp thư trống';
       this.empty(x+w/2,y+(h-foot)/2,text,this.error?'Thử lại để tải dữ liệu mới.':
         this.working?'':this.inbox?.total?'Chọn danh mục khác.':'Hiện chưa có thư mới.');
       if(this.error&&!this.working) this.action('empty.retry',x+w/2-63,y+h-foot-30,126,44,'Thử lại',()=>void this.run(),'gold');
@@ -290,9 +322,10 @@ export class MailScene extends UiScene {
         const titleColor=sel?'#46210e':'#fff3d0';
         this.icon(row.category==='event'?'event':'all',inner+29,top+(pitch-5)/2,compact?49:58,!!row.claimed_at||row.expired);
         this.label(inner+63,top+(compact?16:23),row.subject,compact?17:18,innerW-(compact?201:174),33,titleColor,true);
-        this.label(inner+63,top+(compact?41:54),MAIL_LABELS[row.category],13,121,23,titleColor,true);
+        const source=row.outgoing?`Đến: ${row.sender}`:row.verified?`✓ ${MAIL_LABELS[row.category]} xác thực`:MAIL_LABELS[row.category];
+        this.label(inner+63,top+(compact?41:54),source,13,compact?170:149,23,titleColor,true);
         this.label(x+w-87,top+(compact?43:54),time.format(new Date(row.created_at)),compact?12:13,142,24,titleColor);
-        const status=row.claimed_at?'Đã nhận':row.expired?'Hết hạn':row.read_at?'Đã đọc':'Chưa đọc';
+        const status=row.outgoing?'Đã gửi':row.claimed_at?'Đã nhận':row.expired?'Hết hạn':row.read_at?(hasAttachments(row)?'Có quà':'Đã đọc'):'Chưa đọc';
         this.badge(x+w-56,top+16,status,80,!row.read_at&&!row.claimed_at&&!row.expired);
         if(!this.working&&!this.confirm) this.hit(`row.${row.id}`,inner,top,innerW,pitch-5,()=>this.open(row),art);
       });
@@ -312,6 +345,7 @@ export class MailScene extends UiScene {
     }
     const pending=this.owner && mailRepository.pending(this.owner);
     const sideW=compact?156:169;
+    if(this.category==='sent')return;
     this.action('delete',x+w/2-sideW-5,y+h-foot,sideW,49,'Xóa đã đọc',!this.working&&this.inbox?.deletable?()=>{
       this.confirm=true;this.render();
     }:undefined);
@@ -334,7 +368,7 @@ export class MailScene extends UiScene {
     const margin=compact?20:30, textW=w-2*margin;
     this.label(center,y+(compact?24:48),row.subject,compact?22:28,textW,compact?40:64,'#852515');
     this.place('divider',center,y+(compact?45:80),w-65,20);
-    this.label(x+margin,y+(compact?57:106),`Người gửi: ${row.sender}`,compact?13:16,textW*.53,30,ink,true);
+    this.label(x+margin,y+(compact?57:106),`${row.outgoing?'Đến':'Người gửi'}: ${row.sender}${row.verified?' ✓':''}`,compact?13:16,textW*.53,30,ink,true);
     this.label(x+w-margin-textW*.4,y+(compact?57:106),time.format(new Date(row.created_at)),compact?13:16,textW*.4,30,ink,true);
     const bodyY=y+(compact?74:134), linesPerPage=compact?3:6;
     const body=this.add.text(x+margin,bodyY,'',{fontFamily:UI_FONT,fontStyle:'bold',fontSize:compact?14:18,color:ink,
@@ -357,20 +391,35 @@ export class MailScene extends UiScene {
       this.place('strip',center,rewardsY,compact?230:300,compact?29:39,true);
       this.label(center,rewardsY,'Phần Thưởng Đính Kèm',compact?14:18,280,37);
       const size=compact?43:75, pitch=Math.min(compact?130:120,textW/4);
-      rewards.forEach((item,index)=>{
-        const cx=center+(index-(rewards.length-1)/2)*pitch, cy=rewardsY+(compact?39:66);
+      const visible=rewards.slice(this.rewardPage*4,this.rewardPage*4+4);
+      visible.forEach((item,index)=>{
+        const cx=center+(index-(visible.length-1)/2)*pitch, cy=rewardsY+(compact?39:66);
         this.place(item==='copper'||item==='jewelry_essence'?'purpleSlot':'goldSlot',cx,cy,size+12,size+12);
-        this.place(item,cx,cy,item==='jewelry_essence'?size*2.3:size-8,item==='jewelry_essence'?size*2.3:size-8);
+        const iconSize=MAIL_ART[item].startsWith('shop/icons/')?size*2.1:size-8;
+        this.place(item,cx,cy,iconSize,iconSize);
         this.label(cx,cy+(compact?11:24),`×${format.format(row.rewards[item]!)}`,compact?13:16,pitch-4,24)
           .setStroke('#351c23',3);
         this.label(cx,cy+(compact?26:52),MAIL_REWARD_LABELS[item],compact?12:14,pitch-3,29,ink);
       });
+      if(rewards.length>4){
+        this.action('reward.previous',x+20,rewardsY-21,48,44,'‹',this.rewardPage>0?()=>{this.rewardPage--;this.render();}:undefined);
+        this.action('reward.next',x+w-68,rewardsY-21,48,44,'›',this.rewardPage<Math.ceil(rewards.length/4)-1?()=>{this.rewardPage++;this.render();}:undefined);
+      }
       const pending=this.owner&&mailRepository.pending(this.owner);
       const status=pending?'Đối chiếu':row.claimed_at?'Đã nhận':row.expired?'Đã hết hạn':'Nhận Thưởng';
       this.action('claim',center-106,y+h-(compact?54:64),212,51,status,
         !this.working&&(pending||canClaimMail(row))?()=>this.take(row.id):undefined,'gold');
+      if(row.claimed_at&&!this.working)this.action('message.delete',x+w-123,y+h-(compact?54:64),100,48,'Xóa',()=>this.moderate(row,'delete'));
     }else{
       this.label(center,y+h-74,row.expired?'Thư đã hết hạn':'Thư không có vật phẩm đính kèm.',17,textW,35,ink);
+      if(!this.working){
+        const buttons: [string,string,()=>void][]=[];
+        if(row.peer_uid) buttons.push(['reply',row.outgoing?'Gửi tiếp':'Trả Lời',()=>this.compose(row)]);
+        if(row.peer_uid&&!row.outgoing&&!row.verified) buttons.push(['block','Chặn',()=>this.moderate(row,'block')],['report','Báo Cáo',()=>this.moderate(row,'report')]);
+        buttons.push(['delete','Xóa',()=>this.moderate(row,'delete')]);
+        const bw=Math.min(118,(textW-(buttons.length-1)*8)/buttons.length);
+        buttons.forEach(([name,label,action],i)=>this.action(`message.${name}`,center+(i-buttons.length/2)*(bw+8)+4,y+h-57,bw,48,label,action,name==='reply'?'gold':'red'));
+      }
     }
   }
 

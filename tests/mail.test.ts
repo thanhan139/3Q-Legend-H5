@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canClaimMail, hasAttachments, parseMailRequest, type MailRow } from '../src/cloud/mailProtocol';
+import { canClaimMail, hasAttachments, parseMailRequest, parseOfficialDraft, type MailRow } from '../src/cloud/mailProtocol';
 
 const id = '10000000-0000-4000-8000-000000000001';
 const requestId = '10000000-0000-4000-8000-000000000002';
@@ -16,8 +16,25 @@ describe('Mail request and presentation contract', () => {
 
   it('limits pagination and rejects unknown categories', () => {
     expect(parseMailRequest({action:'list',category:'event',page:4})).toEqual({action:'list',category:'event',page:4});
-    for (const page of [-1,5,1.1,'1']) expect(parseMailRequest({action:'list',category:'all',page})).toBeUndefined();
+    for (const page of [-1,10001,1.1,'1']) expect(parseMailRequest({action:'list',category:'all',page})).toBeUndefined();
     expect(parseMailRequest({action:'list',category:'another-user',page:0})).toBeUndefined();
+  });
+
+  it('sanitizes player mail without forwarding sender or authority and refuses attachments or dangerous content',()=>{
+    const message={action:'send',recipient:id,requestId,subject:' Thư ',body:'Xin chào',sender:'Admin',category:'admin',verified:true};
+    expect(parseMailRequest(message)).toEqual({action:'send',recipient:id,requestId,subject:'Thư',body:'Xin chào'});
+    for(const payload of [{rewards:{}},{attachments:[]},{body:'https://untrusted.invalid'},{body:'<img>'},{body:'x'.repeat(501)}]) {
+      expect(parseMailRequest({...message,...payload})).toBeUndefined();
+    }
+  });
+
+  it('requires a single official audience and registered, bounded rewards',()=>{
+    const draft={subject:'Cập nhật',body:'Nội dung thử',recipients:[id,id],broadcast:false,rewards:{forge_shard:2}};
+    expect(parseOfficialDraft(draft)).toMatchObject({recipients:[id],rewards:{forge_shard:2}});
+    for(const payload of [{broadcast:true},{recipients:[]},{rewards:{gems:500}},{rewards:{golden_key:100000}},
+      {sendAt:'2026-11-20T00:00:00Z',expiresAt:'2026-11-19T00:00:00Z'}]) {
+      expect(parseOfficialDraft({...draft,...payload})).toBeUndefined();
+    }
   });
 
   it('keeps read state independent of eligibility and respects expiry and prior claims', () => {

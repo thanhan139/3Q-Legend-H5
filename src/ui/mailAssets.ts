@@ -12,9 +12,13 @@ export const MAIL_ART = {
   coins:'ui/welfare/items/gold_ingot.png',
   golden_key:'ui/welfare_v2/icons/icon_gold_key.png',
   jewelry_essence:'shop/icons/jewelry_essence.png',
+  enhancement_stone:'shop/icons/enhancement_stone.png',
+  forge_shard:'shop/icons/forge_shard.png',
+  hero_exp:'shop/icons/hero_exp.png',
   goldSlot:'summon/complete/portrait_frames/portrait_gold.png',
   purpleSlot:'summon/complete/portrait_frames/portrait_purple.png',
 } as const;
 export type MailArt = keyof typeof MAIL_ART;
-export const MAIL_LABELS = { all:'Tất Cả',system:'Hệ Thống',event:'Sự Kiện',personal:'Cá Nhân' } as const;
-export const MAIL_REWARD_LABELS = { copper:'Đồng',coins:'Vàng',golden_key:'Chìa Khóa Vàng',jewelry_essence:'Tinh Hoa' } as const;
+export const MAIL_LABELS = { all:'Tất Cả',admin:'Admin',system:'Hệ Thống',event:'Sự Kiện',personal:'Cá Nhân',sent:'Đã Gửi' } as const;
+export const MAIL_REWARD_LABELS = { copper:'Đồng',coins:'Vàng',golden_key:'Chìa Khóa Vàng',jewelry_essence:'Tinh Hoa',
+  enhancement_stone:'Đá Cường Hóa',forge_shard:'Mảnh Thần Binh',hero_exp:'EXP Võ Tướng' } as const;

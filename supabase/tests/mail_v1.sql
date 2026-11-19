@@ -58,7 +58,7 @@ begin
     then raise exception 'wallet overflow consumed gift'; end if;
   for i in 1..48 loop
     insert into public.mail_messages(category,sender,subject,body,created_at)
-      values('system','QA',i::text,'Thư phân trang',now()+make_interval(secs=>i)) returning id into note;
+      values('system','QA',i::text,'Thư phân trang',clock_timestamp()) returning id into note;
     if public.mail_deliver(a,note) is distinct from (i<=47) then raise exception 'incorrect inbox cap'; end if;
   end loop;
   result := public.mail_command(a,'list','{"category":"all","page":0}');

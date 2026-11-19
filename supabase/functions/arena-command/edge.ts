@@ -18,7 +18,16 @@ async function command(uid: string, input: ArenaRequest) {
     return data;
   };
   if (input.action === 'view') return rpc('view');
-  if (input.action === 'claim' && Number.isSafeInteger(input.season)) return rpc('claim', { season: input.season });
+  if (input.action === 'claim' && Number.isSafeInteger(input.season)) {
+    const result = await rpc('claim', { season: input.season });
+    if (result.status === 'ok' || result.status === 'claimed') {
+      try {
+        const notice = await admin.rpc('mail_notify_arena_settlement',{p_uid:uid,p_season:input.season});
+        if (notice.error) console.error('Arena mail notification failed');
+      } catch { console.error('Arena mail notification failed'); }
+    }
+    return result;
+  }
   if (input.action !== 'challenge' && input.action !== 'publish') return { status: 'invalid' };
   if (input.action === 'challenge') {
     if (!uuid.test(input.opponent) || !uuid.test(input.requestId) || input.opponent === uid) return { status: 'invalid' };

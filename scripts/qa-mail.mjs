@@ -21,7 +21,7 @@ const a=[
  {id:'10000000-0000-4000-8000-000000000001',category:'system',subject:'Thưởng vượt ải Chương 1',
   rewards:{copper:17,coins:11,golden_key:1,jewelry_essence:3}},
  {id:'10000000-0000-4000-8000-000000000002',category:'system',subject:'Thông Báo Nhiệm Vụ Ngày',rewards:{}},
- {id:'10000000-0000-4000-8000-000000000003',category:'event',subject:'Quà Sự Kiện Khai Mở',rewards:{golden_key:2}},
+ {id:'10000000-0000-4000-8000-000000000003',category:'admin',subject:'Quà Sự Kiện Khai Mở',rewards:{golden_key:2},verified:true},
  {id:'10000000-0000-4000-8000-000000000004',category:'personal',subject:'Thư trợ giúp đã hết hạn',expired:true,rewards:{coins:2}},
  ...Array.from({length:14},(_,i)=>({id:'20000000-0000-4000-8000-'+String(i+1).padStart(12,'0'),
   category:'system',subject:'Thư tiếng Việt có tiêu đề dài để thử vùng dành riêng cho nội dung số '+(i+1),rewards:{}})),
@@ -34,11 +34,21 @@ mailRepository.send=async (uid,request)=>{
  if(uid!==owner||unavailable)throw Error('Không thể kết nối hộp thư. Vui lòng thử lại.');
  const rows=uid==='mail-qa-a'?a:[];
  const valid=r=>!r.claimed_at&&!r.expired&&Object.keys(r.rewards).length;
+ if(request.action==='adminAccess')return {status:'ok',author:uid==='mail-qa-a',approver:false};
+ if(request.action==='adminHistory')return {status:'ok',drafts:[]};
+ if(request.action==='search')return {status:'ok',players:[{uid:'10000000-0000-4000-8000-000000000011',name:'Võ tướng QA'}]};
+ if(request.action==='send'){
+  rows.push({id:'10000000-0000-4000-8000-000000000010',category:'personal',subject:request.subject,body:request.body,
+   sender:'Võ tướng QA',created_at:new Date().toISOString(),peer_uid:request.recipient,outgoing:true,
+   rewards:{},expires_at:null,read_at:null,claimed_at:null,expired:false});
+  return {status:'ok'};
+ }
  if(request.action==='list'){
-   const filtered=rows.filter(r=>request.category==='all'||r.category===request.category);
-   const unread=Object.fromEntries(['all','system','event','personal'].map(c=>[c,rows.filter(r=>!r.read_at&&(c==='all'||r.category===c)).length]));
-   return {status:'ok',total:rows.length,filtered:filtered.length,unread,claimable:rows.filter(valid).length,
-    deletable:rows.filter(r=>r.read_at&&(r.claimed_at||!Object.keys(r.rewards).length)).length,
+   const inbox=rows.filter(r=>!r.outgoing);
+   const filtered=request.category==='sent'?rows.filter(r=>r.outgoing):inbox.filter(r=>request.category==='all'||r.category===request.category);
+   const unread=Object.fromEntries(['all','admin','system','personal','sent','event'].map(c=>[c,inbox.filter(r=>!r.read_at&&(c==='all'||r.category===c)).length]));
+   return {status:'ok',total:inbox.length,filtered:filtered.length,unread,claimable:inbox.filter(valid).length,
+    deletable:inbox.filter(r=>r.read_at&&(r.claimed_at||!Object.keys(r.rewards).length)).length,
     rows:structuredClone(filtered.slice(request.page*12,request.page*12+12))};
  }
  if(request.action==='read'){
@@ -96,23 +106,23 @@ try {
     await page.waitForFunction(([w,h])=>{const box=window.qa.game.canvas.getBoundingClientRect();return Math.round(box.width)===w&&Math.round(box.height)===h;},[width,height]);
     await page.waitForTimeout(150);
   };
-  await wait('Thư: 18 / 50');
+  await wait('Thư: 18');
   await click('row.10000000-0000-4000-8000-000000000001');
   await wait('Phần Thưởng Đính Kèm');
-  await wait('Đã đọc');
+  await wait('Có quà');
   for(const [width,height] of [[1920,1080],[1280,720],[844,390]]){
     await resize(width,height);
     await page.screenshot({path:`${folder}/mail-detail-${width}x${height}.png`});
   }
   await click('back');
-  await wait('Thư: 18 / 50');
+  await wait('Thư: 18');
   await page.screenshot({path:`${folder}/mail-inbox-844x390.png`});
   const cdp=await page.context().newCDPSession(page);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:330,y:245}]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:330,y:170}]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await wait('3–4 / 18');
-  await click('tab.event');
+  await click('tab.admin');
   await wait('Quà Sự Kiện Khai Mở');
   await click('tab.all');
   await wait('Thưởng vượt ải Chương 1');
@@ -131,13 +141,36 @@ try {
   await click('delete');
   await wait('Xóa thư đã đọc?');
   await click('dialog.delete');
-  await wait('Thư: 17 / 50');
+  await wait('Thư: 17');
   await resize(1280,720);
   await click('next'); await click('next'); await click('next');
   await wait('13–16 / 17');
   await click('row.20000000-0000-4000-8000-000000000010');
   await page.waitForFunction(()=>window.qa.game.scene.getScene('Mail').layer.list.some(o=>o.name==='mail.body.next'));
   await click('body.next');
+  await resize(844,390);
+  await click('compose');
+  const compose=page.getByRole('dialog',{name:'Soạn Thư'});
+  await compose.getByLabel('UID hoặc tên nhân vật').fill('Võ tướng QA');
+  await compose.getByRole('button',{name:'Tìm',exact:true}).click();
+  await compose.getByRole('button',{name:/Võ tướng QA/}).click();
+  await compose.getByLabel('Tiêu đề').fill('Thư cá nhân kiểm thử');
+  await compose.getByLabel('Nội dung').fill('Xin chào, hẹn gặp ở Sảnh!');
+  await page.screenshot({path:`${folder}/mail-compose-844x390.png`});
+  await compose.getByRole('button',{name:'Gửi Thư'}).click();
+  await wait('Đã gửi: 1');
+  await click('row.10000000-0000-4000-8000-000000000010');
+  await wait('Đến: Võ tướng QA');
+  await resize(1280,720);
+  await click('admin');
+  const admin=page.getByRole('dialog',{name:'Quản Trị Hộp Thư'});
+  await admin.getByLabel('Toàn server').check();
+  await admin.getByLabel('Tiêu đề').fill('Thông báo bảo trì QA');
+  await admin.getByLabel('Nội dung').fill('Máy chủ sẽ bảo trì theo lịch.');
+  await admin.getByRole('button',{name:'Xem trước'}).click();
+  await admin.getByText('Người nhận: toàn server').waitFor();
+  await page.screenshot({path:`${folder}/mail-admin-1280x720.png`});
+  await admin.getByRole('button',{name:'Đóng'}).click();
   await page.evaluate(()=>{window.qa.offline(true);window.qa.swap();});
   await wait('Không thể tải hộp thư');
   assert.equal(await page.evaluate(()=>window.qa.game.scene.getScene('Mail').layer.list.some(o=>o.text==='Hộp thư trống')),false);
