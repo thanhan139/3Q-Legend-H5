@@ -37,6 +37,7 @@ export type GameCommand =
   | { type: 'enhance'; uid: string; useStone: true }
   | { type: 'enhance'; uid: string; useStone: false; feeCurrency: 'copper' }
   | { type: 'forge'; itemId: EquipmentId; expectedCrafted: number }
+  | { type: 'signatureStar'; uid: string; expectedNodes: number; rulesVersion: 1 }
   | { type: 'upgrade' | 'star'; heroId: string }
   | { type: 'summon'; count: 1 | 10 }
   | { type: 'battle'; ticket: BattleTicket };
