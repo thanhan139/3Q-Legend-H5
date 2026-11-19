@@ -257,7 +257,8 @@ export class ShopScene extends UiScene {
     }
     this.label(1141,132,current?.name ?? 'Thông tin mặt hàng',21,196);
     this.label(1141,169,listing ? `Sở hữu: ${format(listing.owned)}` : current ? 'Chưa mở bán' : '',15,196);
-    for (const [y, label] of [[233,'Công dụng'],[353,'Giới hạn mua'],[460,'Số lượng mua'],[555,'Tổng giá']] as const) {
+    const essence = listing?.offer.id === 'jewelry-essence';
+    for (const [y, label] of [[233,'Công dụng'],[353,'Giới hạn mua'],[460,'Số lượng mua'],[essence ? 573 : 555,'Tổng giá']] as const) {
       this.art(ART.strip,1107,y,286,33);
       this.label(1107,y,label,17,248);
     }
@@ -271,12 +272,21 @@ export class ShopScene extends UiScene {
     this.quantity = max ? Math.max(1, Math.min(this.quantity, max)) : 1;
     const q = max ? this.quantity : 0;
     const set = (quantity: number) => { this.quantity=quantity; this.render(); };
-    this.shopButton(992,503,46,44,'−',q>1 ? () => set(q-1) : undefined,true,'shop.minus');
-    this.art(ART.strip,1058,503,76,40);
-    this.label(1058,503,String(q),23,65);
-    this.shopButton(1121,503,46,44,'+',q && q<max ? () => set(q+1) : undefined,true,'shop.plus');
-    this.shopButton(1192,503,75,44,'Max',max ? () => set(max) : undefined,false,'shop.max');
-    this.label(1107,588,listing && q ? `${format(listing.offer.price*q)} ${currencyName[listing.offer.currency]}` : '—',22,270);
+    const x = essence ? 1107 : 1058;
+    const y = essence ? 494 : 503;
+    this.shopButton(x-66,y,46,essence ? 35 : 44,'−',q>1 ? () => set(q-1) : undefined,true,'shop.minus');
+    this.art(ART.strip,x,y,76,essence ? 32 : 40);
+    this.label(x,y,String(q),22,65);
+    this.shopButton(x+63,y,46,essence ? 35 : 44,'+',q && q<max ? () => set(q+1) : undefined,true,'shop.plus');
+    if (essence) {
+      ([1, 10, 100, 'Max'] as const).forEach((value, index) => {
+        const quantity = value === 'Max' ? max : value;
+        this.shopButton(1005+index*68,534,63,34,String(value),
+          quantity > 0 && quantity <= max ? () => set(quantity) : undefined,q>0 && q===quantity,
+          value === 'Max' ? 'shop.max' : `shop.quick.${value}`);
+      });
+    } else this.shopButton(1192,503,75,44,'Max',max ? () => set(max) : undefined,false,'shop.max');
+    this.label(1107,essence ? 601 : 588,listing && q ? `${format(listing.offer.price*q)} ${currencyName[listing.offer.currency]}` : '—',22,270);
     const pending = cloudRepository.hasPendingShop;
     const expired = this.resetAt !== undefined && this.resetAt <= Date.now() + this.clockOffset;
     const buy = () => void this.perform(async () => { this.quote = await cloudRepository.shopQuote(listing!.offer.id, q); }, true);

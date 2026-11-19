@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { GameCommand, GameIntent } from '../src/cloud/gameProtocol';
-import { SHOP_OFFERS, applyShopPurchase, shopCatalog, shopPeriod, type ShopQuote } from '../src/domain/shop';
+import { SHOP_OFFERS, applyShopPurchase, shopCatalog, shopDayStart, shopPeriod, type ShopQuote } from '../src/domain/shop';
 import type { SaveV2 } from '../src/domain/types';
 import { baseSave, GameStore, normalizeSave } from '../src/domain/store';
 import { inventoryQuantity } from '../src/domain/resources';
@@ -13,13 +13,14 @@ const purchase = (quote: ShopQuote) => ({
   command: {type:'shopBuy',offerId:quote.offerId,quantity:quote.quantity},
 } as const);
 
-function fixture(start = { ...baseSave(), coins: 100_000, gems: 10_000 }) {
+function fixture(start = { ...baseSave(), coins: 100_000, gems: 10_000 }, legacy = new Map<string, number>()) {
   const rows = new Map(['alice','bob','viewer'].map(id => [id,{state:structuredClone(start),revision:0}]));
   const ledger = new Map<string,{command:GameCommand;receipt:unknown}>();
   const encoder = new TextEncoder();
   const key = crypto.subtle.importKey('raw',encoder.encode('fixture-key'),{name:'HMAC',hash:'SHA-256'},false,['sign']);
   const backend: GameBackend = {
     shopTestEnabled: uid => uid !== 'viewer',
+    legacyShopEssenceUnits: async (uid, dayStart) => legacy.get(`${uid}:${dayStart}`) ?? 0,
     user: async uid => rows.has(uid) ? {id:uid,email_confirmed_at:'yes'} : null,
     read: async uid => structuredClone(rows.get(uid) ?? null),
     create: async () => ({}),
@@ -63,13 +64,47 @@ describe('Vạn Bảo Các shop', () => {
 
   it('gates checkout and rejects unauthorized, invalid, too large and unaffordable quotes', async () => {
     const { send, quote } = fixture({...baseSave(),gems:100});
-    for (const quantity of [0,-1,1.5,100,Number.MAX_SAFE_INTEGER])
+    for (const quantity of [0,-1,1.5,1000,Number.MAX_SAFE_INTEGER])
       expect(await send({action:'shopQuote',offerId:'golden-key',quantity})).toMatchObject({status:'invalid'});
     expect(await send({action:'shopQuote',offerId:'golden-key',quantity:2})).toMatchObject({status:'shopLimit'});
     expect(await fixture().send({action:'shopQuote',offerId:'golden-key',quantity:5})).toMatchObject({status:'shopLimit'});
     expect(await send({action:'shopCatalog'},'viewer')).toMatchObject({catalog:{checkoutEnabled:false}});
     expect(await send({action:'shopCatalog'},'outsider')).toMatchObject({status:'unauthorized'});
     expect(await send(purchase(await quote()),'viewer')).toMatchObject({status:'shopUnavailable'});
+  });
+
+  it.each([1,10,100,999])('quotes, grants and charges exactly %i essence units', async quantity => {
+    const { send, quote, rows } = fixture();
+    const offer = await quote('jewelry-essence', quantity);
+    expect(offer).toMatchObject({currency:'coins',total:100*quantity,grant:quantity});
+    const result = await send(purchase(offer));
+    expect(result).toMatchObject({status:'ok',receipt:{total:100*quantity,grant:quantity},
+      save:{coins:100_000-100*quantity,jewelryEssence:quantity,shopPurchases:{'jewelry-essence':{bought:quantity}}}});
+    expect(await send(purchase(offer))).toEqual(result);
+    expect(rows.get('bob')?.state.jewelryEssence ?? 0).toBe(0);
+    if (quantity === 999) expect(await send({action:'shopQuote',offerId:'jewelry-essence',quantity:1})).toMatchObject({status:'shopLimit'});
+  });
+
+  it('carries today’s legacy grants into the new quota without counting previous days or counting twice', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(sunday);
+    const start = {...baseSave(),coins:100_000,shopPurchases:{'jewelry-essence':{period:shopPeriod('weekly',sunday).key,bought:3}}};
+    const {send,quote,rows} = fixture(start,new Map([[`alice:${shopDayStart(sunday)}`,40]]));
+    const usage = (used:number,max:number) => ({catalog:{listings:expect.arrayContaining([
+      expect.objectContaining({offer:expect.objectContaining({id:'jewelry-essence',priceVersion:2}),used,max}),
+    ])}});
+    expect(await send({action:'shopCatalog'})).toMatchObject(usage(40,959));
+    expect(await send({action:'shopCatalog'},'bob')).toMatchObject(usage(0,999));
+    const a = purchase(await quote('jewelry-essence',959));
+    const b = purchase(await quote('jewelry-essence',958));
+    const results = await Promise.all([send(a),send(b)]);
+    expect(results.map(r => (r as {status:string}).status).sort()).toEqual(['conflict','ok']);
+    const bought = rows.get('alice')!.state.shopPurchases!['jewelry-essence'].bought;
+    if (bought === 958) expect(await send(purchase(await quote('jewelry-essence',1)))).toMatchObject({status:'ok'});
+    expect(await send({action:'shopCatalog'})).toMatchObject(usage(999,0));
+    expect(await send({action:'shopQuote',offerId:'jewelry-essence',quantity:1})).toMatchObject({status:'shopLimit'});
+    vi.setSystemTime(monday);
+    expect(await send({action:'shopCatalog'})).toMatchObject(usage(0,41));
   });
 
   it('rejects a forged price, a different UID, and a quote after a price or period change', async () => {
@@ -118,7 +153,7 @@ describe('Vạn Bảo Các shop', () => {
 
   it('grants all five existing inventory resources and keeps counters through save reload', () => {
     const base = baseSave();
-    const save: SaveV2 = {...base, gems:10000, goldKeys:0, clearedStages:['1-1','1-2','1-3'],
+    const save: SaveV2 = {...base, gems:10000, copper:5000, goldKeys:0, clearedStages:['1-1','1-2','1-3'],
       forge:{...base.forge!,shards:47}, equipment:[{uid:'qa-gear',itemId:'dragonBlade',level:1}],
       jewelry:[{uid:'00000000-0000-4000-8000-000000000001',itemId:'ring_r_blue',level:0}]};
     const purchased = SHOP_OFFERS.reduce<SaveV2>((state,offer) => applyShopPurchase(state,offer,1,monday)!.state,save);
@@ -137,7 +172,7 @@ describe('Vạn Bảo Các shop', () => {
     expect(store.forgeWeapon('dragonBlade',0)).toBe(true);
     expect(store.snapshot.forge?.shards).toBe(0);
     expect(store.enhanceJewel(save.jewelry![0].uid,0)).toMatchObject({success:true,essenceSpent:1});
-    expect(store.snapshot.jewelryEssence).toBe(19);
+    expect(store.snapshot.jewelryEssence).toBe(0);
     expect(normalizeSave(baseSave())).not.toHaveProperty('shopPurchases');
   });
 });

@@ -28,6 +28,14 @@ const backend: GameBackend = {
     return isStagingProject(env('SUPABASE_URL')) &&
       (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
   },
+  async legacyShopEssenceUnits(uid, dayStart) {
+    const { data, error } = await admin.rpc('game_legacy_shop_essence_units', {
+      p_uid: uid, p_day_start: new Date(dayStart).toISOString(),
+    });
+    if (error) throw error;
+    if (!Number.isSafeInteger(data) || data < 0) throw new Error('Invalid legacy shop quota');
+    return data;
+  },
   async claimVip(uid, requestId, revision, command) {
     const {data,error} = await admin.rpc('game_claim_vip', {p_uid:uid,p_request_id:requestId,
       p_expected_revision:revision,p_tier:command.tier,p_kind:command.kind,p_period:command.period});

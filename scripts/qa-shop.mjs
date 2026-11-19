@@ -18,7 +18,7 @@ import { handleGameRequest } from '../../supabase/functions/game-command/handler
 import { bindViewportResize } from '../../src/ui/resizeViewport';
 const owner='shop-qa-a';
 const cloud=cloudRepository as any;
-let state={...baseSave(),coins:15000,gems:980,goldKeys:0}, revision=0, drop=false;
+let state={...baseSave(),coins:120000,gems:980,goldKeys:0}, revision=0, drop=false;
 const ledger=new Map();
 const enc=new TextEncoder();
 const key=crypto.subtle.importKey('raw',enc.encode('fixture-key'),{name:'HMAC',hash:'SHA-256'},false,['sign']);
@@ -110,8 +110,28 @@ try {
   await wait('Sở hữu: 4');
   await wait('Hôm nay: 4/4');
   assert.equal(await page.evaluate(()=>window.qa.state().gems),600);
+  await click('shop.category.jewelry',true);
+  await wait('Hôm nay: 0/999');
+  for (const [name,total] of [['shop.quick.10','1.000 Vàng'],['shop.quick.100','10.000 Vàng'],['shop.quick.1','100 Vàng'],['shop.max','99.900 Vàng']]) {
+    await click(name,true);
+    await wait(total);
+  }
+  for (const [width,height] of [[1920,1080],[1280,720],[844,390]]) {
+    await page.setViewportSize({width,height});
+    await page.waitForFunction(([w,h])=>{
+      const box=window.qa.game.canvas.getBoundingClientRect();return Math.round(box.width)===w && Math.round(box.height)===h;
+    },[width,height]);
+    await page.screenshot({path:`${folder}/shop-essence-${width}x${height}.png`});
+  }
+  await click('shop.buy',true);
+  await wait('Tổng giá: 99.900 Vàng');
+  await click('shop.confirm',true);
+  await wait('Hôm nay: 999/999');
+  assert.equal(await page.evaluate(()=>window.qa.state().jewelryEssence),999);
+  assert.equal(await page.evaluate(()=>window.qa.state().coins),20100);
+  assert.equal(await page.evaluate(()=>window.qa.receipts()),2);
   assert.deepEqual(errors,[]);
-  console.log('Shop browser QA passed: 10 categories, 8 cards, filters, Max, confirmed checkout, lost response and exactly-once retry.');
+  console.log('Shop browser QA passed: categories, filters, touch, quick quantities, 999 essence, lost reply and exactly-once retry.');
 } finally {
   await browser?.close();
   await vite.close();
