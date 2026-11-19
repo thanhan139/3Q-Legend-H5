@@ -3,6 +3,7 @@ import type { ForgeWallet } from './forge';
 import type { JewelryItem } from './jewelry';
 import type { Gear } from './equipment';
 import type { Welfare } from './welfare';
+import type { CopperDaily } from './copperEconomy';
 import type { SummonReward } from './summon';
 
 export type EquipmentRarity = 'R' | 'SR' | 'SSR';
@@ -56,6 +57,7 @@ export interface SaveV1 {
 export interface SaveV2 extends Omit<SaveV1, 'schemaVersion'> {
   schemaVersion: 2;
   copper?: number;
+  copperDaily?: CopperDaily;
   legendaryPity?: number;
   lastSummon?: SummonReward[];
   trainingExp: number;

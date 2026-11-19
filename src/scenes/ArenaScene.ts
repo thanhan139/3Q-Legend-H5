@@ -5,6 +5,8 @@ import { HERO_BY_ID, SLOT_COUNT } from '../data/heroes';
 import { gameStore } from '../domain/store';
 import { formationPower, heroLevel } from '../domain/progression';
 import { walletBalance } from '../domain/resources';
+import { copperDaily, COPPER_ECONOMY } from '../domain/copperEconomy';
+import { welfareDay } from '../domain/welfare';
 import { portrait } from '../ui/heroPresentation';
 import assets from '../ui/pvpTextures.json';
 import aliases from '../ui/pvpAliases.json';
@@ -117,6 +119,15 @@ export class ArenaScene extends UiScene {
       this.action('challenge', 1100, 545, 201, 'Luyện tập', () => open('prepare'));
       this.action('refresh', 1100, 619, 201, 'Tải lại', () => void run(() => fresh('arena')));
       this.label(745, 387, view ? `Lượt hôm nay: ${view.remaining}/5` : (message ?? ''), 17);
+      if (cloudRepository.economyV14 && view?.enrolled) {
+        const day = welfareDay(), claimed = copperDaily(save, day).arenaClaimed;
+        this.label(745, 419, 'Thắng xếp hạng đầu ngày', 16);
+        this.action('view_rewards', 745, 449, 224, claimed ? 'Đã nhận Đồng' : `Nhận ${number(COPPER_ECONOMY.rankedWin)} Đồng`,
+          claimed ? undefined : () => void run(async () => {
+            await cloudRepository.execute({ type:'arenaCopper', day });
+            await fresh('arena');
+          }), false, 16);
+      }
       if (view) {
         this.action('challenge', 438, 377, 245, view.enrolled ? 'Cập nhật phòng thủ' : 'Đăng ký phòng thủ',
           () => void run(async () => {

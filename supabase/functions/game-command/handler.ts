@@ -2,7 +2,7 @@ import { makeStageBattle } from '../../../src/domain/battle';
 import { baseSave, GameStore } from '../../../src/domain/store';
 import { STAGES } from '../../../src/data/campaign';
 import { JEWELRY_RULES_VERSION } from '../../../src/domain/jewelry';
-import { DAILY_MISSIONS } from '../../../src/domain/welfare';
+import { DAILY_MISSIONS, welfareDay } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
 import type { BattleTicket, GameCommand, GameIntent } from '../../../src/cloud/gameProtocol';
 import type { SaveV2 } from '../../../src/domain/types';
@@ -17,6 +17,8 @@ export interface SaveRow {
 }
 
 export interface GameBackend {
+  economyTestEnabled?(uid: string): boolean;
+  hasRankedWin?(uid: string, dayStart: number, dayEnd: number): Promise<boolean>;
   claimVip?(uid: string, requestId: string, revision: string, command: Extract<GameCommand, {type:'vipClaim'}>): Promise<object>;
   user(token: string): Promise<{ id: string; is_anonymous?: boolean; email_confirmed_at?: string } | null>;
   read(uid: string): Promise<SaveRow | null>;
@@ -37,12 +39,18 @@ const ticketPayload = (uid: string, ticket: Omit<BattleTicket, 'signature'>) =>
 const serverRandom = () => crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
 
 async function run(store: GameStore, command: GameCommand, uid: string, requestId: string,
-  revision: string, backend: GameBackend, vip?: VipSnapshot): Promise<unknown> {
+  revision: string, backend: GameBackend, economyV14: boolean, vip?: VipSnapshot): Promise<unknown> {
+  const day = welfareDay();
   switch (command.type) {
     case 'firstTopupDemo': return store.claimFirstTopupDemo();
     case 'checkIn': return store.claimCheckIn();
     case 'daily': return typeof command.mission === 'string' &&
-      Object.hasOwn(DAILY_MISSIONS, command.mission) && store.claimDaily(command.mission);
+      Object.hasOwn(DAILY_MISSIONS, command.mission) && store.claimDaily(command.mission, day, economyV14);
+    case 'arenaCopper': {
+      if (!economyV14 || command.day !== day || !backend.hasRankedWin) return false;
+      const dayStart = day * 86_400_000 - 7 * 3_600_000;
+      return await backend.hasRankedWin(uid, dayStart, dayStart + 86_400_000) && store.claimArenaCopper(day);
+    }
     case 'formation': return (command.heroId === null || idOK(command.heroId)) && store.updateFormation(command.slot, command.heroId);
     case 'jewelryEquip': return idOK(command.uid) && idOK(command.heroId) && store.equipJewel(command.uid, command.heroId);
     case 'jewelryUnequip': return idOK(command.uid) && store.unequipJewel(command.uid);
@@ -75,7 +83,7 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
       const { formation, heroExp, heroStars, equipment, jewelry } = store.snapshot;
       if (!stage || !formation.some(Boolean)) return false;
       const winner = makeStageBattle(stage, formation, heroExp, heroStars, equipment, vipLevel(vip?.paidBaseKnbTotal), jewelry).finish();
-      return { winner, ...store.completeStage(stage.id, winner, requestId) };
+      return { winner, ...store.completeStage(stage.id, winner, requestId, economyV14 ? day : undefined) };
     }
     default: return false;
   }
@@ -86,8 +94,9 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   const user = await backend.user(token);
   if (!user || user.is_anonymous || !user.email_confirmed_at) return { status: 'unauthorized' };
   const uid = user.id;
+  const economyV14 = backend.economyTestEnabled?.(uid) === true;
   if (!intent || typeof intent !== 'object') return { status: 'invalid' };
-  if (intent.action === 'initialize') return backend.create(uid, baseSave());
+  if (intent.action === 'initialize') return { ...await backend.create(uid, baseSave()), economyV14 };
   if (intent.action === 'import') {
     if (!legacyAllowed || intent.confirmed !== true) return { status: 'importDisabled' };
     let save: SaveV2;
@@ -104,7 +113,7 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   const row = await backend.read(uid);
   if (!row) return { status: 'missing' };
   const tutorial = row.tutorial ?? legacyTutorial();
-  const authoritative = { save: row.state, revision: String(row.revision), tutorial, ...(row.vip ? {vip:row.vip} : {}) };
+  const authoritative = { save: row.state, revision: String(row.revision), tutorial, economyV14, ...(row.vip ? {vip:row.vip} : {}) };
   if (intent.action === 'load') return { status: 'ok', ...authoritative };
   if (!revisionOK(intent.revision)) return { status: 'invalid' };
 
@@ -143,7 +152,7 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
       state = { ...state, playerName: name };
     }
   } else {
-    receipt = await run(store, command, uid, intent.requestId, intent.revision, backend, row.vip);
+    receipt = await run(store, command, uid, intent.requestId, intent.revision, backend, economyV14, row.vip);
     state = store.snapshot;
   }
   if (receipt === false || (receipt && typeof receipt === 'object' && 'ok' in receipt && !receipt.ok))

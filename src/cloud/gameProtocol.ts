@@ -9,6 +9,7 @@ export interface CloudSave {
   revision: string;
   tutorial?: TutorialProgress;
   vip?: VipSnapshot;
+  economyV14?: boolean;
 }
 
 export interface BattleTicket {
@@ -24,6 +25,7 @@ export type GameCommand =
   | { type: 'tutorial'; version: number; step: TutorialStep; action: 'name' | 'next' | 'skip'; name?: string }
   | { type: 'checkIn' | 'firstTopupDemo' }
   | { type: 'daily'; mission: Mission }
+  | { type: 'arenaCopper'; day: number }
   | { type: 'formation'; slot: number; heroId: string | null }
   | { type: 'jewelryEquip'; uid: string; heroId: string }
   | { type: 'jewelryUnequip'; uid: string }
