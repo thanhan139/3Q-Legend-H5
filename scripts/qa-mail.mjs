@@ -156,8 +156,12 @@ try {
   await compose.getByRole('button',{name:/Võ tướng QA/}).click();
   await compose.getByLabel('Tiêu đề').fill('Thư cá nhân kiểm thử');
   await compose.getByLabel('Nội dung').fill('Xin chào, hẹn gặp ở Sảnh!');
+  const sendButton=compose.getByRole('button',{name:'Gửi Thư'});
+  const target=await sendButton.boundingBox();
+  const viewport=await compose.locator('.mail-dialog-content').boundingBox();
+  assert.ok(target&&viewport&&target.y+target.height<=viewport.y+viewport.height+1,'mobile send button is fully visible');
   await page.screenshot({path:`${folder}/mail-compose-844x390.png`});
-  await compose.getByRole('button',{name:'Gửi Thư'}).click();
+  await sendButton.click();
   await wait('Đã gửi: 1');
   await click('row.10000000-0000-4000-8000-000000000010');
   await wait('Đến: Võ tướng QA');

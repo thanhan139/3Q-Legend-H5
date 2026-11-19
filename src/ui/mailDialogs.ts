@@ -46,7 +46,8 @@ export function composeMail(owner:string,row:MailRow|undefined,completed:()=>voi
   const selection=node('p','Chưa chọn người nhận.');
   let recipient: MailPlayer|undefined;
   const select=(player:MailPlayer)=>{
-    recipient=player; selection.textContent=`Đến: ${player.name} · ${player.uid}`; matches.replaceChildren();
+    recipient=player; selection.textContent=`Đến: ${player.name} · ${player.uid}`;
+    matches.replaceChildren(); status.textContent='';
   };
   if (row?.peer_uid) {
     select({uid:row.peer_uid,name:row.sender});
