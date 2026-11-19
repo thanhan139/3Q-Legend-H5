@@ -4,6 +4,7 @@ import { cloudRepository } from '../cloud/cloudRepository';
 import { EQUIPMENT, type EquipmentId } from '../data/equipmentConfig';
 import { HERO_BY_ID } from '../data/heroes';
 import { isSignature, SignatureConfig, signatureIds } from '../data/signatureConfig';
+import { signatureNodes, signatureNextCost, signatureStarBonus, signatureCompletedStars } from '../domain/signatureStars';
 import { LOBBY_ASSETS } from '../data/lobbyAssets';
 import { FORGE, weeklyWins } from '../domain/forge';
 import { gameStore } from '../domain/store';
@@ -29,8 +30,14 @@ export class ForgeScene extends UiScene {
     const selected = EQUIPMENT[itemId];
     const owned = (save.equipment ?? []).filter(item => item.itemId === itemId);
     const equipped = owned.find(item => item.heroId);
+    const selectedOwned = owned.find(item => item.heroId === data.returnHeroId) ??
+      owned.find(item => !item.heroId) ?? owned[0];
+    const nodeCount = selectedOwned && isSignature(itemId) ? signatureNodes(selectedOwned.signatureNodes) : 0;
+    const petalCost = nodeCount ? signatureNextCost(nodeCount) : undefined;
+    const starBonus = signatureStarBonus(nodeCount);
+    const spend = petalCost ?? FORGE.shardsRequired;
     const signature = isSignature(itemId) ? SignatureConfig[itemId] : undefined;
-    const canForge = wallet !== undefined && shards >= FORGE.shardsRequired;
+    const canForge = wallet !== undefined && shards >= spend && (!petalCost || !!selectedOwned);
     let pending = false;
 
     const art = this.add.image(640, 360, LOBBY_ASSETS.palace.key).setDisplaySize(1280, 720);
@@ -118,30 +125,41 @@ export class ForgeScene extends UiScene {
     this.tweens.add({ targets: weapon, y: 315, duration: 1150,
       yoyo: true, repeat: -1, ease: 'Sine.InOut' });
     label(583, 474, selected.name, 24, 496, '#ffe6aa', 53);
-    label(583, 511, 'Mảnh sở hữu: ' + shards.toLocaleString('vi-VN') + ' / ' + FORGE.shardsRequired,
-      17, 455, '#ffdaad', 32);
+    label(583, 508, isSignature(itemId)
+      ? '★'.repeat(signatureCompletedStars(nodeCount)) + '☆'.repeat(5 - signatureCompletedStars(nodeCount)) +
+        ' · ' + nodeCount + '/25 cánh · +' + starBonus.atkPct.toFixed(1) + '% Công'
+      : 'Trang bị SSR · Rèn bằng Mảnh Thần Binh', 16, 458, '#ffdaad', 34);
+    label(583, 529, 'Mảnh chung: ' + shards.toLocaleString('vi-VN') + ' / ' + spend,
+      14, 435, '#ffdaad', 22);
     const progressWidth = 416;
     this.add.rectangle(583, 542, progressWidth, 20, 0x1a0d14).setStrokeStyle(2, 0xc48d4c);
-    const fraction = Math.min(1, shards / FORGE.shardsRequired);
+    const fraction = Math.min(1, shards / spend);
     if (fraction > 0) this.add.rectangle(583 - progressWidth / 2 + 2, 542,
       Math.max(1, (progressWidth - 5) * fraction), 15, 0x56b66a).setOrigin(0, .5);
-    if (!canForge) label(583, 568, 'Cần thêm ' + Math.max(0, FORGE.shardsRequired - shards) + ' mảnh để rèn',
+    if (!canForge) label(583, 568, petalCost === undefined && nodeCount === 25
+      ? 'Đã đạt Thần Binh 5 sao vàng'
+      : 'Cần thêm ' + Math.max(0, spend - shards) + ' mảnh',
       13, 420, '#ecd09c', 23);
 
     const forge = async () => {
-      if (pending || !wallet || shards < FORGE.shardsRequired) return;
+      if (pending || !wallet || !canForge || nodeCount === 25) return;
       pending = true;
       try {
-        await this.saveAction({ type: 'forge', itemId, expectedCrafted: wallet.crafted },
-          () => gameStore.forgeWeapon(itemId, wallet.crafted),
+        await this.saveAction(petalCost && selectedOwned ?
+          { type: 'signatureStar', uid: selectedOwned.uid, expectedNodes: nodeCount, rulesVersion: 1 } :
+          { type: 'forge', itemId, expectedCrafted: wallet.crafted },
+          () => petalCost && selectedOwned ?
+            gameStore.upgradeSignature(selectedOwned.uid, nodeCount) : gameStore.forgeWeapon(itemId, wallet.crafted),
           ok => {
             if (ok) this.scene.restart({ ...data, itemId, success: true });
             else this.toast('Giao dịch chưa được lưu.');
           });
       } finally { pending = false; }
     };
-    button(583, 618, 323, 56, 'Rèn · ' + FORGE.shardsRequired + ' mảnh',
-      canForge ? () => { void forge(); } : undefined, 'gold').background.setName('forge.craft');
+    button(583, 618, 323, 56, nodeCount >= 25 ? 'Thần Binh 5★ Tối Đa' :
+      (petalCost ? 'Nâng cánh sao · ' : 'Rèn · ') + spend + ' mảnh',
+      canForge && nodeCount < 25 ? () => { void forge(); } : undefined, 'gold')
+      .background.setName(petalCost ? 'forge.star' : 'forge.craft');
 
     panel(871, 128, 390, 530, 'detail');
     label(1066, 161, selected.name, 23, 352, '#ffe4aa', 62);
@@ -156,9 +174,17 @@ export class ForgeScene extends UiScene {
       14, 344, '#f7d29a', 43);
     else label(1066, 294, 'Vũ khí SSR · Cường hóa tại Trang Bị', 14, 340, '#f7d29a', 43);
     label(1066, 327, owned.length
+      ? '★' + signatureCompletedStars(nodeCount) + ' · ' + nodeCount + '/25 cánh · ' +
+        'Hào quang đội +' + starBonus.teamAuraPct.toFixed(1) + '%'
+      : 'Chưa sở hữu — Có thể rèn khi đủ mảnh', 13, 347, '#e7ddb1', 37);
+    /* Keep equipped instance metadata in the actual owned gear, not display-only state. */
+    void equipped;
+    /*
+    label(1066, 327, owned.length
       ? 'Đang sở hữu ' + owned.length + ' bản' + (equipped?.heroId
         ? ' · ' + (HERO_BY_ID[equipped.heroId]?.name ?? '') + ' đang dùng' : '')
       : 'Chưa sở hữu — Có thể rèn khi đủ mảnh', 13, 347, '#e7ddb1', 37);
+    */
     line(1066, 357, 318);
     label(1066, 378, 'NGUỒN MẢNH THẦN BINH', 17, 344, '#ffd788');
     const sources = [
@@ -192,7 +218,7 @@ export class ForgeScene extends UiScene {
           delay: index * 105, duration: 680, ease: 'Cubic.Out',
           onComplete: () => ring.destroy() });
       }
-      this.toast('Rèn thành công! Thần Binh đã được lưu vào kho.');
+      this.toast(nodeCount > 1 ? 'Đã nâng cánh sao Thần Binh!' : 'Rèn thành công! Thần Binh đã được lưu vào kho.');
     }
 
     const fitToViewport = () => {
