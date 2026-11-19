@@ -18,7 +18,7 @@ import { handleGameRequest } from '../../supabase/functions/game-command/handler
 import { bindViewportResize } from '../../src/ui/resizeViewport';
 const owner='shop-qa-a';
 const cloud=cloudRepository as any;
-let state={...baseSave(),copper:12580000,coins:120000,gems:980,goldKeys:0}, revision=0, drop=false;
+let state={...baseSave(),copper:12580000,coins:120000,gems:980,goldKeys:0}, revision=0, drop=false, authorized=false;
 const ledger=new Map();
 const enc=new TextEncoder();
 const key=crypto.subtle.importKey('raw',enc.encode('fixture-key'),{name:'HMAC',hash:'SHA-256'},false,['sign']);
@@ -28,7 +28,8 @@ cloud.apply(current());
 cloud.send=async (intent)=>{
   const result=await handleGameRequest(intent,owner,{
     user:async()=>({id:owner,email_confirmed_at:'yes'}), read:async()=>({state,revision}),
-    shopTestEnabled:()=>true, create:async()=>({}), verify:async()=>false, receipt:async (_,id)=>ledger.has(id),
+    shopIsStaging:true, shopTestEnabled:async()=>authorized,
+    create:async()=>({}), verify:async()=>false, receipt:async (_,id)=>ledger.has(id),
     sign:async value=>Array.from(new Uint8Array(await crypto.subtle.sign('HMAC',await key,enc.encode(value))),x=>x.toString(16).padStart(2,'0')).join(''),
     commit:async (_,id,rev,command,newState,receipt)=>{
       const prior=ledger.get(id);
@@ -43,7 +44,8 @@ cloud.send=async (intent)=>{
 };
 const game=new Phaser.Game({type:Phaser.WEBGL,parent:'game',width:1280,height:720,scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[ShopScene]});
 bindViewportResize(game,document.getElementById('game')!);
-window.qa={game,drop:()=>drop=true,state:()=>state,receipts:()=>ledger.size};
+window.qa={game,drop:()=>drop=true,state:()=>state,receipts:()=>ledger.size,
+  authorize:()=>{authorized=true;game.scene.getScene('Shop').scene.restart();}};
 `);
 
 const vite=await createServer({server:{host:'127.0.0.1',port:5217,strictPort:true,watch:null},clearScreen:false});
@@ -70,6 +72,11 @@ try {
     },name);
     await (touch?page.touchscreen.tap(point.x,point.y):page.mouse.click(point.x,point.y));
   };
+  await wait('Chưa cấp quyền mua trên staging');
+  assert.equal(await page.evaluate(()=>window.qa.game.scene.getScene('Shop').layer.list.some(o=>o.name==='shop.buy')),false);
+  await page.screenshot({path:`${folder}/shop-qa-locked-1280x720.png`});
+  await page.evaluate(()=>window.qa.authorize());
+  await page.waitForFunction(()=>window.qa.game.scene.getScene('Shop').layer?.list.some(o=>o.name==='shop.buy'&&o.input?.enabled));
   await wait('Sở hữu: 0');
   const count = prefix => page.evaluate(prefix => window.qa.game.scene.getScene('Shop').layer.list
     .filter(o=>o.name?.startsWith(prefix)).length,prefix);

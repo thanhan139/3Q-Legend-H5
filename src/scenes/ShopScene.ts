@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { cloudRepository } from '../cloud/cloudRepository';
+import { cloudMessage, cloudRepository } from '../cloud/cloudRepository';
 import type { ShopCatalog, ShopCurrency, ShopListing, ShopQuote, ShopReceipt } from '../domain/shop';
 import { heroLabel } from '../ui/heroUiControls';
 import { loadSharedUi } from '../ui/sharedUi';
@@ -254,8 +254,12 @@ export class ShopScene extends UiScene {
     const listing = listings.find(entry => entry.offer.id === this.selected);
     this.details(listing);
     this.label(1107,666,this.message || (this.catalog?.checkoutEnabled ? 'Giá thử nghiệm · Chỉ dùng trên staging' :
-      this.catalog ? 'Giá đề xuất · Chưa mở bán' : ''), 13, 284);
+      this.catalog ? this.checkoutNotice() : ''), 13, 284);
     if (this.quote) this.confirmation(this.quote);
+  }
+
+  private checkoutNotice() {
+    return cloudMessage(this.catalog?.checkoutBlocked ?? 'shopUnavailable');
   }
 
   private details(listing?: ShopListing) {
@@ -301,8 +305,11 @@ export class ShopScene extends UiScene {
     const buy = () => void this.perform(async () => { this.quote = await cloudRepository.shopQuote(listing!.offer.id, q); }, true);
     const action = pending ? () => void this.purchase(() => cloudRepository.retryShopPurchase()) :
       !this.catalog || expired ? () => void this.loadCatalog() : this.catalog.checkoutEnabled && listing && q ? buy : undefined;
+    const blockedLabel = this.catalog?.checkoutBlocked === 'shopQaAccessRequired' ? 'Cần quyền QA' :
+      this.catalog?.checkoutBlocked === 'shopTutorialRequired' ? 'Cần xong hướng dẫn' : 'Chưa mở bán';
     this.shopButton(1107,631,234,46,this.busy ? 'Đang xử lý…' : pending ? 'Đối chiếu giao dịch' :
-      !this.catalog || expired ? 'Tải lại' : !this.catalog.checkoutEnabled || !listing ? 'Chưa mở bán' : !q ? 'Không đủ điều kiện' : 'Mua',
+      !this.catalog || expired ? 'Tải lại' : !listing ? 'Chưa mở bán' : !this.catalog.checkoutEnabled ? blockedLabel :
+        !q ? 'Không đủ điều kiện' : 'Mua',
     this.busy ? undefined : action,true,'shop.buy');
   }
 

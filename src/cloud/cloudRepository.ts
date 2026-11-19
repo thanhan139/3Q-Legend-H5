@@ -28,6 +28,8 @@ export const cloudMessage = (status: string) => ({
   staleOffer: 'Ưu đãi hoặc giá đã đổi. Hãy xem giá mới và xác nhận lại.',
   shopLimit: 'Số lượng, số dư hoặc lượt mua không còn đủ.',
   shopUnavailable: 'Cửa hàng chưa mở bán cho tài khoản này.',
+  shopQaAccessRequired: 'Chưa cấp quyền mua trên staging',
+  shopTutorialRequired: 'Hoàn thành hướng dẫn để mua hàng.',
 }[status] ?? 'Không thể xác nhận thao tác online.');
 
 

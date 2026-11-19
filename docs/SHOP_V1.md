@@ -14,7 +14,7 @@ Mọi giá dưới đây chỉ dành cho QA staging và chờ duyệt. `coins` l
 | Mảnh Thần Binh | 3 | 2.400 Vàng | 4/tuần |
 | EXP Võ Tướng | 100 | 725 Vàng | 10 vĩnh viễn |
 
-Toàn bộ catalog là `testOnly`. Chỉ UID được liệt kê trong biến môi trường server `SHOP_STAGING_QA_UIDS` trên project Supabase staging mới có thể xác nhận mua. Khi biến này trống, Preview cho xem catalog mà không cho mua. Các thẻ Sắp mở và danh mục gói/VIP chỉ hiển thị trạng thái.
+Toàn bộ catalog là `testOnly`. Checkout yêu cầu đúng project Supabase staging, tutorial đã hoàn tất hoặc bỏ qua hợp lệ, và UID nằm trong `SHOP_STAGING_QA_UIDS` hoặc bảng cấp quyền bổ sung `shop_staging_checkout_grants`. Mỗi dòng trong bảng cấp cho đúng một UID; thêm dòng không thay đổi secret hoặc quyền Economy V1.4 của UID khác. Bảng chỉ cho `service_role` đọc và quản trị DB staging cấp quyền. Các thẻ Sắp mở và danh mục gói/VIP chỉ hiển thị trạng thái.
 
 ## Giao dịch
 

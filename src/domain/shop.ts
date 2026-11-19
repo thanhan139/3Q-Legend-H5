@@ -36,9 +36,11 @@ export interface ShopListing {
 export interface ShopCatalog {
   serverTime: number;
   checkoutEnabled: boolean;
+  checkoutBlocked?: ShopCheckoutBlock;
   balances: { copper: number; coins: number };
   listings: ShopListing[];
 }
+export type ShopCheckoutBlock = 'shopQaAccessRequired' | 'shopTutorialRequired' | 'shopUnavailable';
 export interface ShopQuote {
   requestId: string; revision: string; offerId: string; quantity: number;
   currency: ShopCurrency; total: number; item: ShopOffer['item']; grant: number;

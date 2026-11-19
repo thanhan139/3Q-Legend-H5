@@ -4,7 +4,9 @@ import { SHOP_OFFERS, applyShopPurchase, shopCatalog, shopDayStart, shopPeriod, 
 import type { SaveV2 } from '../src/domain/types';
 import { baseSave, GameStore, normalizeSave } from '../src/domain/store';
 import { inventoryQuantity } from '../src/domain/resources';
-import { handleGameRequest, type GameBackend } from '../supabase/functions/game-command/handler';
+import { handleGameRequest, type GameBackend, type SaveRow } from '../supabase/functions/game-command/handler';
+import { legacyTutorial, newTutorial } from '../src/domain/tutorial';
+import { hasStagingCheckoutGrant, STAGING_SUPABASE_URL } from '../src/config/staging';
 
 const sunday = Date.parse('2026-11-22T16:59:59Z');
 const monday = sunday + 1000;
@@ -13,13 +15,14 @@ const purchase = (quote: ShopQuote) => ({
   command: {type:'shopBuy',offerId:quote.offerId,quantity:quote.quantity},
 } as const);
 
-function fixture(start = { ...baseSave(), coins: 100_000, gems: 10_000 }, legacy = new Map<string, number>()) {
-  const rows = new Map(['alice','bob','viewer'].map(id => [id,{state:structuredClone(start),revision:0}]));
+function fixture(start = { ...baseSave(), coins: 100_000, gems: 10_000 }, legacy = new Map<string, number>(), shopIsStaging = true) {
+  const rows = new Map<string,SaveRow>(['alice','bob','viewer'].map(id => [id,{state:structuredClone(start),revision:0}]));
   const ledger = new Map<string,{command:GameCommand;receipt:unknown}>();
   const encoder = new TextEncoder();
   const key = crypto.subtle.importKey('raw',encoder.encode('fixture-key'),{name:'HMAC',hash:'SHA-256'},false,['sign']);
   const backend: GameBackend = {
-    shopTestEnabled: uid => uid !== 'viewer',
+    shopIsStaging,
+    shopTestEnabled: async uid => uid !== 'viewer',
     legacyShopEssenceUnits: async (uid, dayStart) => legacy.get(`${uid}:${dayStart}`) ?? 0,
     user: async uid => rows.has(uid) ? {id:uid,email_confirmed_at:'yes'} : null,
     read: async uid => structuredClone(rows.get(uid) ?? null),
@@ -68,9 +71,54 @@ describe('Vạn Bảo Các shop', () => {
       expect(await send({action:'shopQuote',offerId:'golden-key',quantity})).toMatchObject({status:'invalid'});
     expect(await send({action:'shopQuote',offerId:'golden-key',quantity:2})).toMatchObject({status:'shopLimit'});
     expect(await fixture().send({action:'shopQuote',offerId:'golden-key',quantity:5})).toMatchObject({status:'shopLimit'});
-    expect(await send({action:'shopCatalog'},'viewer')).toMatchObject({catalog:{checkoutEnabled:false}});
+    expect(await send({action:'shopCatalog'},'viewer')).toMatchObject({catalog:{checkoutEnabled:false,checkoutBlocked:'shopQaAccessRequired'}});
     expect(await send({action:'shopCatalog'},'outsider')).toMatchObject({status:'unauthorized'});
-    expect(await send(purchase(await quote()),'viewer')).toMatchObject({status:'shopUnavailable'});
+    expect(await send(purchase(await quote()),'viewer')).toMatchObject({status:'shopQaAccessRequired'});
+  });
+
+  it('distinguishes a revoked staging grant, incomplete tutorial, and non-staging deployment',async()=>{
+    const {send,quote,rows,ledger}=fixture();
+    const order=purchase(await quote());
+    rows.get('alice')!.tutorial=newTutorial();
+    expect(await send({action:'shopCatalog'})).toMatchObject({catalog:{checkoutEnabled:false,checkoutBlocked:'shopTutorialRequired'}});
+    expect(await send(order)).toMatchObject({status:'shopTutorialRequired'});
+    expect(await send({action:'shopQuote',offerId:'golden-key',quantity:1})).toMatchObject({status:'shopTutorialRequired'});
+    expect(ledger.size).toBe(0);
+    rows.get('alice')!.tutorial=legacyTutorial();
+    expect(await send({action:'shopCatalog'})).toMatchObject({catalog:{checkoutEnabled:true}});
+    const other=fixture(undefined,undefined,false);
+    expect(await other.send(order)).toMatchObject({status:'shopUnavailable'});
+    expect(await other.send({action:'shopCatalog'})).toMatchObject({catalog:{checkoutEnabled:false,checkoutBlocked:'shopUnavailable'}});
+  });
+
+  it('combines independent staging grants with the existing list and skips all grants outside staging',async()=>{
+    const stored=vi.fn(async (uid:string)=>uid==='newQA');
+    await expect(hasStagingCheckoutGrant('https://production.invalid','legacyQA','legacyQA',stored)).resolves.toBe(false);
+    await expect(hasStagingCheckoutGrant(`${STAGING_SUPABASE_URL}/`,' firstQA, legacyQA ','legacyQA',stored)).resolves.toBe(true);
+    expect(stored).not.toHaveBeenCalled();
+    await expect(hasStagingCheckoutGrant(STAGING_SUPABASE_URL,'legacyQA','newQA',stored)).resolves.toBe(true);
+    await expect(hasStagingCheckoutGrant(STAGING_SUPABASE_URL,'legacyQA','notQA',stored)).resolves.toBe(false);
+    expect(stored.mock.calls).toEqual([['newQA'],['notQA']]);
+  });
+
+  it('settles all five catalog offers through the same quote, commit and replay boundary',async()=>{
+    const {send,quote,rows,ledger}=fixture();
+    const original=structuredClone(rows.get('alice')!.state);
+    for(const offer of SHOP_OFFERS){
+      const order=purchase(await quote(offer.id));
+      const result=await send(order);
+      expect(result).toMatchObject({status:'ok',receipt:{offerId:offer.id,grant:offer.amount,currency:'coins',total:offer.price}});
+      expect(await send(order)).toEqual(result);
+    }
+    const settled=rows.get('alice')!.state;
+    expect(settled.coins).toBe(original.coins-SHOP_OFFERS.reduce((total,offer)=>total+offer.price,0));
+    for(const offer of SHOP_OFFERS){
+      expect(inventoryQuantity(settled,offer.item)).toBe(inventoryQuantity(original,offer.item)+offer.amount);
+      expect(settled.shopPurchases?.[offer.id].bought).toBe(1);
+    }
+    expect(ledger.size).toBe(5);
+    expect(rows.get('bob')!.state).toEqual(original);
+    expect(settled.gems).toBe(original.gems);
   });
 
   it('uses only Gold, preserves former Gem receipts and keeps old caps and wallet balances', async () => {

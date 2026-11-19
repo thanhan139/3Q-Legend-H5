@@ -1,7 +1,8 @@
 import { makeStageBattle } from '../../../src/domain/battle';
 import { baseSave, GameStore } from '../../../src/domain/store';
 import { STAGES } from '../../../src/data/campaign';
-import { applyShopPurchase, JEWELRY_ESSENCE_OFFER_ID, SHOP_MAX_QUANTITY, shopCatalog, shopDayStart, shopPeriod, type ShopOffer, type ShopQuote } from '../../../src/domain/shop';
+import { applyShopPurchase, JEWELRY_ESSENCE_OFFER_ID, SHOP_MAX_QUANTITY, shopCatalog, shopDayStart, shopPeriod,
+  type ShopCheckoutBlock, type ShopOffer, type ShopQuote } from '../../../src/domain/shop';
 import { JEWELRY_RULES_VERSION } from '../../../src/domain/jewelry';
 import { DAILY_MISSIONS, welfareDay } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
@@ -18,7 +19,8 @@ export interface SaveRow {
 }
 
 export interface GameBackend {
-  shopTestEnabled?(uid: string): boolean;
+  shopIsStaging?: boolean;
+  shopTestEnabled?(uid: string): boolean | Promise<boolean>;
   legacyShopEssenceUnits?(uid: string, dayStart: number): Promise<number>;
   economyTestEnabled?(uid: string): boolean;
   hasRankedWin?(uid: string, dayStart: number, dayEnd: number): Promise<boolean>;
@@ -51,6 +53,12 @@ async function shopRequestId(backend: GameBackend, uid: string, revision: string
 }
 
 const shopQuantityOK = (quantity: number) => Number.isSafeInteger(quantity) && quantity > 0 && quantity <= SHOP_MAX_QUANTITY;
+
+async function shopCheckoutBlock(backend: GameBackend, uid: string, tutorial: TutorialProgress): Promise<ShopCheckoutBlock|undefined> {
+  if (backend.shopIsStaging !== true) return 'shopUnavailable';
+  if (!await backend.shopTestEnabled?.(uid)) return 'shopQaAccessRequired';
+  if (tutorialActive(tutorial)) return 'shopTutorialRequired';
+}
 
 async function run(store: GameStore, command: GameCommand, uid: string, requestId: string,
   revision: string, backend: GameBackend, economyV14: boolean, vip?: VipSnapshot): Promise<unknown> {
@@ -131,13 +139,13 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   if (intent.action === 'load') return { status: 'ok', ...authoritative };
   if (intent.action === 'shopCatalog' || intent.action === 'shopQuote') {
     const now = Date.now();
-    const enabled = !!backend.shopTestEnabled?.(uid) && !tutorialActive(tutorial);
+    const checkoutBlocked = await shopCheckoutBlock(backend, uid, tutorial);
     if (intent.action === 'shopQuote') {
-      if (!enabled) return { status: 'shopUnavailable' };
+      if (checkoutBlocked) return { status: checkoutBlocked };
       if (!idOK(intent.offerId) || !shopQuantityOK(intent.quantity)) return { status: 'invalid' };
     }
-    const legacyUnits = await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now));
-    const catalog = shopCatalog(row.state, now, enabled, legacyUnits);
+    const legacyUnits = backend.shopIsStaging ? await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now)) : undefined;
+    const catalog = { ...shopCatalog(row.state, now, !checkoutBlocked, legacyUnits), checkoutBlocked };
     if (intent.action === 'shopCatalog') return { status: 'ok', ...authoritative, catalog };
     const listing = catalog.listings.find(item => item.offer.id === intent.offerId);
     if (!listing || intent.quantity > listing.max) return { status: 'shopLimit', ...authoritative, catalog };
@@ -172,7 +180,8 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   if (intent.action !== 'command') return { status: 'invalid' };
   const command = intent.command;
   if (command.type === 'shopBuy') {
-    if (!backend.shopTestEnabled?.(uid) || tutorialActive(tutorial)) return { status: 'shopUnavailable' };
+    const checkoutBlocked = await shopCheckoutBlock(backend, uid, tutorial);
+    if (checkoutBlocked) return { status: checkoutBlocked };
     if (!idOK(command.offerId) || !shopQuantityOK(command.quantity) || Object.keys(command).length !== 3)
       return { status: 'invalid' };
     const now = Date.now();
