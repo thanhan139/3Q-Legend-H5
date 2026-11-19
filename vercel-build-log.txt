@@ -1,0 +1,8 @@
+Vercel Preview build log excerpt
+Commit: da38c3f024ca14b42d243186ecfe6d457e5d2c6c
+Deployment: dpl_8122eLHwkKZcSA2845pu14Rh5dQD
+
+Test Files  38 passed (38)
+Tests  307 passed (307)
+? built in 7.61s
+Build Completed in /vercel/output [37s]
