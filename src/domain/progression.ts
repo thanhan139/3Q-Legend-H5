@@ -1,7 +1,7 @@
 import { HERO_BY_ID, heroFaction } from '../data/heroes';
 import { applyFactionBonus, factionSynergy } from './factionSynergy';
 import { COMBAT_BALANCE } from '../data/skillCombat';
-import { equipmentBonus, type Gear, type EquipmentStats } from './equipment';
+import { equipmentBonus, signatureCarrierBonus, signatureTeamAura, type Gear, type EquipmentStats } from './equipment';
 import type { HeroDefinition, SaveV2 } from './types';
 import { jewelryBonus, JEWELRY_SETS, type JewelryItem } from './jewelry';
 import { vipBonuses } from './vip';
@@ -44,14 +44,21 @@ export function heroStats(hero: HeroDefinition, exp = 0, stars = 1, gear?: reado
     speed: Math.round(hero.speed * (1 + growth * HERO_PROGRESSION.speedGrowth)) + equipped.speed,
   };
   const { stats, activeSet, equipped: jewelryEquipped } = jewelryBonus(hero.id, jewelry);
-  if (!jewelryEquipped.length) return base;
+  const signature = signatureCarrierBonus(gear, hero.id);
+  const applySignature = (value: HeroStats): HeroStats => ({
+    ...value,
+    hp: Math.round(value.hp * (1 + signature.hpPct / 100)),
+    atk: Math.round(value.atk * (1 + signature.atkPct / 100)),
+    def: Math.round(value.def * (1 + signature.defPct / 100)),
+  });
+  if (!jewelryEquipped.length) return applySignature(base);
   const set = activeSet ? JEWELRY_SETS[activeSet] : undefined;
-  return { ...base,
+  return applySignature({ ...base,
     hp: Math.round((base.hp + stats.hp) * (1 + (set?.hp ?? 0) / 100)),
     atk: Math.round((base.atk + stats.atk) * (1 + (set?.atk ?? 0) / 100)),
     def: Math.round((base.def + stats.def) * (1 + (set?.def ?? 0) / 100)),
     criticalChance: stats.crit, accuracy: stats.accuracy, dodge: stats.dodge,
-  };
+  });
 }
 
 export const combatPower = ({ hp, atk, def, speed, criticalChance = 0, accuracy = 0, dodge = 0 }: EquipmentStats &
@@ -61,13 +68,14 @@ export const combatPower = ({ hp, atk, def, speed, criticalChance = 0, accuracy 
 
 
 export function formationPower(save: SaveV2, synergy = factionSynergy(save.formation), vip = 0) {
+  const aura = 1 + signatureTeamAura(save.equipment, save.formation) / 100;
   return save.formation.reduce((total, id) => {
     if (!id) return total;
     const hero = HERO_BY_ID[id];
     const stats = heroStats(hero, save.heroExp[id], save.heroStars?.[id], save.equipment, save.jewelry);
     const faction = applyFactionBonus(stats, heroFaction(hero), synergy), bonus = vipBonuses(vip);
-    return total + combatPower({...faction, hp: Math.round(faction.hp*(1+bonus.hpPct/100)),
-      atk:Math.round(faction.atk*(1+bonus.atkPct/100)),def:Math.round(faction.def*(1+bonus.defPct/100)),
+    return total + combatPower({...faction, hp: Math.round(faction.hp*aura*(1+bonus.hpPct/100)),
+      atk:Math.round(faction.atk*aura*(1+bonus.atkPct/100)),def:Math.round(faction.def*aura*(1+bonus.defPct/100)),
       criticalChance:(faction.criticalChance??0)+bonus.critRatePoints});
   }, 0);
 }
