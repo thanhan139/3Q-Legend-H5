@@ -2,6 +2,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2.119.0';
 import { handleGameRequest, type GameBackend } from './handler';
 import type { GameIntent } from '../../../src/cloud/gameProtocol';
 import { createAllowedOrigins, corsHeaders } from '../_shared/cors';
+import { isStagingProject } from '../../../src/config/staging';
 
 const env = (key: string) => {
   const value = Deno.env.get(key);
@@ -23,6 +24,10 @@ const legacyAllowed = Object.keys(legacyApprovals).length
   : undefined;
 
 const backend: GameBackend = {
+  shopTestEnabled(uid) {
+    return isStagingProject(env('SUPABASE_URL')) &&
+      (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
+  },
   async claimVip(uid, requestId, revision, command) {
     const {data,error} = await admin.rpc('game_claim_vip', {p_uid:uid,p_request_id:requestId,
       p_expected_revision:revision,p_tier:command.tier,p_kind:command.kind,p_period:command.period});

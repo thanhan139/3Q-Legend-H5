@@ -20,6 +20,7 @@ export interface BattleTicket {
 }
 
 export type GameCommand =
+  | { type: 'shopBuy'; offerId: string; quantity: number }
   | { type: 'vipClaim'; tier: number; kind: VipGiftKind; period: string }
   | { type: 'tutorial'; version: number; step: TutorialStep; action: 'name' | 'next' | 'skip'; name?: string }
   | { type: 'checkIn' | 'firstTopupDemo' }
@@ -38,6 +39,8 @@ export type GameCommand =
   | { type: 'battle'; ticket: BattleTicket };
 
 export type GameIntent =
+  | { action: 'shopCatalog' }
+  | { action: 'shopQuote'; offerId: string; quantity: number }
   | { action: 'load' }
   | { action: 'initialize' }
   | { action: 'import'; legacy: unknown; confirmed: true }
