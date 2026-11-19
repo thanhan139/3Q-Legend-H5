@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { walletBalance } from '../domain/resources';
 import { openAccount, logoutAccount } from '../cloud/accountDialog';
 import { cloudRepository, supabase } from '../cloud/cloudRepository';
+import { mailRepository } from '../cloud/mailRepository';
 import { welfareStatus } from '../domain/welfare';
 import { HeroAnimationController, heroAnimationTexture } from '../ui/HeroAnimationController';
 import { battleSpriteDisplaySize } from '../data/battleVisuals';
@@ -208,7 +209,7 @@ export class LobbyScene extends UiScene {
         [0, 'Phúc Lợi', () => this.go('Info', { page: 'Welfare' })],
         [1, 'Nạp Đầu', () => this.go('Info', { page: 'Topup' })],
         [2, 'Điểm Danh', () => this.go('Info', { page: 'Checkin' })],
-        [3, 'Hộp Thư', () => this.go('Info', { page: 'Mail' })],
+        [3, 'Hộp Thư', () => this.go('Mail')],
         [4, 'Nhiệm Vụ', () => this.go('Info', { page: 'Missions' })],
         [14, 'Cài Đặt', () => this.scene.restart({ settings: true })],
       ] as const;
@@ -220,6 +221,16 @@ export class LobbyScene extends UiScene {
         this.skinButton(687 + index * 105, 133, 100, 92, skins[index], skins[index], action,
           `lobby.${icon}`, false, rewardDots[index], label);
       });
+      const owner=mailRepository.uid;
+      if(owner){
+        const x=687+3*105+37,y=101;
+        const unreadBadge=this.add.circle(x,y,13,0xb81b24).setStrokeStyle(2,0xffdf8d).setVisible(false);
+        const unreadLabel=this.text(x,y,'',13,'#fff4cc',{fontStyle:'bold'}).setOrigin(.5).setVisible(false);
+        void mailRepository.list(owner,'all',0).then(inbox=>{
+          if(!unreadBadge.scene||mailRepository.uid!==owner||!inbox.unread.all) return;
+          unreadBadge.setVisible(true); unreadLabel.setText(String(inbox.unread.all)).setVisible(true);
+        }).catch(()=>undefined);
+      }
     }, l => ({ x: l.right, y: l.top }));
 
     this.anchor(() => {

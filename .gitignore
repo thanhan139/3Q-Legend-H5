@@ -14,3 +14,4 @@ playwright-report/
 /supabase/functions/game-command/index.js
 
 /supabase/functions/arena-command/index.js
+/supabase/functions/mail-command/index.js
