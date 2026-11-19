@@ -1,6 +1,7 @@
 import { changeInventory, heroShardId, inventoryQuantity, ITEM_IDS, walletBalance } from './resources';
 import { campaignCopper, copperDaily, COPPER_ECONOMY, normalizeCopperDaily } from './copperEconomy';
 import { isSignature } from '../data/signatureConfig';
+import { signatureNextCost, signatureNodes, SIGNATURE_MAX_NODES } from './signatureStars';
 import { FORGE, forgeWeek, isForgeWeapon, normalizeForge, weeklyWins } from './forge';
 import type { EquipmentId } from '../data/equipmentConfig';
 import { advanceMission, CHECK_IN, DAILY_MISSIONS, grantWallet, normalizeWelfare, TOPUP_HERO, TOPUP_REWARD, welfareDay, welfareStatus, type Mission } from './welfare';
@@ -271,7 +272,22 @@ export class GameStore {
     const wallet = next.forge!;
     if ((!isForgeWeapon(itemId) && !isSignature(itemId)) || wallet.crafted !== expectedCrafted || !changeInventory(next, ITEM_IDS.forgeShard, -FORGE.shardsRequired)) return false;
     const uid = `forge:${++wallet.crafted}`;
-    next.equipment = [...(next.equipment ?? []), { uid, itemId, level: 1, prestigeSkin: true }];
+    next.equipment = [...(next.equipment ?? []), {
+      uid, itemId, level: 1, prestigeSkin: true,
+      ...(isSignature(itemId) ? { signatureNodes: 1 } : {}),
+    }];
+    return this.commit(next);
+  }
+
+  upgradeSignature(uid: string, expectedNodes: number): boolean {
+    const next = this.snapshot;
+    const gear = next.equipment?.find(entry => entry.uid === uid);
+    if (!gear || !isSignature(gear.itemId) || !Number.isSafeInteger(expectedNodes)) return false;
+    const current = signatureNodes(gear.signatureNodes);
+    if (current !== expectedNodes || current >= SIGNATURE_MAX_NODES) return false;
+    const cost = signatureNextCost(current);
+    if (!cost || !changeInventory(next, ITEM_IDS.forgeShard, -cost)) return false;
+    gear.signatureNodes = current + 1;
     return this.commit(next);
   }
 

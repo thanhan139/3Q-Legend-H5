@@ -7,6 +7,8 @@ import { isSignature, SignatureConfig, signatureIds, type SignatureId } from '..
 import { enhancement, gearStats } from '../domain/equipment';
 import { FORGE, weeklyWins } from '../domain/forge';
 import { inventoryQuantity, ITEM_IDS } from '../domain/resources';
+import { signatureCompletedStars, signatureNextCost, signatureNodes, signatureSpentThrough, signatureStarBonus,
+  SIGNATURE_MAX_NODES, SIGNATURE_STAR_RULES_VERSION } from '../domain/signatureStars';
 import { gameStore } from '../domain/store';
 import { forgeTexture, loadDivineForge } from '../ui/divineForgeAssets';
 import { loadSharedUi, UI_FONT } from '../ui/sharedUi';
@@ -15,15 +17,17 @@ import { readSafeInsets } from '../ui/viewport';
 interface ForgeEntry {
   itemId?: EquipmentId;
   returnHeroId?: string;
+  gearUid?: string;
 }
 
-type ForgeCommand = Extract<GameCommand, { type: 'forge' }>;
+interface ForgeAttempt {
+  command: Extract<GameCommand, { type: 'forge' | 'signatureStar' }>;
+  itemId: EquipmentId;
+  cost: number;
+}
 type Modal =
-  | { kind: 'shortage' }
-  | { kind: 'confirm'; command: ForgeCommand }
-  | { kind: 'pending'; command: ForgeCommand }
-  | { kind: 'success'; command: ForgeCommand }
-  | { kind: 'error'; command: ForgeCommand; message: string };
+  | { kind: 'shortage' | 'confirm' | 'pending' | 'success'; attempt: ForgeAttempt }
+  | { kind: 'error'; attempt: ForgeAttempt; message: string };
 
 type ButtonKind = 'gold' | 'red' | 'back';
 type Rect = [x: number, y: number, width: number, height: number];
@@ -36,6 +40,7 @@ export class ForgeScene extends Phaser.Scene {
   private content!: Phaser.GameObjects.Container;
   private motion: Phaser.Tweens.Tween[] = [];
   private entry: ForgeEntry = {};
+  private gearUid?: string;
   private selected: EquipmentId = signatureIds[0];
   private signature: SignatureId = signatureIds[0];
   private modal?: Modal;
@@ -57,6 +62,7 @@ export class ForgeScene extends Phaser.Scene {
     this.signature = data.itemId && isSignature(data.itemId) ? data.itemId : signatureIds[0];
     this.selected = data.itemId && FORGE.weapons.includes(data.itemId as typeof FORGE.weapons[number])
       ? data.itemId : this.signature;
+    this.gearUid = data.gearUid;
     this.uid = cloudRepository.uid;
     this.modal = undefined;
     this.pressedAt = undefined;
@@ -103,7 +109,8 @@ export class ForgeScene extends Phaser.Scene {
 
   private back() {
     const heroId = this.entry.returnHeroId;
-    if (heroId) this.scene.start('Heroes', { heroId, tab: 'signature', signatureId: this.signature });
+    if (heroId) this.scene.start('Heroes', { heroId, tab: 'signature', signatureId: this.signature,
+      signatureUid: this.selected === this.signature ? this.gear().display?.uid : undefined });
     else this.scene.start('Inventory');
   }
 
@@ -111,32 +118,46 @@ export class ForgeScene extends Phaser.Scene {
     return inventoryQuantity(gameStore.snapshot, ITEM_IDS.forgeShard);
   }
 
-  private openForge() {
-    if (this.modal) return;
-    if (this.shards < FORGE.shardsRequired) this.modal = { kind: 'shortage' };
-    else {
-      const expectedCrafted = gameStore.snapshot.forge?.crafted;
-      if (expectedCrafted === undefined || !cloudRepository.active) return;
-      this.modal = { kind: 'confirm', command: { type: 'forge', itemId: this.selected, expectedCrafted } };
+  private attempt(): ForgeAttempt | undefined {
+    const itemId = this.selected;
+    const item = this.gear().display;
+    if (isSignature(itemId) && item) {
+      const expectedNodes = signatureNodes(item.signatureNodes);
+      const cost = signatureNextCost(expectedNodes);
+      if (cost === undefined) return;
+      return { itemId, cost, command: { type: 'signatureStar', uid: item.uid, expectedNodes,
+        rulesVersion: SIGNATURE_STAR_RULES_VERSION } };
     }
+    const expectedCrafted = gameStore.snapshot.forge?.crafted;
+    if (expectedCrafted === undefined) return;
+    return { itemId, cost: FORGE.shardsRequired, command: { type: 'forge', itemId, expectedCrafted } };
+  }
+
+  private openForge() {
+    if (this.modal || !cloudRepository.active) return;
+    const attempt = this.attempt();
+    if (!attempt) return;
+    this.modal = { kind: this.shards < attempt.cost ? 'shortage' : 'confirm', attempt };
     this.render();
   }
 
-  private async forge(command: ForgeCommand) {
+  private async forge(attempt: ForgeAttempt) {
     if (this.modal?.kind !== 'confirm' && this.modal?.kind !== 'error') return;
     const session = this.session;
-    this.modal = { kind: 'pending', command };
+    this.modal = { kind: 'pending', attempt };
     this.render();
     try {
-      const result = await playCommand<boolean>(command);
+      const result = await playCommand<boolean>(attempt.command);
       if (session !== this.session || this.uid !== cloudRepository.uid) return;
-      if (result !== true) throw new Error('Máy chủ chưa xác nhận rèn.');
-      this.modal = { kind: 'success', command };
+      if (result !== true) throw new Error('Máy chủ chưa xác nhận giao dịch.');
+      if (attempt.command.type === 'forge' && isSignature(attempt.itemId))
+        this.gearUid = `forge:${attempt.command.expectedCrafted + 1}`;
+      this.modal = { kind: 'success', attempt };
     } catch (error) {
       if (session !== this.session || this.uid !== cloudRepository.uid) return;
       const message = error instanceof Error && error.message
         ? error.message : 'Không thể kết nối máy chủ.';
-      this.modal = { kind: 'error', command, message };
+      this.modal = { kind: 'error', attempt, message };
     }
     this.render();
   }
@@ -144,6 +165,7 @@ export class ForgeScene extends Phaser.Scene {
   private choose(id: EquipmentId) {
     if (this.modal || id === this.selected) return;
     this.selected = id;
+    this.gearUid = undefined;
     if (isSignature(id)) this.signature = id;
     this.render(true);
   }
@@ -284,13 +306,12 @@ export class ForgeScene extends Phaser.Scene {
       [walletX + walletBox[3], walletBox[1], walletW - walletBox[3] - 9, walletBox[3]], mobile ? 15 : 17, { color: gold });
   }
 
-  private gear(id: EquipmentId) {
+  private gear(id = this.selected) {
     const copies = (gameStore.snapshot.equipment ?? []).filter(item => item.itemId === id);
-    return {
-      copies,
-      equipped: copies.find(item => item.heroId),
-      display: copies.find(item => item.heroId) ?? copies[0],
-    };
+    const equipped = copies.find(item => item.heroId);
+    const display = (id === this.selected ? copies.find(item => item.uid === this.gearUid) : undefined)
+      ?? equipped ?? copies[0];
+    return { copies, equipped, display };
   }
 
   private collection([x, y, w, h]: Rect, mobile: boolean) {
@@ -352,25 +373,43 @@ export class ForgeScene extends Phaser.Scene {
   private preview([x, y, w, h]: Rect, mobile: boolean, changed: boolean) {
     const id = this.selected;
     this.frame('center', [x, y, w, h], 76, .78);
-    const artHeight = mobile ? 158 : 380;
+    const signature = isSignature(id);
+    const { copies, display } = this.gear();
+    const nodes = signature && display ? signatureNodes(display.signatureNodes) : 0;
+    const artHeight = signature ? (mobile ? 133 : 348) : (mobile ? 158 : 380);
     const halo = this.texture('glow', [x + w * .10, y + 4, w * .80, artHeight], .64);
     if (isSignature(id)) halo.setTint(SignatureConfig[id].color);
     this.texture('altar', [x + w * .10, y + artHeight - (mobile ? 44 : 107), w * .80, mobile ? 56 : 140], .43);
     this.texture('brazier', [x + w * .12, y + artHeight - (mobile ? 65 : 144), w * .76, mobile ? 81 : 181]);
     this.texture('embers', [x + w * .06, y + 10, w * .88, artHeight], .78);
     const art = this.weapon(id, [x + w * .17, y + (mobile ? 1 : 8), w * .66, artHeight - (mobile ? 8 : 22)]);
-    const nameY = y + (mobile ? 150 : 362);
+    const nameY = y + artHeight - (mobile ? 8 : 18);
     this.frame('name', [x + w * .08, nameY, w * .84, mobile ? 33 : 46], 32);
     this.label(EQUIPMENT[id].name, [x + w * .15, nameY, w * .70, mobile ? 33 : 46], mobile ? 17 : 26, { color: gold })
       .setName('forge.preview.name');
-    this.label(`${number.format(this.shards)}/${FORGE.shardsRequired} Mảnh Thần Binh`,
-      [x + 12, nameY + (mobile ? 34 : 48), w - 24, mobile ? 21 : 27], mobile ? 14 : 20);
-    const bar: Rect = [x + w * .15, nameY + (mobile ? 58 : 77), w * .70, mobile ? 13 : 19];
+    if (signature) {
+      const starY = nameY + (mobile ? 33 : 45);
+      this.drawStars([x + w * .12, starY, w * .76, mobile ? 31 : 48], nodes, mobile);
+      if (display && copies.length > 1) {
+        const index = copies.indexOf(display);
+        this.button('copy', `Bản ${index + 1}/${copies.length}`, [x + w - 101, y + 8, 91, 44], 'back',
+          this.modal ? undefined : () => {
+            this.gearUid = copies[(index + 1) % copies.length].uid;
+            this.render();
+          });
+      }
+    }
+    const cost = this.attempt()?.cost;
+    const progressY = nameY + (signature ? (mobile ? 68 : 101) : (mobile ? 34 : 48));
+    const progress = cost === undefined ? `${number.format(signatureSpentThrough(nodes))} mảnh tích lũy`
+      : `${number.format(this.shards)}/${number.format(cost)} Mảnh Thần Binh`;
+    this.label(progress, [x + 12, progressY, w - 24, mobile ? 21 : 27], mobile ? 14 : 19);
+    const bar: Rect = [x + w * .15, progressY + (mobile ? 24 : 29), w * .70, mobile ? 12 : 16];
     this.frame('track', bar, 12);
-    if (this.shards > 0) {
-      const fillW = (bar[2] - 6) * Math.min(1, this.shards / FORGE.shardsRequired);
-      const fill = this.texture('fill', [bar[0] + 3, bar[1] + 2, fillW, bar[3] - 4]);
-      fill.setDisplaySize(fillW, bar[3] - 4);
+    const fraction = cost === undefined ? 1 : Math.min(1, this.shards / cost);
+    if (fraction > 0) {
+      const fillW = (bar[2] - 6) * fraction;
+      this.texture('fill', [bar[0] + 3, bar[1] + 2, fillW, bar[3] - 4]).setDisplaySize(fillW, bar[3] - 4);
     }
     if (!this.modal) {
       const restingY = art.y;
@@ -383,10 +422,34 @@ export class ForgeScene extends Phaser.Scene {
     }
   }
 
+  private drawStars([x, y, w, h]: Rect, nodes: number, mobile: boolean) {
+    const completed = signatureCompletedStars(nodes);
+    const groups = SIGNATURE_MAX_NODES / 5;
+    const pitch = w / groups;
+    for (let star = 0; star < groups; star++) {
+      const left = x + star * pitch;
+      const center = left + pitch / 2;
+      this.label(star < completed ? '★' : '☆', [left, y, pitch, h - 8], mobile ? 17 : 27,
+        { color: star < completed ? '#ffe285' : '#bc9760' });
+      const radius = mobile ? 2 : 3;
+      for (let petal = 0; petal < 5; petal++) {
+        const filled = nodes > star * 5 + petal;
+        this.content.add(this.add.circle(center + (petal - 2) * (radius * 2 + 3), y + h - 4, radius,
+          filled ? 0xffcf64 : 0x402119).setStrokeStyle(1, filled ? 0xffe991 : 0xa87b47));
+      }
+    }
+  }
+
   private details([x, y, w, h]: Rect, mobile: boolean) {
     const id = this.selected;
     const signature = isSignature(id) ? SignatureConfig[id] : undefined;
-    const { copies, display, equipped } = this.gear(id);
+    const { copies, display } = this.gear(id);
+    const equipped = display?.heroId ? display : undefined;
+    const nodes = signature && display ? signatureNodes(display.signatureNodes) : 0;
+    const bonus = signatureStarBonus(nodes);
+    const pct = (value: number) => number.format(Number(value.toFixed(1)));
+    const ownerBonus = `Chủ: HP +${pct(bonus.hpPct)}% · Công +${pct(bonus.atkPct)}% · Thủ +${pct(bonus.defPct)}%`;
+    const skillSummary = signature ? `${nodes}/${SIGNATURE_MAX_NODES} cánh · Tuyệt kỹ +${pct(signature.bonus * 100 + bonus.skillPct)}% · Hào quang +${pct(bonus.teamAuraPct)}%` : '';
     const stats = display ? gearStats(display) : gearStats({ uid: '', itemId: id, level: 1 });
     const titleW = w - 86;
     const weapon = EQUIPMENT[id];
@@ -411,11 +474,13 @@ export class ForgeScene extends Phaser.Scene {
       this.texture('divider', [x + 20, y + 61, w - 40, 8]);
       this.label(`${level}   ${statEntries.map(([name, value]) => `${name} +${number.format(value)}`).join('  ·  ')}`,
         [x + 14, y + 67, w - 28, 23], 15, { color: gold });
-      if (signature) this.label(`Kỹ năng Nộ của ${hero} · Sát thương +${Math.round(signature.bonus * 100)}%`,
-        [x + 12, y + 92, w - 24, 23], 14);
-      this.label(`Mảnh Thần Binh · Lần đầu: ${first}`, [x + 12, y + 120, w - 24, 24], 14, { color: gold });
+      if (signature) {
+        this.label(ownerBonus, [x + 12, y + 91, w - 24, 20], 14);
+        this.label(skillSummary, [x + 12, y + 110, w - 24, 20], 14, { color: gold });
+      }
+      this.label(`Mảnh Thần Binh · Lần đầu: ${first}`, [x + 12, y + 130, w - 24, 21], 14, { color: gold });
       this.label(`Thắng lại ${stage}: +${FORGE.weekly.shards} mảnh · Tuần này ${week}/${FORGE.weekly.limit}`,
-        [x + 12, y + 149, w - 24, 25], 14);
+        [x + 12, y + 151, w - 24, 22], 14);
       return;
     }
     this.label(hero ? `Võ tướng độc quyền · ${hero}` : 'Vũ khí SSR', [x + 21, y + 57, w - 42, 27], 17);
@@ -428,9 +493,9 @@ export class ForgeScene extends Phaser.Scene {
       this.label(`+${number.format(value)}`, [x + w - 126, y + 162 + index * 23, 100, 23], 17, { color: '#fbdf92' });
     });
     const infoY = y + 249;
-    this.label('Hiệu ứng kỹ năng', [x + 24, infoY, w - 48, 27], 19, { color: gold });
-    this.label(signature ? `Kỹ năng Nộ của ${hero} · Sát thương +${Math.round(signature.bonus * 100)}%`
-      : 'Hiệu lực theo thuộc tính trang bị', [x + 26, infoY + 28, w - 52, 27], 16);
+    this.label(signature ? ownerBonus : 'Hiệu lực theo thuộc tính trang bị',
+      [x + 24, infoY, w - 48, 25], 16);
+    if (signature) this.label(skillSummary, [x + 26, infoY + 27, w - 52, 25], 16, { color: gold });
     this.texture('divider', [x + 24, infoY + 59, w - 48, 14]);
     this.label('Nguồn Mảnh Thần Binh', [x + 20, infoY + 73, w - 40, 28], 19, { color: gold });
     const sources = [
@@ -447,9 +512,12 @@ export class ForgeScene extends Phaser.Scene {
   }
 
   private actions(craft: Rect, campaign: Rect) {
-    this.button('craft', `Rèn · ${FORGE.shardsRequired} mảnh`, craft, 'gold',
-      this.modal ? undefined : () => this.openForge(),
-      { icon: 'anvil', muted: this.shards < FORGE.shardsRequired || !cloudRepository.active });
+    const attempt = this.attempt();
+    const upgrade = attempt?.command.type === 'signatureStar';
+    const label = attempt ? `${upgrade ? 'Nâng cánh sao' : 'Rèn'} · ${number.format(attempt.cost)} mảnh` : 'Đã đạt 5 sao vàng';
+    this.button(upgrade ? 'star' : 'craft', label, craft, 'gold',
+      this.modal || !attempt || !cloudRepository.active ? undefined : () => this.openForge(),
+      { icon: 'anvil', muted: !attempt || this.shards < attempt.cost });
     this.button('campaign', 'Đến Chinh Chiến', campaign, 'red',
       this.modal ? undefined : () => this.scene.start('Campaign'), { icon: 'campaign' });
   }
@@ -463,11 +531,14 @@ export class ForgeScene extends Phaser.Scene {
     const w = mobile ? 474 : 570, h = mobile ? 316 : 400;
     const x = (this.width - w) / 2, y = (this.height - h) / 2;
     const success = modal.kind === 'success';
+    const { attempt } = modal;
+    const upgrade = attempt.command.type === 'signatureStar' ? attempt.command : undefined;
     this.frame(success ? 'success' : 'panel', [x, y, w, h], 110);
     if (!success) this.frame('parchment', [x + 18, y + 52, w - 36, h - 70], 100);
     this.texture('title', [x + 24, y - 13, w - 48, 80]);
-    const title = { shortage: 'Không đủ mảnh', confirm: 'Xác nhận rèn', pending: 'Đang rèn…',
-      success: 'Rèn thành công', error: 'Chưa xác nhận giao dịch' }[modal.kind];
+    const title = { shortage: 'Không đủ mảnh', confirm: upgrade ? 'Xác nhận nâng cánh' : 'Xác nhận rèn',
+      pending: upgrade ? 'Đang nâng cánh…' : 'Đang rèn…',
+      success: upgrade ? 'Nâng cánh thành công' : 'Rèn thành công', error: 'Chưa xác nhận giao dịch' }[modal.kind];
     this.label(title, [x + 63, y, w - 115, 54], mobile ? 24 : 28, { color: gold });
     const artHeight = mobile ? 120 : 159;
     const artBox: Rect = [x + w * .28, y + 56, w * .44, artHeight];
@@ -478,16 +549,18 @@ export class ForgeScene extends Phaser.Scene {
       this.texture('embers', [x + 30, y + 60, w - 60, artHeight]);
     }
     if (modal.kind === 'shortage') this.texture('shard', artBox);
-    else this.weapon(modal.command.itemId, artBox);
+    else this.weapon(attempt.itemId, artBox);
     const lineY = artBox[1] + artHeight + 4;
     const name = modal.kind === 'shortage' ? 'Mảnh Thần Binh'
-      : EQUIPMENT[modal.command.itemId].name;
+      : EQUIPMENT[attempt.itemId].name;
     const description = modal.kind === 'shortage'
-      ? `Hiện có ${number.format(this.shards)}/${FORGE.shardsRequired} mảnh · Còn thiếu ${FORGE.shardsRequired - this.shards}`
-      : modal.kind === 'success' ? 'Vũ khí đã được lưu vào Túi Đồ.'
-      : modal.kind === 'confirm' ? `Dùng ${FORGE.shardsRequired} Mảnh Thần Binh từ kho chung.`
+      ? `Hiện có ${number.format(this.shards)}/${attempt.cost} mảnh · Còn thiếu ${Math.max(0, attempt.cost - this.shards)}`
+      : modal.kind === 'success' ? (upgrade ? `${upgrade.expectedNodes + 1}/${SIGNATURE_MAX_NODES} cánh đã lưu.`
+        : 'Vũ khí đã được lưu vào Túi Đồ.')
+      : modal.kind === 'confirm' ? (upgrade ? `${upgrade.expectedNodes} → ${upgrade.expectedNodes + 1} cánh · Dùng ${attempt.cost} mảnh.`
+        : `Dùng ${attempt.cost} Mảnh Thần Binh từ kho chung.`)
       : modal.kind === 'pending' ? 'Đang chờ xác nhận từ máy chủ.'
-      : modal.message;
+      : modal.kind === 'error' ? modal.message : '';
     this.label(name, [x + 24, lineY, w - 48, 32], 22, { color: success ? gold : '#45140c' });
     this.label(description, [x + 26, lineY + 34, w - 52, mobile ? 42 : 55], 16,
       { color: success ? cream : '#522314', wrap: true });
@@ -507,8 +580,8 @@ export class ForgeScene extends Phaser.Scene {
           this.openForge();
         });
       } else {
-        this.button('confirm', modal.kind === 'error' ? 'Thử lại' : 'Xác nhận rèn', right, 'gold',
-          () => void this.forge(modal.command));
+        this.button('confirm', modal.kind === 'error' ? 'Thử lại' : upgrade ? 'Xác nhận nâng' : 'Xác nhận rèn', right, 'gold',
+          () => void this.forge(attempt));
       }
     }
   }

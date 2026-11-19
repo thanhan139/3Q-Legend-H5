@@ -1,3 +1,5 @@
+import { isSignature } from '../../../src/data/signatureConfig';
+import { signatureNodes } from '../../../src/domain/signatureStars';
 ﻿import { normalizeJewelry } from '../../../src/domain/jewelry';
 import type { ArenaSquad } from '../../../src/domain/battle';
 import type { SaveV2 } from '../../../src/domain/types';
@@ -16,5 +18,11 @@ export function arenaSquad(save: SaveV2): ArenaSquad {
 }
 
 export function arenaDefense(published: ArenaSquad, confirmedSave: SaveV2): ArenaSquad {
-  return { ...published, jewelry: equippedJewelry(confirmedSave, published.formation) };
+  // Keep the published formation and gear slots. Refresh petals for the same confirmed instance.
+  const equipment = published.equipment?.map(item => {
+    if (!isSignature(item.itemId)) return item;
+    const confirmed = confirmedSave.equipment?.find(entry => entry.uid === item.uid && entry.itemId === item.itemId);
+    return confirmed ? { ...item, signatureNodes: signatureNodes(confirmed.signatureNodes) } : item;
+  });
+  return { ...published, equipment, jewelry: equippedJewelry(confirmedSave, published.formation) };
 }

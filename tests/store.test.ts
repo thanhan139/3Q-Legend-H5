@@ -487,7 +487,7 @@ it('forges all six signatures and keeps normal and signature weapon slots separa
   const reloaded = await openStore();
   expect(reloaded.snapshot.equipment?.filter(item => item.heroId === 'guan-yu')).toEqual([
     { uid: 'old', itemId: 'blade', level: 4, heroId: 'guan-yu' },
-    { uid: 'forge:1', itemId: 'azureMoon', level: 2, heroId: 'guan-yu', prestigeSkin: true },
+    { uid: 'forge:1', itemId: 'azureMoon', level: 2, heroId: 'guan-yu', prestigeSkin: true, signatureNodes: 1 },
   ]);
   expect(reloaded.equipGear('forge:2', 'guan-yu')).toBe(true);
   expect(reloaded.snapshot.equipment?.find(item => item.uid === 'forge:1')?.heroId).toBeUndefined();
