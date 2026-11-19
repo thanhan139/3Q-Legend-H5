@@ -93,6 +93,9 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
     case 'skin': return idOK(command.uid) && store.togglePrestigeSkin(command.uid);
     case 'forge': return idOK(command.itemId) && Number.isSafeInteger(command.expectedCrafted) &&
       store.forgeWeapon(command.itemId, command.expectedCrafted);
+    case 'signatureStar': return idOK(command.uid) && command.rulesVersion === 1 &&
+      Number.isSafeInteger(command.expectedNodes) && Object.keys(command).length === 4 &&
+      store.upgradeSignature(command.uid, command.expectedNodes);
     case 'upgrade': return idOK(command.heroId) && store.upgradeHero(command.heroId);
     case 'star': return idOK(command.heroId) && store.upgradeHeroStar(command.heroId);
     case 'summon': return store.summon(command.count, serverRandom);
