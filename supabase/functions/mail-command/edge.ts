@@ -29,7 +29,7 @@ Deno.serve(async request => {
       const chunk = await reader.read();
       if (chunk.done) break;
       bytes += chunk.value.byteLength;
-      if (bytes > 2048) { await reader.cancel(); return reply('invalid',413); }
+      if (bytes > 24_000) { await reader.cancel(); return reply('invalid',413); }
       body += decoder.decode(chunk.value,{stream:true});
     }
     let raw: unknown;

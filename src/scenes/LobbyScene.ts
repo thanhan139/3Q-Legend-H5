@@ -226,10 +226,14 @@ export class LobbyScene extends UiScene {
         const x=687+3*105+37,y=101;
         const unreadBadge=this.add.circle(x,y,13,0xb81b24).setStrokeStyle(2,0xffdf8d).setVisible(false);
         const unreadLabel=this.text(x,y,'',13,'#fff4cc',{fontStyle:'bold'}).setOrigin(.5).setVisible(false);
-        void mailRepository.list(owner,'all',0).then(inbox=>{
-          if(!unreadBadge.scene||mailRepository.uid!==owner||!inbox.unread.all) return;
-          unreadBadge.setVisible(true); unreadLabel.setText(String(inbox.unread.all)).setVisible(true);
+        const refreshBadge=()=>void mailRepository.list(owner,'all',0).then(inbox=>{
+          if(!unreadBadge.scene||mailRepository.uid!==owner) return;
+          const unread=inbox.unread.all;
+          unreadBadge.setVisible(unread>0); unreadLabel.setText(String(unread)).setVisible(unread>0);
         }).catch(()=>undefined);
+        refreshBadge(); this.time.addEvent({delay:20_000,loop:true,callback:refreshBadge});
+        window.addEventListener('focus',refreshBadge);
+        this.events.once('shutdown',()=>window.removeEventListener('focus',refreshBadge));
       }
     }, l => ({ x: l.right, y: l.top }));
 

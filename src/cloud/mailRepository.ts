@@ -1,8 +1,9 @@
 import { cloudRepository, supabase } from './cloudRepository';
-import { parseMailRequest, type MailInbox, type MailReceipt, type MailRequest } from './mailProtocol';
+import { parseMailRequest, type MailCategory, type MailDraftRecord, type MailInbox, type MailPlayer, type MailReceipt, type MailRequest } from './mailProtocol';
 
 type Claim = Extract<MailRequest,{action:'claim'|'claimAll'}>;
-type Reply = (Partial<MailInbox> & {status:string; receipt?:MailReceipt; deleted?:number});
+type Reply = Partial<MailInbox> & {status:string; receipt?:MailReceipt; deleted?:number; players?:MailPlayer[];
+  author?:boolean; approver?:boolean; drafts?:MailDraftRecord[]; mailId?:string};
 export class MailUnavailable extends Error {}
 
 export const mailRepository = {
@@ -27,10 +28,13 @@ export const mailRepository = {
     if (data.status === 'missing' || data.status === 'unavailable') throw new MailUnavailable('Thư hoặc phần thưởng không còn khả dụng.');
     if (data.status === 'reused') throw new MailUnavailable('Yêu cầu đã thay đổi. Vui lòng tải lại hộp thư.');
     if (data.status === 'walletLimit') throw new MailUnavailable('Số dư sẽ vượt giới hạn. Phần thưởng vẫn ở trong thư.');
+    if (data.status === 'rateLimit') throw new MailUnavailable('Mỗi tài khoản gửi tối đa 10 thư/ngày và cách ít nhất 20 giây giữa hai thư.');
+    if (data.status === 'forbidden') throw new MailUnavailable('Tài khoản không có quyền thực hiện thao tác này.');
+    if (data.status === 'invalid') throw new MailUnavailable('Dữ liệu thư chưa hợp lệ. Hãy kiểm tra lại.');
     if (data.status !== 'ok') throw new Error('Hộp thư chưa phản hồi. Vui lòng thử lại.');
     return data;
   },
-  async list(owner: string, category: MailInbox['rows'][number]['category']|'all', page: number): Promise<MailInbox> {
+  async list(owner: string, category: MailCategory, page: number): Promise<MailInbox> {
     const reply = await this.send(owner,{action:'list',category,page});
     if (!Array.isArray(reply.rows) || !reply.unread || reply.total === undefined || reply.filtered === undefined ||
       reply.claimable === undefined || reply.deletable === undefined) throw new Error('Dữ liệu hộp thư chưa đầy đủ.');
