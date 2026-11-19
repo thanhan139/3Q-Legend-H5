@@ -15,3 +15,7 @@ enable_confirmations = true
 [functions.arena-command]
 verify_jwt = false
 entrypoint = "./functions/arena-command/index.js"
+
+[functions.mail-command]
+verify_jwt = false
+entrypoint = "./functions/mail-command/index.js"

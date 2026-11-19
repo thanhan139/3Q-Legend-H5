@@ -15,12 +15,12 @@ import {welfareLayout} from '../ui/welfareLayout';
 import {WELFARE_ART,welfareKey,type WelfareArt} from '../ui/welfareAssets';
 import {PORTRAITS,atlasOrder} from '../ui/heroPresentation';
 
-type Page='Welfare'|'Checkin'|'Missions'|'Topup'|'Mail'|'LoginGift'|'GiftCode'|'Online';
+type Page='Welfare'|'Checkin'|'Missions'|'Topup'|'LoginGift'|'GiftCode'|'Online';
 const TABS=[['Checkin','Điểm Danh','template_welfare_scroll'],['Missions','Nhiệm Vụ Ngày','template_quest_scroll'],
  ['LoginGift','Quà Đăng Nhập','icon_gift_treasure'],['Topup','Nạp Đầu','icon_gold'],
  ['GiftCode','Mã Quà','icon_gold_key'],['Online','Thưởng Online','icon_exp']] as const;
 const HEADINGS:Record<Page,string>={Welfare:'Điểm Danh 7 Ngày',Checkin:'Điểm Danh 7 Ngày',Missions:'Nhiệm Vụ Ngày',
- Topup:'Nạp Đầu',Mail:'Hộp Thư',LoginGift:'Quà Đăng Nhập',GiftCode:'Mã Quà',Online:'Thưởng Online'};
+ Topup:'Nạp Đầu',LoginGift:'Quà Đăng Nhập',GiftCode:'Mã Quà',Online:'Thưởng Online'};
 const REWARDS=[['copper','Đồng','copper_icon'],['coins','Vàng','icon_gold'],['trainingExp','EXP Tướng','icon_exp'],
  ['gems','Nguyên Bảo cũ',null],['goldKeys','Chìa Vàng','icon_gold_key']] as const;
 
