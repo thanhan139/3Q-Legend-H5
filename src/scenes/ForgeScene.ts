@@ -29,7 +29,6 @@ export class ForgeScene extends UiScene {
     const itemId: EquipmentId = data.itemId && options.includes(data.itemId) ? data.itemId : options[0];
     const selected = EQUIPMENT[itemId];
     const owned = (save.equipment ?? []).filter(item => item.itemId === itemId);
-    const equipped = owned.find(item => item.heroId);
     const selectedOwned = owned.find(item => item.heroId === data.returnHeroId) ??
       owned.find(item => !item.heroId) ?? owned[0];
     const nodeCount = selectedOwned && isSignature(itemId) ? signatureNodes(selectedOwned.signatureNodes) : 0;
@@ -177,14 +176,6 @@ export class ForgeScene extends UiScene {
       ? '★' + signatureCompletedStars(nodeCount) + ' · ' + nodeCount + '/25 cánh · ' +
         'Hào quang đội +' + starBonus.teamAuraPct.toFixed(1) + '%'
       : 'Chưa sở hữu — Có thể rèn khi đủ mảnh', 13, 347, '#e7ddb1', 37);
-    /* Keep equipped instance metadata in the actual owned gear, not display-only state. */
-    void equipped;
-    /*
-    label(1066, 327, owned.length
-      ? 'Đang sở hữu ' + owned.length + ' bản' + (equipped?.heroId
-        ? ' · ' + (HERO_BY_ID[equipped.heroId]?.name ?? '') + ' đang dùng' : '')
-      : 'Chưa sở hữu — Có thể rèn khi đủ mảnh', 13, 347, '#e7ddb1', 37);
-    */
     line(1066, 357, 318);
     label(1066, 378, 'NGUỒN MẢNH THẦN BINH', 17, 344, '#ffd788');
     const sources = [
