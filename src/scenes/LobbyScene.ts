@@ -290,13 +290,10 @@ export class LobbyScene extends UiScene {
 
   private toggleInventoryMenu() {
     if (this.closeInventoryMenu) { this.closeInventoryMenu(); return; }
-    const layout = this.layout(), canvas = this.game.canvas.getBoundingClientRect();
-    const ratio = canvas.width / this.scale.width;
     this.input.enabled = false;
-    this.closeInventoryMenu = openInventoryMenu(this, { x: canvas.left + layout.dock[2] * ratio,
-      y: canvas.top + (layout.dockY - 55) * ratio }, () => this.go('Inventory'), () => {
+    this.closeInventoryMenu = openInventoryMenu(this, () => {
       this.closeInventoryMenu = undefined; this.input.enabled = true;
-    }, scene => this.go(scene, { bag: true }));
+    }, (scene,data) => this.go(scene,data));
   }
 
   private skinButton(x: number, y: number, width: number, height: number, normal: LobbySkin, active: LobbySkin,
