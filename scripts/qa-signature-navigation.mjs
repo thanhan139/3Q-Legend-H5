@@ -4,7 +4,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 
-const output='.vite/signature-navigation-qa';
+const output='.vite/divine-forge-v2-qa';
 await mkdir(output,{recursive:true});
 await writeFile(`${output}/index.html`,'<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="game"></div><script type="module" src="./fixture.ts"></script>');
 await writeFile(`${output}/fixture.ts`,`
@@ -21,6 +21,7 @@ import {legacyTutorial} from '../../src/domain/tutorial';
 import {EQUIPMENT} from '../../src/data/equipmentConfig';
 import {LOBBY_ASSETS} from '../../src/data/lobbyAssets';
 import {STAGES} from '../../src/data/campaign';
+import {changeInventory,inventoryQuantity,ITEM_IDS} from '../../src/domain/resources';
 import {heroNavigation} from '../../src/ui/heroNavigation';
 import {loadHeroUi} from '../../src/ui/heroUiAssets';
 import {bindViewportResize} from '../../src/ui/resizeViewport';
@@ -32,19 +33,32 @@ a.copper=5000;a.forge.shards=50;a.equipment=[{uid:'test-azure',itemId:'azureMoon
 b.heroes=['liu-bei'];b.formation=['liu-bei',null,null,null,null,null];b.forge.shards=50;
 const rows=new Map([[owner,{state:a,revision:0}],['qa-signature-b',{state:b,revision:0}]]);
 const cloud=cloudRepository as any;
+const receipts=new Map(), attempts=[];
+let dropNextForge=false, releaseForge;
 const load=()=>{cloud.owner=owner;const row=rows.get(owner);cloud.current=undefined;
  cloud.apply({status:'ok',save:row.state,revision:String(row.revision),tutorial});};
 load();heroNavigation.resolve(a,owner,'guan-yu');
 mailRepository.list=async()=>({rows:[],total:0,filtered:0,unread:{all:0},claimable:0,deletable:0});
-cloud.send=async intent=>handleGameRequest(intent,owner,{
+cloud.send=async intent=>{
+ if(intent.command?.type==='forge'){
+  attempts.push(intent.requestId);
+  if(dropNextForge)await new Promise(resolve=>releaseForge=resolve);
+ }
+ const response=await handleGameRequest(intent,owner,{
  user:async uid=>({id:uid,email_confirmed_at:'yes'}),read:async uid=>structuredClone(rows.get(uid)),
- create:async()=>({}),receipt:async()=>false,sign:async()=>'',verify:async()=>false,
+ create:async()=>({}),receipt:async(uid,requestId)=>receipts.has(uid+':'+requestId),sign:async()=>'',verify:async()=>false,
  commit:async(uid,requestId,revision,command,state,receipt)=>{
-  const row=rows.get(uid);if(revision!==String(row.revision))return {status:'conflict'};
+  const row=rows.get(uid), key=uid+':'+requestId;
+  if(receipts.has(key))return {status:'ok',save:row.state,revision:String(row.revision),receipt:receipts.get(key),tutorial};
+  if(revision!==String(row.revision))return {status:'conflict',save:row.state,revision:String(row.revision),tutorial};
+  receipts.set(key,receipt);
   commands.push(command);rows.set(uid,{state,revision:row.revision+1});
   return {status:'ok',save:state,revision:String(row.revision+1),receipt,tutorial};
  }
-});
+ });
+ if(intent.command?.type==='forge'&&dropNextForge){dropNextForge=false;throw Error('Không thể kết nối máy chủ');}
+ return response;
+};
 class Boot extends Phaser.Scene{constructor(){super('Boot');}
  preload(){loadHeroUi(this.load);for(const a of Object.values(LOBBY_ASSETS))this.load.image(a.key,a.url);
   this.load.spritesheet('battle-sprites','/assets/heroes/battle-sprites.webp',{frameWidth:256,frameHeight:256});
@@ -52,9 +66,13 @@ class Boot extends Phaser.Scene{constructor(){super('Boot');}
   for(const art of new Set(Object.values(EQUIPMENT).map(d=>d.art)))this.load.image('gear-'+art,'/assets/equipment/'+art);
  }create(){this.scene.start('Lobby');}}
 const game=new Phaser.Game({type:Phaser.WEBGL,parent:'game',width:1280,height:720,render:{preserveDrawingBuffer:true},
- scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[Boot,LobbyScene,HeroesScene,ForgeScene]});
+ scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[Boot,LobbyScene,HeroesScene,ForgeScene,new Phaser.Scene({key:'Campaign'})]});
 bindViewportResize(game,document.getElementById('game'));
-window.qa={game,commands,save:()=>gameStore.snapshot,swap:()=>{owner='qa-signature-b';load();},
+window.qa={game,commands,attempts,drop:()=>{dropNextForge=true;},release:()=>releaseForge?.(),
+ wallet:(count)=>{const row=rows.get(owner);const state=structuredClone(gameStore.snapshot);
+   changeInventory(state,ITEM_IDS.forgeShard,count-inventoryQuantity(state,ITEM_IDS.forgeShard));
+   rows.set(owner,{state,revision:row.revision+1});load();
+ },reload:load,save:()=>gameStore.snapshot,swap:()=>{owner='qa-signature-b';load();},
  health:()=>{const s=gameStore.snapshot;
   const actor=units=>units.find(u=>u.side==='player'&&u.heroId==='guan-yu')?.maxHp;
   return [actor(makeStageBattle(STAGES[0],s.formation,s.heroExp,s.heroStars,s.equipment).units),
@@ -72,8 +90,7 @@ try {
   page.on('response',response=>{if(response.url().includes('/assets/')&&response.status()>=400)errors.push(response.url());});
   await page.route('https://*.supabase.co/**',route=>route.abort());
   await page.goto(`http://127.0.0.1:5226/${output}/index.html`);
-  const click=async (scene,name,touch=false)=>{
-    const point=await page.evaluate(({scene,name})=>{
+  const position=(scene,name)=>page.evaluate(({scene,name})=>{
       const s=window.qa.game.scene.getScene(scene);
       const all=children=>children.flatMap(item=>item.type==='Container'?[item,...all(item.list)]:[item]);
       const target=all(s.children.list).find(item=>item.name===name&&item.input?.enabled);
@@ -82,11 +99,28 @@ try {
       const r=s.game.canvas.getBoundingClientRect();
       return {x:r.x+(tx-s.cameras.main.scrollX)*r.width/s.scale.width,y:r.y+(ty-s.cameras.main.scrollY)*r.height/s.scale.height};
     },{scene,name});
+  const click=async (scene,name,touch=false)=>{
+    const point=await position(scene,name);
     await (touch?page.touchscreen.tap(point.x,point.y):page.mouse.click(point.x,point.y));
   };
   const active=(scene)=>page.waitForFunction(key=>window.qa?.game.scene.isActive(key),scene);
-  const sceneText=(scene,text)=>page.waitForFunction(([scene,text])=>window.qa.game.scene.getScene(scene).children.list
-    .some(object=>object.text?.includes(text)),[scene,text]);
+  const sceneText=(scene,text)=>page.waitForFunction(([scene,text])=>{
+    const matches=nodes=>nodes.some(node=>node.text?.includes(text)||(node.type==='Container'&&matches(node.list)));
+    return matches(window.qa.game.scene.getScene(scene).children.list);
+  },[scene,text]);
+  const previewName=name=>page.waitForFunction(name=>{
+    const root=window.qa.game.scene.getScene('Forge').children.list.find(node=>node.type==='Container');
+    return root?.list.some(node=>node.name==='forge.preview.name'&&node.text===name);
+  },name);
+  const resize=async (width,height)=>{
+    await page.setViewportSize({width,height});
+    await page.waitForFunction(([width,height])=>{
+      const rect=window.qa.game.canvas.getBoundingClientRect();
+      return Math.abs(rect.width-width)<2&&Math.abs(rect.height-height)<2;
+    },[width,height]);
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  };
+  const screenshot=async name=>{await page.waitForTimeout(240);await page.screenshot({path:`${output}/${name}.png`});};
   const equipped=()=>page.evaluate(()=>window.qa.save().equipment?.find(item=>item.uid==='test-azure'));
   const expectHero=(hero)=>page.waitForFunction(hero=>{
     const scene=window.qa.game.scene.getScene('Heroes'),state=scene.data.get('heroScreen');
@@ -113,16 +147,71 @@ try {
   assert.ok((await page.evaluate(()=>window.qa.health())).every((v,i)=>v>initial[i]));
   await click('Heroes','signature.item.silverSpear');await sceneText('Heroes','Chưa sở hữu · Chưa chế tạo');
   await click('Heroes','signature.forge');await active('Forge');await sceneText('Forge','50/50 Mảnh Thần Binh');
-  await page.screenshot({path:`${output}/forge-1280x720.png`});
-  await click('Forge','forge.craft');await sceneText('Forge','0/50 Mảnh Thần Binh');
+  await screenshot('forge-1280x720');
+  const allWeapons = {azureMoon:'Thanh Long Yển Nguyệt Đao',serpentSpear:'Trượng Bát Xà Mâu',
+    silverSpear:'Long Đảm Lượng Ngân Thương',skyHalberd:'Phương Thiên Họa Kích',
+    featherFan:'Ngọa Long Vũ Phiến',heavenSword:'Ỷ Thiên Kiếm'};
+  for(const [id,name] of Object.entries(allWeapons)) {
+    await click('Forge',`forge.weapon.${id}`);
+    await previewName(name);
+    if(id==='azureMoon')await sceneText('Forge','Đang trang bị · Quan Vũ');
+  }
+  await click('Forge','forge.collection');
+  await click('Forge','forge.weapon.phoenixSpear');await sceneText('Forge','Phượng Vũ Thương');
+  await click('Forge','forge.collection');
+  await click('Forge','forge.weapon.silverSpear');await sceneText('Forge','Chưa sở hữu');
+  await click('Forge','forge.weapon.azureMoon');
+  await previewName(allWeapons.azureMoon);
+  await resize(1920,1080);await screenshot('forge-1920x1080');
+  await resize(1280,720);
+  await click('Forge','forge.weapon.silverSpear');
+  await previewName(allWeapons.silverSpear);
+  await page.evaluate(()=>window.qa.wallet(49));
+  await sceneText('Forge','49/50 Mảnh Thần Binh');
+  await click('Forge','forge.craft');await sceneText('Forge','Còn thiếu 1');
+  await screenshot('shortage-1280x720');
+  assert.equal(await page.evaluate(()=>window.qa.attempts.length),0);
+  await page.keyboard.press('Escape');
+  await page.evaluate(()=>window.qa.wallet(100));
+  await sceneText('Forge','100/50 Mảnh Thần Binh');
+  await page.evaluate(()=>window.qa.wallet(50));
+  await sceneText('Forge','50/50 Mảnh Thần Binh');
+  await click('Forge','forge.craft');await sceneText('Forge','Xác nhận rèn');
+  await screenshot('confirm-1280x720');
+  await page.evaluate(()=>window.qa.drop());
+  const confirmPoint=await position('Forge','forge.confirm');
+  await page.mouse.dblclick(confirmPoint.x,confirmPoint.y,{delay:50});
+  await sceneText('Forge','Đang rèn…');
+  assert.equal(await page.evaluate(()=>window.qa.attempts.length),1);
+  await screenshot('pending-1280x720');
+  await page.evaluate(()=>window.qa.release());
+  await sceneText('Forge','Không thể kết nối máy chủ');
+  await screenshot('retry-1280x720');
+  await click('Forge','forge.confirm');await sceneText('Forge','Rèn thành công');
+  await sceneText('Forge','0/50 Mảnh Thần Binh');
+  await screenshot('success-1280x720');
+  const attempts=await page.evaluate(()=>window.qa.attempts.slice());
+  assert.equal(attempts.length,2);
+  assert.equal(attempts[0],attempts[1]);
+  await click('Forge','forge.close');
+  await page.evaluate(()=>window.qa.reload());
+  await sceneText('Forge','Đã sở hữu · 1 món');
   assert.equal(await page.evaluate(()=>window.qa.save().equipment.find(item=>item.uid==='forge:1').itemId),'silverSpear');
   await click('Forge','forge.return');await expectHero('guan-yu');await sceneText('Heroes','Trong kho · Cường hóa +0');
   assert.deepEqual(await page.evaluate(()=>window.qa.commands.map(command=>command.type)),['unequip','enhance','equip','forge']);
-  await page.setViewportSize({width:844,height:390});await page.waitForTimeout(300);
+  await resize(844,390);
   await click('Heroes','shared.back-to-lobby',true);await enter('guan-yu',true);
   await page.screenshot({path:`${output}/signature-844x390.png`});
   await click('Heroes','signature.forge',true);await active('Forge');await sceneText('Forge','0/50 Mảnh Thần Binh');
-  await page.screenshot({path:`${output}/forge-844x390.png`});
+  await screenshot('forge-844x390');
+  const first=await position('Forge','forge.weapon.azureMoon');
+  await page.mouse.move(first.x,first.y);
+  await page.mouse.down();
+  await page.mouse.move(first.x-38,first.y,{steps:5});
+  await page.mouse.up();
+  await previewName(allWeapons.serpentSpear);
+  await click('Forge','forge.weapon.azureMoon',true);
+  await sceneText('Forge','Đang trang bị · Quan Vũ');
   await click('Forge','forge.return',true);await expectHero('guan-yu');
   await click('Heroes','shared.back-to-lobby',true);await active('Lobby');
   await page.evaluate(()=>window.qa.swap());await enter('liu-bei',true);
@@ -131,6 +220,10 @@ try {
   await sceneText('Heroes','Chưa sở hữu · Chưa chế tạo');
   await click('Heroes','signature.craft',true);await sceneText('Heroes','Trong kho · Cường hóa +0');
   assert.equal(await page.evaluate(()=>window.qa.save().equipment.find(item=>item.uid==='forge:1').itemId),'heavenSword');
+  await click('Heroes','signature.forge',true);await active('Forge');
+  await click('Forge','forge.craft',true);await sceneText('Forge','Không đủ mảnh');
+  await screenshot('shortage-844x390');
+  await click('Forge','forge.modal.campaign',true);await active('Campaign');
   assert.deepEqual(errors,[]);
-  console.log('Signature QA passed: Lobby navigation, six items, confirmed commands, PvE/Arena stats, UID switch, desktop and touch.');
+  console.log('Forge V2 QA passed: six signatures, shared wallet 0/49/50/100, double-click, receipt replay, UID switch, PvE/Arena stats, Back, Campaign route, desktop/mobile input.');
 }finally{await browser?.close();await vite.close();}

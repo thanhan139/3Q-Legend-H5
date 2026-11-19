@@ -1,96 +1,515 @@
-import { inventoryQuantity, ITEM_IDS } from '../domain/resources';
-import { cloudRepository } from '../cloud/cloudRepository';
+import Phaser from 'phaser';
+import { cloudMessage, cloudRepository, playCommand } from '../cloud/cloudRepository';
+import type { GameCommand } from '../cloud/gameProtocol';
 import { EQUIPMENT, type EquipmentId } from '../data/equipmentConfig';
-import { isSignature, signatureIds } from '../data/signatureConfig';
-import { LOBBY_ASSETS } from '../data/lobbyAssets';
+import { HERO_BY_ID } from '../data/heroes';
+import { isSignature, SignatureConfig, signatureIds, type SignatureId } from '../data/signatureConfig';
+import { enhancement, gearStats } from '../domain/equipment';
 import { FORGE, weeklyWins } from '../domain/forge';
+import { inventoryQuantity, ITEM_IDS } from '../domain/resources';
 import { gameStore } from '../domain/store';
-import { UiScene } from '../ui/UiScene';
-import { heroLabel } from '../ui/heroUiControls';
+import { forgeTexture, loadDivineForge } from '../ui/divineForgeAssets';
+import { loadSharedUi, UI_FONT } from '../ui/sharedUi';
+import { readSafeInsets } from '../ui/viewport';
 
-export class ForgeScene extends UiScene {
+interface ForgeEntry {
+  itemId?: EquipmentId;
+  returnHeroId?: string;
+}
+
+type ForgeCommand = Extract<GameCommand, { type: 'forge' }>;
+type Modal =
+  | { kind: 'shortage' }
+  | { kind: 'confirm'; command: ForgeCommand }
+  | { kind: 'pending'; command: ForgeCommand }
+  | { kind: 'success'; command: ForgeCommand }
+  | { kind: 'error'; command: ForgeCommand; message: string };
+
+type ButtonKind = 'gold' | 'red' | 'back';
+type Rect = [x: number, y: number, width: number, height: number];
+const number = new Intl.NumberFormat('vi-VN');
+const cream = '#fff0c8';
+const gold = '#ffda8c';
+
+export class ForgeScene extends Phaser.Scene {
+  private root!: Phaser.GameObjects.Container;
+  private content!: Phaser.GameObjects.Container;
+  private motion: Phaser.Tweens.Tween[] = [];
+  private entry: ForgeEntry = {};
+  private selected: EquipmentId = signatureIds[0];
+  private signature: SignatureId = signatureIds[0];
+  private modal?: Modal;
+  private uid?: string;
+  private session = 0;
+  private pressedAt?: { id: number; x: number };
+  private width = 1280;
+  private height = 720;
+
   constructor() { super('Forge'); }
 
-  create(data: { itemId?: EquipmentId; success?: boolean; returnHeroId?: string } = {}) {
-    const save = gameStore.snapshot;
-    const wallet = save.forge;
-    const shards = inventoryQuantity(save, ITEM_IDS.forgeShard);
-    const signature = !!data.returnHeroId || (data.itemId !== undefined && isSignature(data.itemId));
-    const options: readonly EquipmentId[] = signature ? signatureIds : FORGE.weapons;
-    const itemId = data.itemId && options.includes(data.itemId) ? data.itemId : options[0];
-    const selected = EQUIPMENT[itemId];
-    const previewY = signature ? 383 : 268;
-    const restart = (next: EquipmentId, success = false) => this.scene.restart({ ...data,itemId:next,success });
-    let pending = false;
-    this.add.image(640, 360, LOBBY_ASSETS.palace.key).setDisplaySize(1280, 720);
-    this.add.rectangle(640, 360, 1280, 720, 0x231321, 0.75);
-    this.panel(40, 32, 1200, 650, 0x351d23, 0.89);
-    this.button(data.returnHeroId?147:136, 76, data.returnHeroId?172:150, 44, data.returnHeroId ? '‹ Thần Binh' : '‹ Túi Đồ', () => {
-      if(data.returnHeroId) this.go('Heroes',{heroId:data.returnHeroId,tab:'signature',signatureId:itemId});
-      else this.go('Inventory');
-    }, 0x82452b, true, true).background.setName('forge.return');
-    if(signature) heroLabel(this,640,75,'Lò Rèn Thần Binh',36,515,56,'#ffe0a0');
-    else this.text(640,75,'Lò Rèn Thần Binh',38,'#ffe0a0',{fontFamily:'Georgia, serif',fontStyle:'bold'}).setOrigin(.5);
-    this.text(1168, 75, `${shards} Mảnh Thần Binh`, 21, '#ffdb92').setOrigin(1, 0.5);
+  preload() {
+    loadSharedUi(this);
+    loadDivineForge(this);
+  }
 
-    options.forEach((id, index) => {
-      const gear = EQUIPMENT[id];
-      if(signature){
-        const x=143+index*199;
-        this.add.rectangle(x,213,181,170,id===itemId?0x713c25:0x362331).setStrokeStyle(id===itemId?3:1,0xe8b965);
-        const icon=this.add.image(x,190,`gear-${gear.art}`);
-        icon.setScale(Math.min(94/icon.width,94/icon.height));
-        heroLabel(this,x,267,gear.name,16,165,51);
-        this.add.zone(x,213,181,170).setName(`forge.weapon.${id}`).setInteractive({useHandCursor:true})
-          .on('pointerup',()=>restart(id));
-        return;
-      }
-      const x = 168 + index * 210;
-      this.add.rectangle(x, 247, 186, 176, id === itemId ? 0x713c25 : 0x362331).setStrokeStyle(2, 0xe8b965);
-      this.add.image(x, 223, `gear-${gear.art}`).setDisplaySize(125, 125);
-      this.button(x, 311, 171, 40, gear.name, () => restart(id), 0x82452b, true, true);
+  create(data: ForgeEntry = {}) {
+    this.entry = data;
+    this.signature = data.itemId && isSignature(data.itemId) ? data.itemId : signatureIds[0];
+    this.selected = data.itemId && FORGE.weapons.includes(data.itemId as typeof FORGE.weapons[number])
+      ? data.itemId : this.signature;
+    this.uid = cloudRepository.uid;
+    this.modal = undefined;
+    this.pressedAt = undefined;
+    this.render();
+    this.scale.on(Phaser.Scale.Events.RESIZE, this.render);
+    this.input.keyboard?.on('keydown-ESC', this.escape);
+    this.input.on('pointerup', this.releaseStrip);
+    this.input.on('pointerupoutside', this.releaseStrip);
+    window.addEventListener('3q:cloud-save', this.cloudChanged);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.session++;
+      this.scale.off(Phaser.Scale.Events.RESIZE, this.render);
+      this.input.keyboard?.off('keydown-ESC', this.escape);
+      this.input.off('pointerup', this.releaseStrip);
+      this.input.off('pointerupoutside', this.releaseStrip);
+      window.removeEventListener('3q:cloud-save', this.cloudChanged);
+      this.clearMotion();
     });
-    this.add.ellipse(643, 422, 330, 60, 0x4d241d).setStrokeStyle(2, 0xe3ac5b);
-    const weapon = this.add.image(643, previewY, `gear-${selected.art}`);
-    const size=signature?137:276;
-    weapon.setScale(Math.min(size/weapon.width,size/weapon.height));
-    this.tweens.add({ targets: weapon, y: previewY-12, duration: 940, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
-    this.text(643, 472, selected.name, 26, '#ffda90').setOrigin(0.5);
-    if(signature) this.text(643,511,`${shards}/${FORGE.shardsRequired} Mảnh Thần Binh`,18,'#ffe0a0').setOrigin(.5);
+  }
 
-    const infoY=signature?337:152;
-    this.text(880, infoY, 'Nguồn Mảnh Thần Binh', 22, '#ffdb92', { fontStyle: 'bold' });
-    this.text(880, infoY+50, [
-      `Ải 2-5 lần đầu · +${FORGE.firstClear['2-5']} mảnh`,
-      `Ải 3-5 lần đầu · +${FORGE.firstClear['3-5']} mảnh`,
-      `Thắng lại 2-5 · +${FORGE.weekly.shards} mảnh`,
-      `Tuần này · ${weeklyWins(wallet)}/${FORGE.weekly.limit} lượt đã nhận`,
-      'Làm mới thứ Hai, 00:00 giờ Việt Nam',
-    ].join('\n'), 17, '#f0d5ac', { lineSpacing: 14 });
-    this.button(1034, infoY+251, 236, 46, 'Đến Chinh Chiến', () => this.go('Campaign'), 0x82452b, true, true);
-    const run = (action: () => boolean) => {
-      if (pending) return;
-      pending = true;
-      if (action()) restart(itemId,true);
-      else { pending = false; this.toast('Giao dịch chưa được lưu.'); }
-    };
-    const crafted=wallet?.crafted;
-    this.button(643, signature?566:536, 290, 52, `Rèn · ${FORGE.shardsRequired} mảnh`, () => {
-      if(crafted!==undefined) void this.saveAction({ type: 'forge', itemId, expectedCrafted: crafted },
-        () => gameStore.forgeWeapon(itemId, crafted), ok => run(() => ok));
-    }, 0x995026, crafted!==undefined&&shards>=FORGE.shardsRequired,true).background.setName('forge.craft');
-    if (!signature && wallet && import.meta.env.DEV && !cloudRepository.active) {
-      this.text(643, 597, `Gói mô phỏng · SSR đang chọn và ${FORGE.premiumStones} đá cường hóa`, 17, '#ffdb92').setOrigin(0.5);
-      this.button(643, 636, 300, 46, wallet.premiumClaimed ? 'Đã nhận gói thử' : 'Nhận gói thử (Dev)',
-        () => run(() => gameStore.claimPremiumForgeDemo(itemId)), 0x82452b, !wallet.premiumClaimed, true);
+  private clearMotion() {
+    this.motion.forEach(tween => tween.remove());
+    this.motion = [];
+  }
+
+  private cloudChanged = () => {
+    if (this.uid !== cloudRepository.uid) {
+      this.scene.start('Boot');
+      return;
     }
-    if (data.success) {
-      for (let i = 0; i < 3; i++) {
-        const ring = this.add.circle(643, previewY, 79).setStrokeStyle(4, 0xffc563);
-        this.tweens.add({ targets: ring, scale: 2.1, alpha: 0, delay: i * 95, duration: 620,
-          ease: 'Cubic.Out', onComplete: () => ring.destroy() });
+    if (this.modal?.kind !== 'pending') this.render();
+  };
+
+  private closeModal() {
+    if (this.modal?.kind === 'pending') return;
+    this.modal = undefined;
+    this.render();
+  }
+
+  private escape = () => {
+    if (this.modal) this.closeModal();
+    else this.back();
+  };
+
+  private back() {
+    const heroId = this.entry.returnHeroId;
+    if (heroId) this.scene.start('Heroes', { heroId, tab: 'signature', signatureId: this.signature });
+    else this.scene.start('Inventory');
+  }
+
+  private get shards() {
+    return inventoryQuantity(gameStore.snapshot, ITEM_IDS.forgeShard);
+  }
+
+  private openForge() {
+    if (this.modal) return;
+    if (this.shards < FORGE.shardsRequired) this.modal = { kind: 'shortage' };
+    else {
+      const expectedCrafted = gameStore.snapshot.forge?.crafted;
+      if (expectedCrafted === undefined || !cloudRepository.active) return;
+      this.modal = { kind: 'confirm', command: { type: 'forge', itemId: this.selected, expectedCrafted } };
+    }
+    this.render();
+  }
+
+  private async forge(command: ForgeCommand) {
+    if (this.modal?.kind !== 'confirm' && this.modal?.kind !== 'error') return;
+    const session = this.session;
+    this.modal = { kind: 'pending', command };
+    this.render();
+    try {
+      const result = await playCommand<boolean>(command);
+      if (session !== this.session || this.uid !== cloudRepository.uid) return;
+      if (result !== true) throw new Error('Máy chủ chưa xác nhận rèn.');
+      this.modal = { kind: 'success', command };
+    } catch (error) {
+      if (session !== this.session || this.uid !== cloudRepository.uid) return;
+      const message = error instanceof Error && error.message
+        ? error.message : 'Không thể kết nối máy chủ.';
+      this.modal = { kind: 'error', command, message };
+    }
+    this.render();
+  }
+
+  private choose(id: EquipmentId) {
+    if (this.modal || id === this.selected) return;
+    this.selected = id;
+    if (isSignature(id)) this.signature = id;
+    this.render(true);
+  }
+
+  private releaseStrip = (pointer: Phaser.Input.Pointer) => {
+    const start = this.pressedAt;
+    this.pressedAt = undefined;
+    if (!start || start.id !== pointer.id || this.modal) return;
+    const dx = (pointer.x - start.x) / this.root.scaleX;
+    if (Math.abs(dx) < 26) return;
+    const items = isSignature(this.selected) ? signatureIds : FORGE.weapons;
+    const at = items.findIndex(id => id === this.selected);
+    const id = items[Phaser.Math.Clamp(at + (dx < 0 ? 1 : -1), 0, items.length - 1)];
+    this.choose(id);
+  };
+
+  private render = (changed: boolean | Phaser.Structs.Size = false) => {
+    this.clearMotion();
+    this.root?.destroy();
+    const { width, height } = this.scale.gameSize;
+    const css = this.game.canvas.getBoundingClientRect();
+    const safe = readSafeInsets(css.width / width);
+    const availW = width - safe.left - safe.right;
+    const availH = height - safe.top - safe.bottom;
+    const mobile = css.height <= 510 || css.width < 900;
+    this.height = mobile ? 390 : 720;
+    this.width = mobile ? Phaser.Math.Clamp(availW / availH * 390, 680, 1000) : 1280;
+    const scale = Math.min(availW / this.width, availH / this.height);
+    this.cameras.main.setSize(width, height).setScroll(0, 0);
+    this.root = this.add.container(safe.left + (availW - this.width * scale) / 2,
+      safe.top + (availH - this.height * scale) / 2).setScale(scale);
+    this.content = this.root;
+    const canvas: Rect = [-this.root.x / scale, -this.root.y / scale, width / scale, height / scale];
+    const bg = this.texture('hall', canvas);
+    bg.setScale(Math.max(canvas[2] / bg.width, canvas[3] / bg.height));
+    this.content.add(this.add.rectangle(canvas[0], canvas[1], canvas[2], canvas[3], 0x220903, .34).setOrigin(0));
+
+    this.header(mobile);
+    if (mobile) {
+      const previewW = Math.round(this.width * .367);
+      const rightX = previewW + 15;
+      const rightW = this.width - rightX - 8;
+      this.collection([8, 52, this.width - 16, 84], true);
+      this.preview([8, 143, previewW, 239], true, changed === true);
+      this.details([rightX, 143, rightW, 188], true);
+      const buttonW = (rightW - 10) / 2;
+      this.actions([rightX, 338, buttonW, 44], [rightX + buttonW + 10, 338, buttonW, 44]);
+    } else {
+      this.collection([24, 122, 284, 550], false);
+      this.preview([320, 122, 538, 550], false, changed === true);
+      this.details([870, 122, 386, 475], false);
+      this.actions([415, 604, 348, 56], [892, 604, 342, 56]);
+    }
+    if (this.modal) this.drawModal(canvas, mobile);
+  };
+
+  private texture(id: string, box: Rect, opacity = 1, raw = false) {
+    const [x, y, w, h] = box;
+    const image = this.add.image(x + w / 2, y + h / 2, raw ? id : forgeTexture(id));
+    image.setScale(Math.min(w / image.width, h / image.height)).setAlpha(opacity);
+    this.content.add(image);
+    return image;
+  }
+
+  // Nine-slice frames preserve corner proportions when a panel changes aspect ratio.
+  private frame(id: string, box: Rect, corner: number, alpha = 1) {
+    const [x, y, w, h] = box;
+    if (this.game.renderer instanceof Phaser.Renderer.Canvas.CanvasRenderer) {
+      return this.texture(id, box, alpha).setDisplaySize(w, h);
+    }
+    const panel = this.add.nineslice(x + w / 2, y + h / 2, forgeTexture(id), undefined,
+      w * 2, h * 2, corner, corner, corner, corner).setScale(.5).setAlpha(alpha);
+    this.content.add(panel);
+    return panel;
+  }
+
+  private label(value: string, box: Rect, size: number, options: { left?: boolean; color?: string; wrap?: boolean } = {}) {
+    const [x, y, w, h] = box;
+    const text = this.add.text(options.left ? x : x + w / 2, y + h / 2, value, {
+      fontFamily: `${UI_FONT}, Georgia, serif`, fontStyle: 'bold', fontSize: size,
+      color: options.color ?? cream, align: options.left ? 'left' : 'center', resolution: 2,
+      padding: { top: 2, bottom: 2 }, shadow: { offsetY: 1, color: '#180906', blur: 2, fill: true },
+      wordWrap: options.wrap ? { width: w, useAdvancedWrap: true } : undefined,
+    }).setOrigin(options.left ? 0 : .5, .5);
+    while ((text.width > w || text.height > h) && size > 11) text.setFontSize(--size);
+    this.content.add(text);
+    return text;
+  }
+
+  private hit(name: string, box: Rect) {
+    const [x, y, w, h] = box;
+    const hit = this.add.zone(x + w / 2, y + h / 2, w, h).setName(`forge.${name}`);
+    this.content.add(hit);
+    return hit;
+  }
+
+  private button(name: string, value: string, box: Rect, kind: ButtonKind, action?: () => void,
+    options: { muted?: boolean; icon?: string } = {}) {
+    const [x, y, w, h] = box;
+    const state = !action || options.muted ? 'disabled' : 'normal';
+    const art = this.frame(`${kind}.${state}`, box, 28);
+    if (options.icon) this.texture(options.icon, [x + 8, y + 6, h - 12, h - 12]);
+    const pad = options.icon ? h : 12;
+    this.label(value, [x + pad, y, w - pad - 12, h], h >= 50 ? 23 : 16,
+      { color: state === 'disabled' ? '#e6c496' : kind === 'gold' ? '#fff7d7' : cream });
+    if (!action) return;
+    const target = this.hit(name, box).setInteractive({ useHandCursor: true });
+    const texture = (next: string) => {
+      const key = forgeTexture(`${kind}.${next}`);
+      if (!options.muted && this.textures.exists(key)) art.setTexture(key);
+    };
+    target.on('pointerover', () => texture('hover'))
+      .on('pointerout', () => texture('normal'))
+      .on('pointerdown', () => texture('pressed'))
+      .on('pointerup', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+        event.stopPropagation();
+        texture('normal');
+        action();
+      });
+  }
+
+  private header(mobile: boolean) {
+    const walletW = mobile ? Math.min(193, Math.floor(this.width * .25)) : 240;
+    const titleW = Math.min(mobile ? 428 : 679, this.width - 2 * walletW);
+    const walletX = this.width - walletW - (mobile ? 8 : 24);
+    const titleBox: Rect = [(this.width - titleW) / 2, mobile ? 1 : 5, titleW, mobile ? 49 : 103];
+    this.texture('title', titleBox);
+    const titleInset = mobile ? titleW * .12 : 72;
+    this.label('Lò Rèn Thần Binh', [titleBox[0] + titleInset, titleBox[1] + 3, titleW - 1.65 * titleInset, titleBox[3]],
+      mobile ? 23 : 33,
+      { color: gold });
+    this.button('return', this.entry.returnHeroId ? '← Thần Binh' : '← Trở về',
+      mobile ? [8, 4, 130, 44] : [24, 28, 194, 55], 'back', () => this.back());
+    const walletBox: Rect = [walletX, mobile ? 5 : 28, walletW, mobile ? 42 : 55];
+    this.frame('wallet', walletBox, 28);
+    this.texture('shard', [walletX + 8, walletBox[1] + 4, walletBox[3] - 8, walletBox[3] - 8]);
+    this.label(`${number.format(this.shards)} Mảnh Thần Binh`,
+      [walletX + walletBox[3], walletBox[1], walletW - walletBox[3] - 9, walletBox[3]], mobile ? 15 : 17, { color: gold });
+  }
+
+  private gear(id: EquipmentId) {
+    const copies = (gameStore.snapshot.equipment ?? []).filter(item => item.itemId === id);
+    return {
+      copies,
+      equipped: copies.find(item => item.heroId),
+      display: copies.find(item => item.heroId) ?? copies[0],
+    };
+  }
+
+  private collection([x, y, w, h]: Rect, mobile: boolean) {
+    this.frame('panel', [x, y, w, h], 110);
+    const signature = isSignature(this.selected);
+    const options: readonly EquipmentId[] = signature ? signatureIds : FORGE.weapons;
+    const switchSet = () => this.choose(signature ? FORGE.weapons[0] : this.signature);
+    if (mobile) {
+      this.button('collection', signature ? 'Vũ khí' : 'Thần Binh', [x + w - 69, y + 20, 64, 44], 'red', switchSet);
+      const area = w - 81;
+      const pitch = area / options.length;
+      options.forEach((id, index) => this.card(id, [x + 5 + index * pitch, y + 5, pitch - 4, h - 10], true));
+      return;
+    }
+    this.label(signature ? 'Bộ sưu tập Thần Binh' : 'Vũ khí SSR', [x + 22, y + 15, w - 44, 34], 20, { color: gold });
+    this.texture('divider', [x + 22, y + 47, w - 44, 14]);
+    const gap = 8;
+    const cardW = (w - 28 - gap) / 2;
+    options.forEach((id, index) => this.card(id, [
+      x + 14 + (index % 2) * (cardW + gap), y + 61 + Math.floor(index / 2) * 142, cardW, 134,
+    ], false));
+    this.button('collection', signature ? 'Vũ khí SSR khác' : 'Bộ sưu tập Thần Binh',
+      [x + 35, y + h - 54, w - 70, 42], 'red', switchSet);
+  }
+
+  private weapon(id: EquipmentId, box: Rect, thumb = false) {
+    return isSignature(id) ? this.texture(thumb ? `${id}.thumb` : id, box)
+      : this.texture(`gear-${EQUIPMENT[id].art}`, box, 1, true);
+  }
+
+  private card(id: EquipmentId, box: Rect, mobile: boolean) {
+    const [x, y, w, h] = box;
+    const { equipped, display } = this.gear(id);
+    const frame = equipped ? 'equipped' : display ? 'owned' : 'locked';
+    this.frame(this.selected === id ? 'selected' : frame, box, 34);
+    if (this.selected === id) this.texture('divider', [x + 9, y + 2, w - 18, 8]);
+    const icon = this.weapon(id, [x + 9, y + 2, w - 18, h - (mobile ? 31 : 49)], true);
+    if (!display || equipped) this.texture(equipped ? 'worn' : 'lock', [x + 4, y + 4, 19, 19]);
+    this.label(EQUIPMENT[id].name, [x + 6, y + h - (mobile ? 31 : 49), w - 12, mobile ? 25 : 28],
+      mobile ? 12 : 13, { wrap: true });
+    if (!mobile) this.label(equipped ? 'Đang trang bị' : display ? 'Đã sở hữu' : 'Chưa sở hữu',
+      [x + 11, y + h - 22, w - 22, 16], 11, { color: equipped ? '#c7ef9b' : '#ecd3a1' });
+    if (this.modal) return;
+    const hit = this.hit(`weapon.${id}`, box).setInteractive({ useHandCursor: true });
+    const rest = icon.scaleX;
+    hit.on('pointerover', () => icon.setScale(rest * 1.05)).on('pointerout', () => icon.setScale(rest))
+      .on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        icon.setScale(rest * .96);
+        if (mobile) this.pressedAt = { id: pointer.id, x: pointer.x };
+      }).on('pointerup', (pointer: Phaser.Input.Pointer) => {
+        icon.setScale(rest);
+        if (!mobile || !this.pressedAt || Math.abs(pointer.x - this.pressedAt.x) < 26 * this.root.scaleX) {
+          this.pressedAt = undefined;
+          this.choose(id);
+        }
+      });
+  }
+
+  private preview([x, y, w, h]: Rect, mobile: boolean, changed: boolean) {
+    const id = this.selected;
+    this.frame('center', [x, y, w, h], 76, .78);
+    const artHeight = mobile ? 158 : 380;
+    const halo = this.texture('glow', [x + w * .10, y + 4, w * .80, artHeight], .64);
+    if (isSignature(id)) halo.setTint(SignatureConfig[id].color);
+    this.texture('altar', [x + w * .10, y + artHeight - (mobile ? 44 : 107), w * .80, mobile ? 56 : 140], .43);
+    this.texture('brazier', [x + w * .12, y + artHeight - (mobile ? 65 : 144), w * .76, mobile ? 81 : 181]);
+    this.texture('embers', [x + w * .06, y + 10, w * .88, artHeight], .78);
+    const art = this.weapon(id, [x + w * .17, y + (mobile ? 1 : 8), w * .66, artHeight - (mobile ? 8 : 22)]);
+    const nameY = y + (mobile ? 150 : 362);
+    this.frame('name', [x + w * .08, nameY, w * .84, mobile ? 33 : 46], 32);
+    this.label(EQUIPMENT[id].name, [x + w * .15, nameY, w * .70, mobile ? 33 : 46], mobile ? 17 : 26, { color: gold })
+      .setName('forge.preview.name');
+    this.label(`${number.format(this.shards)}/${FORGE.shardsRequired} Mảnh Thần Binh`,
+      [x + 12, nameY + (mobile ? 34 : 48), w - 24, mobile ? 21 : 27], mobile ? 14 : 20);
+    const bar: Rect = [x + w * .15, nameY + (mobile ? 58 : 77), w * .70, mobile ? 13 : 19];
+    this.frame('track', bar, 12);
+    if (this.shards > 0) {
+      const fillW = (bar[2] - 6) * Math.min(1, this.shards / FORGE.shardsRequired);
+      const fill = this.texture('fill', [bar[0] + 3, bar[1] + 2, fillW, bar[3] - 4]);
+      fill.setDisplaySize(fillW, bar[3] - 4);
+    }
+    if (!this.modal) {
+      const restingY = art.y;
+      if (changed) {
+        art.setAlpha(.35);
+        this.motion.push(this.tweens.add({ targets: art, alpha: 1, duration: 180, ease: 'Sine.Out' }));
       }
-      this.toast('Đã nhận vũ khí SSR và mở Skin Thần Binh.');
+      this.motion.push(this.tweens.add({ targets: art, y: restingY - (mobile ? 3 : 7),
+        ease: 'Sine.InOut', duration: 1350, yoyo: true, repeat: -1 }));
+    }
+  }
+
+  private details([x, y, w, h]: Rect, mobile: boolean) {
+    const id = this.selected;
+    const signature = isSignature(id) ? SignatureConfig[id] : undefined;
+    const { copies, display, equipped } = this.gear(id);
+    const stats = display ? gearStats(display) : gearStats({ uid: '', itemId: id, level: 1 });
+    const titleW = w - 86;
+    const weapon = EQUIPMENT[id];
+    this.frame('panel', [x, y, w, h], 110);
+    this.texture('rarity', [x + 10, y + 7, mobile ? 51 : 59, mobile ? 33 : 46]);
+    this.label(weapon.rarity, [x + 10, y + 7, mobile ? 51 : 59, mobile ? 33 : 46], mobile ? 14 : 18, { color: gold });
+    this.label(weapon.name, [x + 68, y + (mobile ? 9 : 13), titleW - 24, mobile ? 29 : 37], mobile ? 17 : 21,
+      { left: true, color: gold });
+    const hero = signature ? HERO_BY_ID[signature.hero]?.name : undefined;
+    const owner = equipped?.heroId ? HERO_BY_ID[equipped.heroId]?.name : undefined;
+    const status = equipped ? (owner ? `Đang trang bị · ${owner}` : 'Đang trang bị')
+      : copies.length ? `Đã sở hữu · ${number.format(copies.length)} món` : 'Chưa sở hữu';
+    const stage = FORGE.weekly.stage;
+    const first = Object.entries(FORGE.firstClear).map(([id, amount]) => `${id} +${amount}`).join('  •  ');
+    const week = weeklyWins(gameStore.snapshot.forge);
+    const statEntries: [string, number][] = [['HP', stats.hp], ['Công', stats.atk], ['Thủ', stats.def]];
+    if (stats.speed) statEntries.push(['Tốc độ', stats.speed]);
+    const level = display ? `+${enhancement(display)}` : '+0';
+    if (mobile) {
+      this.label([hero ? `Độc quyền: ${hero}` : 'Vũ khí SSR', status].join('  ·  '),
+        [x + 15, y + 38, w - 30, 24], 13);
+      this.texture('divider', [x + 20, y + 61, w - 40, 8]);
+      this.label(`${level}   ${statEntries.map(([name, value]) => `${name} +${number.format(value)}`).join('  ·  ')}`,
+        [x + 14, y + 67, w - 28, 23], 15, { color: gold });
+      if (signature) this.label(`Kỹ năng Nộ của ${hero} · Sát thương +${Math.round(signature.bonus * 100)}%`,
+        [x + 12, y + 92, w - 24, 23], 14);
+      this.label(`Mảnh Thần Binh · Lần đầu: ${first}`, [x + 12, y + 120, w - 24, 24], 14, { color: gold });
+      this.label(`Thắng lại ${stage}: +${FORGE.weekly.shards} mảnh · Tuần này ${week}/${FORGE.weekly.limit}`,
+        [x + 12, y + 149, w - 24, 25], 14);
+      return;
+    }
+    this.label(hero ? `Võ tướng độc quyền · ${hero}` : 'Vũ khí SSR', [x + 21, y + 57, w - 42, 27], 17);
+    this.label(status, [x + 21, y + 84, w - 42, 27], 16, { color: equipped ? '#c9ef9e' : '#f8d6a1' });
+    this.texture('divider', [x + 24, y + 111, w - 48, 15]);
+    this.label(`Thuộc tính ${level}`, [x + 24, y + 128, w - 48, 29], 20, { color: gold });
+    statEntries.forEach(([name, value], index) => {
+      const inset = 37;
+      this.label(name, [x + inset, y + 162 + index * 23, w / 2, 23], 16, { left: true });
+      this.label(`+${number.format(value)}`, [x + w - 126, y + 162 + index * 23, 100, 23], 17, { color: '#fbdf92' });
+    });
+    const infoY = y + 249;
+    this.label('Hiệu ứng kỹ năng', [x + 24, infoY, w - 48, 27], 19, { color: gold });
+    this.label(signature ? `Kỹ năng Nộ của ${hero} · Sát thương +${Math.round(signature.bonus * 100)}%`
+      : 'Hiệu lực theo thuộc tính trang bị', [x + 26, infoY + 28, w - 52, 27], 16);
+    this.texture('divider', [x + 24, infoY + 59, w - 48, 14]);
+    this.label('Nguồn Mảnh Thần Binh', [x + 20, infoY + 73, w - 40, 28], 19, { color: gold });
+    const sources = [
+      { title: 'Thưởng vượt ải lần đầu', detail: first, icon: 'campaign' },
+      { title: `Thắng lại ${stage} · +${FORGE.weekly.shards} mảnh`, detail: `Tuần này: ${week}/${FORGE.weekly.limit} lượt · Làm mới thứ Hai`, icon: 'shard' },
+    ];
+    sources.forEach((source, index) => {
+      const rowY = infoY + 103 + index * 52;
+      this.frame('reward', [x + 19, rowY, w - 38, 47], 54);
+      this.texture(source.icon, [x + 31, rowY + 8, 31, 31]);
+      this.label(source.title, [x + 70, rowY + 6, w - 96, 17], 14, { left: true, color: gold });
+      this.label(source.detail, [x + 70, rowY + 23, w - 96, 17], 12, { left: true });
+    });
+  }
+
+  private actions(craft: Rect, campaign: Rect) {
+    this.button('craft', `Rèn · ${FORGE.shardsRequired} mảnh`, craft, 'gold',
+      this.modal ? undefined : () => this.openForge(),
+      { icon: 'anvil', muted: this.shards < FORGE.shardsRequired || !cloudRepository.active });
+    this.button('campaign', 'Đến Chinh Chiến', campaign, 'red',
+      this.modal ? undefined : () => this.scene.start('Campaign'), { icon: 'campaign' });
+  }
+
+  private drawModal(canvas: Rect, mobile: boolean) {
+    const modal = this.modal!;
+    const blocker = this.add.rectangle(canvas[0], canvas[1], canvas[2], canvas[3], 0x150606, .82)
+      .setOrigin(0).setInteractive();
+    blocker.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, ev: Phaser.Types.Input.EventData) => ev.stopPropagation());
+    this.content.add(blocker);
+    const w = mobile ? 474 : 570, h = mobile ? 316 : 400;
+    const x = (this.width - w) / 2, y = (this.height - h) / 2;
+    const success = modal.kind === 'success';
+    this.frame(success ? 'success' : 'panel', [x, y, w, h], 110);
+    if (!success) this.frame('parchment', [x + 18, y + 52, w - 36, h - 70], 100);
+    this.texture('title', [x + 24, y - 13, w - 48, 80]);
+    const title = { shortage: 'Không đủ mảnh', confirm: 'Xác nhận rèn', pending: 'Đang rèn…',
+      success: 'Rèn thành công', error: 'Chưa xác nhận giao dịch' }[modal.kind];
+    this.label(title, [x + 63, y, w - 115, 54], mobile ? 24 : 28, { color: gold });
+    const artHeight = mobile ? 120 : 159;
+    const artBox: Rect = [x + w * .28, y + 56, w * .44, artHeight];
+    if (success) {
+      const flare = this.texture('sigil', [x + 18, y + 45, w - 36, artHeight + 27], .65);
+      this.motion.push(this.tweens.add({ targets: flare, alpha: { from: .55, to: 1 }, duration: 700,
+        ease: 'Sine.InOut', yoyo: true, repeat: 1 }));
+      this.texture('embers', [x + 30, y + 60, w - 60, artHeight]);
+    }
+    if (modal.kind === 'shortage') this.texture('shard', artBox);
+    else this.weapon(modal.command.itemId, artBox);
+    const lineY = artBox[1] + artHeight + 4;
+    const name = modal.kind === 'shortage' ? 'Mảnh Thần Binh'
+      : EQUIPMENT[modal.command.itemId].name;
+    const description = modal.kind === 'shortage'
+      ? `Hiện có ${number.format(this.shards)}/${FORGE.shardsRequired} mảnh · Còn thiếu ${FORGE.shardsRequired - this.shards}`
+      : modal.kind === 'success' ? 'Vũ khí đã được lưu vào Túi Đồ.'
+      : modal.kind === 'confirm' ? `Dùng ${FORGE.shardsRequired} Mảnh Thần Binh từ kho chung.`
+      : modal.kind === 'pending' ? 'Đang chờ xác nhận từ máy chủ.'
+      : modal.message;
+    this.label(name, [x + 24, lineY, w - 48, 32], 22, { color: success ? gold : '#45140c' });
+    this.label(description, [x + 26, lineY + 34, w - 52, mobile ? 42 : 55], 16,
+      { color: success ? cream : '#522314', wrap: true });
+    const buttonY = y + h - 64;
+    const left: Rect = [x + 35, buttonY, w / 2 - 46, 47];
+    const right: Rect = [x + w / 2 + 11, buttonY, w / 2 - 46, 47];
+    if (modal.kind === 'success' || modal.kind === 'pending') {
+      this.button('close', success ? 'Đồng ý' : 'Đang chờ máy chủ', [x + w * .23, buttonY, w * .54, 47], 'gold',
+        success ? () => this.closeModal() : undefined);
+    } else {
+      this.button('cancel', modal.kind === 'confirm' ? 'Hủy' : 'Đóng', left, 'back', () => this.closeModal());
+      if (modal.kind === 'shortage') this.button('modal.campaign', 'Đến Chinh Chiến', right, 'gold',
+        () => this.scene.start('Campaign'));
+      else if (modal.kind === 'error' && modal.message === cloudMessage('conflict')) {
+        this.button('confirm', 'Xem lại yêu cầu', right, 'gold', () => {
+          this.modal = undefined;
+          this.openForge();
+        });
+      } else {
+        this.button('confirm', modal.kind === 'error' ? 'Thử lại' : 'Xác nhận rèn', right, 'gold',
+          () => void this.forge(modal.command));
+      }
     }
   }
 }
