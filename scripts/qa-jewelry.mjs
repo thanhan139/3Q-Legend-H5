@@ -23,6 +23,7 @@ const save = baseSave();
 save.heroes = ['zhang-fei','guan-yu','liu-bei','zhao-yun','lu-bu','diao-chan'];
 save.clearedStages = STAGES.map(stage => stage.id);
 save.jewelryEssence = 75;
+save.copper = 5000;
 save.jewelry = JEWELRY_ITEMS.map((item, i) => ({uid: crypto.randomUUID(), itemId: item.id, level: 10,
   ...(['ring_ssr_phoenix','necklace_ssr_phoenix'].includes(item.id) ? {heroId:'guan-yu'} : {})}));
 const owner = 'jewelry-fixture';
@@ -162,7 +163,7 @@ try {
   assert.equal(await page.evaluate(() => window.qa.gameStore.snapshot.jewelry.length), 1);
   const replaceWithSSR = level => page.evaluate(level => {
     const save = window.qa.gameStore.snapshot;
-    window.qa.replace({ ...save, coins: 50_000, jewelryEssence: 300, jewelry: [
+    window.qa.replace({ ...save, coins: 5000, copper: 50_000, jewelryEssence: 300, jewelry: [
       { uid: crypto.randomUUID(), itemId: 'ring_ssr_dragon', level, heroId: 'guan-yu' },
     ] });
   }, level);
@@ -183,8 +184,9 @@ try {
   await expectText('Thất bại · +49 → +47');
   const failed = await page.evaluate(() => window.qa.gameStore.snapshot);
   assert.equal(failed.jewelry[0].level, 47);
-  assert.equal(failed.coins, 40_100);
-  assert.equal(failed.jewelryEssence, 255);
+  assert.equal(failed.copper, 40_100);
+  assert.equal(failed.coins, 5000);
+  assert.equal(failed.jewelryEssence, 180);
   await capture(844,390,'-failed');
   await click('#jewelry.enhance.next', true);
   await expectText('+47 → +48');

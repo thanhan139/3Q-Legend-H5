@@ -1,4 +1,4 @@
-import { JEWELRY, jewelryEnhancement, type JewelryItem } from '../src/domain/jewelry';
+import { JEWELRY, JEWELRY_ESSENCE_PER_ITEM, JEWELRY_ITEMS, jewelryEnhancement, type JewelryItem } from '../src/domain/jewelry';
 import { makeArenaBattle, makeStageBattle, type ArenaSquad } from '../src/domain/battle';
 import { STAGES } from '../src/data/campaign';
 import { HEROES, heroFamily } from '../src/data/heroes';
@@ -6,11 +6,14 @@ import { formationPower } from '../src/domain/progression';
 import { baseSave } from '../src/domain/store';
 
 const thresholds = [10, 20, 30, 40, 50];
-const budgets = [
-  { gold: 100_000, essence: 1600 },
-  { gold: 1_000_000, essence: 10_000 },
-  { gold: 10_000_000, essence: 100_000 },
-  { gold: 50_000_000, essence: 500_000 },
+const campaignEssence = JEWELRY_ESSENCE_PER_ITEM * JEWELRY_ITEMS.length;
+const goldPerEssence = 100;
+const horizons = [1, 7, 30, 90, 180, 365];
+const scenarios = [
+  { name: 'campaign only, Copper funded', essencePerDay: 0, copperPerDay: null },
+  { name: '100/day, Copper funded', essencePerDay: 100, copperPerDay: null },
+  { name: '300/day with hypothetical 100k Copper/day', essencePerDay: 300, copperPerDay: 100_000 },
+  { name: '999/day limit, Copper funded (upper bound)', essencePerDay: 999, copperPerDay: null },
 ];
 const catalog = ['ring_r_blue', 'ring_sr_green', 'ring_ssr_dragon'];
 const uuid = (i: number) => `00000000-0000-4000-8000-${String(i + 1).padStart(12, '0')}`;
@@ -50,7 +53,7 @@ function economy(itemId: string, journeys: number, random: () => number) {
   });
   const expected = {
     attempts: exactExpectation(rules, () => 1),
-    gold: exactExpectation(rules, rule => rule.gold),
+    copper: exactExpectation(rules, rule => rule.copper),
     essence: exactExpectation(rules, rule => rule.essence * rule.p + rule.failEssence * (1 - rule.p)),
     downgrades: exactExpectation(rules, (rule, level) => rule.failLevel < level ? 1 - rule.p : 0),
     checkpointActivations: exactExpectation(rules, (rule, level) =>
@@ -58,25 +61,33 @@ function economy(itemId: string, journeys: number, random: () => number) {
   };
   const metrics = Object.keys(expected) as (keyof typeof expected)[];
   const grade = JEWELRY[itemId].rarity;
-  const samples = thresholds.map(() => ({ attempts: [], gold: [], essence: [], downgrades: [], checkpointActivations: [] }) as
+  const samples = thresholds.map(() => ({ attempts: [], copper: [], essence: [], downgrades: [], checkpointActivations: [] }) as
     Record<keyof typeof expected, number[]>);
-  const successes = budgets.map(() => 0);
+  const daily = thresholds.map(() => scenarios.map(() => [] as number[]));
+  const goldAfterCampaign = thresholds.map(() => [] as number[]);
   const downgradeHistogram = [0, 0, 0, 0];
   let attemptsTo50 = 0, blockedByCheckpoint = 0;
   for (let n = 0; n < journeys; n++) {
     let level = 0, milestone = 0, essenceRequired = 0;
-    const running = { attempts: 0, gold: 0, essence: 0, downgrades: 0, checkpointActivations: 0 };
+    const running = { attempts: 0, copper: 0, essence: 0, downgrades: 0, checkpointActivations: 0 };
     while (level < 50) {
       const r = rules[level];
       const win = random() < r.p;
       running.attempts++;
-      running.gold += r.gold;
+      running.copper += r.copper;
       essenceRequired = Math.max(essenceRequired, running.essence + r.essence);
       running.essence += win ? r.essence : r.failEssence;
       if (win) {
         level++;
         if (level === thresholds[milestone]) {
           for (const metric of metrics) samples[milestone][metric].push(running[metric]);
+          goldAfterCampaign[milestone].push(Math.max(0, running.essence - campaignEssence) * goldPerEssence);
+          for (const [i, s] of scenarios.entries()) {
+            const need = Math.max(0, essenceRequired - campaignEssence);
+            const essenceDays = need === 0 ? 1 : s.essencePerDay ? Math.ceil(need / s.essencePerDay) : Infinity;
+            const copperDays = s.copperPerDay ? Math.ceil(running.copper / s.copperPerDay) : 1;
+            daily[milestone][i].push(Math.max(essenceDays, copperDays));
+          }
           milestone++;
         }
       } else {
@@ -89,7 +100,6 @@ function economy(itemId: string, journeys: number, random: () => number) {
     }
     attemptsTo50 += running.attempts;
     blockedByCheckpoint += running.checkpointActivations;
-    for (const [i, b] of budgets.entries()) if (running.gold <= b.gold && essenceRequired <= b.essence) successes[i]++;
   }
   return {
     grade, journeys,
@@ -98,9 +108,20 @@ function economy(itemId: string, journeys: number, random: () => number) {
       metrics: Object.fromEntries(metrics.map(metric => [metric, {
         ...summary(samples[index][metric]), expected: expected[metric][level],
       }])),
+      goldAllFromShop: { ...summary(samples[index].essence.map(n => n * goldPerEssence)),
+        expected: expected.essence[level] * goldPerEssence },
+      goldAfterCampaign: summary(goldAfterCampaign[index]),
+      timelines: scenarios.map((s,i) => {
+        const days = daily[index][i].sort((a,b) => a-b);
+        const pct = (p: number) => {
+          const value = days[Math.ceil(p*journeys)-1];
+          return Number.isFinite(value) ? value : null;
+        };
+        return { ...s, withinDays: Object.fromEntries(horizons.map(h => [h,days.filter(d => d <= h).length / journeys])),
+          daysP50: pct(.5), daysP90: pct(.9), daysP99: pct(.99) };
+      }),
     })),
     downgradeHistogram, checkpointActivationRatePerAttempt: blockedByCheckpoint / attemptsTo50,
-    reach50ByBudget: budgets.map((b, i) => ({ ...b, successes: successes[i], probability: successes[i] / journeys })),
   };
 }
 
@@ -126,7 +147,7 @@ function combat(random: () => number) {
     ] : []),
   });
   const count = 600;
-  const tiers = [undefined, 0, 40, 50];
+  const tiers = [undefined, 0, 30, 40, 50];
   const result = tiers.map(level => ({ level: level ?? null, pveWins: 0, pvpWins: 0, averagePower: 0 }));
   for (let i = 0; i < count; i++) {
     const size = 3 + Math.floor(random() * 4);
@@ -144,6 +165,7 @@ function combat(random: () => number) {
 }
 
 export function simulate(journeys: number) {
-  return { seed, economy: catalog.map((itemId, index) => economy(itemId, journeys, simulationRng(seed + index))),
+  return { rulesVersion: 3, goldPerEssence, campaignEssence, verifiedDailyMissionEssence: 0, seed,
+    economy: catalog.map((itemId, index) => economy(itemId, journeys, simulationRng(seed + index))),
     combat: combat(simulationRng(seed ^ 0xa3717c3f)) };
 }

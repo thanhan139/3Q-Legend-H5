@@ -191,10 +191,10 @@ export class GameStore {
     const item = next.jewelry.find(candidate => candidate.uid === uid);
     if (!item) return false;
     const cost = jewelryEnhancement(item);
-    if (!cost || walletBalance(next).gold < cost.gold || inventoryQuantity(next, ITEM_IDS.jewelryEssence) < cost.essence) return false;
+    if (!cost || walletBalance(next).copper < cost.copper || inventoryQuantity(next, ITEM_IDS.jewelryEssence) < cost.essence) return false;
     const receipt = resolveJewelryEnhancement(item, roll);
     if (!receipt || !changeInventory(next, ITEM_IDS.jewelryEssence, -receipt.essenceSpent)) return false;
-    next.coins -= receipt.goldSpent;
+    next.copper = (next.copper ?? 0) - receipt.copperSpent;
     item.level = receipt.toLevel;
     item.highestCheckpoint = receipt.highestCheckpoint;
     return this.commit(next) ? receipt : false;
@@ -243,8 +243,8 @@ export class GameStore {
       if (EQUIPMENT[item.itemId].rarity !== 'SSR' || !changeInventory(next, ITEM_IDS.enhancementStone, -1)) return false;
     } else {
       const cost = enhanceCost(item);
-      if (walletBalance(next).gold < cost) return false;
-      next.coins -= cost;
+      if (walletBalance(next).copper < cost) return false;
+      next.copper = (next.copper ?? 0) - cost;
     }
     item.level++;
     return this.commit(next);

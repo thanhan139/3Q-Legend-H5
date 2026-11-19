@@ -1,6 +1,7 @@
 import { makeStageBattle } from '../../../src/domain/battle';
 import { baseSave, GameStore } from '../../../src/domain/store';
 import { STAGES } from '../../../src/data/campaign';
+import { JEWELRY_RULES_VERSION } from '../../../src/domain/jewelry';
 import { DAILY_MISSIONS } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
 import type { BattleTicket, GameCommand, GameIntent } from '../../../src/cloud/gameProtocol';
@@ -46,17 +47,18 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
     case 'jewelryEquip': return idOK(command.uid) && idOK(command.heroId) && store.equipJewel(command.uid, command.heroId);
     case 'jewelryUnequip': return idOK(command.uid) && store.unequipJewel(command.uid);
     case 'jewelryEnhance': {
-      if (!idOK(command.uid) || command.rulesVersion !== 2) return false;
+      if (!idOK(command.uid) || command.rulesVersion !== JEWELRY_RULES_VERSION) return false;
       // HMAC is keyed by the server secret. A racing copy of the same request can
       // compute the same sample, but a retry cannot get a different outcome.
-      const digest = await backend.sign(JSON.stringify(['jewelry-enhancement-v2', uid, requestId, command.uid]));
+      const digest = await backend.sign(JSON.stringify(['jewelry-enhancement-v3', uid, requestId, command.uid]));
       if (!/^[0-9a-f]{64}$/.test(digest)) throw new Error('Invalid server enhancement sample');
       return store.enhanceJewel(command.uid, Number.parseInt(digest.slice(0, 12), 16) / 2 ** 48);
     }
     case 'jewelryClaim': return idOK(command.stageId) && store.claimJewelry(command.stageId, () => crypto.randomUUID());
     case 'equip': return idOK(command.uid) && idOK(command.heroId) && store.equipGear(command.uid, command.heroId);
     case 'unequip': return idOK(command.uid) && store.unequipGear(command.uid);
-    case 'enhance': return idOK(command.uid) && typeof command.useStone === 'boolean' &&
+    case 'enhance': return idOK(command.uid) && (command.useStone === true ||
+      (command.useStone === false && command.feeCurrency === 'copper')) &&
       store.enhanceGear(command.uid, command.useStone);
     case 'skin': return idOK(command.uid) && store.togglePrestigeSkin(command.uid);
     case 'forge': return idOK(command.itemId) && Number.isSafeInteger(command.expectedCrafted) &&

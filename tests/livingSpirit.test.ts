@@ -25,7 +25,7 @@ describe('Living Spirit Phase 2A + 2B',()=>{
  it('gates expansion power-up by confirmed ownership and enhancement too',()=>{
   for(const id of ['lu-bu','zhuge-liang','diao-chan']){
    const before=baseSave();before.equipment=[{uid:id,itemId:'blade',level:1,heroId:id}];
-   const after=structuredClone(before);after.equipment![0].level=2;const command={type:'enhance',uid:id,useStone:false} as const;
+   const after=structuredClone(before);after.equipment![0].level=2;const command={type:'enhance',uid:id,useStone:false,feeCurrency:'copper'} as const;
    expect(confirmedSpiritUpgrade(before,after,id,command,true)).toBe(`${id}:${id}:2`);
    expect(confirmedSpiritUpgrade(before,after,id,command,false)).toBeUndefined();
    expect(confirmedSpiritUpgrade(before,before,id,command,true)).toBeUndefined();
@@ -47,7 +47,7 @@ describe('Living Spirit Phase 2A + 2B',()=>{
  it('requires a successful receipt and a confirmed level increase of the selected owner gear',()=>{
   const before=baseSave();before.equipment=[{uid:'weapon',itemId:'blade',level:1,heroId:'guan-yu'}];
   const after=structuredClone(before);after.equipment![0].level=2;
-  const command={type:'enhance',uid:'weapon',useStone:false} as const;
+  const command={type:'enhance',uid:'weapon',useStone:false,feeCurrency:'copper'} as const;
   expect(confirmedSpiritUpgrade(before,after,'guan-yu',command,true)).toBe('guan-yu:weapon:2');
   expect(confirmedSpiritUpgrade(before,after,'guan-yu',command,false)).toBeUndefined();
   expect(confirmedSpiritUpgrade(before,before,'guan-yu',command,true)).toBeUndefined();

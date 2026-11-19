@@ -242,21 +242,22 @@ describe('Equipment', () => {
     expect((await openStore()).snapshot).toEqual(store.snapshot);
   });
 
-  it('spends real gold, preserves the state on write failure, and rejects insufficient funds and max level', async () => {
+  it('spends real copper, preserves the state on write failure, and rejects insufficient funds and max level', async () => {
     const gear = { uid: 'campaign:1-1', itemId: 'armor', level: 1 };
-    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 250, equipment: [gear] }));
+    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 250, copper: 250, equipment: [gear] }));
     const store = await openStore();
     vi.spyOn(localStorage, 'setItem').mockImplementationOnce(() => { throw Error('full'); });
     expect(store.enhanceGear(gear.uid)).toBe(false);
-    expect(store.snapshot).toMatchObject({ coins: 250, equipment: [gear] });
+    expect(store.snapshot).toMatchObject({ coins: 250, copper: 250, equipment: [gear] });
     expect(store.enhanceGear(gear.uid)).toBe(true);
     expect(store.enhanceGear(gear.uid)).toBe(false);
-    expect((await openStore()).snapshot).toMatchObject({ coins: 0, equipment: [{ ...gear, level: 2 }] });
+    expect((await openStore()).snapshot).toMatchObject({ coins: 250, copper: 0, equipment: [{ ...gear, level: 2 }] });
     saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 9000, equipment: [{ ...gear, level: 10 }] }));
     expect((await openStore()).enhanceGear(gear.uid)).toBe(false);
   });
 
   it('uses equipped HP, ATK, DEF and SPD in combat and leaves other units unchanged', async () => {
+    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, copper: 5000 }));
     const store = await openStore();
     for (const id of ['1-1', '1-2', '1-3', '1-4', '1-5']) store.completeStage(id);
     for (const id of ['1-1', '1-2', '1-5']) expect(store.equipGear('campaign:' + id, 'zhang-fei')).toBe(true);
@@ -284,7 +285,7 @@ describe('Equipment rarity', () => {
       { uid: 'sr', itemId: 'eliteArmor', level: 10 },
       { uid: 'ssr', itemId: 'imperialArmor', level: 15 },
     ];
-    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 100000, equipment: items }));
+    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, copper: 100000, equipment: items }));
     const store = await openStore();
     for (const item of items) {
       expect(store.enhanceGear(item.uid)).toBe(true);
@@ -415,7 +416,7 @@ describe('Thần Binh economy', () => {
   });
 
   it('lets free and premium gear reach the same cap and grants the demo once', async () => {
-    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 200000, forge: { shards: 50 } }));
+    saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 5000, copper: 200000, forge: { shards: 50 } }));
     const store = await openStore();
     expect(store.forgeWeapon('dragonBlade', 0)).toBe(true);
     expect(store.claimPremiumForgeDemo('phoenixSpear')).toBe(true);
@@ -475,7 +476,7 @@ it('recomputes faction thresholds from the saved formation after a replacement',
 
 it('forges all six signatures and keeps normal and signature weapon slots separate after reload', async () => {
   const { signatureIds } = await import('../src/data/signatureConfig');
-  saves.set(storageKey, JSON.stringify({ schemaVersion: 2, coins: 5000, forge: { shards: 300 },
+  saves.set(storageKey, JSON.stringify({ schemaVersion: 2, copper: 5000, forge: { shards: 300 },
     equipment: [{ uid: 'old', itemId: 'blade', level: 4, heroId: 'guan-yu' }] }));
   const store = await openStore();
   signatureIds.forEach((id, index) => expect(store.forgeWeapon(id, index)).toBe(true));

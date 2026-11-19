@@ -25,7 +25,7 @@ const ring = (heroId = hero): JewelryItem => ({ uid: uid(1), itemId: 'ring_ssr_d
 const necklace = (heroId = hero): JewelryItem => ({ uid: uid(2), itemId: 'necklace_ssr_dragon', level: 0, heroId });
 const memory = { read: () => null, write: () => {} };
 const saveWith = (jewelry: JewelryItem[], extra: Partial<SaveV2> = {}): SaveV2 =>
-  ({ ...baseSave(), formation, jewelryEssence: 30, jewelry, ...extra });
+  ({ ...baseSave(), copper: 5_000, formation, jewelryEssence: 30, jewelry, ...extra });
 const stage = (items: JewelryItem[] = []) => makeStageBattle(STAGES[0], formation, {}, {}, [], 0, items);
 const heroStat = (items: JewelryItem[]) => heroStats(HERO_BY_ID[hero], 0, 1, [], items);
 const firstStrike = (battle: BattleEngine, actions = 0, skill = false) => {
@@ -107,13 +107,13 @@ describe('Trang Sức', () => {
     expect(jewelryBonus(hero, [ring(), { ...necklace(), itemId: 'necklace_ssr_tiger' }]).activeSet).toBeNull();
     const flat = jewelryBonus(hero, set).stats;
     expect(heroStat(set).atk).toBe(Math.round((heroStat([]).atk + flat.atk) * 1.02));
-    const store = new GameStore(memory, saveWith([{ ...ring(), level: 49 }, necklace()], { coins: 20_000, jewelryEssence: 100 }));
+    const store = new GameStore(memory, saveWith([{ ...ring(), level: 49 }, necklace()], { copper: 20_000, jewelryEssence: 120 }));
     const cost = jewelryEnhancement(store.snapshot.jewelry![0])!;
     const before = formationPower(store.snapshot);
     expect(store.enhanceJewel(uid(1), .009)).toMatchObject({ success: true, fromLevel: 49, toLevel: 50, highestCheckpoint: 40 });
     expect(store.snapshot.jewelry?.[0].level).toBe(50);
-    expect(store.snapshot.coins).toBe(20_000 - cost.gold);
-    expect(store.snapshot.jewelryEssence).toBe(100 - cost.essence);
+    expect(store.snapshot.copper).toBe(20_000 - cost.copper);
+    expect(store.snapshot.jewelryEssence).toBe(120 - cost.essence);
     expect(store.enhanceJewel(uid(1), 0)).toBe(false);
     expect(formationPower(store.snapshot)).toBeGreaterThan(before);
     const poor = new GameStore(memory, saveWith(set, { jewelryEssence: 0 }));
@@ -132,9 +132,33 @@ describe('Trang Sức', () => {
     if (chance < 100) expect(resolveJewelryEnhancement(item, chance / 100)).toMatchObject({ success: false, toLevel: failLevel });
   });
 
+  it('uses V3 essence and failure costs for every target and rounds after rarity scaling', () => {
+    const tiers = [[9,1,0,1],[10,2,50,2],[19,3,50,2],[20,8,60,3],[29,8,60,3],
+      [30,18,75,5],[39,20,75,5],[40,40,100,8],[49,45,100,8],[50,120,100,15]];
+    for (const [itemId, share, base, step] of [
+      ['ring_r_blue',.5,70,5], ['ring_sr_green',.75,110,7], ['ring_ssr_dragon',1,170,10],
+    ] as const) {
+      for (let level=0;level<50;level++) {
+        const [,ssr,fail,factor] = tiers.find(([last]) => last >= level+1)!;
+        const essence = Math.ceil(ssr*share);
+        const item = {...ring(),itemId,level};
+        expect(jewelryEnhancement(item)).toMatchObject({
+          essence, failEssence:Math.ceil(essence*fail/100), copper:(base+level*step)*factor,
+        });
+        if (fail) expect(resolveJewelryEnhancement(item,.999)).toMatchObject({essenceSpent:Math.ceil(essence*fail/100)});
+      }
+    }
+  });
+
+  it('keeps Gold untouched and rejects a V3 enhancement when Copper is missing', () => {
+    const store = new GameStore(memory, saveWith([ring()],{copper:0,coins:100_000}));
+    expect(store.enhanceJewel(uid(1),0)).toBe(false);
+    expect(store.snapshot).toMatchObject({copper:0,coins:100_000,jewelry:[ring()]});
+  });
+
   it('backfills legacy checkpoints without changing levels, and a committed downgrade updates combat and power', () => {
     const legacyRing = { ...ring(), level: 49 };
-    const legacySave = saveWith([legacyRing, necklace()], { coins: 20_000, jewelryEssence: 90 });
+    const legacySave = saveWith([legacyRing, necklace()], { copper: 20_000, jewelryEssence: 120 });
     expect(normalizeSave(legacySave).jewelry?.[0]).toMatchObject({ level: 49, highestCheckpoint: 40 });
     expect(normalizeSave(saveWith([{ ...ring(), level: 8, highestCheckpoint: 40 }])).jewelry?.[0])
       .toMatchObject({ level: 8 });
@@ -143,11 +167,12 @@ describe('Trang Sức', () => {
     const arena = makeArenaBattle(arenaSquad(legacySave), arenaSquad(saveWith([])));
     const replay = structuredClone(arena.units);
     expect(store.enhanceJewel(uid(1), .9)).toMatchObject({
-      success: false, fromLevel: 49, toLevel: 47, goldSpent: 9_900, essenceSpent: 45, highestCheckpoint: 40,
+      success: false, fromLevel: 49, toLevel: 47, copperSpent: 9_900, essenceSpent: 120, highestCheckpoint: 40,
     });
     const after = store.snapshot;
-    expect(after.coins).toBe(10_100);
-    expect(after.jewelryEssence).toBe(45);
+    expect(after.copper).toBe(10_100)
+    expect(after.coins).toBe(legacySave.coins);
+    expect(after.jewelryEssence).toBe(0);
     expect(stage(after.jewelry).units[0].maxHp).toBeLessThan(before.units[0].maxHp);
     expect(formationPower(after)).toBeLessThan(formationPower(legacySave));
     expect(makeArenaBattle(arenaSquad(after), arenaSquad(saveWith([]))).units[0].criticalChance!)
@@ -157,13 +182,13 @@ describe('Trang Sức', () => {
   });
 
   it.each([
-    ['ring_r_blue', 45, 23, 4725], ['ring_sr_green', 68, 34, 6795], ['ring_ssr_dragon', 90, 45, 9900],
-  ])('charges the exact +50 cost for %s and requires the full quoted balance', (itemId, essence, failEssence, gold) => {
+    ['ring_r_blue', 60, 60, 4725], ['ring_sr_green', 90, 90, 6795], ['ring_ssr_dragon', 120, 120, 9900],
+  ])('charges the exact +50 cost for %s and requires the full quoted balance', (itemId, essence, failEssence, copper) => {
     const item = { ...ring(), itemId, level: 49 };
-    expect(jewelryEnhancement(item)).toMatchObject({ essence, failEssence, gold });
-    const store = new GameStore(memory, saveWith([item], { coins: gold, jewelryEssence: essence - 1 }));
+    expect(jewelryEnhancement(item)).toMatchObject({ essence, failEssence, copper });
+    const store = new GameStore(memory, saveWith([item], { copper, jewelryEssence: essence - 1 }));
     expect(store.enhanceJewel(uid(1), 0.9)).toBe(false);
-    expect(store.snapshot.coins).toBe(gold);
+    expect(store.snapshot.copper).toBe(copper);
   });
 
   it('handles old saves, invalid IDs, duplicate slots and blocks jewelry from legacy imports', () => {
@@ -263,15 +288,15 @@ describe('Trang Sức', () => {
     expect(await send(claim, 'alice', 0, uid(10))).toMatchObject({ status: 'ok' });
     expect(await send(claim, 'alice', 1, uid(11))).toMatchObject({ status: 'rejected' });
     expect(await send({ type: 'jewelryEquip', uid: acquired.uid, heroId: hero }, 'bob', 0, uid(12))).toMatchObject({ status: 'rejected' });
-    const enhanced = { type: 'jewelryEnhance', uid: acquired.uid, rulesVersion: 2 } as const;
+    const enhanced = { type: 'jewelryEnhance', uid: acquired.uid, rulesVersion: 3 } as const;
     const responses = await Promise.all([send(enhanced, 'alice', 1, uid(13)), send(enhanced, 'alice', 1, uid(14))]);
     expect(responses.map(result => 'status' in result ? result.status : undefined).sort()).toEqual(['conflict', 'ok']);
     expect(rows.alice.state.jewelry![0].level).toBe(1);
-    expect(rows.alice.state.coins).toBe(baseSave().coins - jewelryEnhancement(acquired)!.gold);
+    expect(rows.alice.state.copper).toBe(5_000 - jewelryEnhancement(acquired)!.copper);
   });
 
   it('commits a failed server sample once even when the same request races or retries', async () => {
-    let state = saveWith([{ ...ring(), level: 39 }], { coins: 10_000, jewelryEssence: 100 });
+    let state = saveWith([{ ...ring(), level: 39 }], { copper: 10_000, jewelryEssence: 100 });
     let revision = 0;
     let recorded: JewelryEnhancementReceipt | undefined;
     const signed: string[] = [];
@@ -291,13 +316,13 @@ describe('Trang Sức', () => {
       },
     };
     const send = () => handleGameRequest({ action: 'command', revision: '0', requestId: uid(49),
-      command: { type: 'jewelryEnhance', uid: uid(1), rulesVersion: 2 } }, 'token', backend);
+      command: { type: 'jewelryEnhance', uid: uid(1), rulesVersion: 3 } }, 'token', backend);
     const double = await Promise.all([send(), send()]);
     expect(double[0]).toEqual(double[1]);
     expect(double[0]).toMatchObject({ status: 'ok', receipt: { success: false, fromLevel: 39, toLevel: 36 } });
     expect(revision).toBe(1);
-    expect(state.jewelryEssence).toBe(85);
-    expect(state.coins).toBe(5_520);
+    expect(state.jewelryEssence).toBe(60);
+    expect(state.copper).toBe(5_520);
     expect(new Set(signed).size).toBe(1);
     const count = signed.length;
     expect(await send()).toEqual(double[0]);
