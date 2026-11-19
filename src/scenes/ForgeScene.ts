@@ -147,7 +147,7 @@ export class ForgeScene extends UiScene {
     label(1066, 161, selected.name, 23, 352, '#ffe4aa', 62);
     label(1066, 206, 'THUỘC TÍNH THẦN BINH', 17, 350, '#f4c16d');
     line(1066, 230, 318);
-    const stats = selected.base;
+    const stats = selected.base as Partial<Record<'hp' | 'atk' | 'def', number>>;
     label(1066, 257, 'HP +' + (stats.hp ?? 0) + '   ·   Công +' + (stats.atk ?? 0) +
       '   ·   Thủ +' + (stats.def ?? 0), 15, 347, '#fff1d2', 38);
     if (signature) label(1066, 294,
