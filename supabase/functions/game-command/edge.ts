@@ -23,11 +23,12 @@ const legacyAllowed = Object.keys(legacyApprovals).length
   ? (uid: string, digest: string) => Object.hasOwn(legacyApprovals, uid) && legacyApprovals[uid] === digest
   : undefined;
 
+const stagingQa = (uid: string) => isStagingProject(env('SUPABASE_URL')) &&
+  (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
+
 const backend: GameBackend = {
-  shopTestEnabled(uid) {
-    return isStagingProject(env('SUPABASE_URL')) &&
-      (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
-  },
+  shopTestEnabled: stagingQa,
+  economyTestEnabled: stagingQa,
   async legacyShopEssenceUnits(uid, dayStart) {
     const { data, error } = await admin.rpc('game_legacy_shop_essence_units', {
       p_uid: uid, p_day_start: new Date(dayStart).toISOString(),
@@ -35,6 +36,13 @@ const backend: GameBackend = {
     if (error) throw error;
     if (!Number.isSafeInteger(data) || data < 0) throw new Error('Invalid legacy shop quota');
     return data;
+  },
+  async hasRankedWin(uid, dayStart, dayEnd) {
+    const { data, error } = await admin.from('arena_matches').select('request_id')
+      .eq('attacker', uid).eq('won', true).gte('played_at', new Date(dayStart).toISOString())
+      .lt('played_at', new Date(dayEnd).toISOString()).limit(1);
+    if (error) throw error;
+    return data.length === 1;
   },
   async claimVip(uid, requestId, revision, command) {
     const {data,error} = await admin.rpc('game_claim_vip', {p_uid:uid,p_request_id:requestId,

@@ -34,7 +34,7 @@ export function validateLegacy(value: unknown): SaveV2 {
       (item.heroId !== undefined && !raw.heroes.includes(item.heroId))))) return invalid();
 
   // Jewelry can only originate in an authenticated server transaction.
-  const { jewelry: _jewelry, jewelryEssence: _essence, shopPurchases: _shop, ...legacy } = raw;
+  const { jewelry: _jewelry, jewelryEssence: _essence, shopPurchases: _shop, copperDaily: _copperDaily, ...legacy } = raw;
   const save = normalizeSave(legacy);
   if (raw.formation.some((id, i) => id !== save.formation[i]) ||
     (raw.equipment?.some(item => !save.equipment?.some(kept => kept.uid === item.uid && kept.heroId === item.heroId)))) return invalid();

@@ -1,4 +1,5 @@
 import { changeInventory, heroShardId, inventoryQuantity, ITEM_IDS, walletBalance } from './resources';
+import { campaignCopper, copperDaily, COPPER_ECONOMY, normalizeCopperDaily } from './copperEconomy';
 import { isSignature } from '../data/signatureConfig';
 import { FORGE, forgeWeek, isForgeWeapon, normalizeForge, weeklyWins } from './forge';
 import type { EquipmentId } from '../data/equipmentConfig';
@@ -51,6 +52,7 @@ export function normalizeSave(data:unknown):SaveV2 {
   const shopPurchases = normalizeShopCounters(raw.shopPurchases);
   const jewelryEssence = Math.min(Number.MAX_SAFE_INTEGER, safeNumber(raw.jewelryEssence, 0));
   const equipment = normalizeEquipment(raw.equipment, heroes);
+  const copperActivity = normalizeCopperDaily(raw.copperDaily);
   const save: SaveV2 = {
     forge: normalizeForge(raw.forge, clearedStages),
     ...(equipment.length ? { equipment } : {}),
@@ -61,6 +63,7 @@ export function normalizeSave(data:unknown):SaveV2 {
     ...(raw.welfare ? { welfare: normalizeWelfare(raw.welfare) } : {}),
     schemaVersion: 2,
     ...(raw.copper === undefined ? {} : { copper: safeNumber(raw.copper, 0) }),
+    ...(copperActivity ? { copperDaily: copperActivity } : {}),
     trainingExp: raw.schemaVersion === 1
       ? STAGES.reduce((total, stage) => total + (clearedStages.includes(stage.id) ? stage.trainingReward : 0), 0)
       : safeNumber(raw.trainingExp, 0),
@@ -149,13 +152,23 @@ export class GameStore {
     return this.commit(next);
   }
 
-  claimDaily(key: Mission, day = welfareDay()): boolean {
+  claimDaily(key: Mission, day = welfareDay(), economyV14 = false): boolean {
     const next = this.snapshot;
     const { welfare, daily, missions } = welfareStatus(next, day);
     if (!missions.includes(key)) return false;
     grantWallet(next, DAILY_MISSIONS[key].reward);
+    if (economyV14) grantWallet(next, { copper: COPPER_ECONOMY.mission[key] });
     next.welfare = { ...welfare, daily: { ...daily, claimed: [...daily.claimed, key] } };
     return this.commit(next);
+  }
+
+  claimArenaCopper(day: number) {
+    const next = this.snapshot;
+    const daily = copperDaily(next, day);
+    if (daily.day !== day || daily.arenaClaimed) return false;
+    next.copperDaily = { ...daily, arenaClaimed: true };
+    grantWallet(next, { copper: COPPER_ECONOMY.rankedWin });
+    return this.commit(next) && { copper: COPPER_ECONOMY.rankedWin };
   }
 
   isCleared(id:string):boolean {return this.state.clearedStages.includes(id);}
@@ -306,35 +319,45 @@ export class GameStore {
     return this.commit(next);
   }
 
-  completeStage(stageId:string, outcome?: 'player' | 'enemy', battleId?: string):{firstClear:boolean;rewards:string[]} {
+  completeStage(stageId:string, outcome?: 'player' | 'enemy', battleId?: string,
+    copperRewardDay?: number):{firstClear:boolean;rewards:string[]} {
     const stage=STAGES.find(stage=>stage.id===stageId);
     if(!stage||!this.isUnlocked(stageId))return {firstClear:false,rewards:[]};
     const next = this.snapshot;
     const wallet = next.forge!;
+    const rewards: string[] = [];
     if (battleId && wallet.rewardedBattles.includes(battleId)) return { firstClear: false, rewards: [] };
     if (battleId) wallet.rewardedBattles.push(battleId);
     if (outcome) {
-      advanceMission(next, 'battle');
-      if (outcome === 'player') advanceMission(next, 'win');
+      advanceMission(next, 'battle', copperRewardDay);
+      if (outcome === 'player') advanceMission(next, 'win', copperRewardDay);
+    }
+    if (outcome === 'player' && battleId && copperRewardDay !== undefined) {
+      const first = !this.isCleared(stageId);
+      const daily = copperDaily(next, copperRewardDay);
+      if (first || (daily.day === copperRewardDay && daily.campaignReplays < COPPER_ECONOMY.replayDailyLimit)) {
+        const copper = campaignCopper(stage, first);
+        grantWallet(next, { copper });
+        rewards.push(`${copper.toLocaleString('vi-VN')} Đồng`);
+        if (!first) next.copperDaily = { ...daily, campaignReplays: daily.campaignReplays + 1 };
+      }
     }
     if (outcome === 'enemy' || this.isCleared(stageId)) {
       if (outcome === 'player' && battleId && stageId === FORGE.weekly.stage) {
         const now = Date.now();
         const wins = weeklyWins(wallet, now);
         if (wins >= FORGE.weekly.limit) {
-          this.commit(next);
-          return { firstClear: false, rewards: [] };
+          return { firstClear: false, rewards: this.commit(next) ? rewards : [] };
         }
         wallet.week = { key: forgeWeek(now), count: wins + 1 };
         changeInventory(next, ITEM_IDS.forgeShard, FORGE.weekly.shards);
-        return { firstClear: false, rewards: this.commit(next) ? [`${FORGE.weekly.shards} Mảnh Thần Binh`] : [] };
+        rewards.push(`${FORGE.weekly.shards} Mảnh Thần Binh`);
       }
-      if (outcome) this.commit(next);
-      return { firstClear: false, rewards: [] };
+      return { firstClear: false, rewards: outcome && this.commit(next) ? rewards : [] };
     }
     next.clearedStages.push(stageId);
     grantWallet(next, { coins: stage.goldReward, goldKeys: stage.goldKeysReward, trainingExp: stage.trainingReward });
-    const rewards=[`${stage.goldReward} vàng`, `${stage.trainingReward} EXP luyện tướng`];
+    rewards.push(`${stage.goldReward} vàng`, `${stage.trainingReward} EXP luyện tướng`);
     const shards = FORGE.firstClear[stageId];
     if (shards) {
       changeInventory(next, ITEM_IDS.forgeShard, shards);

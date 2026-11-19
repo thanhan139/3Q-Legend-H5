@@ -1,9 +1,11 @@
-import { JEWELRY, JEWELRY_ESSENCE_PER_ITEM, JEWELRY_ITEMS, jewelryEnhancement, type JewelryItem } from '../src/domain/jewelry';
+import { JEWELRY, JEWELRY_ESSENCE_PER_ITEM, JEWELRY_ITEMS, JEWELRY_REWARDS, jewelryEnhancement, type JewelryItem } from '../src/domain/jewelry';
 import { makeArenaBattle, makeStageBattle, type ArenaSquad } from '../src/domain/battle';
 import { STAGES } from '../src/data/campaign';
 import { HEROES, heroFamily } from '../src/data/heroes';
 import { formationPower } from '../src/domain/progression';
 import { baseSave } from '../src/domain/store';
+import { campaignCopper, COPPER_ECONOMY } from '../src/domain/copperEconomy';
+import { DAILY_MISSIONS } from '../src/domain/welfare';
 
 const thresholds = [10, 20, 30, 40, 50];
 const campaignEssence = JEWELRY_ESSENCE_PER_ITEM * JEWELRY_ITEMS.length;
@@ -168,4 +170,90 @@ export function simulate(journeys: number) {
   return { rulesVersion: 3, goldPerEssence, campaignEssence, verifiedDailyMissionEssence: 0, seed,
     economy: catalog.map((itemId, index) => economy(itemId, journeys, simulationRng(seed + index))),
     combat: combat(simulationRng(seed ^ 0xa3717c3f)) };
+}
+
+const economyHorizons = [90, 180, 365];
+const economyMilestones = [30, 40, 50];
+const cohorts = [
+  { name: 'Miễn phí', activeDaysPerWeek: 3, clearsEveryActiveDays: 2, replays: 1,
+    missions: ['win'], rankedWinEvery: 0, goldReserve: 0 },
+  { name: 'Tích cực', activeDaysPerWeek: 6, clearsEveryActiveDays: 1, replays: 3,
+    missions: ['win', 'battle', 'upgrade'], rankedWinEvery: 2, goldReserve: 0 },
+  { name: 'Chi tiêu cao', activeDaysPerWeek: 7, clearsEveryActiveDays: 1, replays: 3,
+    missions: ['win', 'battle', 'upgrade', 'summon'], rankedWinEvery: 1, goldReserve: 12_000_000 },
+] as const;
+
+function dailyBudgets(cohort: (typeof cohorts)[number]) {
+  let active = 0, unlocked = 0;
+  return Array.from({ length: 365 }, (_, index) => {
+    if (index % 7 >= cohort.activeDaysPerWeek) return { copper: 0, gold: 0, essence: 0, active: false };
+    const turn = active++;
+    const first = turn % cohort.clearsEveryActiveDays === 0 ? STAGES[unlocked++] : undefined;
+    const last = STAGES[Math.min(Math.max(unlocked - 1, 0), STAGES.length - 1)];
+    const missions = cohort.missions.reduce((total, key) => ({
+      copper: total.copper + COPPER_ECONOMY.mission[key], gold: total.gold + DAILY_MISSIONS[key].reward.coins,
+    }), { copper: 0, gold: 0 });
+    const ranked = cohort.rankedWinEvery > 0 && turn % cohort.rankedWinEvery === 0 ? COPPER_ECONOMY.rankedWin : 0;
+    const grantedEssence = (JEWELRY_REWARDS.find(reward => reward.stageId === first?.id)?.itemIds.length ?? 0) * JEWELRY_ESSENCE_PER_ITEM;
+    return { active: true, essence: grantedEssence,
+      copper: missions.copper + ranked + cohort.replays * campaignCopper(last, false) + (first ? campaignCopper(first, true) : 0),
+      gold: missions.gold + (first?.goldReward ?? 0) };
+  });
+}
+
+export function simulateEconomyV14(journeys: number) {
+  return { journeysPerCohortAndRarity: journeys, goldPerEssence, seed, horizons: economyHorizons,
+    cohorts: cohorts.map((cohort, ci) => {
+      const budgets = dailyBudgets(cohort);
+      const issued = economyHorizons.map(day => budgets.slice(0, day).reduce((sum, budget) => ({
+        copper: sum.copper + budget.copper, gold: sum.gold + budget.gold, essence: sum.essence + budget.essence,
+      }), { copper: 0, gold: baseSave().coins + cohort.goldReserve, essence: 0 }));
+      return { ...cohort, issued, rarities: catalog.map((itemId, ri) => {
+        const random = simulationRng(seed + 10 * ci + ri);
+        const rules = Array.from({ length: 50 }, (_, level) => jewelryEnhancement({ uid: uuid(0), level, itemId })!);
+        const records = economyHorizons.map(() => ({ copper: [] as number[], gold: [] as number[], attempts: [] as number[],
+          reached: economyMilestones.map(() => 0), copperLimitedDays: 0, essenceLimitedDays: 0 }));
+        for (let n = 0; n < journeys; n++) {
+          let level = 0, highest = 0, attempts = 0, copper = 0, gold = baseSave().coins + cohort.goldReserve, essence = 0;
+          let copperSpent = 0, goldSpent = 0, copperLimitedDays = 0, essenceLimitedDays = 0, horizon = 0;
+          for (const [index, budget] of budgets.entries()) {
+            copper += budget.copper;
+            gold += budget.gold;
+            essence += budget.essence;
+            if (budget.active) {
+              let quota = 999;
+              while (level < 50) {
+                const rule = rules[level];
+                if (copper < rule.copper) { copperLimitedDays++; break; }
+                const units = Math.max(0, rule.essence - essence);
+                if (units > quota || units * goldPerEssence > gold) { essenceLimitedDays++; break; }
+                quota -= units;
+                gold -= units * goldPerEssence;
+                goldSpent += units * goldPerEssence;
+                copper -= rule.copper;
+                copperSpent += rule.copper;
+                attempts++;
+                const win = random() * 100 < rule.chance;
+                essence += units - (win ? rule.essence : rule.failEssence);
+                level = win ? level + 1 : rule.failLevel;
+                highest = Math.max(highest, level);
+              }
+            }
+            if (index + 1 === economyHorizons[horizon]) {
+              const row = records[horizon++];
+              row.copper.push(copperSpent); row.gold.push(goldSpent); row.attempts.push(attempts);
+              row.copperLimitedDays += copperLimitedDays; row.essenceLimitedDays += essenceLimitedDays;
+              economyMilestones.forEach((milestone, i) => { if (highest >= milestone) row.reached[i]++; });
+            }
+          }
+        }
+        return { rarity: JEWELRY[itemId].rarity, results: records.map((data, i) => ({ day: economyHorizons[i],
+          reached: Object.fromEntries(economyMilestones.map((level, j) => [level, data.reached[j] / journeys])),
+          attempts: summary(data.attempts), copper: summary(data.copper), gold: summary(data.gold),
+          averageUnusedCopper: issued[i].copper - summary(data.copper).mean,
+          averageCopperLimitedDays: data.copperLimitedDays / journeys, averageEssenceLimitedDays: data.essenceLimitedDays / journeys,
+        })) };
+      }) };
+    }),
+  };
 }
