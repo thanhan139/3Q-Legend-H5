@@ -67,5 +67,6 @@ export interface SaveV2 extends Omit<SaveV1, 'schemaVersion'> {
   equipment?: Gear[];
   jewelry?: JewelryItem[];
   jewelryEssence?: number;
+  shopPurchases?: Record<string, import('./shop').ShopCounter>;
   heroStars?: Record<string, number>;
 }

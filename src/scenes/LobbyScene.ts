@@ -226,6 +226,7 @@ export class LobbyScene extends UiScene {
       this.sideButton(228, 6, 'Bang Hội', () => this.popup('guild'), true);
       this.sideButton(343, 7, 'Đấu Trường', () => this.go('Arena'), false);
       this.sideButton(458, 8, 'Thế Giới', () => this.popup('world'), true);
+      this.sideButton(552, 11, 'Vạn Bảo Các', () => this.go('Shop'), false, 'lobby.shop');
     }, l => ({ x: l.left, y: l.centerY }));
 
     this.anchor(() => {
@@ -318,7 +319,7 @@ export class LobbyScene extends UiScene {
     this.bindLobbyHit(hit, action, paint);
   }
 
-  private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean) {
+  private sideButton(y: number, frame: number, label: string, action: () => void, locked: boolean, target = `lobby.${frame}`) {
     // Kit side-nav default/selected PNGs contain baked red dots. Use a clean blank frame instead.
     const panel = this.content.frame(`side.${frame}`, smoothKey('red'), rect(9, y - 36, 204, 72), SMOOTH_FRAME);
     panel.image.setAlpha(locked ? 0.76 : 1);
@@ -328,8 +329,8 @@ export class LobbyScene extends UiScene {
     icon.setScale(iconSize / icon.frame.width).setAlpha(locked ? 0.65 : 1);
     this.content.field(`side.${frame}.label`, rect(inner.x + iconSize + 5, inner.y, inner.width - iconSize - 7, inner.height),
       label, { size: 17, minSize: 13, align: 'center', padding: 2 });
-    const hit = this.add.zone(111, y, 210, 76).setName(`lobby.${frame}`).setInteractive({ useHandCursor: true });
-    this.tutorialTarget(`lobby.${frame}`, hit);
+    const hit = this.add.zone(111, y, 210, 76).setName(target).setInteractive({ useHandCursor: true });
+    this.tutorialTarget(target, hit);
     this.bindLobbyHit(hit, action, state => panel.image.setAlpha(state === 'press' ? 0.65 : locked ? 0.76 : 1));
   }
 

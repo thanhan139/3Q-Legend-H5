@@ -4,6 +4,7 @@ import { OnboardingController } from './ui/OnboardingController';
 import { ForgeScene } from './scenes/ForgeScene';
 import { EquipmentScene } from './scenes/EquipmentScene';
 import { JewelryScene } from './scenes/JewelryScene';
+import { ShopScene } from './scenes/ShopScene';
 import Phaser from 'phaser';
 import './style.css';
 import { BootScene } from './scenes/BootScene';
@@ -29,7 +30,7 @@ const config:Phaser.Types.Core.GameConfig={
   render:{antialias:true,pixelArt:false},
   callbacks: { postBoot: game => { new OnboardingController(game); } },
   scene:[BootScene,LobbyScene,HeroesScene,FormationScene,CampaignScene,
-    BattleScene,ResultScene,SummonScene,TopupScene,InventoryScene,VIPScene,EquipmentScene,JewelryScene,ForgeScene,InfoScene,ArenaScene,TutorialScene]
+    BattleScene,ResultScene,SummonScene,TopupScene,InventoryScene,VIPScene,EquipmentScene,JewelryScene,ShopScene,ForgeScene,InfoScene,ArenaScene,TutorialScene]
 };
 const game = new Phaser.Game(config);
 const parent = document.getElementById('game');

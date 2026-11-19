@@ -23,10 +23,19 @@ const legacyAllowed = Object.keys(legacyApprovals).length
   ? (uid: string, digest: string) => Object.hasOwn(legacyApprovals, uid) && legacyApprovals[uid] === digest
   : undefined;
 
+const stagingQa = (uid: string) => isStagingProject(env('SUPABASE_URL')) &&
+  (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
+
 const backend: GameBackend = {
-  economyTestEnabled(uid) {
-    return isStagingProject(env('SUPABASE_URL')) &&
-      (Deno.env.get('SHOP_STAGING_QA_UIDS') ?? '').split(',').some(testUid => testUid.trim() === uid);
+  shopTestEnabled: stagingQa,
+  economyTestEnabled: stagingQa,
+  async legacyShopEssenceUnits(uid, dayStart) {
+    const { data, error } = await admin.rpc('game_legacy_shop_essence_units', {
+      p_uid: uid, p_day_start: new Date(dayStart).toISOString(),
+    });
+    if (error) throw error;
+    if (!Number.isSafeInteger(data) || data < 0) throw new Error('Invalid legacy shop quota');
+    return data;
   },
   async hasRankedWin(uid, dayStart, dayEnd) {
     const { data, error } = await admin.from('arena_matches').select('request_id')

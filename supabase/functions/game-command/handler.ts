@@ -1,6 +1,7 @@
 import { makeStageBattle } from '../../../src/domain/battle';
 import { baseSave, GameStore } from '../../../src/domain/store';
 import { STAGES } from '../../../src/data/campaign';
+import { applyShopPurchase, JEWELRY_ESSENCE_OFFER_ID, SHOP_MAX_QUANTITY, shopCatalog, shopDayStart, shopPeriod, type ShopOffer, type ShopQuote } from '../../../src/domain/shop';
 import { JEWELRY_RULES_VERSION } from '../../../src/domain/jewelry';
 import { DAILY_MISSIONS, welfareDay } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
@@ -17,6 +18,8 @@ export interface SaveRow {
 }
 
 export interface GameBackend {
+  shopTestEnabled?(uid: string): boolean;
+  legacyShopEssenceUnits?(uid: string, dayStart: number): Promise<number>;
   economyTestEnabled?(uid: string): boolean;
   hasRankedWin?(uid: string, dayStart: number, dayEnd: number): Promise<boolean>;
   claimVip?(uid: string, requestId: string, revision: string, command: Extract<GameCommand, {type:'vipClaim'}>): Promise<object>;
@@ -37,6 +40,17 @@ const idOK = (value: unknown): value is string => typeof value === 'string' && v
 const ticketPayload = (uid: string, ticket: Omit<BattleTicket, 'signature'>) =>
   JSON.stringify([uid, ticket.id, ticket.stageId, ticket.revision, ticket.expiresAt]);
 const serverRandom = () => crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
+
+async function shopRequestId(backend: GameBackend, uid: string, revision: string, offer: ShopOffer, quantity: number, now: number) {
+  const mac = await backend.sign(JSON.stringify(['shop-quote-v1', uid, revision, offer.id, quantity,
+    offer.priceVersion, offer.price, offer.currency, offer.item, offer.amount, offer.limit, offer.activeFrom, offer.activeUntil,
+    shopPeriod(offer.period, now).key]));
+  if (!/^[a-f0-9]{64}$/.test(mac)) throw new Error('Invalid shop quote signature');
+  const variant = (8 + (Number.parseInt(mac[16], 16) & 3)).toString(16);
+  return `${mac.slice(0, 8)}-${mac.slice(8, 12)}-4${mac.slice(13, 16)}-${variant}${mac.slice(17, 20)}-${mac.slice(20, 32)}`;
+}
+
+const shopQuantityOK = (quantity: number) => Number.isSafeInteger(quantity) && quantity > 0 && quantity <= SHOP_MAX_QUANTITY;
 
 async function run(store: GameStore, command: GameCommand, uid: string, requestId: string,
   revision: string, backend: GameBackend, economyV14: boolean, vip?: VipSnapshot): Promise<unknown> {
@@ -115,6 +129,26 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   const tutorial = row.tutorial ?? legacyTutorial();
   const authoritative = { save: row.state, revision: String(row.revision), tutorial, economyV14, ...(row.vip ? {vip:row.vip} : {}) };
   if (intent.action === 'load') return { status: 'ok', ...authoritative };
+  if (intent.action === 'shopCatalog' || intent.action === 'shopQuote') {
+    const now = Date.now();
+    const enabled = !!backend.shopTestEnabled?.(uid) && !tutorialActive(tutorial);
+    if (intent.action === 'shopQuote') {
+      if (!enabled) return { status: 'shopUnavailable' };
+      if (!idOK(intent.offerId) || !shopQuantityOK(intent.quantity)) return { status: 'invalid' };
+    }
+    const legacyUnits = await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now));
+    const catalog = shopCatalog(row.state, now, enabled, legacyUnits);
+    if (intent.action === 'shopCatalog') return { status: 'ok', ...authoritative, catalog };
+    const listing = catalog.listings.find(item => item.offer.id === intent.offerId);
+    if (!listing || intent.quantity > listing.max) return { status: 'shopLimit', ...authoritative, catalog };
+    const { offer } = listing;
+    const quote: ShopQuote = {
+      requestId: await shopRequestId(backend, uid, authoritative.revision, offer, intent.quantity, now),
+      revision: authoritative.revision, offerId: offer.id, quantity: intent.quantity, currency: offer.currency,
+      item: offer.item, grant: offer.amount * intent.quantity, total: offer.price * intent.quantity,
+    };
+    return { status: 'ok', ...authoritative, quote };
+  }
   if (!revisionOK(intent.revision)) return { status: 'invalid' };
 
   if (intent.action === 'command') {
@@ -137,6 +171,21 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   }
   if (intent.action !== 'command') return { status: 'invalid' };
   const command = intent.command;
+  if (command.type === 'shopBuy') {
+    if (!backend.shopTestEnabled?.(uid) || tutorialActive(tutorial)) return { status: 'shopUnavailable' };
+    if (!idOK(command.offerId) || !shopQuantityOK(command.quantity) || Object.keys(command).length !== 3)
+      return { status: 'invalid' };
+    const now = Date.now();
+    const legacyUnits = command.offerId === JEWELRY_ESSENCE_OFFER_ID
+      ? await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now)) : undefined;
+    const catalog = shopCatalog(row.state, now, true, legacyUnits);
+    const listing = catalog.listings.find(item => item.offer.id === command.offerId);
+    if (!listing || intent.requestId !== await shopRequestId(backend, uid, intent.revision, listing.offer, command.quantity, now))
+      return { status: 'staleOffer', ...authoritative, catalog };
+    const result = applyShopPurchase(row.state, listing.offer, command.quantity, now, legacyUnits);
+    if (!result) return { status: 'shopLimit', ...authoritative, catalog };
+    return backend.commit(uid, intent.requestId, intent.revision, command, result.state, result.receipt);
+  }
   if (command.type === 'vipClaim') {
     if (tutorialActive(tutorial) || !backend.claimVip || !Number.isInteger(command.tier) || command.tier < 0 || command.tier > 18 ||
       !['level','daily','weekly'].includes(command.kind) || typeof command.period !== 'string' || command.period.length > 32) return {status:'rejected'};

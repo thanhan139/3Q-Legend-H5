@@ -7,6 +7,7 @@ import { advanceMission, CHECK_IN, DAILY_MISSIONS, grantWallet, normalizeWelfare
 import { HERO_BY_ID, HERO_RARITIES, LEGENDARY_PITY_LIMIT, PITY_LIMIT, SLOT_COUNT, heroFamily } from '../data/heroes';
 import { HERO_MILESTONES, STAGES, SUMMON_UNLOCK_STAGE } from '../data/campaign';
 import { equipJewelry, jewelryEnhancement, resolveJewelryEnhancement, JEWELRY_REWARDS, JEWELRY_UID, JEWELRY_ESSENCE_PER_ITEM, normalizeJewelry } from './jewelry';
+import { normalizeShopCounters } from './shop';
 import type { SaveV2 } from './types';
 import { drawSummon, DUPLICATE_SHARDS, type SummonReward } from './summon';
 
@@ -48,6 +49,7 @@ export function normalizeSave(data:unknown):SaveV2 {
     return stars > 1 ? [[id, stars]] : [];
   }));
   const jewelry = normalizeJewelry(raw.jewelry, heroes);
+  const shopPurchases = normalizeShopCounters(raw.shopPurchases);
   const jewelryEssence = Math.min(Number.MAX_SAFE_INTEGER, safeNumber(raw.jewelryEssence, 0));
   const equipment = normalizeEquipment(raw.equipment, heroes);
   const copperActivity = normalizeCopperDaily(raw.copperDaily);
@@ -55,6 +57,7 @@ export function normalizeSave(data:unknown):SaveV2 {
     forge: normalizeForge(raw.forge, clearedStages),
     ...(equipment.length ? { equipment } : {}),
     ...(jewelry.length ? { jewelry } : {}),
+    ...(Object.keys(shopPurchases).length ? { shopPurchases } : {}),
     ...(jewelryEssence ? { jewelryEssence } : {}),
     ...(Object.keys(heroStars).length ? { heroStars } : {}),
     ...(raw.welfare ? { welfare: normalizeWelfare(raw.welfare) } : {}),

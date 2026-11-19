@@ -47,6 +47,33 @@ describe('online-only client boundary', () => {
     expect(mocks.invoke.mock.calls.map(([, options]) => options.body.action)).toEqual(['load', 'load']);
   });
 
+  it('reconciles a lost Shop receipt on sign-in using the same UID and request ID', async () => {
+    const { cloudRepository } = await import('../src/cloud/cloudRepository');
+    const { gameStore } = await import('../src/domain/store');
+    const save = baseSave(), tutorial = { ...newTutorial(), tutorialCompleted: true };
+    const initial = { status: 'ok', save, revision: '0', tutorial };
+    const confirmed = { status: 'ok', save: { ...save, gems: save.gems - 95, goldKeys: save.goldKeys + 1,
+      shopPurchases: { 'golden-key': { period: 'd:20000', bought: 1 } } }, revision: '1', tutorial };
+    const receipt = { kind: 'shopPurchase', offerId: 'golden-key', quantity: 1, currency: 'gems',
+      total: 95, item: 'golden_key', grant: 1 } as const;
+    const quote = { ...receipt, revision: '0', requestId: '00000000-0000-4000-8000-000000000050' };
+    mocks.invoke.mockResolvedValueOnce({ data: initial, error: null });
+    await cloudRepository.connect(session);
+    mocks.invoke.mockResolvedValueOnce({ data: null, error: new Error('Lost after commit') });
+    await expect(cloudRepository.buyShop(quote)).rejects.toThrow();
+    expect(gameStore.snapshot.goldKeys).toBe(save.goldKeys);
+    cloudRepository.disconnect();
+    mocks.invoke.mockResolvedValueOnce({ data: confirmed, error: null })
+      .mockResolvedValueOnce({ data: { ...confirmed, receipt }, error: null })
+      .mockResolvedValueOnce({ data: confirmed, error: null });
+    await cloudRepository.connect(session);
+    expect(gameStore.snapshot).toMatchObject(confirmed.save);
+    expect(cloudRepository.hasPendingShop).toBe(false);
+    const commands = mocks.invoke.mock.calls.map(([, options]) => options.body).filter(body => body.action === 'command');
+    expect(commands).toEqual([commands[0], commands[0]]);
+    expect(commands[0]).toMatchObject({ requestId: quote.requestId, command: { type: 'shopBuy', offerId: 'golden-key', quantity: 1 } });
+  });
+
   it('only creates on an explicit missing response, never on a network error', async () => {
     const { cloudRepository } = await import('../src/cloud/cloudRepository');
     mocks.invoke.mockResolvedValueOnce({ data: null, error: new Error('Offline') });
