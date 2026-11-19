@@ -1,4 +1,5 @@
 import { isSignature, SignatureConfig } from '../data/signatureConfig';
+import { signatureNodes, signatureStarBonus } from './signatureStars';
 import { heroFamily } from '../data/heroes';
 import { EQUIPMENT, EQUIPMENT_SLOTS, EquipmentConfig, type EquipmentId, type EquipmentSlot, type EquipmentStats } from '../data/equipmentConfig';
 import type { SaveV2 } from './types';
@@ -12,6 +13,8 @@ export interface Gear {
   level: number;
   heroId?: string;
   prestigeSkin?: true;
+  /** 1..25 completed petals; the first petal is unlocked by forging. */
+  signatureNodes?: number;
 }
 
 export const STAGE_GEAR = EquipmentConfig.stageRewards;
@@ -21,7 +24,26 @@ export function signaturePassive(gear: readonly Gear[] | undefined, heroId: stri
   const item = gear?.find(entry => entry.heroId === heroId && isSignature(entry.itemId));
   if (!item || !isSignature(item.itemId)) return undefined;
   const signature = SignatureConfig[item.itemId];
-  return heroFamily(heroId) === signature.hero ? signature.bonus : undefined;
+  return heroFamily(heroId) === signature.hero
+    ? signature.bonus + signatureStarBonus(signatureNodes(item.signatureNodes)).skillPct / 100 : undefined;
+}
+
+/** Buffs only the matching exclusive weapon's owner; never based on account payments. */
+export function signatureCarrierBonus(gear: readonly Gear[] | undefined, heroId: string) {
+  const item = gear?.find(entry => entry.heroId === heroId && isSignature(entry.itemId) &&
+    isSignature(entry.itemId) && heroFamily(heroId) === SignatureConfig[entry.itemId].hero);
+  return signatureStarBonus(item ? signatureNodes(item.signatureNodes) : 0);
+}
+
+/** One strongest equipped compatible Signature aura per team, never stacking. */
+export function signatureTeamAura(gear: readonly Gear[] | undefined, formation: readonly (string | null)[]) {
+  let aura = 0;
+  for (const item of gear ?? []) {
+    if (!item.heroId || !formation.includes(item.heroId) || !isSignature(item.itemId) ||
+      heroFamily(item.heroId) !== SignatureConfig[item.itemId].hero) continue;
+    aura = Math.max(aura, signatureStarBonus(signatureNodes(item.signatureNodes)).teamAuraPct);
+  }
+  return aura;
 }
 
 export const gearRarity = (gear: Gear) => EquipmentConfig.rarity[EQUIPMENT[gear.itemId].rarity];
@@ -70,7 +92,8 @@ export function normalizeEquipment(raw: unknown, heroes: readonly string[]): Gea
     const level = Number.isSafeInteger(item.level) ? Math.max(1, item.level) : 1;
     const prestigeSkin = item.prestigeSkin === true && EQUIPMENT[itemId].rarity === 'SSR' &&
       EQUIPMENT[itemId].slot === 'weapon';
-    return [{ uid: item.uid, itemId, level, ...(heroId ? { heroId } : {}), ...(prestigeSkin ? { prestigeSkin: true } : {}) }];
+    return [{ uid: item.uid, itemId, level, ...(heroId ? { heroId } : {}), ...(prestigeSkin ? { prestigeSkin: true } : {}),
+      ...(isSignature(itemId) ? { signatureNodes: signatureNodes(item.signatureNodes) } : {}) }];
   });
 }
 
