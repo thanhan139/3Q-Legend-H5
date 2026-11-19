@@ -15,6 +15,7 @@ describe('SaveV2 persistence', () => {
     const device = storage();
     const repository = { read: () => device.getItem('legacy'), write: (save: object) =>
       device.setItem('legacy', JSON.stringify(save)) };
+    repository.write({ ...baseSave(), copper: 250 });
     let store = new GameStore(repository);
     expect(store.completeStage('1-1', 'player', 'battle-1').firstClear).toBe(true);
     store = new GameStore(repository);
@@ -23,6 +24,7 @@ describe('SaveV2 persistence', () => {
     expect(store.upgradeHero('liu-bei')).toBe(true);
     expect(store.enhanceGear('campaign:1-1')).toBe(true);
     const expected = store.snapshot;
+    expect(expected).toMatchObject({ copper: 0, coins: 5200 });
     expect(new GameStore(repository).snapshot).toEqual(expected);
   });
 

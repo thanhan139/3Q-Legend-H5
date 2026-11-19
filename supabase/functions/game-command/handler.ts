@@ -1,7 +1,8 @@
 import { makeStageBattle } from '../../../src/domain/battle';
 import { baseSave, GameStore } from '../../../src/domain/store';
 import { STAGES } from '../../../src/data/campaign';
-import { applyShopPurchase, shopCatalog, shopPeriod, type ShopOffer, type ShopQuote } from '../../../src/domain/shop';
+import { applyShopPurchase, JEWELRY_ESSENCE_OFFER_ID, SHOP_MAX_QUANTITY, shopCatalog, shopDayStart, shopPeriod, type ShopOffer, type ShopQuote } from '../../../src/domain/shop';
+import { JEWELRY_RULES_VERSION } from '../../../src/domain/jewelry';
 import { DAILY_MISSIONS } from '../../../src/domain/welfare';
 import { canonicalJson, validateLegacy } from '../../../src/cloud/validateLegacy';
 import type { BattleTicket, GameCommand, GameIntent } from '../../../src/cloud/gameProtocol';
@@ -18,6 +19,7 @@ export interface SaveRow {
 
 export interface GameBackend {
   shopTestEnabled?(uid: string): boolean;
+  legacyShopEssenceUnits?(uid: string, dayStart: number): Promise<number>;
   claimVip?(uid: string, requestId: string, revision: string, command: Extract<GameCommand, {type:'vipClaim'}>): Promise<object>;
   user(token: string): Promise<{ id: string; is_anonymous?: boolean; email_confirmed_at?: string } | null>;
   read(uid: string): Promise<SaveRow | null>;
@@ -46,7 +48,7 @@ async function shopRequestId(backend: GameBackend, uid: string, revision: string
   return `${mac.slice(0, 8)}-${mac.slice(8, 12)}-4${mac.slice(13, 16)}-${variant}${mac.slice(17, 20)}-${mac.slice(20, 32)}`;
 }
 
-const shopQuantityOK = (quantity: number) => Number.isSafeInteger(quantity) && quantity > 0 && quantity <= 99;
+const shopQuantityOK = (quantity: number) => Number.isSafeInteger(quantity) && quantity > 0 && quantity <= SHOP_MAX_QUANTITY;
 
 async function run(store: GameStore, command: GameCommand, uid: string, requestId: string,
   revision: string, backend: GameBackend, vip?: VipSnapshot): Promise<unknown> {
@@ -59,17 +61,18 @@ async function run(store: GameStore, command: GameCommand, uid: string, requestI
     case 'jewelryEquip': return idOK(command.uid) && idOK(command.heroId) && store.equipJewel(command.uid, command.heroId);
     case 'jewelryUnequip': return idOK(command.uid) && store.unequipJewel(command.uid);
     case 'jewelryEnhance': {
-      if (!idOK(command.uid) || command.rulesVersion !== 2) return false;
+      if (!idOK(command.uid) || command.rulesVersion !== JEWELRY_RULES_VERSION) return false;
       // HMAC is keyed by the server secret. A racing copy of the same request can
       // compute the same sample, but a retry cannot get a different outcome.
-      const digest = await backend.sign(JSON.stringify(['jewelry-enhancement-v2', uid, requestId, command.uid]));
+      const digest = await backend.sign(JSON.stringify(['jewelry-enhancement-v3', uid, requestId, command.uid]));
       if (!/^[0-9a-f]{64}$/.test(digest)) throw new Error('Invalid server enhancement sample');
       return store.enhanceJewel(command.uid, Number.parseInt(digest.slice(0, 12), 16) / 2 ** 48);
     }
     case 'jewelryClaim': return idOK(command.stageId) && store.claimJewelry(command.stageId, () => crypto.randomUUID());
     case 'equip': return idOK(command.uid) && idOK(command.heroId) && store.equipGear(command.uid, command.heroId);
     case 'unequip': return idOK(command.uid) && store.unequipGear(command.uid);
-    case 'enhance': return idOK(command.uid) && typeof command.useStone === 'boolean' &&
+    case 'enhance': return idOK(command.uid) && (command.useStone === true ||
+      (command.useStone === false && command.feeCurrency === 'copper')) &&
       store.enhanceGear(command.uid, command.useStone);
     case 'skin': return idOK(command.uid) && store.togglePrestigeSkin(command.uid);
     case 'forge': return idOK(command.itemId) && Number.isSafeInteger(command.expectedCrafted) &&
@@ -120,10 +123,13 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
   if (intent.action === 'shopCatalog' || intent.action === 'shopQuote') {
     const now = Date.now();
     const enabled = !!backend.shopTestEnabled?.(uid) && !tutorialActive(tutorial);
-    const catalog = shopCatalog(row.state, now, enabled);
+    if (intent.action === 'shopQuote') {
+      if (!enabled) return { status: 'shopUnavailable' };
+      if (!idOK(intent.offerId) || !shopQuantityOK(intent.quantity)) return { status: 'invalid' };
+    }
+    const legacyUnits = await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now));
+    const catalog = shopCatalog(row.state, now, enabled, legacyUnits);
     if (intent.action === 'shopCatalog') return { status: 'ok', ...authoritative, catalog };
-    if (!enabled) return { status: 'shopUnavailable' };
-    if (!idOK(intent.offerId) || !shopQuantityOK(intent.quantity)) return { status: 'invalid' };
     const listing = catalog.listings.find(item => item.offer.id === intent.offerId);
     if (!listing || intent.quantity > listing.max) return { status: 'shopLimit', ...authoritative, catalog };
     const { offer } = listing;
@@ -161,11 +167,13 @@ export async function handleGameRequest(intent: GameIntent, token: string, backe
     if (!idOK(command.offerId) || !shopQuantityOK(command.quantity) || Object.keys(command).length !== 3)
       return { status: 'invalid' };
     const now = Date.now();
-    const catalog = shopCatalog(row.state, now, true);
+    const legacyUnits = command.offerId === JEWELRY_ESSENCE_OFFER_ID
+      ? await backend.legacyShopEssenceUnits?.(uid, shopDayStart(now)) : undefined;
+    const catalog = shopCatalog(row.state, now, true, legacyUnits);
     const listing = catalog.listings.find(item => item.offer.id === command.offerId);
     if (!listing || intent.requestId !== await shopRequestId(backend, uid, intent.revision, listing.offer, command.quantity, now))
       return { status: 'staleOffer', ...authoritative, catalog };
-    const result = applyShopPurchase(row.state, listing.offer, command.quantity, now);
+    const result = applyShopPurchase(row.state, listing.offer, command.quantity, now, legacyUnits);
     if (!result) return { status: 'shopLimit', ...authoritative, catalog };
     return backend.commit(uid, intent.requestId, intent.revision, command, result.state, result.receipt);
   }

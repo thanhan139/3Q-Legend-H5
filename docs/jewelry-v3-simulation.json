@@ -1,0 +1,1869 @@
+{
+  "rulesVersion": 3,
+  "goldPerEssence": 100,
+  "campaignEssence": 1600,
+  "verifiedDailyMissionEssence": 0,
+  "seed": 3255453345,
+  "economy": [
+    {
+      "grade": "R",
+      "journeys": 10000,
+      "milestones": [
+        {
+          "level": 10,
+          "metrics": {
+            "attempts": {
+              "mean": 10.856,
+              "p50": 10,
+              "p90": 12,
+              "p99": 16,
+              "expected": 10.857142857142858
+            },
+            "copper": {
+              "mean": 1185.52,
+              "p50": 1040,
+              "p90": 1380,
+              "p99": 2060,
+              "expected": 1185.7142857142858
+            },
+            "essence": {
+              "mean": 10.856,
+              "p50": 10,
+              "p90": 12,
+              "p99": 16,
+              "expected": 10.857142857142858
+            },
+            "downgrades": {
+              "mean": 0.428,
+              "p50": 0,
+              "p90": 1,
+              "p99": 3,
+              "expected": 0.42857142857142866
+            },
+            "checkpointActivations": {
+              "mean": 0,
+              "p50": 0,
+              "p90": 0,
+              "p99": 0,
+              "expected": 0
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 1085.6,
+            "p50": 1000,
+            "p90": 1200,
+            "p99": 1600,
+            "expected": 1085.7142857142858
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 20,
+          "metrics": {
+            "attempts": {
+              "mean": 34.8394,
+              "p50": 32,
+              "p90": 50,
+              "p99": 72,
+              "expected": 34.96780801094168
+            },
+            "copper": {
+              "mean": 8488.1585,
+              "p50": 7630,
+              "p90": 13085,
+              "p99": 20665,
+              "expected": 8526.169500874577
+            },
+            "essence": {
+              "mean": 56.6216,
+              "p50": 52,
+              "p90": 82,
+              "p99": 124,
+              "expected": 56.82858465406858
+            },
+            "downgrades": {
+              "mean": 6.5583,
+              "p50": 5,
+              "p90": 13,
+              "p99": 23,
+              "expected": 6.622681405031656
+            },
+            "checkpointActivations": {
+              "mean": 0.5055,
+              "p50": 0,
+              "p90": 2,
+              "p99": 4,
+              "expected": 0.5002229786561443
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 5662.16,
+            "p50": 5200,
+            "p90": 8200,
+            "p99": 12400,
+            "expected": 5682.858465406858
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 30,
+          "metrics": {
+            "attempts": {
+              "mean": 92.5911,
+              "p50": 82,
+              "p90": 148,
+              "p99": 241,
+              "expected": 92.61541938253413
+            },
+            "copper": {
+              "mean": 44721.1755,
+              "p50": 37080,
+              "p90": 79505,
+              "p99": 140790,
+              "expected": 44690.40393080998
+            },
+            "essence": {
+              "mean": 286.2349,
+              "p50": 240,
+              "p90": 499,
+              "p99": 868,
+              "expected": 285.99236616038104
+            },
+            "downgrades": {
+              "mean": 27.8135,
+              "p50": 23,
+              "p90": 52,
+              "p99": 94,
+              "expected": 27.843628796566755
+            },
+            "checkpointActivations": {
+              "mean": 1.7262,
+              "p50": 1,
+              "p90": 4,
+              "p99": 8,
+              "expected": 1.705939567178404
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 28623.49,
+            "p50": 24000,
+            "p90": 49900,
+            "p99": 86800,
+            "expected": 28599.236616038103
+          },
+          "goldAfterCampaign": {
+            "mean": 2.93,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9998,
+                "7": 0.9998,
+                "30": 0.9998,
+                "90": 0.9998,
+                "180": 0.9998,
+                "365": 0.9998
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9999,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.9561,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 2
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 40,
+          "metrics": {
+            "attempts": {
+              "mean": 432.6885,
+              "p50": 334,
+              "p90": 859,
+              "p99": 1548,
+              "expected": 432.2944541442513
+            },
+            "copper": {
+              "mean": 466938.9,
+              "p50": 343635,
+              "p90": 988795,
+              "p99": 1853200,
+              "expected": 466350.2248889627
+            },
+            "essence": {
+              "mean": 3517.4135,
+              "p50": 2577,
+              "p90": 7514,
+              "p99": 14081,
+              "expected": 3513.3215824920076
+            },
+            "downgrades": {
+              "mean": 175.9804,
+              "p50": 132,
+              "p90": 369,
+              "p99": 679,
+              "expected": 175.7920979155112
+            },
+            "checkpointActivations": {
+              "mean": 12.4816,
+              "p50": 9,
+              "p90": 27,
+              "p99": 53,
+              "expected": 12.488036091006663
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 351741.35,
+            "p50": 257700,
+            "p90": 751400,
+            "p99": 1408100,
+            "expected": 351332.15824920073
+          },
+          "goldAfterCampaign": {
+            "mean": 210417.19,
+            "p50": 97700,
+            "p90": 591400,
+            "p99": 1248100
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.3062,
+                "7": 0.3062,
+                "30": 0.3062,
+                "90": 0.3062,
+                "180": 0.3062,
+                "365": 0.3062
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.3317,
+                "7": 0.4529,
+                "30": 0.7416,
+                "90": 0.9644,
+                "180": 0.9983,
+                "365": 1
+              },
+              "daysP50": 10,
+              "daysP90": 60,
+              "daysP99": 125
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.0804,
+                "7": 0.6512,
+                "30": 0.9644,
+                "90": 0.9999,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 4,
+              "daysP90": 20,
+              "daysP99": 42
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.5039,
+                "7": 0.9294,
+                "30": 0.9999,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 6,
+              "daysP99": 13
+            }
+          ]
+        },
+        {
+          "level": 50,
+          "metrics": {
+            "attempts": {
+              "mean": 9680.0308,
+              "p50": 6837,
+              "p90": 21579,
+              "p99": 44219,
+              "expected": 9697.334839192139
+            },
+            "copper": {
+              "mean": 21653214.5945,
+              "p50": 15133790,
+              "p90": 48963640,
+              "p99": 100694530,
+              "expected": 21693844.725901023
+            },
+            "essence": {
+              "mean": 219895.6489,
+              "p50": 153412,
+              "p90": 499079,
+              "p99": 1026512,
+              "expected": 220309.25043859347
+            },
+            "downgrades": {
+              "mean": 4184.3147,
+              "p50": 2950,
+              "p90": 9350,
+              "p99": 19144,
+              "expected": 4192.06027118706
+            },
+            "checkpointActivations": {
+              "mean": 1134.4428,
+              "p50": 785,
+              "p90": 2592,
+              "p99": 5345,
+              "expected": 1135.9920745957957
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 21989564.89,
+            "p50": 15341200,
+            "p90": 49907900,
+            "p99": 102651200,
+            "expected": 22030925.043859348
+          },
+          "goldAfterCampaign": {
+            "mean": 21829570.86,
+            "p50": 15181200,
+            "p90": 49747900,
+            "p99": 102491200
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0003,
+                "7": 0.0003,
+                "30": 0.0003,
+                "90": 0.0003,
+                "180": 0.0003,
+                "365": 0.0003
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0004,
+                "7": 0.0007,
+                "30": 0.0056,
+                "90": 0.0289,
+                "180": 0.0714,
+                "365": 0.1446
+              },
+              "daysP50": 1519,
+              "daysP90": 4975,
+              "daysP99": 10250
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0,
+                "7": 0.0031,
+                "30": 0.0289,
+                "90": 0.1077,
+                "180": 0.2087,
+                "365": 0.394
+              },
+              "daysP50": 507,
+              "daysP90": 1659,
+              "daysP99": 3417
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0009,
+                "7": 0.0201,
+                "30": 0.1189,
+                "90": 0.3339,
+                "180": 0.5661,
+                "365": 0.8157
+              },
+              "daysP50": 152,
+              "daysP90": 498,
+              "daysP99": 1026
+            }
+          ]
+        }
+      ],
+      "downgradeHistogram": [
+        11344428,
+        40688602,
+        1039504,
+        115041
+      ],
+      "checkpointActivationRatePerAttempt": 0.11719413124181381
+    },
+    {
+      "grade": "SR",
+      "journeys": 10000,
+      "milestones": [
+        {
+          "level": 10,
+          "metrics": {
+            "attempts": {
+              "mean": 10.8502,
+              "p50": 10,
+              "p90": 12,
+              "p99": 16,
+              "expected": 10.857142857142858
+            },
+            "copper": {
+              "mean": 1805.6512,
+              "p50": 1588,
+              "p90": 2100,
+              "p99": 3124,
+              "expected": 1807.4285714285716
+            },
+            "essence": {
+              "mean": 11.8502,
+              "p50": 11,
+              "p90": 13,
+              "p99": 17,
+              "expected": 11.857142857142858
+            },
+            "downgrades": {
+              "mean": 0.4251,
+              "p50": 0,
+              "p90": 1,
+              "p99": 3,
+              "expected": 0.42857142857142866
+            },
+            "checkpointActivations": {
+              "mean": 0,
+              "p50": 0,
+              "p90": 0,
+              "p99": 0,
+              "expected": 0
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 1185.02,
+            "p50": 1100,
+            "p90": 1300,
+            "p99": 1700,
+            "expected": 1185.7142857142858
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 20,
+          "metrics": {
+            "attempts": {
+              "mean": 35.0516,
+              "p50": 32,
+              "p90": 50,
+              "p99": 73,
+              "expected": 34.96780801094168
+            },
+            "copper": {
+              "mean": 12722.4608,
+              "p50": 11380,
+              "p90": 19683,
+              "p99": 31257,
+              "expected": 12689.388503010816
+            },
+            "essence": {
+              "mean": 83.1496,
+              "p50": 76,
+              "p90": 124,
+              "p99": 191,
+              "expected": 82.93924980786741
+            },
+            "downgrades": {
+              "mean": 6.6605,
+              "p50": 6,
+              "p90": 13,
+              "p99": 24,
+              "expected": 6.622681405031656
+            },
+            "checkpointActivations": {
+              "mean": 0.5102,
+              "p50": 0,
+              "p90": 2,
+              "p99": 4,
+              "expected": 0.5002229786561443
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 8314.96,
+            "p50": 7600,
+            "p90": 12400,
+            "p99": 19100,
+            "expected": 8293.924980786742
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 30,
+          "metrics": {
+            "attempts": {
+              "mean": 92.4929,
+              "p50": 82,
+              "p90": 146,
+              "p99": 236,
+              "expected": 92.61541938253413
+            },
+            "copper": {
+              "mean": 65352.4371,
+              "p50": 54569,
+              "p90": 114681,
+              "p99": 200237,
+              "expected": 65514.6307142977
+            },
+            "essence": {
+              "mean": 419.0113,
+              "p50": 353,
+              "p90": 723,
+              "p99": 1242,
+              "expected": 419.9715900773075
+            },
+            "downgrades": {
+              "mean": 27.7803,
+              "p50": 23,
+              "p90": 52,
+              "p99": 93,
+              "expected": 27.843628796566755
+            },
+            "checkpointActivations": {
+              "mean": 1.7278,
+              "p50": 1,
+              "p90": 4,
+              "p99": 8,
+              "expected": 1.705939567178404
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 41901.13,
+            "p50": 35300,
+            "p90": 72300,
+            "p99": 124200,
+            "expected": 41997.15900773075
+          },
+          "goldAfterCampaign": {
+            "mean": 57.84,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9981,
+                "7": 0.9981,
+                "30": 0.9981,
+                "90": 0.9981,
+                "180": 0.9981,
+                "365": 0.9981
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9987,
+                "7": 0.9996,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.8496,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 2,
+              "daysP99": 3
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9999,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 40,
+          "metrics": {
+            "attempts": {
+              "mean": 432.8682,
+              "p50": 338,
+              "p90": 848,
+              "p99": 1556,
+              "expected": 432.2944541442513
+            },
+            "copper": {
+              "mean": 677835.3272,
+              "p50": 504839,
+              "p90": 1424094,
+              "p99": 2677206,
+              "expected": 676669.1221414146
+            },
+            "essence": {
+              "mean": 5270.0926,
+              "p50": 3902,
+              "p90": 11169,
+              "p99": 21129,
+              "expected": 5260.965414574745
+            },
+            "downgrades": {
+              "mean": 176.035,
+              "p50": 134,
+              "p90": 363,
+              "p99": 685,
+              "expected": 175.7920979155112
+            },
+            "checkpointActivations": {
+              "mean": 12.5259,
+              "p50": 9,
+              "p90": 28,
+              "p99": 54,
+              "expected": 12.488036091006663
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 527009.26,
+            "p50": 390200,
+            "p90": 1116900,
+            "p99": 2112900,
+            "expected": 526096.5414574746
+          },
+          "goldAfterCampaign": {
+            "mean": 375187.28,
+            "p50": 230200,
+            "p90": 956900,
+            "p99": 1952900
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.1686,
+                "7": 0.1686,
+                "30": 0.1686,
+                "90": 0.1686,
+                "180": 0.1686,
+                "365": 0.1686
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.1855,
+                "7": 0.2857,
+                "30": 0.5715,
+                "90": 0.8876,
+                "180": 0.9858,
+                "365": 0.9996
+              },
+              "daysP50": 24,
+              "daysP90": 96,
+              "daysP99": 196
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.0225,
+                "7": 0.4792,
+                "30": 0.8876,
+                "90": 0.9983,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 8,
+              "daysP90": 32,
+              "daysP99": 66
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.3332,
+                "7": 0.8234,
+                "30": 0.999,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 3,
+              "daysP90": 10,
+              "daysP99": 20
+            }
+          ]
+        },
+        {
+          "level": 50,
+          "metrics": {
+            "attempts": {
+              "mean": 9867.4976,
+              "p50": 7094,
+              "p90": 21928,
+              "p99": 44723,
+              "expected": 9697.334839192139
+            },
+            "copper": {
+              "mean": 31852920.2164,
+              "p50": 22706982,
+              "p90": 71721612,
+              "p99": 146679817,
+              "expected": 31293005.300522886
+            },
+            "essence": {
+              "mean": 331742.7146,
+              "p50": 236025,
+              "p90": 749253,
+              "p99": 1535662,
+              "expected": 325872.3385062029
+            },
+            "downgrades": {
+              "mean": 4265.2613,
+              "p50": 3066,
+              "p90": 9498,
+              "p99": 19363,
+              "expected": 4192.06027118706
+            },
+            "checkpointActivations": {
+              "mean": 1158.0023,
+              "p50": 814,
+              "p90": 2634,
+              "p99": 5402,
+              "expected": 1135.9920745957957
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 33174271.46,
+            "p50": 23602500,
+            "p90": 74925300,
+            "p99": 153566200,
+            "expected": 32587233.850620292
+          },
+          "goldAfterCampaign": {
+            "mean": 33014271.79,
+            "p50": 23442500,
+            "p90": 74765300,
+            "p99": 153406200
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0001,
+                "7": 0.0001,
+                "30": 0.0001,
+                "90": 0.0001,
+                "180": 0.0001,
+                "365": 0.0001
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0001,
+                "7": 0.0004,
+                "30": 0.003,
+                "90": 0.0144,
+                "180": 0.0387,
+                "365": 0.0934
+              },
+              "daysP50": 2345,
+              "daysP90": 7477,
+              "daysP99": 15341
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0,
+                "7": 0.0015,
+                "30": 0.0144,
+                "90": 0.0674,
+                "180": 0.1411,
+                "365": 0.2744
+              },
+              "daysP50": 782,
+              "daysP90": 2493,
+              "daysP99": 5114
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0004,
+                "7": 0.0106,
+                "30": 0.0758,
+                "90": 0.2293,
+                "180": 0.4161,
+                "365": 0.6686
+              },
+              "daysP50": 235,
+              "daysP90": 749,
+              "daysP99": 1536
+            }
+          ]
+        }
+      ],
+      "downgradeHistogram": [
+        11580023,
+        41478225,
+        1059049,
+        115339
+      ],
+      "checkpointActivationRatePerAttempt": 0.11735521476083258
+    },
+    {
+      "grade": "SSR",
+      "journeys": 10000,
+      "milestones": [
+        {
+          "level": 10,
+          "metrics": {
+            "attempts": {
+              "mean": 10.8536,
+              "p50": 10,
+              "p90": 12,
+              "p99": 16,
+              "expected": 10.857142857142858
+            },
+            "copper": {
+              "mean": 2738.636,
+              "p50": 2410,
+              "p90": 3180,
+              "p99": 4720,
+              "expected": 2740
+            },
+            "essence": {
+              "mean": 11.8536,
+              "p50": 11,
+              "p90": 13,
+              "p99": 17,
+              "expected": 11.857142857142858
+            },
+            "downgrades": {
+              "mean": 0.4268,
+              "p50": 0,
+              "p90": 1,
+              "p99": 3,
+              "expected": 0.42857142857142866
+            },
+            "checkpointActivations": {
+              "mean": 0,
+              "p50": 0,
+              "p90": 0,
+              "p99": 0,
+              "expected": 0
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 1185.36,
+            "p50": 1100,
+            "p90": 1300,
+            "p99": 1700,
+            "expected": 1185.7142857142858
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 20,
+          "metrics": {
+            "attempts": {
+              "mean": 34.9844,
+              "p50": 32,
+              "p90": 50,
+              "p99": 73,
+              "expected": 34.96780801094168
+            },
+            "copper": {
+              "mean": 18957.064,
+              "p50": 17030,
+              "p90": 29150,
+              "p99": 46170,
+              "expected": 18934.217006215178
+            },
+            "essence": {
+              "mean": 86.2592,
+              "p50": 78,
+              "p90": 128,
+              "p99": 198,
+              "expected": 86.16147203008963
+            },
+            "downgrades": {
+              "mean": 6.6172,
+              "p50": 5,
+              "p90": 13,
+              "p99": 24,
+              "expected": 6.622681405031656
+            },
+            "checkpointActivations": {
+              "mean": 0.5116,
+              "p50": 0,
+              "p90": 2,
+              "p99": 4,
+              "expected": 0.5002229786561443
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 8625.92,
+            "p50": 7800,
+            "p90": 12800,
+            "p99": 19800,
+            "expected": 8616.147203008963
+          },
+          "goldAfterCampaign": {
+            "mean": 0,
+            "p50": 0,
+            "p90": 0,
+            "p99": 0
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 1,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 30,
+          "metrics": {
+            "attempts": {
+              "mean": 92.7245,
+              "p50": 82,
+              "p90": 148,
+              "p99": 241,
+              "expected": 92.61541938253413
+            },
+            "copper": {
+              "mean": 96949.211,
+              "p50": 81000,
+              "p90": 172070,
+              "p99": 299250,
+              "expected": 96750.97088952932
+            },
+            "essence": {
+              "mean": 527.1756,
+              "p50": 440,
+              "p90": 935,
+              "p99": 1615,
+              "expected": 526.0623710626572
+            },
+            "downgrades": {
+              "mean": 27.8677,
+              "p50": 23,
+              "p90": 53,
+              "p99": 94,
+              "expected": 27.843628796566755
+            },
+            "checkpointActivations": {
+              "mean": 1.712,
+              "p50": 1,
+              "p90": 4,
+              "p99": 8,
+              "expected": 1.705939567178404
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 52717.56,
+            "p50": 44000,
+            "p90": 93500,
+            "p99": 161500,
+            "expected": 52606.237106265726
+          },
+          "goldAfterCampaign": {
+            "mean": 350.48,
+            "p50": 0,
+            "p90": 0,
+            "p99": 1500
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9892,
+                "7": 0.9892,
+                "30": 0.9892,
+                "90": 0.9892,
+                "180": 0.9892,
+                "365": 0.9892
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.992,
+                "7": 0.9989,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.6439,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 2,
+              "daysP99": 3
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.9995,
+                "7": 1,
+                "30": 1,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 1,
+              "daysP90": 1,
+              "daysP99": 1
+            }
+          ]
+        },
+        {
+          "level": 40,
+          "metrics": {
+            "attempts": {
+              "mean": 439.2512,
+              "p50": 340,
+              "p90": 874,
+              "p99": 1555,
+              "expected": 432.2944541442513
+            },
+            "copper": {
+              "mean": 1010227.694,
+              "p50": 747230,
+              "p90": 2145240,
+              "p99": 3944090,
+              "expected": 992147.4680200922
+            },
+            "essence": {
+              "mean": 6959.2831,
+              "p50": 5116,
+              "p90": 14931,
+              "p99": 27533,
+              "expected": 6833.490238083136
+            },
+            "downgrades": {
+              "mean": 178.9729,
+              "p50": 134,
+              "p90": 375,
+              "p99": 680,
+              "expected": 175.7920979155112
+            },
+            "checkpointActivations": {
+              "mean": 12.6751,
+              "p50": 9,
+              "p90": 28,
+              "p99": 54,
+              "expected": 12.488036091006663
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 695928.31,
+            "p50": 511600,
+            "p90": 1493100,
+            "p99": 2753300,
+            "expected": 683349.0238083137
+          },
+          "goldAfterCampaign": {
+            "mean": 540328.96,
+            "p50": 351600,
+            "p90": 1333100,
+            "p99": 2593300
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.1046,
+                "7": 0.1046,
+                "30": 0.1046,
+                "90": 0.1046,
+                "180": 0.1046,
+                "365": 0.1046
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.1188,
+                "7": 0.2023,
+                "30": 0.4538,
+                "90": 0.7928,
+                "180": 0.9557,
+                "365": 0.9985
+              },
+              "daysP50": 36,
+              "daysP90": 134,
+              "daysP99": 260
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0.0032,
+                "7": 0.3662,
+                "30": 0.7928,
+                "90": 0.9916,
+                "180": 0.9999,
+                "365": 1
+              },
+              "daysP50": 12,
+              "daysP90": 45,
+              "daysP99": 87
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.2421,
+                "7": 0.717,
+                "30": 0.9947,
+                "90": 1,
+                "180": 1,
+                "365": 1
+              },
+              "daysP50": 4,
+              "daysP90": 14,
+              "daysP99": 26
+            }
+          ]
+        },
+        {
+          "level": 50,
+          "metrics": {
+            "attempts": {
+              "mean": 9680.413,
+              "p50": 6830,
+              "p90": 21711,
+              "p99": 42903,
+              "expected": 9697.334839192139
+            },
+            "copper": {
+              "mean": 45593504.288,
+              "p50": 31881700,
+              "p90": 103643290,
+              "p99": 206341890,
+              "expected": 45691746.1624557
+            },
+            "essence": {
+              "mean": 430284.9466,
+              "p50": 300268,
+              "p90": 982293,
+              "p99": 1959150,
+              "expected": 431260.3075652382
+            },
+            "downgrades": {
+              "mean": 4184.6039,
+              "p50": 2960,
+              "p90": 9397,
+              "p99": 18611,
+              "expected": 4192.06027118706
+            },
+            "checkpointActivations": {
+              "mean": 1133.9298,
+              "p50": 788,
+              "p90": 2597,
+              "p99": 5174,
+              "expected": 1135.9920745957957
+            }
+          },
+          "goldAllFromShop": {
+            "mean": 43028494.66,
+            "p50": 30026800,
+            "p90": 98229300,
+            "p99": 195915000,
+            "expected": 43126030.75652382
+          },
+          "goldAfterCampaign": {
+            "mean": 42868494.66,
+            "p50": 29866800,
+            "p90": 98069300,
+            "p99": 195755000
+          },
+          "timelines": [
+            {
+              "name": "campaign only, Copper funded",
+              "essencePerDay": 0,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0,
+                "7": 0,
+                "30": 0,
+                "90": 0,
+                "180": 0,
+                "365": 0
+              },
+              "daysP50": null,
+              "daysP90": null,
+              "daysP99": null
+            },
+            {
+              "name": "100/day, Copper funded",
+              "essencePerDay": 100,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0,
+                "7": 0.0002,
+                "30": 0.0014,
+                "90": 0.0102,
+                "180": 0.0277,
+                "365": 0.0681
+              },
+              "daysP50": 2987,
+              "daysP90": 9807,
+              "daysP99": 19576
+            },
+            {
+              "name": "300/day with hypothetical 100k Copper/day",
+              "essencePerDay": 300,
+              "copperPerDay": 100000,
+              "withinDays": {
+                "1": 0,
+                "7": 0.0008,
+                "30": 0.0102,
+                "90": 0.0494,
+                "180": 0.1058,
+                "365": 0.2105
+              },
+              "daysP50": 996,
+              "daysP90": 3269,
+              "daysP99": 6526
+            },
+            {
+              "name": "999/day limit, Copper funded (upper bound)",
+              "essencePerDay": 999,
+              "copperPerDay": null,
+              "withinDays": {
+                "1": 0.0003,
+                "7": 0.0062,
+                "30": 0.0548,
+                "90": 0.177,
+                "180": 0.3326,
+                "365": 0.5753
+              },
+              "daysP50": 299,
+              "daysP90": 982,
+              "daysP99": 1960
+            }
+          ]
+        }
+      ],
+      "downgradeHistogram": [
+        11339298,
+        40690051,
+        1039222,
+        116766
+      ],
+      "checkpointActivationRatePerAttempt": 0.11713651060135555
+    }
+  ],
+  "combat": {
+    "fixtures": 600,
+    "opponentJewelryLevel": 40,
+    "results": [
+      {
+        "level": null,
+        "pveWins": 394,
+        "pvpWins": 125,
+        "averagePower": 6194.346666666667
+      },
+      {
+        "level": 0,
+        "pveWins": 431,
+        "pvpWins": 228,
+        "averagePower": 6945.4733333333315
+      },
+      {
+        "level": 30,
+        "pveWins": 446,
+        "pvpWins": 289,
+        "averagePower": 7316.064999999996
+      },
+      {
+        "level": 40,
+        "pveWins": 454,
+        "pvpWins": 301,
+        "averagePower": 7445.904999999999
+      },
+      {
+        "level": 50,
+        "pveWins": 461,
+        "pvpWins": 324,
+        "averagePower": 7567.086666666668
+      }
+    ]
+  }
+}

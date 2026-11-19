@@ -5,7 +5,7 @@ import { HERO_BY_ID, heroFamily } from '../data/heroes';
 import { CHIBI_SOURCES } from '../data/chibiBattle';
 import themeAssets from '../data/equipmentThemeAssets.json';
 import {
-  equipJewelry, JEWELRY, JEWELRY_ITEMS, JEWELRY_MAX_LEVEL, JEWELRY_REWARDS, JEWELRY_SETS,
+  equipJewelry, JEWELRY, JEWELRY_ITEMS, JEWELRY_MAX_LEVEL, JEWELRY_RULES_VERSION, JEWELRY_REWARDS, JEWELRY_SETS,
   jewelryBonus, jewelryEnhancement, jewelryStats,
   type JewelryEnhancementReceipt, type JewelryItem,
 } from '../domain/jewelry';
@@ -158,7 +158,7 @@ export class JewelryScene extends UiScene {
     const bonus = set ? [['HP', set.hp], ['Công', set.atk], ['Thủ', set.def]]
       .filter(([, value]) => !!value).map(([name, value]) => `${name} +${number(Number(value))}%`).join(' · ') : '';
     this.label(466, 642, bonus || 'Đeo hai món cùng bộ SSR để kích hoạt.', 16, 455);
-    this.label(466, 673, `${number(walletBalance(save).gold)} Vàng   ·   ${number(inventoryQuantity(save, ITEM_IDS.jewelryEssence))} Tinh Hoa`, 16, 455);
+    this.label(466, 673, `${number(walletBalance(save).copper)} Đồng   ·   ${number(inventoryQuantity(save, ITEM_IDS.jewelryEssence))} Tinh Hoa`, 16, 455);
 
     this.title(902, 121, 318, 'Kho Trang Sức');
     const resetSelection: View = { page: 0, uid: undefined, selectedSlot: undefined };
@@ -259,7 +259,7 @@ export class JewelryScene extends UiScene {
     const next = jewelryEnhancement(item);
     if (!attempt) return;
     const save = gameStore.snapshot;
-    const enough = walletBalance(save).gold >= attempt.gold &&
+    const enough = walletBalance(save).copper >= attempt.copper &&
       inventoryQuantity(save, ITEM_IDS.jewelryEssence) >= attempt.essence;
     const close = () => restart({ enhancing: false });
     this.add.rectangle(640, 360, 4000, 2600, 0x0a050a, .83).setName('jewelry.enhance.backdrop').setInteractive();
@@ -278,10 +278,10 @@ export class JewelryScene extends UiScene {
     const outcome = !attempt.loss ? 'Thành công chắc chắn' : `Nếu thất bại: +${attempt.failLevel}`;
     this.label(748, 236, `${outcome}   •   ${attempt.checkpoint ? 'Khóa mốc +' + attempt.checkpoint : 'Chưa khóa mốc'}`, 18, 564, '#e7c992');
     this.add.graphics().lineStyle(1, 0xc79a5b, .4).lineBetween(476, 255, 1024, 255);
-    this.label(748, 271, `Thành công: ${number(attempt.gold)} Vàng · ${attempt.essence} Tinh Hoa`, 17, 555);
-    this.label(748, 295, attempt.loss ? `Thất bại: ${number(attempt.gold)} Vàng · ${attempt.failEssence} Tinh Hoa` :
+    this.label(748, 271, `Thành công: ${number(attempt.copper)} Đồng · ${attempt.essence} Tinh Hoa`, 17, 555);
+    this.label(748, 295, attempt.loss ? `Thất bại: ${number(attempt.copper)} Đồng · ${attempt.failEssence} Tinh Hoa` :
       'Không có hình phạt ở cấp mục tiêu này.', 17, 555, '#dcb88d');
-    if (result) this.label(332, 302, `Đã dùng ${number(result.goldSpent)} V · ${result.essenceSpent} TH`, 15, 230);
+    if (result) this.label(332, 302, `Đã dùng ${number(result.copperSpent)} Đ · ${result.essenceSpent} TH`, 15, 230);
     this.label(379, 354, 'Chỉ số món', 18, 230);
     this.label(640, 354, `+${previous.level} → +${result?.toLevel ?? attempt.targetLevel}`, 18, 210, '#ffe1a5');
     this.label(897, 354, result ? 'Thay đổi thực tế' : attempt.loss ? `Nếu trượt → +${attempt.failLevel}` : 'Nếu trượt', 18, 245);
@@ -303,7 +303,7 @@ export class JewelryScene extends UiScene {
       this.label(897, y, result || attempt.loss ? `${pretty > 0 ? '+' : ''}${number(pretty)}${scale}` : '—', 17, 170,
         pretty < 0 ? '#ffac9a' : pretty > 0 ? '#b8ec9b' : '#ddbd9a');
     }
-    let banner = view.message || (enough ? 'Kết quả do máy chủ xác nhận sau mỗi lần thử.' : 'Cần đủ Vàng và Tinh Hoa cho lần thử.');
+    let banner = view.message || (enough ? 'Kết quả do máy chủ xác nhận sau mỗi lần thử.' : 'Cần đủ Đồng và Tinh Hoa cho lần thử.');
     if (result) {
       banner = `${result.success ? 'Thành công' : 'Thất bại'} · +${result.fromLevel} → +${result.toLevel}`;
       if (result.success && (result.toLevel === 40 || result.toLevel === 50)) {
@@ -320,7 +320,7 @@ export class JewelryScene extends UiScene {
     this.modalControl(501, 603, 235, 54, 'Quay lại kho', 'secondary', close).setName('jewelry.enhance.back');
     this.modalControl(778, 603, 235, 54, result ? next ? 'Lần thử tiếp theo' : 'Đã đạt +50' : 'Xác nhận cường hóa', 'primary',
       result ? next ? () => restart({ enhancing: true }) : undefined :
-        enough ? () => void run({ type: 'jewelryEnhance', uid: item.uid, rulesVersion: 2 }, 'Đã xác nhận cấp mới.') : undefined)
+        enough ? () => void run({ type: 'jewelryEnhance', uid: item.uid, rulesVersion: JEWELRY_RULES_VERSION }, 'Đã xác nhận cấp mới.') : undefined)
       .setName(result ? 'jewelry.enhance.next' : 'jewelry.commit.enhance');
     this.input.keyboard?.once('keydown-ESC', close);
     this.events.once('shutdown', () => this.input.keyboard?.off('keydown-ESC', close));

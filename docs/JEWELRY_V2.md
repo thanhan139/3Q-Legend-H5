@@ -1,5 +1,7 @@
 # Trang Sức V2 — Cường hóa Hardcore
 
+Tài liệu lịch sử. [Hardcore V3](JEWELRY_V3.md) thay chi phí, phí Đồng và báo cáo kinh tế; công cụ mô phỏng hiện dùng V3.
+
 | Cấp mục tiêu | Thành công | Tụt cấp nếu thất bại | Hệ số Vàng | Tinh Hoa SSR |
 |---|---:|---:|---:|---:|
 | +1 đến +9 | 100% | 0 | ×1 | 1 |

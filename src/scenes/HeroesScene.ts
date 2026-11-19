@@ -63,7 +63,7 @@ export class HeroesScene extends UiScene{
      text(445,item?(item.heroId?`Đang dùng · ${HERO_BY_ID[item.heroId]?.name}`:'Trong kho'):`${save.forge?.shards??0}/${FORGE.shardsRequired} Mảnh Thần Binh`,14);
      if(item){
       action(492,item.heroId?'Tháo Thần Binh':'Trang bị Thần Binh',()=>item.heroId?run({type:'unequip',uid:item.uid},()=>gameStore.unequipGear(item.uid)):run({type:'equip',uid:item.uid,heroId:id},()=>gameStore.equipGear(item.uid,id)),owned);
-      action(542,canEnhance(item)?`Nâng cấp · ${enhanceCost(item)} Vàng`:'Đã đạt cấp tối đa',()=>run({type:'enhance',uid:item.uid,useStone:false},()=>gameStore.enhanceGear(item.uid)),canEnhance(item)&&walletBalance(save).gold>=enhanceCost(item));
+      action(542,canEnhance(item)?`Nâng cấp · ${enhanceCost(item)} Đồng`:'Đã đạt cấp tối đa',()=>run({type:'enhance',uid:item.uid,useStone:false,feeCurrency:'copper'},()=>gameStore.enhanceGear(item.uid)),canEnhance(item)&&walletBalance(save).copper>=enhanceCost(item));
      }else action(492,`Rèn · ${FORGE.shardsRequired} mảnh`,()=>run({type:'forge',itemId:sid,expectedCrafted:save.forge!.crafted},()=>gameStore.forgeWeapon(sid,save.forge!.crafted)),(save.forge?.shards??0)>=FORGE.shardsRequired);
      const next=signatureIds[(signatureIds.indexOf(sid)+1)%signatureIds.length];
      heroAction(this,989,597,'Vũ khí khác',()=>update({signatureId:next,signatureUid:undefined}),true,144);

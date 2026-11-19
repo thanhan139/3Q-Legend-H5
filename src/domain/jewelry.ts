@@ -26,36 +26,37 @@ export interface JewelryEnhancementReceipt {
   toLevel: number;
   targetLevel: number;
   highestCheckpoint: JewelryCheckpoint;
-  goldSpent: number;
+  copperSpent: number;
   essenceSpent: number;
 }
 
 export const JEWELRY_ITEMS = artwork as readonly JewelryDefinition[];
 export const JEWELRY: Readonly<Record<string, JewelryDefinition>> = Object.fromEntries(JEWELRY_ITEMS.map(def => [def.id, def]));
 export const JEWELRY_MAX_LEVEL = 50;
+export const JEWELRY_RULES_VERSION = 3;
 export const JEWELRY_ESSENCE_PER_ITEM = 100;
 export const JEWELRY_UID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 export const EMPTY_JEWELRY_STATS: Readonly<JewelryStats> = { hp: 0, atk: 0, def: 0, crit: 0, accuracy: 0, dodge: 0 };
 const rarityBalance = {
-  R: { multiplier: 1, gold: 70, step: 5 },
-  SR: { multiplier: 1.45, gold: 110, step: 7 },
-  SSR: { multiplier: 2, gold: 170, step: 10 },
+  R: { multiplier: 1, copper: 70, step: 5 },
+  SR: { multiplier: 1.45, copper: 110, step: 7 },
+  SSR: { multiplier: 2, copper: 170, step: 10 },
 };
 const slotStats: Record<JewelrySlot, JewelryStats> = {
   ring: { hp: 0, atk: 11, def: 2, crit: .55, accuracy: .65, dodge: 0 },
   necklace: { hp: 55, atk: 0, def: 3, crit: 0, accuracy: 0, dodge: .65 },
 };
 export const JEWELRY_ENHANCEMENT_RULES = [
-  { maxTarget: 9, chance: 100, loss: 0, goldFactor: 1, ssrEssence: 1 },
-  { maxTarget: 10, chance: 70, loss: 1, goldFactor: 2, ssrEssence: 2 },
-  { maxTarget: 19, chance: 75, loss: 1, goldFactor: 2, ssrEssence: 2 },
-  { maxTarget: 20, chance: 45, loss: 2, goldFactor: 3, ssrEssence: 5 },
-  { maxTarget: 29, chance: 65, loss: 1, goldFactor: 3, ssrEssence: 5 },
-  { maxTarget: 30, chance: 20, loss: 2, goldFactor: 5, ssrEssence: 12 },
-  { maxTarget: 39, chance: 55, loss: 1, goldFactor: 5, ssrEssence: 12 },
-  { maxTarget: 40, chance: 8, loss: 3, goldFactor: 8, ssrEssence: 30 },
-  { maxTarget: 49, chance: 45, loss: 1, goldFactor: 8, ssrEssence: 30 },
-  { maxTarget: 50, chance: 1, loss: 2, goldFactor: 15, ssrEssence: 90 },
+  { maxTarget: 9, chance: 100, loss: 0, copperFactor: 1, ssrEssence: 1, failPercent: 0 },
+  { maxTarget: 10, chance: 70, loss: 1, copperFactor: 2, ssrEssence: 2, failPercent: 50 },
+  { maxTarget: 19, chance: 75, loss: 1, copperFactor: 2, ssrEssence: 3, failPercent: 50 },
+  { maxTarget: 20, chance: 45, loss: 2, copperFactor: 3, ssrEssence: 8, failPercent: 60 },
+  { maxTarget: 29, chance: 65, loss: 1, copperFactor: 3, ssrEssence: 8, failPercent: 60 },
+  { maxTarget: 30, chance: 20, loss: 2, copperFactor: 5, ssrEssence: 18, failPercent: 75 },
+  { maxTarget: 39, chance: 55, loss: 1, copperFactor: 5, ssrEssence: 20, failPercent: 75 },
+  { maxTarget: 40, chance: 8, loss: 3, copperFactor: 8, ssrEssence: 40, failPercent: 100 },
+  { maxTarget: 49, chance: 45, loss: 1, copperFactor: 8, ssrEssence: 45, failPercent: 100 },
+  { maxTarget: 50, chance: 1, loss: 2, copperFactor: 15, ssrEssence: 120, failPercent: 100 },
 ] as const;
 const essenceFactor: Record<JewelryRarity, number> = { R: .5, SR: .75, SSR: 1 };
 export const jewelryCheckpoint = (level: number): JewelryCheckpoint =>
@@ -70,7 +71,8 @@ export function jewelryEnhancement(item: JewelryItem) {
   const checkpoint = jewelryCheckpoint(item.level);
   const essence = Math.ceil(rule.ssrEssence * essenceFactor[grade]);
   return { ...rule, targetLevel, checkpoint, failLevel: Math.max(checkpoint, item.level - rule.loss),
-    gold: (rarity.gold + rarity.step * item.level) * rule.goldFactor, essence, failEssence: Math.ceil(essence / 2) };
+    copper: (rarity.copper + rarity.step * item.level) * rule.copperFactor, essence,
+    failEssence: Math.ceil(essence * rule.failPercent / 100) };
 }
 
 /** Pure resolution. Only the authenticated command supplies the secret-derived roll. */
@@ -80,7 +82,7 @@ export function resolveJewelryEnhancement(item: JewelryItem, roll: number): Jewe
   const success = roll < attempt.chance / 100;
   const toLevel = success ? attempt.targetLevel : attempt.failLevel;
   return { kind: 'jewelryEnhancement', uid: item.uid, success, fromLevel: item.level, toLevel,
-    targetLevel: attempt.targetLevel, highestCheckpoint: jewelryCheckpoint(toLevel), goldSpent: attempt.gold,
+    targetLevel: attempt.targetLevel, highestCheckpoint: jewelryCheckpoint(toLevel), copperSpent: attempt.copper,
     essenceSpent: success ? attempt.essence : attempt.failEssence };
 }
 
