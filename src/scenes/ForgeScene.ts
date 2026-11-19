@@ -7,7 +7,7 @@ import { isSignature, SignatureConfig, signatureIds, type SignatureId } from '..
 import { enhancement, gearStats } from '../domain/equipment';
 import { FORGE, weeklyWins } from '../domain/forge';
 import { inventoryQuantity, ITEM_IDS } from '../domain/resources';
-import { signatureCompletedStars, signatureNextCost, signatureNodes, signatureSpentThrough, signatureStarBonus,
+import { signatureNextCost, signatureNodes, signatureSpentThrough, signatureStarBonus,
   SIGNATURE_MAX_NODES, SIGNATURE_STAR_RULES_VERSION } from '../domain/signatureStars';
 import { gameStore } from '../domain/store';
 import { forgeTexture, loadDivineForge } from '../ui/divineForgeAssets';
@@ -389,7 +389,7 @@ export class ForgeScene extends Phaser.Scene {
       .setName('forge.preview.name');
     if (signature) {
       const starY = nameY + (mobile ? 33 : 45);
-      this.drawStars([x + w * .12, starY, w * .76, mobile ? 31 : 48], nodes, mobile);
+      this.drawStars([x + w * .12, starY, w * .76, mobile ? 31 : 48], nodes);
       if (display && copies.length > 1) {
         const index = copies.indexOf(display);
         this.button('copy', `Bản ${index + 1}/${copies.length}`, [x + w - 101, y + 8, 91, 44], 'back',
@@ -422,21 +422,41 @@ export class ForgeScene extends Phaser.Scene {
     }
   }
 
-  private drawStars([x, y, w, h]: Rect, nodes: number, mobile: boolean) {
-    const completed = signatureCompletedStars(nodes);
-    const groups = SIGNATURE_MAX_NODES / 5;
+  private drawStars([x, y, w, h]: Rect, nodes: number, flashNode?: number) {
+    const petals = 5;
+    const groups = SIGNATURE_MAX_NODES / petals;
     const pitch = w / groups;
+    const radius = Math.min(h * .46, pitch * .38);
+    const center = new Phaser.Math.Vector2();
+    const outline = Array.from({ length: petals * 2 }, (_, index) => {
+      const angle = -Math.PI / 2 + index * Math.PI / petals;
+      const length = index % 2 === 0 ? radius : radius * .43;
+      return new Phaser.Math.Vector2(Math.cos(angle) * length, Math.sin(angle) * length);
+    });
+
     for (let star = 0; star < groups; star++) {
-      const left = x + star * pitch;
-      const center = left + pitch / 2;
-      this.label(star < completed ? '★' : '☆', [left, y, pitch, h - 8], mobile ? 17 : 27,
-        { color: star < completed ? '#ffe285' : '#bc9760' });
-      const radius = mobile ? 2 : 3;
-      for (let petal = 0; petal < 5; petal++) {
-        const filled = nodes > star * 5 + petal;
-        this.content.add(this.add.circle(center + (petal - 2) * (radius * 2 + 3), y + h - 4, radius,
-          filled ? 0xffcf64 : 0x402119).setStrokeStyle(1, filled ? 0xffe991 : 0xa87b47));
+      const position = { x: x + (star + .5) * pitch, y: y + h / 2 + radius * .09 };
+      const graphic = this.add.graphics(position);
+      this.content.add(graphic);
+      for (let petal = 0; petal < petals; petal++) {
+        const node = star * petals + petal + 1;
+        const tip = outline[2 * petal];
+        const left = outline[(2 * petal + outline.length - 1) % outline.length];
+        const right = outline[2 * petal + 1];
+        const filled = node <= nodes;
+        graphic.fillStyle(filled ? 0xffdf74 : 0x432722).fillPoints([center, left, tip], true);
+        graphic.fillStyle(filled ? 0xe4a53c : 0x2c1a1c).fillPoints([center, tip, right], true);
+        graphic.lineStyle(.7, filled ? 0x9d6029 : 0x694331).strokePoints([left, center, right]);
+        if (filled && node === flashNode) {
+          const flash = this.add.graphics(position).fillStyle(0xfff7ce).fillPoints([center, left, tip, right], true);
+          this.content.add(flash);
+          this.motion.push(this.tweens.add({ targets: flash, alpha: { from: .9, to: 0 },
+            duration: 650, ease: 'Sine.Out' }));
+        }
       }
+      const completed = nodes >= (star + 1) * petals;
+      if (completed) graphic.lineStyle(3, 0xffb73f, .28).strokePoints(outline, true);
+      graphic.lineStyle(1.2, completed ? 0xffeb99 : 0xbb8950).strokePoints(outline, true);
     }
   }
 
@@ -555,15 +575,21 @@ export class ForgeScene extends Phaser.Scene {
       : EQUIPMENT[attempt.itemId].name;
     const description = modal.kind === 'shortage'
       ? `Hiện có ${number.format(this.shards)}/${attempt.cost} mảnh · Còn thiếu ${Math.max(0, attempt.cost - this.shards)}`
-      : modal.kind === 'success' ? (upgrade ? `${upgrade.expectedNodes + 1}/${SIGNATURE_MAX_NODES} cánh đã lưu.`
+      : modal.kind === 'success' ? (upgrade ? ''
         : 'Vũ khí đã được lưu vào Túi Đồ.')
       : modal.kind === 'confirm' ? (upgrade ? `${upgrade.expectedNodes} → ${upgrade.expectedNodes + 1} cánh · Dùng ${attempt.cost} mảnh.`
         : `Dùng ${attempt.cost} Mảnh Thần Binh từ kho chung.`)
       : modal.kind === 'pending' ? 'Đang chờ xác nhận từ máy chủ.'
       : modal.kind === 'error' ? modal.message : '';
     this.label(name, [x + 24, lineY, w - 48, 32], 22, { color: success ? gold : '#45140c' });
-    this.label(description, [x + 26, lineY + 34, w - 52, mobile ? 42 : 55], 16,
-      { color: success ? cream : '#522314', wrap: true });
+    if (success && upgrade) {
+      const confirmed = gameStore.snapshot.equipment?.find(item => item.uid === upgrade.uid);
+      const nodes = confirmed ? signatureNodes(confirmed.signatureNodes) : 0;
+      this.drawStars([x + w * .18, lineY + 31, w * .64, mobile ? 36 : 51], nodes, upgrade.expectedNodes + 1);
+    } else {
+      this.label(description, [x + 26, lineY + 34, w - 52, mobile ? 42 : 55], 16,
+        { color: success ? cream : '#522314', wrap: true });
+    }
     const buttonY = y + h - 64;
     const left: Rect = [x + 35, buttonY, w / 2 - 46, 47];
     const right: Rect = [x + w / 2 + 11, buttonY, w / 2 - 46, 47];

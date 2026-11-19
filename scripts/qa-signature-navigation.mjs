@@ -119,6 +119,16 @@ try {
     const matches=nodes=>nodes.some(node=>node.text?.includes(text)||(node.type==='Container'&&matches(node.list)));
     return matches(window.qa.game.scene.getScene(scene).children.list);
   },[scene,text]);
+  const upgradeSuccess=async()=>{
+    await sceneText('Forge','Nâng cánh thành công');
+    const hasSaveMessage=await page.evaluate(()=>{
+      const scene=window.qa.game.scene.getScene('Forge');
+      const hasText=nodes=>nodes.some(node=>node.text?.includes('cánh đã lưu')||
+        (node.type==='Container'&&hasText(node.list)));
+      return hasText(scene.children.list);
+    });
+    assert.equal(hasSaveMessage,false);
+  };
   const previewName=name=>page.waitForFunction(name=>{
     const root=window.qa.game.scene.getScene('Forge').children.list.find(node=>node.type==='Container');
     return root?.list.some(node=>node.name==='forge.preview.name'&&node.text===name);
@@ -228,13 +238,16 @@ try {
   const beforeStar=await page.evaluate(()=>window.qa.health());
   await click('Forge','forge.copy',true);await sceneText('Forge','5/25 cánh');
   await click('Forge','forge.copy',true);await sceneText('Forge','24/25 cánh');
+  await screenshot('four-petals-844x390');
+  await resize(1280,720);await screenshot('four-petals-1280x720');
+  await resize(844,390);
   await click('Forge','forge.star',true);await sceneText('Forge','Dùng 300 mảnh');
   await page.evaluate(()=>window.qa.drop());
   await click('Forge','forge.confirm',true);
   await sceneText('Forge','Đang nâng cánh…');
   await page.evaluate(()=>window.qa.release());
   await sceneText('Forge','Không thể kết nối máy chủ');
-  await click('Forge','forge.confirm',true);await sceneText('Forge','25/25 cánh đã lưu.');
+  await click('Forge','forge.confirm',true);await upgradeSuccess();
   await screenshot('star-success-844x390');
   await click('Forge','forge.close',true);
   await sceneText('Forge','Đã đạt 5 sao vàng');
@@ -269,7 +282,7 @@ try {
   await page.keyboard.press('Escape');
   await page.evaluate(()=>window.qa.wallet(50));
   await click('Forge','forge.star',true);await click('Forge','forge.confirm',true);
-  await sceneText('Forge','2/25 cánh đã lưu.');
+  await upgradeSuccess();
   assert.equal(await page.evaluate(()=>window.qa.save().equipment.find(item=>item.uid==='forge:1').signatureNodes),2);
   await click('Forge','forge.close',true);
   await click('Forge','forge.star',true);await sceneText('Forge','Không đủ mảnh');
