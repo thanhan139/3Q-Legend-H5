@@ -5,7 +5,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { createServer } from 'vite';
 
-const folder = '.vite/jewelry-v2-qa';
+const folder = '.vite/jewelry-bag-qa';
 await mkdir(folder, { recursive: true });
 await writeFile(folder + '/index.html', '<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="game"></div><script type="module" src="./fixture.ts"></script>');
 await writeFile(folder + '/fixture.ts', `
@@ -26,7 +26,8 @@ save.jewelryEssence = 75;
 save.jewelry = JEWELRY_ITEMS.map((item, i) => ({uid: crypto.randomUUID(), itemId: item.id, level: 10,
   ...(['ring_ssr_phoenix','necklace_ssr_phoenix'].includes(item.id) ? {heroId:'guan-yu'} : {})}));
 const owner = 'jewelry-fixture';
-let state = save, revision = 1, fail = false, rollIsFailure = false;
+let state = save, revision = 1, loseReply = false, rollIsFailure = false;
+const receipts = new Map();
 const cloud = cloudRepository as any;
 cloud.owner = owner;
 const reply = () => ({status:'ok', save:state, revision:String(revision), tutorial:legacyTutorial()});
@@ -34,18 +35,26 @@ cloud.apply(reply());
 const backend = {
   user: async () => ({id:owner,email_confirmed_at:'confirmed'}),
   read: async () => ({state,revision}),
-  receipt: async () => false,
+  receipt: async (_uid, request) => receipts.has(request),
   sign: async () => (rollIsFailure ? 'f' : '0').repeat(64),
-  commit: async (_uid,_request,_revision,_cmd,next,receipt) => { state = next; revision++; return {...reply(),receipt}; }
+  commit: async (_uid,request,expected,command,next,receipt) => {
+    const prior = receipts.get(request);
+    if (prior) return JSON.stringify(prior.command) === JSON.stringify(command)
+      ? {...reply(), receipt:prior.receipt} : {status:'reused'};
+    if (expected !== String(revision)) return {...reply(),status:'conflict'};
+    state = next; revision++; receipts.set(request,{command,receipt});
+    return {...reply(),receipt};
+  }
 };
 cloud.send = async intent => {
-  if (fail) { fail = false; throw Error('Mất kết nối thử nghiệm'); }
-  return handleGameRequest(intent, 'fixture-token', backend);
+  const response = await handleGameRequest(intent, 'fixture-token', backend);
+  if (loseReply) { loseReply = false; throw Error('Mất kết nối thử nghiệm'); }
+  return response;
 };
 const game = new Phaser.Game({ type:Phaser.WEBGL, parent:'game', width:1280, height:720,
   scale:{mode:Phaser.Scale.EXPAND,autoCenter:Phaser.Scale.CENTER_BOTH}, scene:[JewelryScene] });
 bindViewportResize(game,document.getElementById('game')!);
-window.qa = {game, gameStore, fail:()=>fail=true, miss:()=>rollIsFailure=true, succeed:()=>rollIsFailure=false, revision:()=>revision,
+window.qa = {game, gameStore, fail:()=>loseReply=true, bump:()=>revision++, miss:()=>rollIsFailure=true, succeed:()=>rollIsFailure=false, revision:()=>revision,
   replace: next => { state=next; revision++; cloud.apply(reply()); game.scene.getScene('Jewelry').scene.restart({heroId:'guan-yu'}); }};
 `);
 
@@ -74,6 +83,8 @@ try {
   };
   const expectText = text => page.waitForFunction(text =>
     window.qa.game.scene.getScene('Jewelry').children.list.some(object => object.text?.includes(text)), text);
+  const expectCount = text => page.waitForFunction(text =>
+    window.qa.game.scene.getScene('Jewelry').children.getByName('jewelry.inventory.count')?.text === text, text);
   const capture = async (width, height, suffix = '') => {
     await page.setViewportSize({ width, height });
     await page.waitForFunction(([w, h]) => {
@@ -99,6 +110,10 @@ try {
   await expectText('Kho Trang Sức');
   await click('#jewelry.hero.guan-yu');
   await expectText('Chu Tước · 2/2');
+  await expectText('1/2 · 14 món');
+  await click('Sau ›');
+  await expectText('2/2 · 14 món');
+  await click('‹ Trước');
   for (const [w,h] of [[1920,1080],[1280,720],[844,390]]) await capture(w,h);
   await click('Phẩm:', true);
   await expectText('2 món');
@@ -108,10 +123,16 @@ try {
   await page.evaluate(() => window.qa.fail());
   await click('#jewelry.commit.equip', true);
   await expectText('Mất kết nối thử nghiệm');
-  assert.equal(await page.evaluate(() => window.qa.revision()), 1);
+  assert.equal(await page.evaluate(() => window.qa.revision()), 2);
+  await expectText('1/1 · 1 món');
   await click('#jewelry.commit.equip', true);
   await expectText('Đã trang bị.');
+  await expectCount('0 món');
+  assert.equal(await page.evaluate(() => window.qa.revision()), 2);
+  assert.equal(await page.evaluate(() => window.qa.gameStore.snapshot.jewelry.length), 16);
   assert.equal(await page.evaluate(uid => window.qa.gameStore.snapshot.jewelry.find(i => i.uid === uid).heroId, item.uid), 'guan-yu');
+  assert.equal(await page.evaluate(() => window.qa.gameStore.snapshot.jewelry.find(i => i.itemId === 'necklace_ssr_phoenix').heroId), undefined);
+  await click('#jewelry.slot.necklace', true);
   await click('#jewelry.open.enhance', true);
   await expectText('Thành công 75%');
   await click('#jewelry.commit.enhance', true);
@@ -121,6 +142,19 @@ try {
   await click('#jewelry.commit.unequip', true);
   await expectText('Đã tháo');
   assert.equal(await page.evaluate(uid => window.qa.gameStore.snapshot.jewelry.find(i => i.uid === uid).heroId, item.uid), undefined);
+  await expectText('1/2 · 15 món');
+  await click('#jewelry.hero.zhang-fei', true);
+  await click('#jewelry.scope.equipped', true);
+  await expectText('1/1 · 1 món');
+  await expectText('Đang đeo: Quan Vũ');
+  await capture(844,390,'-equipped');
+  await page.evaluate(() => window.qa.bump());
+  await click('#jewelry.commit.equip', true);
+  await expectText('thử lại thao tác.');
+  await expectText('Đang đeo: Quan Vũ');
+  await click('#jewelry.commit.equip', true);
+  await expectText('Đang đeo: Trương Phi');
+  assert.equal(await page.evaluate(() => window.qa.gameStore.snapshot.jewelry.filter(i => i.itemId === 'ring_ssr_phoenix').length), 1);
   await page.evaluate(() => window.qa.replace({...window.qa.gameStore.snapshot,jewelry:[]}));
   await expectText('Kho chưa có trang sức');
   await click('Nhận mốc', true);
@@ -133,10 +167,16 @@ try {
     ] });
   }, level);
   await replaceWithSSR(49);
+  await expectCount('0 món');
+  await capture(844,390,'-empty');
+  await click('#jewelry.slot.ring', true);
   await expectText('Nhẫn Thanh Long Linh Ngọc');
   await click('#jewelry.open.enhance', true);
   await expectText('Thành công 1%');
   await expectText('Nếu thất bại: +47');
+  assert.deepEqual(await page.evaluate(() => window.qa.game.scene.getScene('Jewelry').children.list
+    .filter(o => o.name?.startsWith('jewelry.enhance.frame.')).map(o => o.name.split('.').pop()).sort()),
+  ['crest', 'details', 'footer', 'outer', 'stats', 'stats-header', 'title']);
   for (const [w,h] of [[1920,1080],[1280,720],[844,390]]) await capture(w,h,'-enhance');
   await page.evaluate(() => window.qa.miss());
   await click('#jewelry.commit.enhance', true);
@@ -146,7 +186,12 @@ try {
   assert.equal(failed.coins, 40_100);
   assert.equal(failed.jewelryEssence, 255);
   await capture(844,390,'-failed');
+  await click('#jewelry.enhance.next', true);
+  await expectText('+47 → +48');
+  await click('#jewelry.enhance.back', true);
+  await page.waitForFunction(() => !window.qa.game.scene.getScene('Jewelry').children.getByName('jewelry.enhance.backdrop'));
   await replaceWithSSR(39);
+  await click('#jewelry.slot.ring', true);
   await expectText('Nhẫn Thanh Long Linh Ngọc');
   await click('#jewelry.open.enhance', true);
   await page.evaluate(() => window.qa.succeed());

@@ -13,6 +13,7 @@ import { arenaDefense, arenaSquad } from '../supabase/functions/arena-command/sq
 import { handleGameRequest, type GameBackend } from '../supabase/functions/game-command/handler';
 import { heroTabRoute } from '../src/ui/heroNavigation';
 import { INVENTORY_CATEGORY_CONFIG } from '../src/ui/inventoryCategoryConfig';
+import { jewelryInventoryView } from '../src/ui/jewelryInventoryView';
 import type { GameCommand } from '../src/cloud/gameProtocol';
 import type { SaveV2 } from '../src/domain/types';
 
@@ -35,6 +36,43 @@ const firstStrike = (battle: BattleEngine, actions = 0, skill = false) => {
 };
 
 describe('Trang Sức', () => {
+  it('keeps equipped instances out of the bag through equip, replace, transfer, unequip and reload', () => {
+    const worn = { ...ring(), level: 22 };
+    const replacement = { ...ring(), uid: uid(3), itemId: 'ring_r_blue', heroId: undefined };
+    const store = new GameStore(memory, saveWith([worn, replacement]));
+    const bag = () => jewelryInventoryView(store.snapshot, hero);
+    expect(bag().shown.map(item => item.uid)).toEqual([uid(3)]);
+    expect(store.equipJewel(uid(3), hero)).toBe(true);
+    expect(bag().shown).toEqual([{ ...worn, heroId: undefined, highestCheckpoint: 20 }]);
+    expect(store.equipJewel(uid(3), second)).toBe(true);
+    expect(jewelryInventoryView(store.snapshot, second, { scope: 'equipped' }).shown)
+      .toEqual([{ ...replacement, heroId: second }]);
+    expect(store.unequipJewel(uid(3))).toBe(true);
+    expect(store.equipJewel(uid(1), hero)).toBe(true);
+    const loaded = normalizeSave(JSON.parse(JSON.stringify(store.snapshot)));
+    expect(jewelryInventoryView(loaded, hero).shown).toEqual([replacement]);
+    expect(jewelryInventoryView(loaded, hero, { selectedSlot: 'ring' }).selected)
+      .toEqual({ ...worn, highestCheckpoint: 20 });
+    expect(store.unequipJewel(uid(1))).toBe(true);
+    expect(bag().bagJewelry).toContainEqual({ ...worn, heroId: undefined, highestCheckpoint: 20 });
+    expect(bag().allJewelry).toHaveLength(2);
+  });
+
+  it('paginates each filtered scope, clamps the last page, and resolves an equipped slot even with no bag results', () => {
+    const jewelry = JEWELRY_ITEMS.map((item, i) => ({ uid: uid(i + 10), itemId: item.id, level: 0,
+      ...(item.id === 'ring_ssr_dragon' ? { heroId: hero } : {}) }));
+    const save = saveWith(jewelry);
+    expect(jewelryInventoryView(save, hero, { page: 9 })).toMatchObject({ total: 15, pageCount: 2, page: 1 });
+    expect(jewelryInventoryView(save, hero, { page: 1, slot: 'ring', rarity: 'SSR' }))
+      .toMatchObject({ total: 3, pageCount: 1, page: 0 });
+    const equipped = jewelryInventoryView(save, hero, { scope: 'equipped', slot: 'ring', rarity: 'SSR' });
+    expect(equipped.shown.map(item => item.heroId)).toEqual([hero]);
+    const onlyEquipped = saveWith([ring()]);
+    expect(jewelryInventoryView(onlyEquipped, hero, { rarity: 'SR', selectedSlot: 'ring', page: 1 }))
+      .toMatchObject({ total: 0, pageCount: 0, page: 0, shown: [], selected: ring() });
+    expect(jewelryInventoryView(onlyEquipped, hero, { uid: uid(1) }).selected).toBeUndefined();
+  });
+
   it('routes both entry points and awards every catalog item exactly once across cleared milestones', () => {
     expect(heroTabRoute('jewelry', hero)).toEqual({ scene: 'Jewelry', data: { heroId: hero, tab: 'jewelry' } });
     expect(INVENTORY_CATEGORY_CONFIG.find(category => category.id === 'trang_suc')?.destination).toBe('Jewelry');

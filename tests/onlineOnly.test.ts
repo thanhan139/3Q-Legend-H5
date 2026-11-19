@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Session } from '@supabase/supabase-js';
 import { baseSave } from '../src/domain/store';
 import { newTutorial } from '../src/domain/tutorial';
+import { jewelryInventoryView } from '../src/ui/jewelryInventoryView';
 
 const mocks = vi.hoisted(() => ({ invoke: vi.fn(), getSession: vi.fn() }));
 vi.mock('@supabase/supabase-js', () => ({ createClient: () => ({ auth: { getSession: mocks.getSession }, functions: { invoke: mocks.invoke } }) }));
@@ -28,6 +29,22 @@ describe('online-only client boundary', () => {
     await expect(playCommand({ type: 'checkIn' }, offline)).rejects.toThrow();
     expect(offline).not.toHaveBeenCalled();
     expect(mocks.invoke).not.toHaveBeenCalled();
+  });
+
+  it('restores the bag and owned slot from confirmed Cloud Save after signing back in', async () => {
+    const { cloudRepository } = await import('../src/cloud/cloudRepository');
+    const { gameStore } = await import('../src/domain/store');
+    const item = { uid: '00000000-0000-4000-8000-000000000012', itemId: 'ring_r_blue', level: 22,
+      highestCheckpoint: 20 as const, heroId: 'zhang-fei' };
+    const confirmed = { status: 'ok', save: { ...baseSave(), jewelry: [item] }, revision: '4', tutorial: newTutorial() };
+    mocks.invoke.mockResolvedValue({ data: confirmed, error: null });
+    await cloudRepository.connect(session);
+    cloudRepository.disconnect();
+    expect(cloudRepository.active).toBe(false);
+    await cloudRepository.connect(session);
+    expect(jewelryInventoryView(gameStore.snapshot, 'zhang-fei', { selectedSlot: 'ring' }))
+      .toMatchObject({ allJewelry: [item], bagJewelry: [], equippedJewelry: [item], selected: item, total: 0 });
+    expect(mocks.invoke.mock.calls.map(([, options]) => options.body.action)).toEqual(['load', 'load']);
   });
 
   it('only creates on an explicit missing response, never on a network error', async () => {
