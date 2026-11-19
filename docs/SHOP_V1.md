@@ -1,17 +1,17 @@
-# Vạn Bảo Các V1.3
+# Vạn Bảo Các V1.4
 
 Master duy nhất `concepts/shop_alt_categories.png` (1672×941) trong pack đã duyệt. Scene Phaser dựng từ texture rời, lớp nền riêng và dữ liệu động. PR Shop tiếp tục dựa trên PR #10 với Hardcore V3.
 
 ## Giá thử nghiệm chờ duyệt
 
-Mọi giá dưới đây là đề xuất mới. Giá trong concept và `catalog_preview_NOT_APPROVED.json` chỉ dùng đối chiếu. V1 dùng đúng `coins` cho Vàng và `gems` cho Nguyên Bảo hiện có trong SaveV2. Chiết khấu chưa được cấu hình. Không có thanh toán ngoài game.
+Mọi giá dưới đây chỉ dành cho QA staging và chờ duyệt. `coins` là Vàng dùng để mua toàn bộ mặt hàng. Đồng (`copper`) xuất hiện cùng Vàng trong ví và dùng cho cường hóa, nâng cấp. Số dư Nguyên Bảo (`gems`) tồn tại riêng trong SaveV2. Không đổi số dư cũ hay cấu hình thanh toán ngoài game.
 
 | Mặt hàng | Lượng mỗi lượt | Giá đề xuất | Giới hạn mỗi UID |
 |---|---:|---:|---|
-| Chìa Khóa Vàng | 1 | 95 Nguyên Bảo | 4/ngày |
+| Chìa Khóa Vàng | 1 | 2.000 Vàng | 4/ngày |
 | Tinh Hoa Trang Sức | 1 | 100 Vàng | 999 đơn vị/ngày |
 | Đá Cường Hóa | 1 | 900 Vàng | 5/ngày |
-| Mảnh Thần Binh | 3 | 125 Nguyên Bảo | 4/tuần |
+| Mảnh Thần Binh | 3 | 2.400 Vàng | 4/tuần |
 | EXP Võ Tướng | 100 | 725 Vàng | 10 vĩnh viễn |
 
 Toàn bộ catalog là `testOnly`. Chỉ UID được liệt kê trong biến môi trường server `SHOP_STAGING_QA_UIDS` trên project Supabase staging mới có thể xác nhận mua. Khi biến này trống, Preview cho xem catalog mà không cho mua. Các thẻ Sắp mở và danh mục gói/VIP chỉ hiển thị trạng thái.
@@ -21,6 +21,7 @@ Toàn bộ catalog là `testOnly`. Chỉ UID được liệt kê trong biến m�
 - `shopCatalog` trả số dư, sở hữu, số đã mua, Max và thời điểm reset từ server. Ngày reset lúc 00:00 giờ Việt Nam, tuần vào thứ Hai 00:00.
 - Tinh Hoa dùng `priceVersion: 2`. Các nút 1/10/100/Max chọn số lượng trước khi xác nhận. Max lấy giá trị nhỏ nhất giữa lượng mua được theo số dư, hạn mức còn lại và giới hạn request 999. Mua 1/10/20/100/999 tốn 100/1.000/2.000/10.000/99.900 Vàng.
 - Khi chuyển từ gói 20 sang mua lẻ, server cộng số đơn vị thực cấp trong ngày từ receipt Nguyên Bảo cũ. Counter ngày chỉ tích lũy đơn vị mua theo báo giá mới để mỗi đơn vị đều được tính đúng một lần. Receipt cũ được giữ nguyên và vẫn đối chiếu được khi retry.
+- Chìa Khóa Vàng và Mảnh Thần Binh nâng lên báo giá v2. Lượt đã mua trong cùng kỳ vẫn được tính vào quota. Báo giá Nguyên Bảo chưa thanh toán yêu cầu xác nhận giá mới. Giao dịch Nguyên Bảo đã hoàn tất vẫn đối chiếu được từ receipt cũ.
 - `shopQuote` phát request ID có MAC từ UID, revision, offer, lượng, phiên bản/đơn giá và kỳ mua. `shopBuy` gửi đúng `offerId`, `quantity` cùng revision/request ID. Server đối chiếu báo giá trước khi tính số dư và giới hạn. Giá hoặc kỳ đổi trả `staleOffer` và yêu cầu báo giá mới.
 - Wallet, tài nguyên và counter theo offer nằm chung trong SaveV2. RPC `game_commit_online` khóa hàng save theo UID và commit save cùng receipt trong một transaction. Migration V1.3 thêm RPC đọc ledger theo ngày Việt Nam dành riêng cho service role. Retry dùng đúng request ID. Phiên mới của UID khác có trạng thái giao dịch riêng.
 - `tests/shop.test.ts` kiểm tra cả năm tài nguyên qua hệ thống tiêu hao thật của domain, thời điểm reset, giá thay đổi, thiếu tiền, request đồng thời và cách ly UID. `supabase/tests/shop_purchase.sql` kiểm tra RPC, ledger và quyền truy cập trong transaction rollback. `scripts/qa-shop.mjs` chạy Phaser với handler thật và fixture in-memory, chặn request đến Supabase và mô phỏng mất phản hồi sau commit.

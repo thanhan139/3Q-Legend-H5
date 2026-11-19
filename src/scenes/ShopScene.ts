@@ -19,7 +19,7 @@ const ART = {
   round: 'equipment-themes/ui/buttons/action_round.png',
   itemFrame: 'inventory/panels/hero_fragment_portrait_frame.png',
   chest: 'ui/welfare/items/golden_chest.png',
-  coin: 'ui/welfare_v2/icons/icon_gold.png',
+  copper: 'ui/welfare_v21/icons/icon_dong_copper_hd.png',
   ingot: 'ui/welfare/items/gold_ingot.png',
   ring: 'inventory/categories/03_trang_suc.png',
   sword: 'inventory/categories/07_than_binh.png',
@@ -137,6 +137,13 @@ export class ShopScene extends UiScene {
     this.clockOffset = value.serverTime - Date.now();
   }
 
+  private browse(selected?: string) {
+    this.selected = selected;
+    this.quantity = 1;
+    if (!cloudRepository.hasPendingShop) this.message = '';
+    this.render();
+  }
+
   private async perform(work: () => Promise<void>, refreshOnError = false) {
     if (this.busy || !cloudRepository.active) return;
     const generation = this.generation;
@@ -181,13 +188,15 @@ export class ShopScene extends UiScene {
     this.frame(1107,385,319,619,ART.detail);
     this.art(ART.title, 198, 36, 395, 72);
     this.label(220, 34, 'Vạn Bảo Các', 31, 246);
-    for (const [i, denomination] of (['coins', 'gems'] as const).entries()) {
+    for (const [i, denomination] of (['copper', 'coins'] as const).entries()) {
       const x = 798 + i * 193;
       this.art(ART.strip, x, 32, 182, 47);
-      this.art(denomination === 'coins' ? ART.coin : ART.ingot, x - 66, 32, 31, 29);
-      this.label(x - 2, 31, balances ? format(balances[denomination]) : '—', 19, 94);
+      this.art(denomination === 'copper' ? ART.copper : ART.ingot, x - 65, 32, 31, 29);
+      this.label(x - 7, 22, denomination === 'copper' ? 'Đồng' : 'Vàng', 13, 102, '#e5b680', 16);
+      const amount = balances?.[denomination];
+      this.label(x - 7, 37, amount === undefined ? '—' : format(amount), 18, 102, '#fff0c5', 23);
       this.shopButton(x + 68, 32, 34, 39, '+', () => {
-        this.message = denomination === 'coins' ? 'Kiếm Vàng qua Chinh Chiến.' : 'Nguyên Bảo dùng số dư đã lưu.';
+        this.message = denomination === 'coins' ? 'Vàng dùng mua hàng trong Shop.' : 'Đồng dùng cường hóa và nâng cấp.';
         this.render();
       }, true, `shop.wallet.${denomination}`);
     }
@@ -196,19 +205,19 @@ export class ShopScene extends UiScene {
     for (const [i,[id,name,path]] of categoryRows.entries()) {
       const y = 124 + i * 56;
       this.shopButton(105,y,172,51,'',() => {
-        this.category = id; this.filter = 'all'; this.selected = undefined; this.quantity = 1; this.render();
+        this.category = id; this.filter = 'all'; this.browse();
       }, this.category === id, `shop.category.${id}`);
       this.art(path, 44, y, 38, 35);
       this.label(124, y, name, 18, 115, this.category === id ? '#3b1b06' : '#fff0c8');
     }
     this.frame(579,137,723,117,ART.detail);
-    this.art(ART.merchant, 346, 138, 205, 110, 'bust');
-    this.art(ART.chest, 861, 143, 117, 101);
+    this.art(ART.merchant, 340, 138, 227, 115, 'bust');
+    this.art(icon('treasure_chest'), 860, 137, 104, 104);
     this.label(609, 123, 'Vạn Bảo Các', 35, 380);
     this.label(609, 157, 'Trân Bảo Hội Tụ – Trợ Lực Xưng Bá', 17, 376);
     this.art(ART.crest, 578, 198, 690, 40);
     for (const [i,[id,name]] of filters.entries()) this.shopButton(309 + i * 177, 221, 151, 38, name, () => {
-      this.filter = id; this.selected = undefined; this.quantity = 1; this.render();
+      this.filter = id; this.browse();
     }, this.filter === id, `shop.filter.${id}`);
 
     const listings = (this.catalog?.listings ?? []).filter(listing => {
@@ -229,7 +238,7 @@ export class ShopScene extends UiScene {
       this.frame(x,y,170,200,ART.detail,136,active ? 0xffffff : 0xbda08b);
       if (!id) continue;
       this.art(items[id].icon, x, y - 40, 86, 82);
-      this.label(x,y+15,items[id].name,16,157);
+      this.label(x,y+15,items[id].name,16,148);
       this.label(x,y+42,listing ? `${periodLabel(listing)}: ${listing.used}/${listing.offer.limit}` : 'Sắp mở', 14, 156);
       this.art(listing ? ART.gold : ART.red, x, y+74, 146, 38).setAlpha(listing ? 1 : .64);
       this.label(x,y+73,listing ? `${format(listing.offer.price)} ${currencyName[listing.offer.currency]}` : 'Chưa bán',14,130,
@@ -238,7 +247,7 @@ export class ShopScene extends UiScene {
         this.art(ART.red,x-51,y-80,53,25);
         this.label(x-51,y-80,'Hot',13,40);
       }
-      this.hit(x,y,170,201,`shop.card.${id}`,() => { this.selected=id; this.quantity=1; this.render(); });
+      this.hit(x,y,170,201,`shop.card.${id}`,() => this.browse(id));
     }
     if (!cards.length) this.label(579,427,this.busy ? 'Đang tải danh mục…' :
       this.catalog ? 'Chưa có mặt hàng trong mục này.' : 'Chưa tải được danh mục.', 22, 585);
@@ -252,11 +261,11 @@ export class ShopScene extends UiScene {
   private details(listing?: ShopListing) {
     const current = this.selected ? items[this.selected] : undefined;
     if (current) {
-      this.art(ART.itemFrame,1007,155,109,109);
-      this.art(current.icon, 1007,155,83,83);
+      this.art(ART.itemFrame,1004,153,94,94);
+      this.art(current.icon, 1004,153,76,76);
     }
-    this.label(1141,132,current?.name ?? 'Thông tin mặt hàng',21,196);
-    this.label(1141,169,listing ? `Sở hữu: ${format(listing.owned)}` : current ? 'Chưa mở bán' : '',15,196);
+    this.label(1148,134,current?.name ?? 'Thông tin mặt hàng',20,174);
+    this.label(1148,169,listing ? `Sở hữu: ${format(listing.owned)}` : current ? 'Chưa mở bán' : '',15,174);
     const essence = listing?.offer.id === 'jewelry-essence';
     for (const [y, label] of [[233,'Công dụng'],[353,'Giới hạn mua'],[460,'Số lượng mua'],[essence ? 573 : 555,'Tổng giá']] as const) {
       this.art(ART.strip,1107,y,286,33);
@@ -286,7 +295,7 @@ export class ShopScene extends UiScene {
           value === 'Max' ? 'shop.max' : `shop.quick.${value}`);
       });
     } else this.shopButton(1192,503,75,44,'Max',max ? () => set(max) : undefined,false,'shop.max');
-    this.label(1107,essence ? 601 : 588,listing && q ? `${format(listing.offer.price*q)} ${currencyName[listing.offer.currency]}` : '—',22,270);
+    this.label(1107,essence ? 599 : 588,listing && q ? `${format(listing.offer.price*q)} ${currencyName[listing.offer.currency]}` : '—',20,270);
     const pending = cloudRepository.hasPendingShop;
     const expired = this.resetAt !== undefined && this.resetAt <= Date.now() + this.clockOffset;
     const buy = () => void this.perform(async () => { this.quote = await cloudRepository.shopQuote(listing!.offer.id, q); }, true);

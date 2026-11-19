@@ -14,17 +14,17 @@ const VIETNAM_OFFSET = 7 * 3_600_000;
 const terms = { priceVersion: 1, active: true, testOnly: true } as const;
 export const SHOP_OFFERS = [
   { ...terms, id: 'golden-key', category: 'summon', item: ITEM_IDS.goldenKey, amount: 1,
-    currency: 'gems', price: 95, limit: 4, period: 'daily', featured: true },
+    currency: 'coins', price: 2000, limit: 4, period: 'daily', priceVersion: 2, featured: true },
   { ...terms, id: JEWELRY_ESSENCE_OFFER_ID, category: 'jewelry', item: ITEM_IDS.jewelryEssence, amount: 1,
     currency: 'coins', price: 100, limit: 999, period: 'daily', priceVersion: 2, featured: true },
   { ...terms, id: 'enhancement-stone', category: 'materials', item: ITEM_IDS.enhancementStone, amount: 1,
     currency: 'coins', price: 900, limit: 5, period: 'daily', featured: false },
   { ...terms, id: 'forge-shard', category: 'divine', item: ITEM_IDS.forgeShard, amount: 3,
-    currency: 'gems', price: 125, limit: 4, period: 'weekly', featured: false },
+    currency: 'coins', price: 2400, limit: 4, period: 'weekly', priceVersion: 2, featured: false },
   { ...terms, id: 'hero-exp', category: 'heroes', item: ITEM_IDS.heroExp, amount: 100,
     currency: 'coins', price: 725, limit: 10, period: 'permanent', featured: false },
 ] as const satisfies readonly {
-  id: string; category: string; item: string; amount: number; price: number; currency: ShopCurrency;
+  id: string; category: string; item: string; amount: number; price: number; currency: 'coins';
   limit: number; period: ShopPeriod; featured: boolean; priceVersion: number; active: boolean; testOnly: true;
   activeFrom?: number; activeUntil?: number;
 }[];
@@ -36,7 +36,7 @@ export interface ShopListing {
 export interface ShopCatalog {
   serverTime: number;
   checkoutEnabled: boolean;
-  balances: Record<ShopCurrency, number>;
+  balances: { copper: number; coins: number };
   listings: ShopListing[];
 }
 export interface ShopQuote {
@@ -84,7 +84,7 @@ export const activeShopOffer = (offer: ShopOffer, now: number) => offer.active &
   (offer.activeFrom === undefined || offer.activeFrom <= now) && (offer.activeUntil === undefined || now < offer.activeUntil);
 
 export function shopCatalog(save: SaveV2, now: number, checkoutEnabled: boolean, legacyEssenceUnits = 0): ShopCatalog {
-  return { serverTime: now, checkoutEnabled, balances: { coins: save.coins, gems: save.gems },
+  return { serverTime: now, checkoutEnabled, balances: { copper: save.copper ?? 0, coins: save.coins },
     listings: SHOP_OFFERS.filter(offer => activeShopOffer(offer, now)).map(offer => shopListing(save, offer, now, legacyEssenceUnits)) };
 }
 

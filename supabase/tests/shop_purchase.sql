@@ -5,10 +5,10 @@ declare
   a uuid := gen_random_uuid();
   b uuid := gen_random_uuid();
   request_id uuid := gen_random_uuid();
-  initial jsonb := '{"schemaVersion":2,"coins":5000,"gems":100,"goldKeys":0,"trainingExp":0}';
-  after_buy jsonb := initial || '{"gems":5,"goldKeys":1,"shopPurchases":{"golden-key":{"period":"d:20000","bought":1}}}';
+  initial jsonb := '{"schemaVersion":2,"copper":20000,"coins":5000,"gems":100,"goldKeys":0,"trainingExp":0}';
+  after_buy jsonb := initial || '{"coins":3000,"goldKeys":1,"shopPurchases":{"golden-key":{"period":"d:20000","bought":1}}}';
   command jsonb := '{"type":"shopBuy","offerId":"golden-key","quantity":1}';
-  receipt jsonb := '{"kind":"shopPurchase","offerId":"golden-key","quantity":1,"total":95,"currency":"gems","item":"golden_key","grant":1}';
+  receipt jsonb := '{"kind":"shopPurchase","offerId":"golden-key","quantity":1,"total":2000,"currency":"coins","item":"golden_key","grant":1}';
   result jsonb;
 begin
   insert into auth.users(id) values(a),(b);
@@ -26,6 +26,8 @@ begin
   if result->>'status' is distinct from 'conflict' then raise exception 'stale concurrent write accepted'; end if;
   if (select count(*) from public.economy_ledger where uid=a) <> 1
     or public.game_load_online(b)->'state' is distinct from initial then raise exception 'duplicate or cross-UID side effect'; end if;
+  if not exists(select 1 from public.economy_ledger where uid=a and delta @> '{"coins":-2000,"gems":0,"copper":0}')
+    then raise exception 'purchase must debit Gold only'; end if;
   if has_function_privilege('authenticated','public.game_commit_online(uuid,uuid,bigint,jsonb,jsonb,jsonb,jsonb)','EXECUTE')
     then raise exception 'authenticated client can call privileged commit'; end if;
 end;

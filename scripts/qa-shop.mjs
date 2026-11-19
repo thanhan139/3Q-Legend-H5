@@ -18,7 +18,7 @@ import { handleGameRequest } from '../../supabase/functions/game-command/handler
 import { bindViewportResize } from '../../src/ui/resizeViewport';
 const owner='shop-qa-a';
 const cloud=cloudRepository as any;
-let state={...baseSave(),coins:120000,gems:980,goldKeys:0}, revision=0, drop=false;
+let state={...baseSave(),copper:12580000,coins:120000,gems:980,goldKeys:0}, revision=0, drop=false;
 const ledger=new Map();
 const enc=new TextEncoder();
 const key=crypto.subtle.importKey('raw',enc.encode('fixture-key'),{name:'HMAC',hash:'SHA-256'},false,['sign']);
@@ -99,7 +99,7 @@ try {
   await click('shop.max',true);
   await click('shop.buy',true);
   await wait('Chìa Khóa Vàng ×4');
-  await wait('Tổng giá: 380 Nguyên Bảo');
+  await wait('Tổng giá: 8.000 Vàng');
   await page.evaluate(()=>window.qa.drop());
   await click('shop.confirm',true);
   await wait('Đối chiếu giao dịch');
@@ -109,7 +109,9 @@ try {
   assert.equal(await page.evaluate(()=>window.qa.receipts()),1);
   await wait('Sở hữu: 4');
   await wait('Hôm nay: 4/4');
-  assert.equal(await page.evaluate(()=>window.qa.state().gems),600);
+  assert.equal(await page.evaluate(()=>window.qa.state().gems),980);
+  await wait('12.580.000');
+  await wait('112.000');
   await click('shop.category.jewelry',true);
   await wait('Hôm nay: 0/999');
   for (const [name,total] of [['shop.quick.10','1.000 Vàng'],['shop.quick.100','10.000 Vàng'],['shop.quick.1','100 Vàng'],['shop.max','99.900 Vàng']]) {
@@ -128,7 +130,8 @@ try {
   await click('shop.confirm',true);
   await wait('Hôm nay: 999/999');
   assert.equal(await page.evaluate(()=>window.qa.state().jewelryEssence),999);
-  assert.equal(await page.evaluate(()=>window.qa.state().coins),20100);
+  assert.equal(await page.evaluate(()=>window.qa.state().coins),12100);
+  assert.equal(await page.evaluate(()=>window.qa.state().copper),12580000);
   assert.equal(await page.evaluate(()=>window.qa.receipts()),2);
   assert.deepEqual(errors,[]);
   console.log('Shop browser QA passed: categories, filters, touch, quick quantities, 999 essence, lost reply and exactly-once retry.');

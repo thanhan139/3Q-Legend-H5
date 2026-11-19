@@ -57,13 +57,13 @@ describe('Vạn Bảo Các shop', () => {
     }
     expect(shopPeriod('weekly',monday).resetAt).toBe(monday + 7*86_400_000);
     expect(shopPeriod('permanent',monday)).toEqual({key:'permanent'});
-    const result = applyShopPurchase({...baseSave(),gems:10000},SHOP_OFFERS[0],4,sunday)!;
+    const result = applyShopPurchase({...baseSave(),coins:16_000},SHOP_OFFERS[0],4,sunday)!;
     expect(shopCatalog(result.state,sunday,true).listings[0].max).toBe(0);
     expect(shopCatalog(result.state,monday,true).listings[0].max).toBe(4);
   });
 
   it('gates checkout and rejects unauthorized, invalid, too large and unaffordable quotes', async () => {
-    const { send, quote } = fixture({...baseSave(),gems:100});
+    const { send, quote } = fixture({...baseSave(),coins:2100,gems:10_000,copper:10_000});
     for (const quantity of [0,-1,1.5,1000,Number.MAX_SAFE_INTEGER])
       expect(await send({action:'shopQuote',offerId:'golden-key',quantity})).toMatchObject({status:'invalid'});
     expect(await send({action:'shopQuote',offerId:'golden-key',quantity:2})).toMatchObject({status:'shopLimit'});
@@ -71,6 +71,21 @@ describe('Vạn Bảo Các shop', () => {
     expect(await send({action:'shopCatalog'},'viewer')).toMatchObject({catalog:{checkoutEnabled:false}});
     expect(await send({action:'shopCatalog'},'outsider')).toMatchObject({status:'unauthorized'});
     expect(await send(purchase(await quote()),'viewer')).toMatchObject({status:'shopUnavailable'});
+  });
+
+  it('uses only Gold, preserves former Gem receipts and keeps old caps and wallet balances', async () => {
+    const { send, quote, ledger } = fixture({...baseSave(),coins:20_000,copper:4_000,gems:800});
+    const old = { action:'command', revision:'0',requestId:crypto.randomUUID(),
+      command:{type:'shopBuy',offerId:'forge-shard',quantity:1} } as const;
+    const receipt = {kind:'shopPurchase',offerId:'forge-shard',quantity:1,total:125,currency:'gems',item:'forge_shard',grant:3};
+    ledger.set(`alice${old.requestId}`,{command:old.command,receipt});
+    expect(await send(old)).toMatchObject({status:'ok',receipt,save:{coins:20_000,copper:4_000,gems:800}});
+    expect(await send({action:'shopCatalog'})).toMatchObject({catalog:{balances:{copper:4_000,coins:20_000}}});
+    expect(SHOP_OFFERS.every(offer => offer.currency === 'coins' && offer.testOnly)).toBe(true);
+    expect(await send(purchase(await quote('golden-key')))).toMatchObject({status:'ok',receipt:{total:2000,currency:'coins'},
+      save:{coins:18_000,copper:4_000,gems:800}});
+    expect(await send(purchase(await quote('forge-shard')))).toMatchObject({status:'ok',receipt:{total:2400,currency:'coins',grant:3},
+      save:{coins:15_600,copper:4_000,gems:800}});
   });
 
   it.each([1,10,100,999])('quotes, grants and charges exactly %i essence units', async quantity => {
@@ -130,7 +145,7 @@ describe('Vạn Bảo Các shop', () => {
   });
 
   it('commits one receipt for simultaneous requests and replays the confirmed purchase after a lost response', async () => {
-    const { rows, ledger, send, quote } = fixture({...baseSave(),gems:200});
+    const { rows, ledger, send, quote } = fixture({...baseSave(),coins:4000,gems:200});
     const a = purchase(await quote('golden-key',1));
     const b = purchase(await quote('golden-key',2));
     const responses = await Promise.all([send(a),send(b)]);
@@ -141,9 +156,11 @@ describe('Vạn Bảo Các shop', () => {
     expect(await send({...succeeded,command:{type:'shopBuy',offerId:'golden-key',quantity:3}})).toMatchObject({status:'reused'});
     expect(ledger.size).toBe(1);
     expect(rows.get('bob')?.state.gems).toBe(200);
+    expect(rows.get('bob')?.state.coins).toBe(4000);
     const loaded = normalizeSave(JSON.parse(JSON.stringify(rows.get('alice')!.state)));
     expect(loaded.shopPurchases?.['golden-key'].bought).toBe(succeeded.command.type === 'shopBuy' && succeeded.command.quantity);
-    expect(loaded.gems).toBeGreaterThanOrEqual(0);
+    expect(loaded.coins).toBeGreaterThanOrEqual(0);
+    expect(loaded.gems).toBe(200);
     const doubleClick = fixture();
     const same = purchase(await doubleClick.quote());
     const [firstClick, secondClick] = await Promise.all([doubleClick.send(same), doubleClick.send(same)]);
@@ -153,7 +170,7 @@ describe('Vạn Bảo Các shop', () => {
 
   it('grants all five existing inventory resources and keeps counters through save reload', () => {
     const base = baseSave();
-    const save: SaveV2 = {...base, gems:10000, copper:5000, goldKeys:0, clearedStages:['1-1','1-2','1-3'],
+    const save: SaveV2 = {...base, coins:10_000, gems:10000, copper:5000, goldKeys:0, clearedStages:['1-1','1-2','1-3'],
       forge:{...base.forge!,shards:47}, equipment:[{uid:'qa-gear',itemId:'dragonBlade',level:1}],
       jewelry:[{uid:'00000000-0000-4000-8000-000000000001',itemId:'ring_r_blue',level:0}]};
     const purchased = SHOP_OFFERS.reduce<SaveV2>((state,offer) => applyShopPurchase(state,offer,1,monday)!.state,save);
