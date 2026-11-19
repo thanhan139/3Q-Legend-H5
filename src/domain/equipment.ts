@@ -30,8 +30,7 @@ export function signaturePassive(gear: readonly Gear[] | undefined, heroId: stri
 
 /** Buffs only the matching exclusive weapon's owner; never based on account payments. */
 export function signatureCarrierBonus(gear: readonly Gear[] | undefined, heroId: string) {
-  const item = gear?.find(entry => entry.heroId === heroId && isSignature(entry.itemId) &&
-    isSignature(entry.itemId) && heroFamily(heroId) === SignatureConfig[entry.itemId].hero);
+  const item = gear?.find(entry => entry.heroId === heroId && isSignature(entry.itemId) && heroFamily(heroId) === SignatureConfig[entry.itemId].hero);
   return signatureStarBonus(item ? signatureNodes(item.signatureNodes) : 0);
 }
 
